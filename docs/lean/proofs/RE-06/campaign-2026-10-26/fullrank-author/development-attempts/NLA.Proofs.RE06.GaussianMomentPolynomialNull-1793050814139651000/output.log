@@ -1,0 +1,33 @@
+/private/tmp/nla-re06-pseudoinverse-dev/source/NLA/Proofs/RE06/GaussianMomentPolynomialNull.lean:16:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+/private/tmp/nla-re06-pseudoinverse-dev/source/NLA/Proofs/RE06/GaussianMomentPolynomialNull.lean:105:4: error: Tactic `rfl` failed: The left-hand side
+  x (e i)
+is not definitionally equal to the right-hand side
+  (MeasurableEquiv.piCongrLeft (fun x => ℝ) e.symm) x i
+
+ι : Type u_1
+inst✝ : Fintype ι
+P : MvPolynomial ι ℝ
+hP : P ≠ 0
+e : ι ≃ Fin (Fintype.card ι) := Fintype.equivFin ι
+Q : MvPolynomial (Fin (Fintype.card ι)) ℝ := (MvPolynomial.rename ⇑e) P
+hQ : Q ≠ 0
+ha : ∀ᵐ (x : Fin (Fintype.card ι) → ℝ) ∂Measure.pi fun x => gaussianReal 0 1, (MvPolynomial.eval x) Q ≠ 0
+hsource :
+  ∀ᵐ (x : Fin (Fintype.card ι) → ℝ) ∂Measure.pi fun x => gaussianReal 0 1, (MvPolynomial.eval fun i => x (e i)) P ≠ 0
+hraw :
+  HasLaw (⇑(MeasurableEquiv.piCongrLeft (fun x => ℝ) e.symm)) (Measure.pi fun x => gaussianReal 0 1)
+    (Measure.pi fun i' => gaussianReal 0 1)
+x : Fin (Fintype.card ι) → ℝ
+i : ι
+⊢ x (e i) = (MeasurableEquiv.piCongrLeft (fun x => ℝ) e.symm) x i
+/private/tmp/nla-re06-pseudoinverse-dev/source/NLA/Proofs/RE06/GaussianMomentPolynomialNull.lean:113:21: error: #assert_trust: 'NLA.Proofs.RE06.GaussianMoment.mvPolynomial_fintype_eval_ne_zero_ae' depends on sorry or unrecognized axioms
+  foundational: propext, Classical.choice, Quot.sound
+  sorryAx: sorryAx
+'NLA.Proofs.RE06.GaussianMoment.mvPolynomial_eval_ne_zero_ae' depends on axioms: [propext, Classical.choice, Quot.sound]

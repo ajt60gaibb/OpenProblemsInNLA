@@ -1,0 +1,5 @@
+import Inventory.Audit
+set_option leancert.trust "kernel"
+open scoped BigOperators Topology
+open MeasureTheory ProbabilityTheory Filter NLA.Computation.NonadaptiveMatrixQuery NLA.Proofs.RE06
+example : ∀ {p q : ℕ}, 2<q → ∀ (T : GaussianEuclid p →L[ℝ] GaussianEuclid q), (∫ x : Fin p→ℝ, (GaussianMoment.normSq (WithLp.ofLp (T (WithLp.toLp 2 x))))⁻¹ ∂Measure.pi (fun _ : Fin p=>gaussianReal 0 1))=1/((q : ℝ)-2) := @GaussianMoment.projected_normSq_inverse_integral

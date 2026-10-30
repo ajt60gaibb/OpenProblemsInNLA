@@ -1,0 +1,55 @@
+/private/tmp/nla-re06-gaussian-dev/source/NLA/Proofs/RE06/GaussianRowSplit.lean:27:10: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  dite ?m.89 ?m.93 ?m.94
+in the target expression
+  (if h : r + ↑p.1 < r then Sum.inl (⟨r + ↑p.1, ⋯⟩, p.2) else Sum.inr (⟨r + ↑p.1 - r, ⋯⟩, p.2)) = Sum.inr p
+
+case inr
+n r k : ℕ
+hr : r ≤ n
+p : Fin (n - r) × Fin k
+⊢ (if h : r + ↑p.1 < r then Sum.inl (⟨r + ↑p.1, ⋯⟩, p.2) else Sum.inr (⟨r + ↑p.1 - r, ⋯⟩, p.2)) = Sum.inr p
+
+Note: The target expression is not type-correct under the `implicit` transparency level, which may have triggered the failure. This is usually caused by unfolding of semireducible definitions in prior tactic steps. Use `set_option linter.tacticCheckInstances true` to investigate the source of the issue.
+Full error:
+  Application type mismatch: The argument
+    (↑(((fun p => (Fin.castLE hr p.1, p.2)) ⊕ᵥ fun p => (gaussianTailRow n r hr p.1, p.2)) (Sum.inr p)).1).decLt r
+  has type
+    Decidable (↑(((fun p => (Fin.castLE hr p.1, p.2)) ⊕ᵥ fun p => (gaussianTailRow n r hr p.1, p.2)) (Sum.inr p)).1 < r)
+  but is expected to have type
+    Decidable (r + ↑p.1 < r)
+  in the application
+    @dite (Fin r × Fin k ⊕ Fin (n - r) × Fin k) (r + ↑p.1 < r)
+      ((↑(((fun p => (Fin.castLE hr p.1, p.2)) ⊕ᵥ fun p => (gaussianTailRow n r hr p.1, p.2)) (Sum.inr p)).1).decLt r)
+/private/tmp/nla-re06-gaussian-dev/source/NLA/Proofs/RE06/GaussianRowSplit.lean:27:22: error: omega could not prove the goal:
+a possible counterexample may satisfy the constraints
+  b ≥ 0
+  a ≥ 0
+  a - b ≥ 0
+where
+ a := ↑n
+ b := ↑r
+/private/tmp/nla-re06-gaussian-dev/source/NLA/Proofs/RE06/GaussianRowSplit.lean:57:66: error: unsolved goals
+n r k : ℕ
+hr : r ≤ n
+e : Fin r × Fin k ⊕ Fin (n - r) × Fin k ≃ Fin n × Fin k := gaussianRowIndexEquiv n r k hr
+he :
+  MeasurePreserving (⇑(MeasurableEquiv.piCongrLeft (fun x => ℝ) e).symm) (Measure.pi fun x => gaussianReal 0 1)
+    (Measure.pi fun i' => gaussianReal 0 1)
+hs :
+  MeasurePreserving (⇑(MeasurableEquiv.sumPiEquivProdPi fun x => ℝ)) (Measure.pi fun x => gaussianReal 0 1)
+    ((Measure.pi fun i => gaussianReal 0 1).prod (Measure.pi fun i => gaussianReal 0 1))
+⊢ (fun x => (gaussianHeadEntries n r k hr x, gaussianTailEntries n r k hr x)) =
+    ⇑(MeasurableEquiv.sumPiEquivProdPi fun x => ℝ) ∘ ⇑(MeasurableEquiv.piCongrLeft (fun x => ℝ) e).symm
+/private/tmp/nla-re06-gaussian-dev/source/NLA/Proofs/RE06/GaussianRowSplit.lean:76:21: error: #assert_trust: 'NLA.Proofs.RE06.gaussianRowIndexEquiv' depends on sorry or unrecognized axioms
+  foundational: propext, Quot.sound
+  sorryAx: sorryAx
+/private/tmp/nla-re06-gaussian-dev/source/NLA/Proofs/RE06/GaussianRowSplit.lean:77:21: error: #assert_trust: 'NLA.Proofs.RE06.gaussian_row_split_hasLaw' depends on sorry or unrecognized axioms
+  foundational: propext, Classical.choice, Quot.sound
+  sorryAx: sorryAx
+/private/tmp/nla-re06-gaussian-dev/source/NLA/Proofs/RE06/GaussianRowSplit.lean:78:21: error: #assert_trust: 'NLA.Proofs.RE06.hasLaw_gaussian_row_split' depends on sorry or unrecognized axioms
+  foundational: propext, Classical.choice, Quot.sound
+  sorryAx: sorryAx
+'NLA.Proofs.RE06.gaussianTailRow' depends on axioms: [propext, Quot.sound]
+'NLA.Proofs.RE06.gaussianRowIndexEquiv' depends on axioms: [propext, sorryAx, Quot.sound]
+'NLA.Proofs.RE06.gaussian_row_split_hasLaw' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+'NLA.Proofs.RE06.hasLaw_gaussian_row_split' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]

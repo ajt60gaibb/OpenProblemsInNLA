@@ -1,0 +1,33 @@
+open MeasureTheory ProbabilityTheory
+open NLA.Computation.NonadaptiveMatrixQuery NLA.Proofs.RE06 NLA.Proofs.RE06.Repair
+namespace IndependentB
+ theorem ActualPythagoras {n k c ell : ℕ} (Y : Matrix (Fin n) (Fin k) ℝ)
+     (C : Matrix (Fin n) (Fin c) ℝ) (Ht : Matrix (Fin ell) (Fin n) ℝ) :
+     squaredFrobenius (C-Y*pseudoInverse (Ht*Y)*(Ht*C)) 0 =
+       squaredFrobenius (actualRangeResidual Y C) 0+actualRegressionEnergy Y C Ht :=
+   actual_repair_pythagoras Y C Ht
+ theorem ActualSVDBound {n k ell : ℕ} (C : Matrix (Fin n) (Fin n) ℝ)
+     (r : ℕ) (hr : r ≤ n) (G : Matrix (Fin n) (Fin k) ℝ) (Ht : Matrix (Fin ell) (Fin n) ℝ)
+     (hOmega : headCoordinates C r hr G*pseudoInverse (headCoordinates C r hr G)=1) :
+     squaredFrobenius (C-(C*G)*pseudoInverse (Ht*(C*G))*(Ht*C)) 0 ≤
+       residualTailEnergy C r+actualExcessMajorant C r hr G Ht := actual_svd_repair_majorant C r hr G Ht hOmega
+ theorem ActualMeasurableExcess {Ω : Type*} [MeasurableSpace Ω] {n k ell : ℕ}
+     (C : Matrix (Fin n) (Fin n) ℝ) (r : ℕ) (hr : r ≤ n)
+     {G : Ω → Matrix (Fin n) (Fin k) ℝ} {Ht : Ω → Matrix (Fin ell) (Fin n) ℝ}
+     (hG : Measurable G) (hHt : Measurable Ht) :
+     Measurable (fun ω => actualExcessMajorant C r hr (G ω) (Ht ω)) := measurable_actualExcessMajorant C r hr hG hHt
+ theorem ActualFailureMeasurable {n : ℕ} (C : Matrix (Fin n) (Fin n) ℝ) (k ell r : ℕ) (η : ℝ) :
+     MeasurableSet (repairFailureSet C k ell r η) := measurableSet_repairFailureSet C k ell r η
+ theorem ActualSelectedFailure {n m : ℕ} (F : Family n m) (A : Matrix (Fin n) (Fin n) ℝ)
+     (ε η δ : ℝ) (hsketch : firstWidth m ε+secondWidth m ε+thirdWidth m ε < n)
+     (hfixed : ∀ B : Matrix (Fin n) (Fin n) ℝ,
+       NullMeasurableSet (repairFailureSet B (secondWidth m ε) (thirdWidth m ε) (rootWidth m) η)
+         (gaussianRepairLaw n (secondWidth m ε) (thirdWidth m ε)) ∧
+       (gaussianRepairLaw n (secondWidth m ε) (thirdWidth m ε)).real
+         (repairFailureSet B (secondWidth m ε) (thirdWidth m ε) (rootWidth m) η) ≤ δ) :
+     NullMeasurableSet {ω | (1+η)*residualTailEnergy (A-F (sketchWarmIndex F A (makePlan n m ε ω))) (rootWidth m) <
+       squaredFrobenius A (sketchRepair F A (makePlan n m ε ω))} GaussianLaw ∧
+     GaussianLaw.real {ω | (1+η)*residualTailEnergy (A-F (sketchWarmIndex F A (makePlan n m ε ω))) (rootWidth m) <
+       squaredFrobenius A (sketchRepair F A (makePlan n m ε ω))} ≤ δ := actual_selected_repair_failure_le F A ε η δ hsketch hfixed
+ theorem OriginalTargetIdentity : NLA.Statements.RE06.Target = NLA.ReviewedStatements.RE06.Target := rfl
+end IndependentB

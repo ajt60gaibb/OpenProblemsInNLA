@@ -1,0 +1,402 @@
+NLA.Proofs.RE06.GaussianMoment.inverse_block_first_entry {d : ℕ} (A : Matrix Unit Unit ℝ) (B : Matrix Unit (Fin d) ℝ)
+  (C : Matrix (Fin d) Unit ℝ) (D : Matrix (Fin d) (Fin d) ℝ) (hD : D.det ≠ 0)
+  (hG : (Matrix.fromBlocks A B C D).det ≠ 0) :
+  (Matrix.fromBlocks A B C D)⁻¹ (Sum.inl ()) (Sum.inl ()) = ((A - B * D⁻¹ * C) () ())⁻¹
+'NLA.Proofs.RE06.GaussianMoment.inverse_block_first_entry' depends on axioms: [propext, Classical.choice, Quot.sound]
+NLA.Proofs.RE06.GaussianMoment.rowStack_gram {d p : ℕ} (z : Fin p → ℝ) (W : Matrix (Fin d) (Fin p) ℝ) :
+  NLA.Proofs.RE06.GaussianMoment.rowStack z W * (NLA.Proofs.RE06.GaussianMoment.rowStack z W).transpose =
+    Matrix.fromBlocks
+      (NLA.Proofs.RE06.GaussianMoment.singleRow z * (NLA.Proofs.RE06.GaussianMoment.singleRow z).transpose)
+      (NLA.Proofs.RE06.GaussianMoment.singleRow z * W.transpose)
+      (W * (NLA.Proofs.RE06.GaussianMoment.singleRow z).transpose) (W * W.transpose)
+'NLA.Proofs.RE06.GaussianMoment.rowStack_gram' depends on axioms: [propext, Classical.choice, Quot.sound]
+NLA.Proofs.RE06.GaussianMoment.inverse_gram_first_entry {d p : ℕ} (z : Fin p → ℝ) (W : Matrix (Fin d) (Fin p) ℝ)
+  (hW : (W * W.transpose).det ≠ 0)
+  (hG :
+    (NLA.Proofs.RE06.GaussianMoment.rowStack z W * (NLA.Proofs.RE06.GaussianMoment.rowStack z W).transpose).det ≠ 0) :
+  (NLA.Proofs.RE06.GaussianMoment.rowStack z W * (NLA.Proofs.RE06.GaussianMoment.rowStack z W).transpose)⁻¹ (Sum.inl ())
+      (Sum.inl ()) =
+    (NLA.Proofs.RE06.GaussianMoment.rowSchur z W)⁻¹
+'NLA.Proofs.RE06.GaussianMoment.inverse_gram_first_entry' depends on axioms: [propext, Classical.choice, Quot.sound]
+NLA.Proofs.RE06.GaussianMoment.rowComplement_transpose {d p : ℕ} (W : Matrix (Fin d) (Fin p) ℝ) :
+  (NLA.Proofs.RE06.GaussianMoment.rowComplement W).transpose = NLA.Proofs.RE06.GaussianMoment.rowComplement W
+'NLA.Proofs.RE06.GaussianMoment.rowComplement_transpose' depends on axioms: [propext, Classical.choice, Quot.sound]
+NLA.Proofs.RE06.GaussianMoment.rowComplement_idempotent {d p : ℕ} (W : Matrix (Fin d) (Fin p) ℝ) :
+  NLA.Proofs.RE06.GaussianMoment.rowComplement W * NLA.Proofs.RE06.GaussianMoment.rowComplement W =
+    NLA.Proofs.RE06.GaussianMoment.rowComplement W
+'NLA.Proofs.RE06.GaussianMoment.rowComplement_idempotent' depends on axioms: [propext, Classical.choice, Quot.sound]
+NLA.Proofs.RE06.GaussianMoment.rowSchur_complement {d p : ℕ} (z : Fin p → ℝ) (W : Matrix (Fin d) (Fin p) ℝ)
+  (hW : (W * W.transpose).det ≠ 0) :
+  NLA.Proofs.RE06.GaussianMoment.rowSchur z W =
+    (NLA.Proofs.RE06.GaussianMoment.singleRow z * NLA.Proofs.RE06.GaussianMoment.rowComplement W *
+        (NLA.Proofs.RE06.GaussianMoment.singleRow z).transpose)
+      () ()
+'NLA.Proofs.RE06.GaussianMoment.rowSchur_complement' depends on axioms: [propext, Classical.choice, Quot.sound]
+NLA.Proofs.RE06.GaussianMoment.rowSchur_residual_normSq {d p : ℕ} (z : Fin p → ℝ) (W : Matrix (Fin d) (Fin p) ℝ)
+  (hW : (W * W.transpose).det ≠ 0) :
+  NLA.Proofs.RE06.GaussianMoment.rowSchur z W =
+    ∑ j, (NLA.Proofs.RE06.GaussianMoment.singleRow z * NLA.Proofs.RE06.GaussianMoment.rowComplement W) () j ^ 2
+'NLA.Proofs.RE06.GaussianMoment.rowSchur_residual_normSq' depends on axioms: [propext, Classical.choice, Quot.sound]
+NLA.Proofs.RE06.GaussianMoment.rowSchur_nonneg {d p : ℕ} (z : Fin p → ℝ) (W : Matrix (Fin d) (Fin p) ℝ)
+  (hW : (W * W.transpose).det ≠ 0) : 0 ≤ NLA.Proofs.RE06.GaussianMoment.rowSchur z W
+'NLA.Proofs.RE06.GaussianMoment.rowSchur_nonneg' depends on axioms: [propext, Classical.choice, Quot.sound]
+NLA.Proofs.RE06.GaussianMoment.rowStack_gram_det {d p : ℕ} (z : Fin p → ℝ) (W : Matrix (Fin d) (Fin p) ℝ)
+  (hW : (W * W.transpose).det ≠ 0) :
+  (NLA.Proofs.RE06.GaussianMoment.rowStack z W * (NLA.Proofs.RE06.GaussianMoment.rowStack z W).transpose).det =
+    (W * W.transpose).det * NLA.Proofs.RE06.GaussianMoment.rowSchur z W
+'NLA.Proofs.RE06.GaussianMoment.rowStack_gram_det' depends on axioms: [propext, Classical.choice, Quot.sound]
+NLA.Proofs.RE06.GaussianMoment.rowSchur_pos {d p : ℕ} (z : Fin p → ℝ) (W : Matrix (Fin d) (Fin p) ℝ)
+  (hW : (W * W.transpose).det ≠ 0)
+  (hG :
+    (NLA.Proofs.RE06.GaussianMoment.rowStack z W * (NLA.Proofs.RE06.GaussianMoment.rowStack z W).transpose).det ≠ 0) :
+  0 < NLA.Proofs.RE06.GaussianMoment.rowSchur z W
+'NLA.Proofs.RE06.GaussianMoment.rowSchur_pos' depends on axioms: [propext, Classical.choice, Quot.sound]
+NLA.Proofs.RE06.GaussianMoment.rowComplement_mulVec {d p : ℕ} (z : Fin p → ℝ) (W : Matrix (Fin d) (Fin p) ℝ) :
+  (NLA.Proofs.RE06.GaussianMoment.singleRow z * NLA.Proofs.RE06.GaussianMoment.rowComplement W) () =
+    (NLA.Proofs.RE06.GaussianMoment.rowComplement W).mulVec z
+'NLA.Proofs.RE06.GaussianMoment.rowComplement_mulVec' depends on axioms: [propext, Classical.choice, Quot.sound]
+NLA.Proofs.RE06.GaussianMoment.rowComplement_killed {d p : ℕ} (W : Matrix (Fin d) (Fin p) ℝ) :
+  W * NLA.Proofs.RE06.GaussianMoment.rowComplement W = 0
+'NLA.Proofs.RE06.GaussianMoment.rowComplement_killed' depends on axioms: [propext, Classical.choice, Quot.sound]
+NLA.Proofs.RE06.GaussianMoment.rowComplement_fix_kernel {d p : ℕ} (W : Matrix (Fin d) (Fin p) ℝ) (z : Fin p → ℝ)
+  (hz : W.mulVec z = 0) : (NLA.Proofs.RE06.GaussianMoment.rowComplement W).mulVec z = z
+'NLA.Proofs.RE06.GaussianMoment.rowComplement_fix_kernel' depends on axioms: [propext, Classical.choice, Quot.sound]
+NLA.Proofs.RE06.GaussianMoment.rowComplement_range {d p : ℕ} (W : Matrix (Fin d) (Fin p) ℝ) :
+  (NLA.Proofs.RE06.GaussianMoment.rowComplement W).mulVecLin.range = W.mulVecLin.ker
+'NLA.Proofs.RE06.GaussianMoment.rowComplement_range' depends on axioms: [propext, Classical.choice, Quot.sound]
+NLA.Proofs.RE06.GaussianMoment.inverse_gram_first_entry_residual {d p : ℕ} (z : Fin p → ℝ)
+  (W : Matrix (Fin d) (Fin p) ℝ) (hW : (W * W.transpose).det ≠ 0)
+  (hG :
+    (NLA.Proofs.RE06.GaussianMoment.rowStack z W * (NLA.Proofs.RE06.GaussianMoment.rowStack z W).transpose).det ≠ 0) :
+  (NLA.Proofs.RE06.GaussianMoment.rowStack z W * (NLA.Proofs.RE06.GaussianMoment.rowStack z W).transpose)⁻¹ (Sum.inl ())
+      (Sum.inl ()) =
+    (∑ j, (NLA.Proofs.RE06.GaussianMoment.singleRow z * NLA.Proofs.RE06.GaussianMoment.rowComplement W) () j ^ 2)⁻¹
+'NLA.Proofs.RE06.GaussianMoment.inverse_gram_first_entry_residual' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+NLA.Proofs.RE06.GaussianMoment.kernelCoordinates_coisometry {d p : ℕ} (W : Matrix (Fin d) (Fin p) ℝ) :
+  NLA.Proofs.RE06.GaussianMoment.kernelCoordinates W ∘SL
+      ContinuousLinearMap.adjoint (NLA.Proofs.RE06.GaussianMoment.kernelCoordinates W) =
+    ContinuousLinearMap.id ℝ (NLA.Proofs.RE06.GaussianEuclid (NLA.Proofs.RE06.GaussianMoment.kernelDimension W))
+'NLA.Proofs.RE06.GaussianMoment.kernelCoordinates_coisometry' depends on axioms: [propext, Classical.choice, Quot.sound]
+NLA.Proofs.RE06.GaussianMoment.kernelDimension_eq {d p : ℕ} (W : Matrix (Fin d) (Fin p) ℝ)
+  (hW : (W * W.transpose).det ≠ 0) : NLA.Proofs.RE06.GaussianMoment.kernelDimension W = p - d
+'NLA.Proofs.RE06.GaussianMoment.kernelDimension_eq' depends on axioms: [propext, Classical.choice, Quot.sound]
+NLA.Proofs.RE06.GaussianMoment.rowKernel_projection {d p : ℕ} (W : Matrix (Fin d) (Fin p) ℝ)
+  (x : NLA.Proofs.RE06.GaussianEuclid p) :
+  (NLA.Proofs.RE06.GaussianMoment.rowKernel W).starProjection x =
+    (Matrix.toEuclideanLin (NLA.Proofs.RE06.GaussianMoment.rowComplement W)) x
+'NLA.Proofs.RE06.GaussianMoment.rowKernel_projection' depends on axioms: [propext, Classical.choice, Quot.sound]
+NLA.Proofs.RE06.GaussianMoment.kernelCoordinates_normSq {d p : ℕ} (W : Matrix (Fin d) (Fin p) ℝ)
+  (x : NLA.Proofs.RE06.GaussianEuclid p) :
+  NLA.Proofs.RE06.GaussianMoment.normSq ((NLA.Proofs.RE06.GaussianMoment.kernelCoordinates W) x).ofLp =
+    ∑ j, (NLA.Proofs.RE06.GaussianMoment.rowComplement W).mulVec x.ofLp j ^ 2
+'NLA.Proofs.RE06.GaussianMoment.kernelCoordinates_normSq' depends on axioms: [propext, Classical.choice, Quot.sound]
+NLA.Proofs.RE06.GaussianMoment.rowSchur_kernel_normSq {d p : ℕ} (z : Fin p → ℝ) (W : Matrix (Fin d) (Fin p) ℝ)
+  (hW : (W * W.transpose).det ≠ 0) :
+  NLA.Proofs.RE06.GaussianMoment.rowSchur z W =
+    NLA.Proofs.RE06.GaussianMoment.normSq ((NLA.Proofs.RE06.GaussianMoment.kernelCoordinates W) (WithLp.toLp 2 z)).ofLp
+'NLA.Proofs.RE06.GaussianMoment.rowSchur_kernel_normSq' depends on axioms: [propext, Classical.choice, Quot.sound]
+NLA.Proofs.RE06.GaussianMoment.rowSchur_inverse_integrable {d p : ℕ} (W : Matrix (Fin d) (Fin p) ℝ)
+  (hW : (W * W.transpose).det ≠ 0) (hdp : d + 2 < p) :
+  MeasureTheory.Integrable (fun z => (NLA.Proofs.RE06.GaussianMoment.rowSchur z W)⁻¹)
+    (MeasureTheory.Measure.pi fun x => ProbabilityTheory.gaussianReal 0 1)
+'NLA.Proofs.RE06.GaussianMoment.rowSchur_inverse_integrable' depends on axioms: [propext, Classical.choice, Quot.sound]
+NLA.Proofs.RE06.GaussianMoment.rowSchur_inverse_integral {d p : ℕ} (W : Matrix (Fin d) (Fin p) ℝ)
+  (hW : (W * W.transpose).det ≠ 0) (hdp : d + 2 < p) :
+  (∫ (z : Fin p → ℝ),
+      (NLA.Proofs.RE06.GaussianMoment.rowSchur z
+          W)⁻¹ ∂MeasureTheory.Measure.pi fun x => ProbabilityTheory.gaussianReal 0 1) =
+    1 / (↑p - ↑d - 2)
+'NLA.Proofs.RE06.GaussianMoment.rowSchur_inverse_integral' depends on axioms: [propext, Classical.choice, Quot.sound]
+NLA.Proofs.RE06.GaussianMoment.rowSchur_pos_ae {d p : ℕ} (W : Matrix (Fin d) (Fin p) ℝ) (hW : (W * W.transpose).det ≠ 0)
+  (hdp : d < p) :
+  ∀ᵐ (z : Fin p → ℝ) ∂MeasureTheory.Measure.pi fun x => ProbabilityTheory.gaussianReal 0 1,
+    0 < NLA.Proofs.RE06.GaussianMoment.rowSchur z W
+'NLA.Proofs.RE06.GaussianMoment.rowSchur_pos_ae' depends on axioms: [propext, Classical.choice, Quot.sound]
+NLA.Proofs.RE06.GaussianMoment.rowStack_gram_det_ne_zero_ae {d p : ℕ} (W : Matrix (Fin d) (Fin p) ℝ)
+  (hW : (W * W.transpose).det ≠ 0) (hdp : d < p) :
+  ∀ᵐ (z : Fin p → ℝ) ∂MeasureTheory.Measure.pi fun x => ProbabilityTheory.gaussianReal 0 1,
+    (NLA.Proofs.RE06.GaussianMoment.rowStack z W * (NLA.Proofs.RE06.GaussianMoment.rowStack z W).transpose).det ≠ 0
+'NLA.Proofs.RE06.GaussianMoment.rowStack_gram_det_ne_zero_ae' depends on axioms: [propext, Classical.choice, Quot.sound]
+NLA.Proofs.RE06.GaussianMoment.inverse_gram_first_entry_ae {d p : ℕ} (W : Matrix (Fin d) (Fin p) ℝ)
+  (hW : (W * W.transpose).det ≠ 0) (hdp : d < p) :
+  (fun z =>
+      (NLA.Proofs.RE06.GaussianMoment.rowStack z W * (NLA.Proofs.RE06.GaussianMoment.rowStack z W).transpose)⁻¹
+        (Sum.inl ()) (Sum.inl ())) =ᵐ[MeasureTheory.Measure.pi fun x => ProbabilityTheory.gaussianReal 0 1]
+    fun z => (NLA.Proofs.RE06.GaussianMoment.rowSchur z W)⁻¹
+'NLA.Proofs.RE06.GaussianMoment.inverse_gram_first_entry_ae' depends on axioms: [propext, Classical.choice, Quot.sound]
+NLA.Proofs.RE06.GaussianMoment.inverse_gram_first_entry_integrable {d p : ℕ} (W : Matrix (Fin d) (Fin p) ℝ)
+  (hW : (W * W.transpose).det ≠ 0) (hdp : d + 2 < p) :
+  MeasureTheory.Integrable
+    (fun z =>
+      (NLA.Proofs.RE06.GaussianMoment.rowStack z W * (NLA.Proofs.RE06.GaussianMoment.rowStack z W).transpose)⁻¹
+        (Sum.inl ()) (Sum.inl ()))
+    (MeasureTheory.Measure.pi fun x => ProbabilityTheory.gaussianReal 0 1)
+'NLA.Proofs.RE06.GaussianMoment.inverse_gram_first_entry_integrable' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+NLA.Proofs.RE06.GaussianMoment.inverse_gram_first_entry_integral {d p : ℕ} (W : Matrix (Fin d) (Fin p) ℝ)
+  (hW : (W * W.transpose).det ≠ 0) (hdp : d + 2 < p) :
+  (∫ (z : Fin p → ℝ),
+      (NLA.Proofs.RE06.GaussianMoment.rowStack z W * (NLA.Proofs.RE06.GaussianMoment.rowStack z W).transpose)⁻¹
+        (Sum.inl ()) (Sum.inl ()) ∂MeasureTheory.Measure.pi fun x => ProbabilityTheory.gaussianReal 0 1) =
+    1 / (↑p - ↑d - 2)
+'NLA.Proofs.RE06.GaussianMoment.inverse_gram_first_entry_integral' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+NLA.Proofs.RE06.GaussianMoment.finRowStack_submatrix {d p : ℕ} (z : Fin p → ℝ) (W : Matrix (Fin d) (Fin p) ℝ) :
+  NLA.Proofs.RE06.GaussianMoment.finRowStack z W =
+    (NLA.Proofs.RE06.GaussianMoment.rowStack z W).submatrix (⇑(NLA.Proofs.RE06.GaussianMoment.firstRowEquiv d).symm) id
+'NLA.Proofs.RE06.GaussianMoment.finRowStack_submatrix' depends on axioms: [propext, Classical.choice, Quot.sound]
+NLA.Proofs.RE06.GaussianMoment.finRowStack_gram_submatrix {d p : ℕ} (z : Fin p → ℝ) (W : Matrix (Fin d) (Fin p) ℝ) :
+  NLA.Proofs.RE06.GaussianMoment.finRowStack z W * (NLA.Proofs.RE06.GaussianMoment.finRowStack z W).transpose =
+    (NLA.Proofs.RE06.GaussianMoment.rowStack z W * (NLA.Proofs.RE06.GaussianMoment.rowStack z W).transpose).submatrix
+      ⇑(NLA.Proofs.RE06.GaussianMoment.firstRowEquiv d).symm ⇑(NLA.Proofs.RE06.GaussianMoment.firstRowEquiv d).symm
+'NLA.Proofs.RE06.GaussianMoment.finRowStack_gram_submatrix' depends on axioms: [propext, Classical.choice, Quot.sound]
+NLA.Proofs.RE06.GaussianMoment.fin_inverse_gram_first_entry {d p : ℕ} (z : Fin p → ℝ) (W : Matrix (Fin d) (Fin p) ℝ) :
+  (NLA.Proofs.RE06.GaussianMoment.finRowStack z W * (NLA.Proofs.RE06.GaussianMoment.finRowStack z W).transpose)⁻¹ 0 0 =
+    (NLA.Proofs.RE06.GaussianMoment.rowStack z W * (NLA.Proofs.RE06.GaussianMoment.rowStack z W).transpose)⁻¹
+      (Sum.inl ()) (Sum.inl ())
+'NLA.Proofs.RE06.GaussianMoment.fin_inverse_gram_first_entry' depends on axioms: [propext, Classical.choice, Quot.sound]
+NLA.Proofs.RE06.GaussianMoment.joinedEntries_hasLaw (d p : ℕ) :
+  ProbabilityTheory.HasLaw NLA.Proofs.RE06.GaussianMoment.joinedEntries
+    (MeasureTheory.Measure.pi fun x => ProbabilityTheory.gaussianReal 0 1)
+    ((MeasureTheory.Measure.pi fun x => ProbabilityTheory.gaussianReal 0 1).prod
+      (MeasureTheory.Measure.pi fun x => ProbabilityTheory.gaussianReal 0 1))
+'NLA.Proofs.RE06.GaussianMoment.joinedEntries_hasLaw' depends on axioms: [propext, Classical.choice, Quot.sound]
+NLA.Proofs.RE06.GaussianMoment.joinedGramEntry_measurable (d p : ℕ) :
+  Measurable NLA.Proofs.RE06.GaussianMoment.joinedGramEntry
+'NLA.Proofs.RE06.GaussianMoment.joinedGramEntry_measurable' depends on axioms: [propext, Classical.choice, Quot.sound]
+NLA.Proofs.RE06.GaussianMoment.joinedGramEntry_inner_integrable (d p : ℕ) (hdp : d + 2 < p) :
+  ∀ᵐ (x : Fin d × Fin p → ℝ) ∂MeasureTheory.Measure.pi fun x => ProbabilityTheory.gaussianReal 0 1,
+    MeasureTheory.Integrable (fun z => NLA.Proofs.RE06.GaussianMoment.joinedGramEntry (x, z))
+      (MeasureTheory.Measure.pi fun x => ProbabilityTheory.gaussianReal 0 1)
+'NLA.Proofs.RE06.GaussianMoment.joinedGramEntry_inner_integrable' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+NLA.Proofs.RE06.GaussianMoment.joinedGramEntry_inner_integral (d p : ℕ) (hdp : d + 2 < p) :
+  ∀ᵐ (x : Fin d × Fin p → ℝ) ∂MeasureTheory.Measure.pi fun x => ProbabilityTheory.gaussianReal 0 1,
+    (∫ (z : Fin p → ℝ),
+        NLA.Proofs.RE06.GaussianMoment.joinedGramEntry
+          (x, z) ∂MeasureTheory.Measure.pi fun x => ProbabilityTheory.gaussianReal 0 1) =
+      1 / (↑p - ↑d - 2)
+'NLA.Proofs.RE06.GaussianMoment.joinedGramEntry_inner_integral' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+NLA.Proofs.RE06.GaussianMoment.joinedGramEntry_inner_norm_integral (d p : ℕ) (hdp : d + 2 < p) :
+  ∀ᵐ (x : Fin d × Fin p → ℝ) ∂MeasureTheory.Measure.pi fun x => ProbabilityTheory.gaussianReal 0 1,
+    (∫ (z : Fin p → ℝ),
+        ‖NLA.Proofs.RE06.GaussianMoment.joinedGramEntry
+            (x, z)‖ ∂MeasureTheory.Measure.pi fun x => ProbabilityTheory.gaussianReal 0 1) =
+      1 / (↑p - ↑d - 2)
+'NLA.Proofs.RE06.GaussianMoment.joinedGramEntry_inner_norm_integral' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+NLA.Proofs.RE06.GaussianMoment.joinedGramEntry_integrable (d p : ℕ) (hdp : d + 2 < p) :
+  MeasureTheory.Integrable NLA.Proofs.RE06.GaussianMoment.joinedGramEntry
+    ((MeasureTheory.Measure.pi fun x => ProbabilityTheory.gaussianReal 0 1).prod
+      (MeasureTheory.Measure.pi fun x => ProbabilityTheory.gaussianReal 0 1))
+'NLA.Proofs.RE06.GaussianMoment.joinedGramEntry_integrable' depends on axioms: [propext, Classical.choice, Quot.sound]
+NLA.Proofs.RE06.GaussianMoment.joinedGramEntry_integral (d p : ℕ) (hdp : d + 2 < p) :
+  ∫ (x : (Fin d × Fin p → ℝ) × (Fin p → ℝ)),
+      NLA.Proofs.RE06.GaussianMoment.joinedGramEntry
+        x ∂(MeasureTheory.Measure.pi fun x => ProbabilityTheory.gaussianReal 0 1).prod
+        (MeasureTheory.Measure.pi fun x => ProbabilityTheory.gaussianReal 0 1) =
+    1 / (↑p - ↑d - 2)
+'NLA.Proofs.RE06.GaussianMoment.joinedGramEntry_integral' depends on axioms: [propext, Classical.choice, Quot.sound]
+NLA.Proofs.RE06.GaussianMoment.entryMatrix_measurable (d p : ℕ) : Measurable NLA.Proofs.RE06.GaussianMoment.entryMatrix
+'NLA.Proofs.RE06.GaussianMoment.entryMatrix_measurable' depends on axioms: [propext, Classical.choice, Quot.sound]
+NLA.Proofs.RE06.GaussianMoment.gramInverseEntry_measurable {d p : ℕ} (i : Fin d) :
+  Measurable (NLA.Proofs.RE06.GaussianMoment.gramInverseEntry i)
+'NLA.Proofs.RE06.GaussianMoment.gramInverseEntry_measurable' depends on axioms: [propext, Classical.choice, Quot.sound]
+NLA.Proofs.RE06.GaussianMoment.gramInverseEntry_zero_integrable (d p : ℕ) (hdp : d + 2 < p) :
+  MeasureTheory.Integrable (NLA.Proofs.RE06.GaussianMoment.gramInverseEntry 0)
+    (MeasureTheory.Measure.pi fun x => ProbabilityTheory.gaussianReal 0 1)
+'NLA.Proofs.RE06.GaussianMoment.gramInverseEntry_zero_integrable' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+NLA.Proofs.RE06.GaussianMoment.gramInverseEntry_zero_integral (d p : ℕ) (hdp : d + 2 < p) :
+  (∫ (x : Fin (d + 1) × Fin p → ℝ),
+      NLA.Proofs.RE06.GaussianMoment.gramInverseEntry 0
+        x ∂MeasureTheory.Measure.pi fun x => ProbabilityTheory.gaussianReal 0 1) =
+    1 / (↑p - ↑d - 2)
+'NLA.Proofs.RE06.GaussianMoment.gramInverseEntry_zero_integral' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+NLA.Proofs.RE06.GaussianMoment.permutedEntries_hasLaw {d p : ℕ} (e : Fin d ≃ Fin d) :
+  ProbabilityTheory.HasLaw (NLA.Proofs.RE06.GaussianMoment.permutedEntries e)
+    (MeasureTheory.Measure.pi fun x => ProbabilityTheory.gaussianReal 0 1)
+    (MeasureTheory.Measure.pi fun x => ProbabilityTheory.gaussianReal 0 1)
+'NLA.Proofs.RE06.GaussianMoment.permutedEntries_hasLaw' depends on axioms: [propext, Classical.choice, Quot.sound]
+NLA.Proofs.RE06.GaussianMoment.gramInverseEntry_permuted {d p : ℕ} (e : Fin d ≃ Fin d) (i : Fin d)
+  (x : Fin d × Fin p → ℝ) :
+  NLA.Proofs.RE06.GaussianMoment.gramInverseEntry i (NLA.Proofs.RE06.GaussianMoment.permutedEntries e x) =
+    NLA.Proofs.RE06.GaussianMoment.gramInverseEntry (e i) x
+'NLA.Proofs.RE06.GaussianMoment.gramInverseEntry_permuted' depends on axioms: [propext, Classical.choice, Quot.sound]
+NLA.Proofs.RE06.GaussianMoment.gramInverseEntry_integrable (d p : ℕ) (hdp : d + 2 < p) (i : Fin (d + 1)) :
+  MeasureTheory.Integrable (NLA.Proofs.RE06.GaussianMoment.gramInverseEntry i)
+    (MeasureTheory.Measure.pi fun x => ProbabilityTheory.gaussianReal 0 1)
+'NLA.Proofs.RE06.GaussianMoment.gramInverseEntry_integrable' depends on axioms: [propext, Classical.choice, Quot.sound]
+NLA.Proofs.RE06.GaussianMoment.gramInverseEntry_integral (d p : ℕ) (hdp : d + 2 < p) (i : Fin (d + 1)) :
+  (∫ (x : Fin (d + 1) × Fin p → ℝ),
+      NLA.Proofs.RE06.GaussianMoment.gramInverseEntry i
+        x ∂MeasureTheory.Measure.pi fun x => ProbabilityTheory.gaussianReal 0 1) =
+    1 / (↑p - ↑d - 2)
+'NLA.Proofs.RE06.GaussianMoment.gramInverseEntry_integral' depends on axioms: [propext, Classical.choice, Quot.sound]
+NLA.Proofs.RE06.GaussianMoment.trace_inverse_gram_integrable (d p : ℕ) (hdp : d + 2 < p) :
+  MeasureTheory.Integrable
+    (fun x =>
+      (NLA.Proofs.RE06.GaussianMoment.entryMatrix x * (NLA.Proofs.RE06.GaussianMoment.entryMatrix x).transpose)⁻¹.trace)
+    (MeasureTheory.Measure.pi fun x => ProbabilityTheory.gaussianReal 0 1)
+'NLA.Proofs.RE06.GaussianMoment.trace_inverse_gram_integrable' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+NLA.Proofs.RE06.GaussianMoment.trace_inverse_gram_integral (d p : ℕ) (hdp : d + 2 < p) :
+  (∫ (x : Fin (d + 1) × Fin p → ℝ),
+      (NLA.Proofs.RE06.GaussianMoment.entryMatrix x *
+            (NLA.Proofs.RE06.GaussianMoment.entryMatrix
+                x).transpose)⁻¹.trace ∂MeasureTheory.Measure.pi fun x => ProbabilityTheory.gaussianReal 0 1) =
+    (↑d + 1) / (↑p - ↑d - 2)
+'NLA.Proofs.RE06.GaussianMoment.trace_inverse_gram_integral' depends on axioms: [propext, Classical.choice, Quot.sound]
+NLA.Proofs.RE06.GaussianMoment.pseudoinverse_frobeniusSq_integrable (d p : ℕ) (hdp : d + 1 < p) :
+  MeasureTheory.Integrable
+    (fun x =>
+      NLA.Proofs.RE06.Pseudo.frobeniusSq
+        (NLA.Computation.NonadaptiveMatrixQuery.pseudoInverse (NLA.Proofs.RE06.GaussianMoment.entryMatrix x)))
+    (MeasureTheory.Measure.pi fun x => ProbabilityTheory.gaussianReal 0 1)
+'NLA.Proofs.RE06.GaussianMoment.pseudoinverse_frobeniusSq_integrable' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+NLA.Proofs.RE06.GaussianMoment.pseudoinverse_frobeniusSq_integral (d p : ℕ) (hdp : d + 1 < p) :
+  (∫ (x : Fin d × Fin p → ℝ),
+      NLA.Proofs.RE06.Pseudo.frobeniusSq
+        (NLA.Computation.NonadaptiveMatrixQuery.pseudoInverse
+          (NLA.Proofs.RE06.GaussianMoment.entryMatrix
+            x)) ∂MeasureTheory.Measure.pi fun x => ProbabilityTheory.gaussianReal 0 1) =
+    ↑d / (↑p - ↑d - 1)
+'NLA.Proofs.RE06.GaussianMoment.pseudoinverse_frobeniusSq_integral' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+NLA.Proofs.RE06.GaussianMoment.pseudoinverse_frobeniusSq_measurable (d p : ℕ) :
+  Measurable fun x =>
+    NLA.Proofs.RE06.Pseudo.frobeniusSq
+      (NLA.Computation.NonadaptiveMatrixQuery.pseudoInverse (NLA.Proofs.RE06.GaussianMoment.entryMatrix x))
+'NLA.Proofs.RE06.GaussianMoment.pseudoinverse_frobeniusSq_measurable' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+NLA.Proofs.RE06.GaussianMoment.pseudoinverse_frobeniusSq_integrable_of_hasLaw.{u_1} {Ω : Type u_1} [MeasurableSpace Ω]
+  (P : MeasureTheory.Measure Ω) (d p : ℕ) (hdp : d + 1 < p) (X : Ω → Fin d × Fin p → ℝ)
+  (hX : ProbabilityTheory.HasLaw X (MeasureTheory.Measure.pi fun x => ProbabilityTheory.gaussianReal 0 1) P) :
+  MeasureTheory.Integrable
+    (fun ω =>
+      NLA.Proofs.RE06.Pseudo.frobeniusSq
+        (NLA.Computation.NonadaptiveMatrixQuery.pseudoInverse (NLA.Proofs.RE06.GaussianMoment.entryMatrix (X ω))))
+    P
+'NLA.Proofs.RE06.GaussianMoment.pseudoinverse_frobeniusSq_integrable_of_hasLaw' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+NLA.Proofs.RE06.GaussianMoment.pseudoinverse_frobeniusSq_integral_of_hasLaw.{u_1} {Ω : Type u_1} [MeasurableSpace Ω]
+  (P : MeasureTheory.Measure Ω) (d p : ℕ) (hdp : d + 1 < p) (X : Ω → Fin d × Fin p → ℝ)
+  (hX : ProbabilityTheory.HasLaw X (MeasureTheory.Measure.pi fun x => ProbabilityTheory.gaussianReal 0 1) P) :
+  ∫ (ω : Ω),
+      NLA.Proofs.RE06.Pseudo.frobeniusSq
+        (NLA.Computation.NonadaptiveMatrixQuery.pseudoInverse (NLA.Proofs.RE06.GaussianMoment.entryMatrix (X ω))) ∂P =
+    ↑d / (↑p - ↑d - 1)
+'NLA.Proofs.RE06.GaussianMoment.pseudoinverse_frobeniusSq_integral_of_hasLaw' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+NLA.Proofs.RE06.GaussianMoment.stream_block_pseudoinverse_frobeniusSq_integrable (d p offset : ℕ) (hdp : d + 1 < p) :
+  MeasureTheory.Integrable
+    (fun ω =>
+      NLA.Proofs.RE06.Pseudo.frobeniusSq
+        (NLA.Computation.NonadaptiveMatrixQuery.pseudoInverse (NLA.Proofs.RE06.gaussianBlock d p offset ω)))
+    NLA.Computation.NonadaptiveMatrixQuery.GaussianLaw
+'NLA.Proofs.RE06.GaussianMoment.stream_block_pseudoinverse_frobeniusSq_integrable' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+NLA.Proofs.RE06.GaussianMoment.stream_block_pseudoinverse_frobeniusSq_integral (d p offset : ℕ) (hdp : d + 1 < p) :
+  ∫ (ω : ℕ → ℝ),
+      NLA.Proofs.RE06.Pseudo.frobeniusSq
+        (NLA.Computation.NonadaptiveMatrixQuery.pseudoInverse
+          (NLA.Proofs.RE06.gaussianBlock d p offset ω)) ∂NLA.Computation.NonadaptiveMatrixQuery.GaussianLaw =
+    ↑d / (↑p - ↑d - 1)
+'NLA.Proofs.RE06.GaussianMoment.stream_block_pseudoinverse_frobeniusSq_integral' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+NLA.Proofs.RE06.GaussianMoment.nonnegative_prod_integrable_of_inner_majorant.{u_1, u_2} {Ω : Type u_1} {Γ : Type u_2}
+  [MeasurableSpace Ω] [MeasurableSpace Γ] (μ : MeasureTheory.Measure Ω) (ν : MeasureTheory.Measure Γ)
+  [MeasureTheory.SFinite μ] [MeasureTheory.SFinite ν] (V : Ω × Γ → ℝ) (hVm : Measurable V)
+  (hV0 : ∀ (z : Ω × Γ), 0 ≤ V z) (M : Ω → ℝ) (hM : MeasureTheory.Integrable M μ)
+  (hVi : ∀ᵐ (g : Ω) ∂μ, MeasureTheory.Integrable (fun h => V (g, h)) ν)
+  (hmean : ∀ᵐ (g : Ω) ∂μ, ∫ (h : Γ), V (g, h) ∂ν ≤ M g) : MeasureTheory.Integrable V (μ.prod ν)
+'NLA.Proofs.RE06.GaussianMoment.nonnegative_prod_integrable_of_inner_majorant' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+NLA.Proofs.RE06.GaussianMoment.nonnegative_prod_integral_le_inner_majorant.{u_1, u_2} {Ω : Type u_1} {Γ : Type u_2}
+  [MeasurableSpace Ω] [MeasurableSpace Γ] (μ : MeasureTheory.Measure Ω) (ν : MeasureTheory.Measure Γ)
+  [MeasureTheory.SFinite μ] [MeasureTheory.SFinite ν] (V : Ω × Γ → ℝ) (hVm : Measurable V)
+  (hV0 : ∀ (z : Ω × Γ), 0 ≤ V z) (M : Ω → ℝ) (hM : MeasureTheory.Integrable M μ)
+  (hVi : ∀ᵐ (g : Ω) ∂μ, MeasureTheory.Integrable (fun h => V (g, h)) ν)
+  (hmean : ∀ᵐ (g : Ω) ∂μ, ∫ (h : Γ), V (g, h) ∂ν ≤ M g) : ∫ (z : Ω × Γ), V z ∂μ.prod ν ≤ ∫ (g : Ω), M g ∂μ
+'NLA.Proofs.RE06.GaussianMoment.nonnegative_prod_integral_le_inner_majorant' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+NLA.Proofs.RE06.GaussianMoment.excess_prod_integrable_and_integral_le.{u_1, u_2} {Ω : Type u_1} {Γ : Type u_2}
+  [MeasurableSpace Ω] [MeasurableSpace Γ] (μ : MeasureTheory.Measure Ω) (ν : MeasureTheory.Measure Γ)
+  [MeasureTheory.IsProbabilityMeasure μ] [MeasureTheory.IsProbabilityMeasure ν] (X : Ω → ℝ)
+  (hXi : MeasureTheory.Integrable X μ) (V : Ω × Γ → ℝ) (hVm : Measurable V) (hV0 : ∀ (z : Ω × Γ), 0 ≤ V z)
+  (a b tail : ℝ) (hb : 0 ≤ b) (hXa : ∫ (g : Ω), X g ∂μ ≤ a * tail)
+  (hVi : ∀ᵐ (g : Ω) ∂μ, MeasureTheory.Integrable (fun h => V (g, h)) ν)
+  (hVb : ∀ᵐ (g : Ω) ∂μ, ∫ (h : Γ), V (g, h) ∂ν ≤ b * (tail + X g)) :
+  MeasureTheory.Integrable (fun z => X z.1 + V z) (μ.prod ν) ∧
+    ∫ (z : Ω × Γ), X z.1 + V z ∂μ.prod ν ≤ (a + b + a * b) * tail
+'NLA.Proofs.RE06.GaussianMoment.excess_prod_integrable_and_integral_le' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+NLA.Proofs.RE06.GaussianMoment.regression_ratio_mono {d k ell : ℕ} (hdk : d ≤ k) (hkell : k + 1 < ell) :
+  0 ≤ ↑d / (↑ell - ↑d - 1) ∧ ↑d / (↑ell - ↑d - 1) ≤ ↑k / (↑ell - ↑k - 1)
+'NLA.Proofs.RE06.GaussianMoment.regression_ratio_mono' depends on axioms: [propext, Classical.choice, Quot.sound]
+NLA.Proofs.RE06.GaussianMoment.actual_excess_majorant_moment {n k ell : ℕ} (C : Matrix (Fin n) (Fin n) ℝ) (r : ℕ)
+  (hr : r ≤ n) (hk : r + 1 < k) (hell : k + 1 < ell) :
+  MeasureTheory.Integrable
+      (fun x =>
+        NLA.Proofs.RE06.Repair.actualExcessMajorant C r hr (Matrix.of fun i j => x.1 (i, j))
+          (Matrix.of fun i j => x.2 (i, j)).transpose)
+      (NLA.Proofs.RE06.gaussianRepairLaw n k ell) ∧
+    ∫ (x : NLA.Proofs.RE06.RepairEntries n k ell),
+        NLA.Proofs.RE06.Repair.actualExcessMajorant C r hr (Matrix.of fun i j => x.1 (i, j))
+          (Matrix.of fun i j => x.2 (i, j)).transpose ∂NLA.Proofs.RE06.gaussianRepairLaw n k ell ≤
+      (↑r / (↑k - ↑r - 1) + ↑k / (↑ell - ↑k - 1) + ↑r / (↑k - ↑r - 1) * (↑k / (↑ell - ↑k - 1))) *
+        NLA.Proofs.RE06.residualTailEnergy C r
+'NLA.Proofs.RE06.GaussianMoment.actual_excess_majorant_moment' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+NLA.Proofs.RE06.GaussianMoment.gaussianRepair_head_right_inverse_ae {n k ell : ℕ} (C : Matrix (Fin n) (Fin n) ℝ) (r : ℕ)
+  (hr : r ≤ n) (hrk : r ≤ k) :
+  ∀ᵐ (x : NLA.Proofs.RE06.RepairEntries n k ell) ∂NLA.Proofs.RE06.gaussianRepairLaw n k ell,
+    NLA.Proofs.RE06.Repair.headCoordinates C r hr (Matrix.of fun i j => x.1 (i, j)) *
+        NLA.Computation.NonadaptiveMatrixQuery.pseudoInverse
+          (NLA.Proofs.RE06.Repair.headCoordinates C r hr (Matrix.of fun i j => x.1 (i, j))) =
+      1
+'NLA.Proofs.RE06.GaussianMoment.gaussianRepair_head_right_inverse_ae' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+NLA.Proofs.RE06.GaussianMoment.gaussianRepair_majorant_ae {n k ell : ℕ} (C : Matrix (Fin n) (Fin n) ℝ) (r : ℕ)
+  (hr : r ≤ n) (hrk : r ≤ k) :
+  ∀ᵐ (x : NLA.Proofs.RE06.RepairEntries n k ell) ∂NLA.Proofs.RE06.gaussianRepairLaw n k ell,
+    NLA.Computation.NonadaptiveMatrixQuery.squaredFrobenius (NLA.Proofs.RE06.repairErrorFromEntries C k ell x) 0 ≤
+      NLA.Proofs.RE06.residualTailEnergy C r +
+        NLA.Proofs.RE06.Repair.actualExcessMajorant C r hr (Matrix.of fun i j => x.1 (i, j))
+          (Matrix.of fun i j => x.2 (i, j)).transpose
+'NLA.Proofs.RE06.GaussianMoment.gaussianRepair_majorant_ae' depends on axioms: [propext, Classical.choice, Quot.sound]
+/private/tmp/nla-independent-inverse-outer-qt48edg6/source/Crosscheck/Audit.lean:266:2: error: Type mismatch: After simplification, term
+  pseudoinverse_frobeniusSq_integral 1 3 (Decidable.byContradiction fun a => _example._proof_1 a)
+ has type
+  (∫ (x : Fin 1 × Fin 3 → ℝ),
+      Pseudo.frobeniusSq (pseudoInverse (entryMatrix x)) ∂Measure.pi fun x => gaussianReal 0 1) =
+    (3 - 1 - 1)⁻¹
+but is expected to have type
+  (∫ (x : Fin 1 × Fin 3 → ℝ),
+      Pseudo.frobeniusSq (pseudoInverse (entryMatrix x)) ∂Measure.pi fun x => gaussianReal 0 1) =
+    1

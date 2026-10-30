@@ -1,0 +1,17 @@
+# Independent rectangular SVD review — 23 October 2026
+
+Reviewer: `/root/recover_geometry`. I authored no selected SVD proof source. I read both complete bodies of `NLA/Proofs/TR04/SVDCore.lean` and `SVDTotal.lean`, checked the unchanged `SVDMachine.ValidSVD` definition, and independently generated and compiled a literal full-machine-contract consumer. Approval binds author source lock SHA `c692f19bd533916879956a4a38803db7ae26ea7ba6b9f9a32d288eac0c987d90`:
+
+- `SVDCore.lean`: `c58e34f14e7530a3537390c795d9276ba21026a94c0599890c015683d23397d9`.
+- `SVDTotal.lean`: `2730cd593ae9500a1e089bc71241f49f52f395e1ef4db159b8651648f03c0b4f`.
+- Immutable `SVDMachine.lean`: `8ec5866326b5a311b334651600db5d7f3065f2059175823626319afef7cf7581`.
+
+No mathematical scope blocker was found. The domain basis is the Gram operator's ordered orthonormal eigenbasis. Its image norms equal the ordered nonnegative singular values, and distinct image vectors are orthogonal. Only directions strictly below the actual range dimension are normalized by reciprocal singular values, so the denominator is proved positive. These vectors extend to a full orthonormal codomain basis. The construction proves both full-matrix column orthogonality equations required by `ValidSVD`, nonnegative descending `sigma`, and exact rectangular entry reconstruction. Expanding any original domain coordinate in the domain basis gives reconstruction; directions beyond `min m l` vanish because the actual range dimension is at most both dimensions.
+
+The universal endpoint has no positive-dimension, full-rank or distinct-singular-value premise. Empty domain/codomain, rank-zero, rank-deficient, rectangular and tied-singular-value cases are covered by the same proof. Basis extension is a proved mathematical choice allowed by the standard axioms. The result is existence of a valid SVD response for the actual primitive machine relation; it does not restrict legal arbitrary responses or assume a numerical SVD solver's correctness.
+
+`run/result.json` records the independent fresh execution: snapshots of all three exact project sources were compiled into an initially absent private object directory, followed by a new independently generated consumer proving `∀ m l B, ∃ U sigma V, ValidSVD B U sigma V`. There was no project object reuse. Read-only pinned external package caches were reused explicitly. The consumer asserts kernel trust for all twelve selected SVD declarations and its exact endpoint; all four Lean invocations exited zero. All printed axiom lists contain only `propext`, `Classical.choice`, and `Quot.sound`. The compiler was pinned Lean 4.33.1, commit `819816b2e0a3bf405af45ae5c7af2491d8f5bee6`; live and snapshot source hashes remained exact after execution.
+
+Reproduce with `python3 docs/lean/proofs/TR-04/campaign-2026-10-23/independent-svd-geometry/replay.py --output /absolute/fresh/output`, with the pinned sibling tooling available or `NLA_CAMPAIGN_TOOLING` set. The replay refuses reuse of an existing project-object directory. The source snapshots, consumer, commands, exact logs, source/consumer/driver hashes and result remain retained.
+
+This is independent source/kernel review of the selected SVD supports. It is not a proof of the complete TR-04 approximation algorithm, target, runtime bound, Linux CI or Comparator acceptance. My separately authored TR-04 reshaping, feasibility and optimum sources are outside this independent review scope.

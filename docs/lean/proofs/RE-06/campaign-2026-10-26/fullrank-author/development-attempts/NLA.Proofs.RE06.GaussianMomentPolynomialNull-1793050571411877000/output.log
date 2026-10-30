@@ -1,0 +1,36 @@
+/private/tmp/nla-re06-pseudoinverse-dev/source/NLA/Proofs/RE06/GaussianMomentPolynomialNull.lean:16:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+/private/tmp/nla-re06-pseudoinverse-dev/source/NLA/Proofs/RE06/GaussianMomentPolynomialNull.lean:61:8: error: Type mismatch: After simplification, term
+  Continuous.comp (continuous_apply j) continuous_snd
+ has type
+  @Continuous (ℝ × (Fin d → ℝ)) ℝ instTopologicalSpaceProd PseudoMetricSpace.toUniformSpace.toTopologicalSpace
+    ((fun p => p j) ∘ Prod.snd)
+but is expected to have type
+  @Continuous (ℝ × (Fin d → ℝ)) ℝ instTopologicalSpaceProd PseudoMetricSpace.toUniformSpace.toTopologicalSpace fun a =>
+    a.2 j
+/private/tmp/nla-re06-pseudoinverse-dev/source/NLA/Proofs/RE06/GaussianMomentPolynomialNull.lean:67:7: error(lean.unknownIdentifier): Unknown identifier `ae_prod_iff_ae_ae`
+/private/tmp/nla-re06-pseudoinverse-dev/source/NLA/Proofs/RE06/GaussianMomentPolynomialNull.lean:71:6: error: Type mismatch: After simplification, term
+  MeasurePreserving.hasLaw
+    (MeasurePreserving.symm (MeasurableEquiv.piFinSuccAbove (fun x => ℝ) 0)
+      (measurePreserving_piFinSuccAbove (fun x => gaussianReal 0 1) 0))
+ has type
+  @HasLaw (ℝ × (Fin d → ℝ)) (Fin (d + 1) → ℝ) Prod.instMeasurableSpace MeasurableSpace.pi
+    (⇑{ toFun := fun f => Fin.cons f.1 fun j => cast ⋯ (f.2 j), invFun := fun f => (f 0, Fin.removeNth 0 f),
+        left_inv := ⋯, right_inv := ⋯ })
+    (Measure.pi fun x => gaussianReal 0 1) ((gaussianReal 0 1).prod (Measure.pi fun j => gaussianReal 0 1))
+but is expected to have type
+  @HasLaw (ℝ × (Fin d → ℝ)) (Fin (d + 1) → ℝ) Prod.instMeasurableSpace MeasurableSpace.pi (fun z => Fin.cons z.1 z.2)
+    (Measure.pi fun x => gaussianReal 0 1) ((gaussianReal 0 1).prod (Measure.pi fun x => gaussianReal 0 1))
+/private/tmp/nla-re06-pseudoinverse-dev/source/NLA/Proofs/RE06/GaussianMomentPolynomialNull.lean:80:21: error: #assert_trust: 'NLA.Proofs.RE06.GaussianMoment.mvPolynomial_eval_ne_zero_ae' depends on sorry or unrecognized axioms
+  foundational: propext, Classical.choice, Quot.sound
+  sorryAx: sorryAx
+'NLA.Proofs.RE06.GaussianMoment.mvPolynomial_eval_ne_zero_ae' depends on axioms: [propext,
+ sorryAx,
+ Classical.choice,
+ Quot.sound]

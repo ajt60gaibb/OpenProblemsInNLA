@@ -1,0 +1,9 @@
+import Independent.FullTargetAudit
+set_option autoImplicit false
+set_option leancert.trust "kernel"
+open MeasureTheory ProbabilityTheory
+open NLA.Computation.NonadaptiveMatrixQuery NLA.Proofs.RE06 NLA.Proofs.RE06.Repair
+example (d p : ℕ) :
+  (∫ x : Fin d × Fin p → ℝ, Pseudo.frobeniusSq (pseudoInverse (GaussianMoment.entryMatrix x))
+    ∂Measure.pi (fun _ : Fin d × Fin p => gaussianReal 0 1)) =
+      (d : ℝ) / ((p : ℝ)-(d : ℝ)-1) := GaussianMoment.pseudoinverse_frobeniusSq_integral d p

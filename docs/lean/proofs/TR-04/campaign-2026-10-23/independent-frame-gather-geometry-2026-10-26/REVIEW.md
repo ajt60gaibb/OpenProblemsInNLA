@@ -1,0 +1,11 @@
+# Independent source review of actual frame gather
+
+Reviewer: `/root/recover_geometry`, independent of all six selected authored bodies. Scope: all six `MachineFrameGatherMemory`, `MachineFrameGather`, `MachineFrameGatherExecution`, `MachineFrameGatherRows`, `MachineFrameGatherTrace`, `MachineFrameGatherSVD` modules. All six bodies were read in full and matched to the accepted author lock below. This receipt records source review; it does not claim a separate independent kernel replay.
+
+No mathematical or statement-scope blocker was found. The actual fixed 26-label, one-real, fifteen-natural program reads the original row-major U cells, writes each gathered output cell, increments the cyclic selector and wraps by actual comparisons. Remainder occurs in the mathematical specification, not as an unsupported RAM opcode. The per-entry eleven-step and row-overhead-seven transition proofs account for every scalar instruction. Callable and standalone endpoint times are respectively `m*(11*(h+s)+7)+4` and one later; arbitrary legal traces and unchanged memory outside the output are included.
+
+The precise validity condition `0 < take → above+tied ≤ rows` permits the full-width prefix fallback with `take=0, above=rows`. The separate width proof covers that branch, and zero dimensions produce no invalid source read. The disjointness premise covers the full old U square against the actual gathered rectangle, preserving reads during writes. Finite row-major division/modulo are specification proofs with positivity derived only where an actual entry exists.
+
+The final bridge proves the gathered matrix is the actual explicit cyclic tie frame (with its proved width cast) or the actual prefix U submatrix. It imposes no extra SVD-basis convention, approximation assumption, positive-dimensional premise or tensor solver. These conclusions match the intended routine boundary.
+
+Author source lock SHA-256: `8b4dd02316aa540d892756b1d595d9984380411b3799fbad1ded621cf7619f11`. The separate fresh author replay reports 47 sources plus consumer and standard three axioms. This review does not relabel author replay as independent replay, nor approve complete TT assembly, canonical promotion, Linux CI or Comparator evidence. Frozen prerequisites are dependencies rather than newly authored review scope.

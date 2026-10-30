@@ -1,0 +1,283 @@
+import NLA.Proofs.TR04.MachineTTInitialFamily
+import NLA.Proofs.TR04.MachineTTStageProtection
+set_option leancert.trust "kernel"
+set_option backward.isDefEq.respectTransparency false
+noncomputable section
+open NLA.Computation.SVDMachine NLA.Computation.TensorTrainApproximation NLA.Proofs.TR04 NLA.Proofs.TR04.TTMemoryLayout
+
+-- Literal public theorem header from MachineTTReadOnly.lean: ordinaryStep_natural_readOnly
+example : ∀ {P : Program} (s : State P)
+    (j : Fin (P.extraNatRegisters+1))
+    (h : instructionNaturalDestination (P.code s.label)≠some j),
+  (
+    (ordinaryStep P s).natural j=s.natural j
+  ) := @NLA.Proofs.TR04.ordinaryStep_natural_readOnly
+
+-- Literal public theorem header from MachineTTReadOnly.lean: step_natural_readOnly
+example : ∀ {P : Program} {s t : State P} {cost : ℕ}
+    (hstep : Step P s t cost) (j : Fin (P.extraNatRegisters+1))
+    (h : instructionNaturalDestination (P.code s.label)≠some j),
+  (
+    t.natural j=s.natural j
+  ) := @NLA.Proofs.TR04.step_natural_readOnly
+
+-- Literal public theorem header from MachineTTReadOnly.lean: trace_natural_readOnly
+example : ∀ {P : Program} {start : State P} {trace : Trace P}
+    (ht : LegalTrace P start trace) (j : Fin (P.extraNatRegisters+1))
+    (h : ∀ label,instructionNaturalDestination (P.code label)≠some j) (n : ℕ),
+  (
+    (trace.state n).natural j=start.natural j
+  ) := @NLA.Proofs.TR04.trace_natural_readOnly
+
+-- Literal public theorem header from MachineTTReadOnly.lean: ttProgram_order_readOnly
+example : (
+    ∀ label : Fin 512,
+    instructionNaturalDestination (ttProgram.code label)≠some 0
+  ) := @NLA.Proofs.TR04.ttProgram_order_readOnly
+
+-- Literal public theorem header from MachineTTReadOnly.lean: ttProgram_trace_order
+example : ∀ (S : Shape) (r : Ranks S) (A : Tensor S)
+    (trace : Trace ttProgram) (ht : LegalTrace ttProgram (Start ttProgram S r A) trace) (n : ℕ),
+  (
+    (trace.state n).natural 0=S.order
+  ) := @NLA.Proofs.TR04.ttProgram_trace_order
+
+-- Literal public theorem header from MachineTTInitialMemory.lean: ttFirstMode_le_denseSize
+example : ∀ (S : Shape),
+  (
+    shapeHeaderValues S 0≤DenseSize S
+  ) := @NLA.Proofs.TR04.ttFirstMode_le_denseSize
+
+-- Literal public theorem header from MachineTTInitialMemory.lean: ttInitial_first_format
+example : ∀ (S : Shape),
+  (
+    ∃ ns : List ℕ,TensorFormat.modeList S.mode=shapeHeaderValues S 0::ns ∧
+      TensorFormat.suffixSize ns=ttFirstCols S ∧ ns.length+1=S.order
+  ) := @NLA.Proofs.TR04.ttInitial_first_format
+
+-- Literal public theorem header from MachineTTInitialMemory.lean: TTInitialSVDData.outputsDisjoint
+example : ∀ {S : Shape} {r : Ranks S} {A : Tensor S}
+    {s : State ttProgram} (h : TTInitialSVDData S r A s),
+  (
+    OutputBlocksDisjoint (s.natural 81) (s.natural 82)
+      (s.natural 72) (s.natural 73) (s.natural 74)
+  ) := @NLA.Proofs.TR04.TTInitialSVDData.outputsDisjoint
+
+-- Literal public theorem header from MachineTTInitialMemory.lean: TTInitialSVDData.storedOriginal
+example : ∀ {S : Shape} {r : Ranks S} {A : Tensor S}
+    {s : State ttProgram} (h : TTInitialSVDData S r A s),
+  (
+    TensorFormat.StoresTensor s.memory (s.natural 92) (TensorFormat.modeList S.mode)
+      (TensorFormat.originalTensorLinearEquiv S A)
+  ) := @NLA.Proofs.TR04.TTInitialSVDData.storedOriginal
+
+-- Literal public theorem header from MachineTTInitialMemory.lean: ttStoresTensor_cast
+example : ∀ {ns ns' : List ℕ} {memory : ℕ → ℝ} {base : ℕ}
+    {A : TensorFormat.Tensor ns} (he : ns=ns') (h : TensorFormat.StoresTensor memory base ns A),
+  (
+    TensorFormat.StoresTensor memory base ns' (he ▸ A)
+  ) := @NLA.Proofs.TR04.ttStoresTensor_cast
+
+-- Literal public theorem header from MachineTTInitialMemory.lean: TTInitialSVDData.readFirst
+example : ∀ {S : Shape} {r : Ranks S} {A : Tensor S}
+    {s : State ttProgram} (h : TTInitialSVDData S r A s) (ns : List ℕ)
+    (he : TensorFormat.modeList S.mode=shapeHeaderValues S 0::ns),
+  (
+    readMatrix s.memory (shapeHeaderValues S 0) (TensorFormat.suffixSize ns) (s.natural 92)=
+      TensorFormat.radixDenseFirst (ttOriginalFirstView S A ns he)
+  ) := @NLA.Proofs.TR04.TTInitialSVDData.readFirst
+
+-- Literal public theorem header from MachineTTInitialMemory.lean: ttFirstRankValue_originalRanks
+example : ∀ (S : Shape) (r : Ranks S),
+  (
+    ttFirstRankValue S r=TensorFormat.originalRanks S r 0
+  ) := @NLA.Proofs.TR04.ttFirstRankValue_originalRanks
+
+-- Literal public theorem header from MachineTTInitialMemory.lean: TTInitialSVDData.rank_pos
+example : ∀ {S : Shape} {r : Ranks S} {A : Tensor S}
+    {s : State ttProgram} (h : TTInitialSVDData S r A s) (hr : ∀ j,1≤r j),
+  (
+    1≤s.natural 80
+  ) := @NLA.Proofs.TR04.TTInitialSVDData.rank_pos
+
+-- Literal public theorem header from MachineTTInitialMemory.lean: TTInitialSVDData.minimum_eq
+example : ∀ {S : Shape} {r : Ranks S} {A : Tensor S}
+    {s : State ttProgram} (h : TTInitialSVDData S r A s),
+  (
+    s.natural 105=min (s.natural 81) (s.natural 82)
+  ) := @NLA.Proofs.TR04.TTInitialSVDData.minimum_eq
+
+-- Literal public theorem header from MachineTTInitialMemory.lean: TTInitialSVDData.cap_eq
+example : ∀ {S : Shape} {r : Ranks S} {A : Tensor S}
+    {s : State ttProgram} (h : TTInitialSVDData S r A s),
+  (
+    s.natural 106=min (s.natural 80) (min (s.natural 81) (s.natural 82))
+  ) := @NLA.Proofs.TR04.TTInitialSVDData.cap_eq
+
+-- Literal public theorem header from MachineTTInitialFamily.lean: ttFirstSelection_allocation
+example : ∀ {L : Layout} {s t : State ttProgram}
+    (hs : TTAllocationRegisters L s) (hd : t.natural 0=s.natural 0)
+    (hn : ∀ j : Fin 128,TTFirstProtected j → t.natural j=s.natural j),
+  (
+    TTAllocationRegisters L t
+  ) := @NLA.Proofs.TR04.ttFirstSelection_allocation
+
+-- Literal public theorem header from MachineTTInitialFamily.lean: ttInitial_explicit_family
+example : ∀ (S : Shape) (r : Ranks S) (A : Tensor S)
+    (hr : ∀ j,1≤r j) (trace : Trace ttProgram)
+    (ht : LegalTrace ttProgram (Start ttProgram S r A) trace),
+  (
+    ∃ offset n : ℕ,∃ R : TTFirstReply (trace.state offset),
+      offset≤102*(Size S r+1) ∧
+      (∃ hi : TTInitialSVDData S r A (trace.state offset),
+        TTFirstFamilyPhase R (hi.rank_pos hr) (trace.state (offset+n))) ∧
+      n≤9*min ((trace.state offset).natural 81) ((trace.state offset).natural 82)+24 ∧
+      TTAllocationRegisters (ofShape S) (trace.state (offset+n)) ∧
+      (trace.state (offset+n)).natural 76=0 ∧
+      0<(trace.state (offset+n)).natural 75 ∧
+      (∀ a,a<(ofShape S).firstU → (trace.state (offset+n)).memory a=InputMemory S r A a) ∧
+      readMatrix (trace.state (offset+n)).memory ((trace.state offset).natural 81)
+        ((trace.state offset).natural 81) ((trace.state offset).natural 72)=R.U ∧
+      (∀ k,(trace.state (offset+n)).memory ((trace.state offset).natural 73+k.val)=R.sigma k) ∧
+      readMatrix (trace.state (offset+n)).memory ((trace.state offset).natural 82)
+        ((trace.state offset).natural 82) ((trace.state offset).natural 74)=R.V ∧
+      offset+n≤1024*(Size S r+1)^3 ∧
+      CostThrough ttProgram trace (offset+n)≤1024*(Size S r+1)^3
+  ) := @NLA.Proofs.TR04.ttInitial_explicit_family
+
+-- Literal public theorem header from MachineTTStageProtection.lean: ttStageProtected_mono
+example : ∀ (L : Layout) {level level' address : ℕ}
+    (hl : level≤level') (h : TTStageProtected L level address),
+  (
+    TTStageProtected L level' address
+  ) := @NLA.Proofs.TR04.ttStageProtected_mono
+
+-- Literal public theorem header from MachineTTStageProtection.lean: ttStageProtected_not_writable
+example : ∀ (L : Layout) (level address : ℕ)
+    (hl : level<L.order) (hp : TTStageProtected L level address),
+  (
+    ¬TTStageWritable L level address
+  ) := @NLA.Proofs.TR04.ttStageProtected_not_writable
+
+-- Literal public theorem header from MachineTTStageProtection.lean: ttStageProtected_own_frame
+example : ∀ (L : Layout) (level address : ℕ)
+    (ha : L.frame level≤address ∧ address<L.frame level+L.entries^2),
+  (
+    TTStageProtected L (level+1) address
+  ) := @NLA.Proofs.TR04.ttStageProtected_own_frame
+
+-- Literal public theorem header from MachineTTStageProtection.lean: ttStageProtected_own_metadata
+example : ∀ (L : Layout) (level address : ℕ)
+    (ha : L.metadata+4*level≤address ∧ address<L.metadata+4*level+4),
+  (
+    TTStageProtected L (level+1) address
+  ) := @NLA.Proofs.TR04.ttStageProtected_own_metadata
+
+-- Literal public theorem header from MachineTTStageProtection.lean: ttStageProtected_work_outside
+example : ∀ (L : Layout) (level address base count : ℕ)
+    (hl : level<L.order) (hp : TTStageProtected L level address)
+    (hb : base=L.workA ∨ base=L.workB) (hc : count≤L.entries),
+  (
+    ¬(base≤address ∧ address<base+count)
+  ) := @NLA.Proofs.TR04.ttStageProtected_work_outside
+
+-- Literal public theorem header from MachineTTStageProtection.lean: ttStageProtected_metadata_outside
+example : ∀ (L : Layout) (level address field : ℕ)
+    (hl : level<L.order) (hp : TTStageProtected L level address) (hf : field<4),
+  (
+    address≠L.metadata+4*level+field
+  ) := @NLA.Proofs.TR04.ttStageProtected_metadata_outside
+
+-- Literal public theorem header from MachineTTStageProtection.lean: ttStageProtected_child_svd
+example : ∀ (L : Layout) (level : ℕ) (hl : level<L.order)
+    {m l : ℕ} (hm : m≤L.entries) (hc : l≤L.entries) (memory : ℕ → ℝ)
+    (U : Matrix (Fin m) (Fin m) ℝ) (sigma : Fin (min m l) → ℝ)
+    (V : Matrix (Fin l) (Fin l) ℝ) (address : ℕ)
+    (hp : TTStageProtected L level address),
+  (
+    writeSVD memory (L.frame level) L.childSigma L.childV U sigma V address=memory address
+  ) := @NLA.Proofs.TR04.ttStageProtected_child_svd
+
+-- Actual original-input first-family endpoint, without a preloaded header,
+-- optimizer, SVD basis or evaluation result.
+example (S : Shape) (r : Ranks S) (A : Tensor S) (hr : ∀ j,1≤r j)
+    (trace : Trace ttProgram) (ht : LegalTrace ttProgram (Start ttProgram S r A) trace) :
+    ∃ time : ℕ,time≤1024*(Size S r+1)^3 ∧
+      (trace.state time).label=189 ∧ (trace.state time).status=.running ∧
+      TTAllocationRegisters (ofShape S) (trace.state time) ∧
+      (trace.state time).natural 76=0 ∧ 0<(trace.state time).natural 75 ∧
+      (∀ a,a<(ofShape S).firstU → (trace.state time).memory a=InputMemory S r A a) ∧
+      CostThrough ttProgram trace time≤1024*(Size S r+1)^3 := by
+  obtain ⟨offset,n,R,_,⟨hi,hphase⟩,_,ha,hj,hcount,hmem,_,_,_,htime,hcost⟩ :=
+    ttInitial_explicit_family S r A hr trace ht
+  exact ⟨offset+n,htime,hphase.1,hphase.2.1,ha,hj,hcount,hmem,hcost⟩
+
+-- The order register is protected by all literal code, including arbitrary
+-- fullSVD replies and every stopped-state continuation.
+example (S : Shape) (r : Ranks S) (A : Tensor S) (trace : Trace ttProgram)
+    (ht : LegalTrace ttProgram (Start ttProgram S r A) trace) (n : ℕ) :
+    (trace.state n).natural 0=S.order := ttProgram_trace_order S r A trace ht n
+#assert_trust kernel NLA.Proofs.TR04.instructionNaturalDestination
+#print axioms NLA.Proofs.TR04.instructionNaturalDestination
+#assert_trust kernel NLA.Proofs.TR04.ordinaryStep_natural_readOnly
+#print axioms NLA.Proofs.TR04.ordinaryStep_natural_readOnly
+#assert_trust kernel NLA.Proofs.TR04.step_natural_readOnly
+#print axioms NLA.Proofs.TR04.step_natural_readOnly
+#assert_trust kernel NLA.Proofs.TR04.trace_natural_readOnly
+#print axioms NLA.Proofs.TR04.trace_natural_readOnly
+#assert_trust kernel NLA.Proofs.TR04.ttProgram_order_readOnly
+#print axioms NLA.Proofs.TR04.ttProgram_order_readOnly
+#assert_trust kernel NLA.Proofs.TR04.ttProgram_trace_order
+#print axioms NLA.Proofs.TR04.ttProgram_trace_order
+#assert_trust kernel NLA.Proofs.TR04.ttFirstMode_le_denseSize
+#print axioms NLA.Proofs.TR04.ttFirstMode_le_denseSize
+#assert_trust kernel NLA.Proofs.TR04.ttInitial_first_format
+#print axioms NLA.Proofs.TR04.ttInitial_first_format
+#assert_trust kernel NLA.Proofs.TR04.TTInitialSVDData.outputsDisjoint
+#print axioms NLA.Proofs.TR04.TTInitialSVDData.outputsDisjoint
+#assert_trust kernel NLA.Proofs.TR04.TTInitialSVDData.storedOriginal
+#print axioms NLA.Proofs.TR04.TTInitialSVDData.storedOriginal
+#assert_trust kernel NLA.Proofs.TR04.ttOriginalFirstView
+#print axioms NLA.Proofs.TR04.ttOriginalFirstView
+#assert_trust kernel NLA.Proofs.TR04.ttStoresTensor_cast
+#print axioms NLA.Proofs.TR04.ttStoresTensor_cast
+#assert_trust kernel NLA.Proofs.TR04.TTInitialSVDData.readFirst
+#print axioms NLA.Proofs.TR04.TTInitialSVDData.readFirst
+#assert_trust kernel NLA.Proofs.TR04.ttFirstRankValue_originalRanks
+#print axioms NLA.Proofs.TR04.ttFirstRankValue_originalRanks
+#assert_trust kernel NLA.Proofs.TR04.TTInitialSVDData.rank_pos
+#print axioms NLA.Proofs.TR04.TTInitialSVDData.rank_pos
+#assert_trust kernel NLA.Proofs.TR04.TTInitialSVDData.minimum_eq
+#print axioms NLA.Proofs.TR04.TTInitialSVDData.minimum_eq
+#assert_trust kernel NLA.Proofs.TR04.TTInitialSVDData.cap_eq
+#print axioms NLA.Proofs.TR04.TTInitialSVDData.cap_eq
+#assert_trust kernel NLA.Proofs.TR04.TTFirstReply
+#print axioms NLA.Proofs.TR04.TTFirstReply
+#assert_trust kernel NLA.Proofs.TR04.TTFirstReply.choice
+#print axioms NLA.Proofs.TR04.TTFirstReply.choice
+#assert_trust kernel NLA.Proofs.TR04.TTFirstReply.family
+#print axioms NLA.Proofs.TR04.TTFirstReply.family
+#assert_trust kernel NLA.Proofs.TR04.TTFirstFamilyPhase
+#print axioms NLA.Proofs.TR04.TTFirstFamilyPhase
+#assert_trust kernel NLA.Proofs.TR04.ttFirstSelection_allocation
+#print axioms NLA.Proofs.TR04.ttFirstSelection_allocation
+#assert_trust kernel NLA.Proofs.TR04.ttInitial_explicit_family
+#print axioms NLA.Proofs.TR04.ttInitial_explicit_family
+#assert_trust kernel NLA.Proofs.TR04.TTStageProtected
+#print axioms NLA.Proofs.TR04.TTStageProtected
+#assert_trust kernel NLA.Proofs.TR04.TTStageWritable
+#print axioms NLA.Proofs.TR04.TTStageWritable
+#assert_trust kernel NLA.Proofs.TR04.ttStageProtected_mono
+#print axioms NLA.Proofs.TR04.ttStageProtected_mono
+#assert_trust kernel NLA.Proofs.TR04.ttStageProtected_not_writable
+#print axioms NLA.Proofs.TR04.ttStageProtected_not_writable
+#assert_trust kernel NLA.Proofs.TR04.ttStageProtected_own_frame
+#print axioms NLA.Proofs.TR04.ttStageProtected_own_frame
+#assert_trust kernel NLA.Proofs.TR04.ttStageProtected_own_metadata
+#print axioms NLA.Proofs.TR04.ttStageProtected_own_metadata
+#assert_trust kernel NLA.Proofs.TR04.ttStageProtected_work_outside
+#print axioms NLA.Proofs.TR04.ttStageProtected_work_outside
+#assert_trust kernel NLA.Proofs.TR04.ttStageProtected_metadata_outside
+#print axioms NLA.Proofs.TR04.ttStageProtected_metadata_outside
+#assert_trust kernel NLA.Proofs.TR04.ttStageProtected_child_svd
+#print axioms NLA.Proofs.TR04.ttStageProtected_child_svd

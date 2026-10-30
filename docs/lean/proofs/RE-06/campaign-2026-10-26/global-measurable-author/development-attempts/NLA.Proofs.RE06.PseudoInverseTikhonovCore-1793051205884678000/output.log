@@ -1,0 +1,34 @@
+Try this:
+  [apply] ring_nf
+  
+  The `ring` tactic failed to close the goal. Use `ring_nf` to obtain a normal form.
+    
+  Note that `ring` works primarily in *commutative* rings. If you have a noncommutative ring, abelian group or module, consider using `noncomm_ring`, `abel` or `module` instead.
+/private/tmp/nla-re06-pseudoinverse-dev/source/NLA/Proofs/RE06/PseudoInverseTikhonovCore.lean:36:80: error: unsolved goals
+a b : ℕ
+B : Matrix (Fin a) (Fin b) ℝ
+t : ℝ
+ht : 0 < t
+k : Fin (min a b)
+hden : sigma B k ^ 2 + t ≠ 0
+⊢ ((Matrix.diagonal fun i => sigma B i ^ 3 * (sigma B i ^ 2 + t)⁻¹) + Matrix.diagonal (t • regularizedSigma B t)) k =
+    Matrix.diagonal (sigma B) k
+/private/tmp/nla-re06-pseudoinverse-dev/source/NLA/Proofs/RE06/PseudoInverseTikhonovCore.lean:37:67: warning: This simp argument is unused:
+  ← Matrix.diagonal_add
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [Matrix.diagonal_mul_diagonal, ← Matrix.diagonal_smul]
+
+Note: Simp arguments with `←` have the additional effect of removing the other direction from the simp set, even if the simp argument itself is unused. If the hint above does not work, try replacing `←` with `-` to only get that effect and silence this warning.
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+/private/tmp/nla-re06-pseudoinverse-dev/source/NLA/Proofs/RE06/PseudoInverseTikhonovCore.lean:49:6: error(lean.unknownIdentifier): Unknown constant `Matrix.posSemidef_mul_conjTranspose_self`
+/private/tmp/nla-re06-pseudoinverse-dev/source/NLA/Proofs/RE06/PseudoInverseTikhonovCore.lean:51:51: error(lean.invalidField): Invalid field `posSemidef_add`: The environment does not contain `And.posSemidef_add`, so it is not possible to project the field `posSemidef_add` from an expression
+  hgram
+of type
+  (B * B.transpose).IsHermitian ∧
+    ∀ (x : Fin a →₀ ℝ), 0 ≤ x.sum fun i xi => x.sum fun j xj => star xi * (B * B.transpose) i j * xj
+/private/tmp/nla-re06-pseudoinverse-dev/source/NLA/Proofs/RE06/PseudoInverseTikhonovCore.lean:95:21: error: #assert_trust: 'NLA.Proofs.RE06.Pseudo.tikhonov_decomposition' depends on sorry or unrecognized axioms
+  foundational: propext, Classical.choice, Quot.sound
+  sorryAx: sorryAx
+'NLA.Proofs.RE06.Pseudo.tikhonov_decomposition' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]

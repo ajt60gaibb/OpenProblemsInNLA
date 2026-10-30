@@ -1,0 +1,26 @@
+open MeasureTheory ProbabilityTheory Filter
+open scoped BigOperators Topology
+open NLA.Computation.NonadaptiveMatrixQuery NLA.Proofs.RE06
+namespace IndependentA
+ theorem ActualMP {a b : ℕ} (B : Matrix (Fin a) (Fin b) ℝ) : Pseudo.IsMP B (pseudoInverse B) := Pseudo.actual_isMP B
+ theorem ActualReverse {a r b : ℕ} (C : Matrix (Fin a) (Fin r) ℝ) (R : Matrix (Fin r) (Fin b) ℝ)
+     (hC : pseudoInverse C*C=1) (hR : R*pseudoInverse R=1) :
+     pseudoInverse (C*R)=pseudoInverse R*pseudoInverse C := Pseudo.reverse_order C R hC hR
+ theorem ActualReciprocalNorm (d : ℕ) (hd : 2 < d) :
+     (∫ x : Fin d → ℝ, (GaussianMoment.normSq x)⁻¹ ∂Measure.pi (fun _ : Fin d => gaussianReal 0 1)) =
+       1 / ((d : ℝ)-2) := GaussianMoment.normSq_inverse_integral d hd
+ theorem ActualProjectedReciprocal {p q : ℕ} (hq : 2 < q)
+     (T : GaussianEuclid p →L[ℝ] GaussianEuclid q)
+     (hT : T.comp T.adjoint=ContinuousLinearMap.id ℝ (GaussianEuclid q)) :
+     (∫ x : Fin p → ℝ, (GaussianMoment.normSq (WithLp.ofLp (T (WithLp.toLp 2 x))))⁻¹
+       ∂Measure.pi (fun _ : Fin p => gaussianReal 0 1)) = 1 / ((q : ℝ)-2) :=
+   GaussianMoment.projected_normSq_inverse_integral hq T hT
+ theorem ActualFullRank (d p offset : ℕ) (hdp : d ≤ p) :
+     ∀ᵐ ω ∂GaussianLaw, (gaussianBlock d p offset ω*(gaussianBlock d p offset ω).transpose).det ≠ 0 :=
+   GaussianMoment.stream_block_gram_det_ne_zero_ae d p offset hdp
+ theorem ActualGlobalMeasurable (a b : ℕ) :
+     Measurable (fun B : Matrix (Fin a) (Fin b) ℝ => pseudoInverse B) := Pseudo.measurable_actual a b
+ theorem ActualTikhonov {a b : ℕ} (B : Matrix (Fin a) (Fin b) ℝ) :
+     Tendsto (fun j => Pseudo.tikhonov B (Pseudo.regularizationParameter j)) atTop (𝓝 (pseudoInverse B)) :=
+   Pseudo.tikhonov_tendsto B
+end IndependentA

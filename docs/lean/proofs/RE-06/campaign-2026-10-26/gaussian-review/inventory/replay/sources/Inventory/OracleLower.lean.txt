@@ -1,0 +1,7 @@
+import Inventory.Audit
+set_option leancert.trust "kernel"
+open scoped BigOperators NNReal ENNReal
+open MeasureTheory ProbabilityTheory NLA.Computation.NonadaptiveMatrixQuery NLA.Proofs.RE06
+axiom oracle : False
+theorem counterfeit {n : ℕ} (B : Matrix (Fin n) (Fin n) ℝ) (q offset r : ℕ) (hr : r<n) (η : ℝ) (hη0 : 0<η) (hη1 : η≤1) : GaussianLaw.real {ω | squaredFrobenius (B*gaussianBlock n q offset ω) 0 < (q : ℝ)*(1-η)*residualTailEnergy B r} ≤ Real.exp (-(q : ℝ)*(r : ℝ)*η/4) := False.elim oracle
+#assert_trust kernel counterfeit

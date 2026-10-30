@@ -1,0 +1,617 @@
+\documentclass[11pt]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{microtype,booktabs,array,enumitem}
+\usepackage{xcolor}
+\definecolor{ink}{HTML}{15324F}
+\usepackage[colorlinks=true,linkcolor=ink,citecolor=ink,urlcolor=ink,breaklinks=true]{hyperref}
+\hypersetup{pdftitle={An affirmative solution to RE-06},pdfauthor={Research note prepared for the requested RE-06 analysis},pdfsubject={Fully nonadaptive finite-family matrix approximation},pdfkeywords={RE-06, randomized numerical linear algebra, nonadaptive queries, finite-family approximation}}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\textsc{RE-06: nonadaptive finite-family approximation}}
+\fancyhead[R]{\small Research note}
+\fancyfoot[C]{\thepage}
+\setlength{\headheight}{14pt}
+\setlength{\parskip}{4pt}
+\setlength{\parindent}{0pt}
+\setlist[enumerate]{itemsep=4pt,topsep=5pt,leftmargin=*}
+\emergencystretch=2em
+\allowdisplaybreaks[1]
+\numberwithin{equation}{section}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+\newcommand{\R}{\mathbb R}
+\newcommand{\E}{\mathbb E}
+\newcommand{\Prob}{\mathbb P}
+\newcommand{\F}{\mathcal F}
+\newcommand{\OPT}{\operatorname{OPT}}
+\newcommand{\rank}{\operatorname{rank}}
+\newcommand{\range}{\operatorname{range}}
+\newcommand{\tr}{\operatorname{tr}}
+\newcommand{\norm}[1]{\left\lVert #1\right\rVert_{\mathrm F}}
+\newcommand{\ceil}[1]{\left\lceil #1\right\rceil}
+\newcommand{\argmin}{\operatorname*{arg\,min}}
+\newcommand{\T}{\mathsf T}
+\title{\vspace{-1.5em}\textbf{An affirmative solution to RE-06}\\[0.4em]\large Fully nonadaptive finite-family matrix approximation\\with $O(\sqrt{\log M}\,\varepsilon^{-2})$ queries}
+\author{Research note prepared for the requested RE-06 analysis}
+\date{September 12, 2026}
+\begin{document}
+\maketitle
+\thispagestyle{empty}
+\begin{abstract}
+For an explicitly given finite family $\F\subset\R^{n\times n}$ of size $M\ge2$, and a fixed unknown matrix $A$ accessible through products $Av$ and $A^\T v$, we give a fully nonadaptive algorithm returning $\widehat B\in\F$ with
+\[
+ \Prob\!\left[\norm{A-\widehat B}\le(3+\varepsilon)
+             \min_{B\in\F}\norm{A-B}\right]\ge0.99.
+\]
+Every vector and every query side are fixed before any oracle answer is received. The number of queries is at most
+$4{,}000{,}000\sqrt{\log(2M)}\,\varepsilon^{-2}$, for $0<\varepsilon<1/2$.
+Thus the logarithmic-overhead exponent in RE-06 can be taken to be $b=0$.
+The key step is a lower-tail estimate that controls the energy remaining after the largest $r$ singular values have been removed, rather than estimating every candidate's full residual norm. An independent, prequeried two-sided sketch then reconstructs the low-rank part of the selected residual. All probability estimates and the reconstruction argument are proved here, including the dependence and rank-deficiency details.
+\end{abstract}
+
+\vspace{0.4em}
+\noindent\textbf{Scope and verification.}
+The theorem is in the exact-real-arithmetic model of RE-06. The constants are deliberately conservative, not recommended practical sketch sizes. This is a complete mathematical argument, not a formal proof-assistant certificate or an independently refereed result. The accompanying floating-point implementation and numerical audits are supplementary checks, not a substitute for the proof.
+
+\vspace{0.4em}
+\noindent\textbf{Reading guide.}
+Section~\ref{sec:algorithm} gives the complete query schedule and algorithm.
+Sections~\ref{sec:tails}--\ref{sec:repair} establish the probabilistic ingredients.
+Section~\ref{sec:mainproof} proves the guarantee and counts every query.
+Sections~\ref{sec:audit}--\ref{sec:verification} audit the model and describe the reproducible checks.
+
+\newpage
+\section{Problem, result, and proof structure}\label{sec:problem}
+
+RE-06 asks whether the square-root dependence on $\log M$ can be attained without adapting any oracle queries to previous answers~\cite{re06}.
+Amsel et al. obtain the corresponding adaptive finite-family guarantee and explicitly raise the nonadaptive question in Section~5 of their paper~\cite{amsel}.
+We address the precise finite-family, $3+\varepsilon$, query-only formulation in the repository.
+
+The input consists of $n\ge1$, a finite explicitly represented set
+$\F=\{B_1,\ldots,B_M\}\subset\R^{n\times n}$, $M\ge2$, and
+$\varepsilon\in(0,1/2)$. A query returns either $Av$ or $A^\T v$ for one chosen $v\in\R^n$; each counts as one query. Both $A$ and $\F$ are fixed before the algorithm's randomness. Candidate processing and all computations on returned data are unrestricted. The real-arithmetic, Gaussian-sampling, comparison, and exact-SVD primitives are those stipulated by the problem. Fix the displayed ordering of $\F$ to break every tie deterministically.
+
+Write
+\[
+ \OPT=\min_{B\in\F}\norm{A-B},\qquad
+ B_\star\in\argmin_{B\in\F}\norm{A-B},\qquad
+ t=\log(2M),
+\]
+where unadorned logarithms are natural. For a matrix $C$, define
+\begin{equation}\label{eq:taildef}
+ \tau_r(C)^2=\sum_{j>r}\sigma_j(C)^2.
+\end{equation}
+The tail starts \emph{after} the $r$th singular value; this indexing convention is important.
+
+\begin{theorem}[Affirmative answer to RE-06]\label{thm:main}
+There is a uniform randomized algorithm which, on every input above, chooses its entire query schedule before receiving any answers, makes at most
+\begin{equation}\label{eq:maincount}
+ 4{,}000{,}000\sqrt{\log(2M)}\,\varepsilon^{-2}
+\end{equation}
+queries, and returns $\widehat B\in\F$ such that
+\begin{equation}\label{eq:maingoal}
+ \Prob\!\left[\norm{A-\widehat B}\le(3+\varepsilon)\OPT\right]
+ \ge 1-0.008151>0.99.
+\end{equation}
+The query vectors do not need to depend on the entries of $\F$: their distribution depends only on $n,M,\varepsilon$. In particular, RE-06 holds with $C=4{,}000{,}000$ and $b=0$.
+\end{theorem}
+
+\paragraph{Why a weak initial choice is enough.}
+Set $\eta=\varepsilon/4$. A short right sketch selects a candidate $B_0$ for which, with high probability,
+\begin{equation}\label{eq:roadmap-tail}
+ \tau_r(A-B_0)^2\le\frac{1+\eta}{1-\eta}\OPT^2.
+\end{equation}
+This does \emph{not} assert that $\norm{A-B_0}$ is small. The error can contain a large low-rank component. Independent right and left sketches, already queried before $B_0$ was selected, produce a correction $\widehat C$ satisfying
+\begin{equation}\label{eq:roadmap-repair}
+ \norm{(A-B_0)-\widehat C}^2\le(1+\eta)\tau_r(A-B_0)^2.
+\end{equation}
+Hence $\widetilde A=B_0+\widehat C$ approximates $A$ within
+$(1+\varepsilon/2)\OPT$. Projecting $\widetilde A$ onto the finite set $\F$ gives the factor $3+\varepsilon$ by two triangle inequalities.
+
+The reconstruction formula used below is the standard independent two-sided sketch reconstruction of Tropp, Yurtsever, Udell, and Cevher~\cite{tropp}. The range argument is closely related to the Gaussian range-finder analysis of Halko, Martinsson, and Tropp~\cite{hmt}. We include the needed proofs, rather than treating a high-probability repair guarantee as a black box.
+
+\section{Complete nonadaptive algorithm}\label{sec:algorithm}
+
+\subsection{Integer parameters and an exact-recovery branch}
+Choose
+\begin{align}
+ L&=\ceil{\log_2(2M)}, & r&=\ceil{\sqrt L}, & \eta&=\varepsilon/4,\label{eq:basicparams}\\
+ s&=\ceil{\frac{32L}{r\eta}+\frac{64}{\eta^2}},\label{eq:sparam}\\
+ k&=r+1+\ceil{\frac{256r}{\eta}},\label{eq:kparam}\\
+ \ell&=k+1+\ceil{\frac{256k}{\eta}}, & N&=s+k+\ell.\label{eq:ellparam}
+\end{align}
+These are uniform parameter rules: $L$ is obtained by integer doubling and $r$ by integer comparisons, so neither a logarithm nor a square-root evaluation is needed to compute these two integers. Ceilings of the other positive real expressions can also be implemented by comparisons.
+
+If $n\le N$, choose all $n$ standard basis vectors for right queries before receiving any answers. These products reveal every column of $A$. Return the nearest candidate in $\F$. This branch is exact and uses $n$ queries.
+
+For the rest of the algorithm assume $n>N$. In particular, $r<k<\ell<n$.
+
+\subsection{One precommitted batch of oracle calls}
+Draw three mutually independent Gaussian matrices:
+\begin{equation}\label{eq:sketchblocks}
+ G_0\in\R^{n\times s},\quad (G_0)_{ij}\sim N(0,1/s);
+ \qquad G_1\in\R^{n\times k},\quad H\in\R^{n\times\ell},
+\end{equation}
+where $G_1$ and $H$ have independent standard normal entries. All entries within each block are independent.
+Commit, at this point, to the complete list of queries
+\begin{equation}\label{eq:queryschedule}
+ \underbrace{Ag_{0,1},\ldots,Ag_{0,s}}_{s\text{ right queries}},\quad
+ \underbrace{Ag_{1,1},\ldots,Ag_{1,k}}_{k\text{ right queries}},\quad
+ \underbrace{A^\T h_1,\ldots,A^\T h_\ell}_{\ell\text{ left queries}}.
+\end{equation}
+Then receive and store the three answer blocks $AG_0,AG_1,A^\T H$.
+There are no further oracle calls.
+The normalization of $G_0$ is optional: querying an unscaled standard Gaussian block and dividing its squared scores by $s$ gives exactly the same minimizer and analysis. This also avoids needing a square-root primitive for normalization.
+
+\subsection{Postprocessing using stored answers only}
+\begin{enumerate}[label=\textbf{\arabic*.}]
+ \item \textbf{Select an initial candidate using only the first sketch:}
+ \begin{equation}\label{eq:warmchoice}
+ B_0\in\argmin_{B\in\F}\norm{AG_0-BG_0}.
+ \end{equation}
+ In particular, this selection must not inspect $AG_1$ or $A^\T H$.
+ \item \textbf{Form the selected residual's sketches.} Write $C=A-B_0$ symbolically, and compute
+ \begin{equation}\label{eq:residualsketches}
+ Y=AG_1-B_0G_1=CG_1,\qquad
+ W=(A^\T H)^\T-H^\T B_0=H^\T C.
+ \end{equation}
+ This requires no access to $C$ or $A$ beyond the stored answers.
+ \item \textbf{Reconstruct the low-rank component.} Compute an orthonormal basis $Q\in\R^{n\times d}$ of $\range(Y)$ by exact SVD, where $d=\rank(Y)\le k$. If $d=0$, set $\widehat C=0$. Otherwise set
+ \begin{equation}\label{eq:reconstruct}
+ \widehat C=Q(H^\T Q)^\dagger W.
+ \end{equation}
+ Here $\dagger$ denotes the Moore--Penrose pseudoinverse, computed by exact SVD.
+ \item \textbf{Return to the finite family:}
+ \begin{equation}\label{eq:finalselection}
+ \widetilde A=B_0+\widehat C,\qquad
+ \widehat B\in\argmin_{B\in\F}\norm{\widetilde A-B}.
+ \end{equation}
+\end{enumerate}
+All minimizations are finite scans. The large intermediate matrix $\widetilde A$ can be formed explicitly because processing is unrestricted. In particular, computing $Q$ does not trigger any query of the form $A^\T Q$.
+
+\section{Gaussian sketches control a trimmed residual}\label{sec:tails}
+
+\begin{lemma}[Lower tail after discarding $r$ singular values]\label{lem:trimmed}
+Let $C\in\R^{n\times n}$ be fixed, let $1\le r<n$, and let $G\in\R^{n\times s}$ have independent $N(0,1/s)$ entries. For $0<\eta<1$,
+\begin{equation}\label{eq:trimmed}
+ \Prob\!\left[\norm{CG}^2<(1-\eta)\tau_r(C)^2\right]
+ \le \exp(-sr\eta/4).
+\end{equation}
+\end{lemma}
+\begin{proof}
+Let $\lambda_i=\sigma_i(C)^2$ in decreasing order and
+$T=\sum_{i>r}\lambda_i$. If $T=0$, the event is empty; the strict inequality in the event matters here. Otherwise $a=\lambda_{r+1}>0$.
+By rotational invariance of a standard Gaussian matrix,
+\[
+ s\norm{CG}^2\ \stackrel{\mathrm d}=\ \sum_{i=1}^n\lambda_i Z_i,
+ \qquad Z_i\text{ independent with }Z_i\sim\chi_s^2.
+\]
+For any $\theta>0$, the exponential Markov inequality and the Gaussian Laplace transform give
+\begin{equation}\label{eq:trimchernoff}
+ \Prob\!\left[\norm{CG}^2<(1-\eta)T\right]
+ \le\exp\!\left(s\theta(1-\eta)T
+       -\frac{s}{2}\sum_{i=1}^n\log(1+2\theta\lambda_i)\right).
+\end{equation}
+The identity $\E e^{-\theta\lambda Z}=(1+2\theta\lambda)^{-s/2}$ follows by multiplying $s$ one-dimensional Gaussian integrals.
+
+Choose $\theta=\eta/(2a)$. For the head $i\le r$, we have $\lambda_i\ge a$, giving $\log(1+2\theta\lambda_i)\ge\log(1+\eta)$. For the tail, use $\log(1+x)\ge x-x^2/2$ for $x\ge0$ and $\lambda_i\le a$ to obtain
+\begin{align*}
+ \sum_{i=1}^n\log(1+2\theta\lambda_i)
+ &\ge r\log(1+\eta)+2\theta T-2\theta^2\sum_{i>r}\lambda_i^2\\
+ &\ge r\log(1+\eta)+2\theta T-2\theta^2aT.
+\end{align*}
+Substituting in \eqref{eq:trimchernoff} bounds its logarithm by
+\begin{align*}
+ -s\theta\eta T+s\theta^2aT-\frac{sr}{2}\log(1+\eta)
+ &=-\frac{s\eta^2T}{4a}-\frac{sr}{2}\log(1+\eta)\\
+ &\le -sr\eta/4,
+\end{align*}
+since $\log(1+\eta)\ge\eta/2$ for $0<\eta<1$. This proves the claim.
+\end{proof}
+
+\begin{lemma}[Upper tail for one fixed matrix]\label{lem:upper}
+For any fixed $E\in\R^{n\times n}$, with $G$ distributed as above and $0<\eta<1$,
+\begin{equation}\label{eq:upper}
+ \Prob\!\left[\norm{EG}^2>(1+\eta)\norm{E}^2\right]
+ \le e^{-s\eta^2/8}.
+\end{equation}
+\end{lemma}
+\begin{proof}
+For $E=0$ the event is empty. Otherwise set
+$a_i=\sigma_i(E)^2/\norm E^2$, so $a_i\ge0$ and $\sum_i a_i=1$.
+The random variable $s\norm{EG}^2/\norm E^2$ has distribution $\sum_i a_iZ_i$, with independent $\chi_s^2$ variables $Z_i$.
+For $0<\theta<1/2$, expansion of $-\log(1-x)$ into its nonnegative power series shows
+\[
+ -\sum_i\log(1-2\theta a_i)
+ =\sum_{j\ge1}\frac{(2\theta)^j}{j}\sum_i a_i^j
+ \le\sum_{j\ge1}\frac{(2\theta)^j}{j}
+ =-\log(1-2\theta).
+\]
+Consequently the moment generating function is at most $(1-2\theta)^{-s/2}$.
+Choose $\theta=\eta/[2(1+\eta)]$ in the upper-tail Chernoff bound to get
+\[
+ \Prob\!\left[\norm{EG}^2>(1+\eta)\norm E^2\right]
+ \le \exp\!\left(-\frac{s}{2}[\eta-\log(1+\eta)]\right)
+ \le e^{-s\eta^2/8}.
+\]
+The last inequality follows from
+$\eta-\log(1+\eta)=\int_0^\eta u/(1+u)\,du\ge\eta^2/4$ for $0<\eta<1$.
+\end{proof}
+
+\begin{proposition}[The selected residual has a small rank-$r$ tail]\label{prop:warm}
+With $B_0$ selected by \eqref{eq:warmchoice}, except on an event of probability at most
+\begin{equation}\label{eq:warmfail}
+ M e^{-sr\eta/4}+e^{-s\eta^2/8},
+\end{equation}
+one has
+\begin{equation}\label{eq:warmtail}
+ \tau_r(A-B_0)^2\le\frac{1+\eta}{1-\eta}\OPT^2.
+\end{equation}
+\end{proposition}
+\begin{proof}
+For each fixed $B\in\F$, apply Lemma~\ref{lem:trimmed} to $A-B$, and take a union bound over the $M$ candidates. Except with probability $M e^{-sr\eta/4}$, simultaneously for every candidate,
+\[
+ (1-\eta)\tau_r(A-B)^2\le\norm{(A-B)G_0}^2.
+\]
+Only one upper-tail estimate is needed: Lemma~\ref{lem:upper} for the fixed optimal residual $A-B_\star$ gives
+\[
+ \norm{(A-B_\star)G_0}^2\le(1+\eta)\OPT^2
+\]
+except with probability $e^{-s\eta^2/8}$. On these two events, the definition of $B_0$ yields
+\[
+ (1-\eta)\tau_r(A-B_0)^2
+ \le\norm{(A-B_0)G_0}^2
+ \le\norm{(A-B_\star)G_0}^2
+ \le(1+\eta)\OPT^2.
+\]
+No independence between the candidate scores was used or needed.
+\end{proof}
+
+\section{A self-contained nonadaptive repair bound}\label{sec:repair}
+
+\subsection{Two elementary Gaussian identities}
+We first record the inverse moment required for both parts of the reconstruction.
+
+\begin{lemma}[Gaussian pseudoinverse moment]\label{lem:inverse}
+If $X\in\R^{d\times p}$ has independent standard normal entries and $p>d+1$, then $X$ has full row rank almost surely and
+\begin{equation}\label{eq:inverse}
+ \E\norm{X^\dagger}^2=\frac{d}{p-d-1}.
+\end{equation}
+The same formula applies to the transpose of such a matrix.
+\end{lemma}
+\begin{proof}
+A Gaussian matrix has full row rank almost surely because a nonzero polynomial minor vanishes only on a set of Lebesgue measure zero. On this event,
+$\norm{X^\dagger}^2=\tr((XX^\T)^{-1})$.
+For a fixed row index $i$, condition on all other $d-1$ rows. The Schur-complement formula gives
+\[
+ [(XX^\T)^{-1}]_{ii}
+ =\frac{1}{\norm{x_iP_i}^2},
+\]
+where $x_i$ is row $i$ and $P_i$ is the orthogonal projector onto the complement of the span of the other rows in $\R^p$. This projector has rank $p-d+1$ almost surely. Conditional on those rows, $\norm{x_iP_i}^2$ is $\chi^2_{p-d+1}$.
+For $Z\sim\chi_\nu^2$, $\nu>2$, integration of its density gives
+\[
+ \E Z^{-1}
+ =\frac{\Gamma(\nu/2-1)}{2\Gamma(\nu/2)}
+ =\frac{1}{\nu-2}.
+\]
+Thus each diagonal entry has expectation $1/(p-d-1)$; sum the $d$ entries.
+The transpose statement follows because a matrix and its transpose have the same singular values.
+\end{proof}
+
+We also use the elementary identity
+\begin{equation}\label{eq:gaussproduct}
+ \E\norm{UZV}^2=\norm U^2\norm V^2
+\end{equation}
+when $U,V$ are fixed matrices of compatible dimensions and $Z$ has independent standard normal entries. Indeed,
+$\E[ZVV^\T Z^\T]=\tr(VV^\T)I$, after which taking the trace proves the identity.
+
+\subsection{The excess-error majorant}
+
+\begin{lemma}[Repair from independently prechosen sketches]\label{lem:repair}
+Fix $C\in\R^{n\times n}$ and integers $1\le r<k<n$ and $\ell>k+1$, with $k>r+1$.
+Let $\Omega\in\R^{n\times k}$ and $H\in\R^{n\times\ell}$ be independent standard Gaussian matrices. Let $Q\in\R^{n\times d}$ be an orthonormal basis for $\range(C\Omega)$, with $d\le k$, and define
+\[
+ \widehat C=Q(H^\T Q)^\dagger H^\T C
+\]
+with $\widehat C=0$ when $d=0$.
+Put
+\begin{equation}\label{eq:ab}
+ a_0=\frac{r}{k-r-1},\qquad b_0=\frac{k}{\ell-k-1}.
+\end{equation}
+There is a nonnegative random variable $Z$ satisfying, almost surely,
+\begin{equation}\label{eq:majorant}
+ \norm{C-\widehat C}^2\le\tau_r(C)^2+Z,
+ \qquad
+ \E Z\le\bigl[a_0+b_0(1+a_0)\bigr]\tau_r(C)^2.
+\end{equation}
+Consequently, for every $\eta>0$,
+\begin{equation}\label{eq:repairprob}
+ \Prob\!\left[\norm{C-\widehat C}^2>(1+\eta)\tau_r(C)^2\right]
+ \le\frac{a_0+b_0+a_0b_0}{\eta}.
+\end{equation}
+If $\tau_r(C)=0$, then $\widehat C=C$ almost surely.
+\end{lemma}
+\begin{proof}
+\textbf{Part 1: a deterministic range-error majorant.}
+Take a full SVD partitioned after the first $r$ singular values:
+\[
+ C=U_1\Sigma_1V_1^\T+U_2\Sigma_2V_2^\T,
+ \qquad \norm{\Sigma_2}^2=\tau_r(C)^2.
+\]
+Set $\Omega_1=V_1^\T\Omega\in\R^{r\times k}$ and
+$\Omega_2=V_2^\T\Omega\in\R^{(n-r)\times k}$. The two blocks are independent standard Gaussian matrices, and $\Omega_1$ has full row rank almost surely. Therefore
+\[
+ C\Omega\Omega_1^\dagger V_1^\T
+ =U_1\Sigma_1V_1^\T+U_2\Sigma_2\Omega_2\Omega_1^\dagger V_1^\T.
+\]
+This matrix has all its columns in $\range(C\Omega)$. Since the row spaces spanned by $V_1^\T$ and $V_2^\T$ are orthogonal,
+\begin{equation}\label{eq:rangemajorant}
+ \norm{C-C\Omega\Omega_1^\dagger V_1^\T}^2
+ =\tau_r(C)^2+X,\qquad
+ X=\norm{\Sigma_2\Omega_2\Omega_1^\dagger}^2\ge0.
+\end{equation}
+Let $P=QQ^\T$ and $R=(I-P)C$. Orthogonal projection minimizes the error over matrices with columns in $\range(C\Omega)$, so
+\begin{equation}\label{eq:rangebound}
+ \norm R^2\le\tau_r(C)^2+X.
+\end{equation}
+Conditioning on $\Omega_1$, equation~\eqref{eq:gaussproduct} yields
+$\E_{\Omega_2}X=\tau_r(C)^2\norm{\Omega_1^\dagger}^2$.
+By Lemma~\ref{lem:inverse},
+\begin{equation}\label{eq:EX}
+ \E X=a_0\tau_r(C)^2,\qquad
+ \E\norm R^2\le(1+a_0)\tau_r(C)^2.
+\end{equation}
+No inverse of $\Sigma_1$ was used. Thus this argument also covers matrices of rank less than $r$.
+
+\textbf{Part 2: regression using the left sketch.}
+Condition on $\Omega$, so that $Q$, $d$, and $R$ are fixed. For $d>0$, the matrix $H^\T Q\in\R^{\ell\times d}$ is standard Gaussian and has full column rank almost surely. Using $C=QQ^\T C+R$, we get
+\[
+ \widehat C=QQ^\T C+Q(H^\T Q)^\dagger H^\T R.
+\]
+The columns of $R$ are orthogonal to those of $Q$. Consequently,
+\begin{equation}\label{eq:orthogonalerror}
+ \norm{C-\widehat C}^2=\norm R^2+V,
+ \qquad V=\norm{(H^\T Q)^\dagger H^\T R}^2\ge0.
+\end{equation}
+For $d=0$, take $V=0$; the same identity holds.
+
+For $d>0$, complete $Q$ to an orthogonal basis $[Q\ Q_\perp]$.
+The matrices $H^\T Q$ and $H^\T Q_\perp$ are independent standard Gaussian blocks. Since $R=Q_\perp Q_\perp^\T R$, equation~\eqref{eq:gaussproduct}, followed by Lemma~\ref{lem:inverse}, gives
+\begin{align}
+ \E_H[V\mid\Omega]
+ &=\E_H\norm{(H^\T Q)^\dagger}^2\,\norm R^2\notag\\
+ &=\frac{d}{\ell-d-1}\norm R^2
+ \le b_0\norm R^2.\label{eq:EVconditional}
+\end{align}
+The last inequality follows from $d\le k$ and the increasing function
+$x\mapsto x/(\ell-x-1)$ on $0\le x<\ell-1$.
+For $d=0$, the same inequality is trivial.
+
+\textbf{Part 3: apply Markov to a nonnegative variable.}
+Define $Z=X+V$. Equations~\eqref{eq:rangebound} and \eqref{eq:orthogonalerror} give
+$\norm{C-\widehat C}^2\le\tau_r(C)^2+Z$.
+Equations~\eqref{eq:EX} and \eqref{eq:EVconditional} imply
+\[
+ \E Z\le a_0\tau_r(C)^2+b_0(1+a_0)\tau_r(C)^2.
+\]
+When $\tau_r(C)>0$, Markov's inequality for $Z$ proves \eqref{eq:repairprob}.
+When $\tau_r(C)=0$, nonnegativity and $\E Z=0$ imply $Z=0$ almost surely, and hence exact reconstruction.
+\end{proof}
+
+\begin{remark}[Why the explicit nonnegative majorant matters]\label{rem:markov}
+The correction $\widehat C$ is allowed to have rank greater than $r$.
+Therefore $\norm{C-\widehat C}^2-\tau_r(C)^2$ need not be nonnegative. Applying Markov's inequality directly to that difference would be invalid. The proof instead constructs the genuinely nonnegative variable $Z=X+V$ which bounds it from above. This preserves a $1+\eta$ error factor at constant failure probability.
+\end{remark}
+
+\section{Proof of the main theorem}\label{sec:mainproof}
+
+\subsection{Failure probabilities and the conditioning step}
+The exact-recovery branch succeeds deterministically, so consider $n>N$.
+From the choice of $s$,
+\[
+ sr\eta/4\ge8L,\qquad s\eta^2/8\ge8.
+\]
+Since $M\le2^{L-1}$ and $L\ge2$,
+\begin{equation}\label{eq:warmfailureexplicit}
+ M e^{-sr\eta/4}+e^{-s\eta^2/8}
+ \le 2e^{-16}+e^{-8}.
+\end{equation}
+For the first term, $(1/2)e^{(\log2-8)L}$ is decreasing in $L$, so its largest value for $L\ge2$ is $2e^{-16}$.
+Thus Proposition~\ref{prop:warm} gives the event
+\begin{equation}\label{eq:goodwarm}
+ \tau_r(C)^2\le\frac{1+\eta}{1-\eta}\OPT^2,
+ \qquad C=A-B_0,
+\end{equation}
+with the stated probability.
+
+\paragraph{Conditioning is not query adaptation.}
+Condition on $G_0$ and its answers $AG_0$. The choice $B_0$ uses only these data and the fixed family, so $C=A-B_0$ is now fixed. The Gaussian matrices $G_1$ and $H$ remain mutually independent, with their original distributions. This is true even though all their oracle answers have already been collected. The algorithm did not use those answers to select $B_0$.
+Therefore Lemma~\ref{lem:repair} applies conditionally with $\Omega=G_1$.
+There is only \emph{one} repair estimate for the selected residual; no union bound over $M$ repairs is needed.
+
+Our parameter choices give
+\[
+ a_0=\frac{r}{k-r-1}\le\frac{\eta}{256},\qquad
+ b_0=\frac{k}{\ell-k-1}\le\frac{\eta}{256}.
+\]
+For every realization of the first sketch, the conditional probability that repair fails is at most
+\begin{equation}\label{eq:repairfailureexplicit}
+ \frac{a_0+b_0+a_0b_0}{\eta}
+ \le\frac1{128}+\frac{\eta}{65536}
+ <\frac1{128}+\frac1{524288},
+\end{equation}
+because $\eta=\varepsilon/4<1/8$. Taking expectations preserves this unconditional bound.
+
+Combining \eqref{eq:warmfailureexplicit} and \eqref{eq:repairfailureexplicit}, both \eqref{eq:goodwarm} and the successful repair inequality hold except on an event of probability at most
+\begin{equation}\label{eq:failuretotal}
+ e^{-8}+2e^{-16}+\frac1{128}+\frac1{524288}
+ =0.00815009504688\ldots<0.01.
+\end{equation}
+No independence of the two success events is asserted; a union bound suffices.
+
+\subsection{From a repaired surrogate to a family member}
+On the joint success event,
+\begin{align}
+ \norm{A-\widetilde A}^2
+ &=\norm{C-\widehat C}^2\notag\\
+ &\le(1+\eta)\tau_r(C)^2
+ \le\frac{(1+\eta)^2}{1-\eta}\OPT^2.\label{eq:surrogate}
+\end{align}
+For $0<\eta\le1/8$,
+\begin{equation}\label{eq:scalarineq}
+ \frac{1+\eta}{\sqrt{1-\eta}}\le1+2\eta.
+\end{equation}
+Indeed, all quantities are positive and
+\[
+ (1+2\eta)^2(1-\eta)-(1+\eta)^2
+ =\eta(1-\eta-4\eta^2)\ge0.
+\]
+Hence $\norm{A-\widetilde A}\le(1+2\eta)\OPT$.
+The final minimization gives
+\begin{align*}
+ \norm{A-\widehat B}
+ &\le\norm{A-\widetilde A}+\norm{\widetilde A-\widehat B}\\
+ &\le\norm{A-\widetilde A}+\norm{\widetilde A-B_\star}\\
+ &\le2\norm{A-\widetilde A}+\norm{A-B_\star}\\
+ &\le(3+4\eta)\OPT=(3+\varepsilon)\OPT.
+\end{align*}
+This proves the approximation and success-probability assertions.
+
+\subsection{Counting all queries, including the integer rounding}
+Since $r\ge1$, $L\le r^2$, and $0<\eta<1/8$, the ceilings in
+\eqref{eq:sparam}--\eqref{eq:ellparam} obey
+\begin{align*}
+ s&\le\frac{32r}{\eta}+\frac{64}{\eta^2}+1
+   \le\frac{97r}{\eta^2},\\
+ k&\le r+2+\frac{256r}{\eta}
+   \le\frac{257r}{\eta},\\
+ \ell&\le k+2+\frac{256k}{\eta}
+   \le\frac{257k}{\eta}
+   \le\frac{257^2r}{\eta^2}.
+\end{align*}
+The middle inequalities use $r+2\le r/\eta$ and $k+2\le k/\eta$, valid here.
+Therefore
+\begin{equation}\label{eq:Nbound}
+ N=s+k+\ell\le(97+257+257^2)\frac r{\eta^2}
+ =66403\frac r{\eta^2}.
+\end{equation}
+As $t=\log(2M)\ge\log4>1$ and $\log2>1/2$,
+\[
+ L\le\frac{t}{\log2}+1\le3t,\qquad
+ r\le\sqrt L+1\le(\sqrt3+1)\sqrt t<3\sqrt t.
+\]
+Since $\eta^{-2}=16\varepsilon^{-2}$, we conclude
+\begin{equation}\label{eq:constantcount}
+ N\le3{,}187{,}344\sqrt t\,\varepsilon^{-2}
+ <4{,}000{,}000\sqrt t\,\varepsilon^{-2}.
+\end{equation}
+The actual number of queries is $\min\{n,N\}$: $n$ in the predetermined exact-recovery branch, and $N$ otherwise.
+All vectors and sides were fixed before answers, completing the proof of Theorem~\ref{thm:main}.
+
+\section{Model and edge-case audit}\label{sec:audit}
+
+\paragraph{All quantifiers are instance-wise.}
+The proof fixes $A$ and the entire finite family before sampling. It guarantees success for every such fixed input, with probability over the Gaussian blocks. It does not claim that one random sketch succeeds simultaneously for matrices chosen adversarially after seeing that sketch.
+
+\paragraph{No hidden oracle access.}
+Only the products in \eqref{eq:queryschedule} are queried. Multiplications by explicit candidates, $H^\T Q$, and $\widehat C$ are ordinary postprocessing. The residual $C$ is an analysis variable; its sketches come from subtraction in \eqref{eq:residualsketches}. In particular, $A^\T Q$, $AQ$, and $AC^\T$ are never requested.
+
+\paragraph{Adaptive computation is permitted; adaptive queries are not used.}
+The value of $B_0$, the basis $Q$, and the final candidate depend on answers. No later oracle vector or side depends on them. These are postprocessing stages, not rounds of oracle interaction.
+
+\paragraph{Rank deficiency and zero sketches.}
+Use $d=\rank(CG_1)$, not an assumed full $k$ columns for $Q$. If $d=0$, the correction is zero. Otherwise $H^\T Q$ has full column rank almost surely conditional on the first two Gaussian blocks. The pseudoinverse formula defines the algorithm even on the exceptional null-probability rank events. Lemma~\ref{lem:repair} never divides by a singular value of $C$.
+
+\paragraph{The case $\OPT=0$.}
+When $A\in\F$, its first-sketch score is exactly zero. Each other fixed candidate $B\ne A$ has $(A-B)G_0\ne0$ almost surely, because a nonzero linear map applied to a continuous Gaussian vector is not identically zero. The family is finite, so $B_0=A$ almost surely, giving exact return. Independently, the zero-tail case of Lemma~\ref{lem:repair} shows the proof never needs to divide by $\OPT$.
+
+\paragraph{Small dimension.}
+The exact branch handles $n=1$ and every other case where the theoretical sketch widths exceed the ambient dimension. It is selected using $n,M,\varepsilon$ only, before any oracle answer.
+
+\paragraph{Unbounded norms, finite precision, and runtime.}
+The argument makes no bound on $\norm A$, candidate norms, or conditioning. This is appropriate in exact arithmetic, but cancellation in residual sketches and ill-conditioned least-squares systems can matter in floating point. The numerical code is not a bit-complexity or numerical-stability theorem. Candidate scans and full matrix formation can be expensive; the problem charges only oracle calls. No polynomial-time-in-$\log M$ or streaming-memory claim is made.
+
+\paragraph{What has and has not been resolved.}
+The theorem gives exactly the nonadaptive $3+\varepsilon$ guarantee asked in RE-06, without extra logarithmic factors. It does not assert a nonadaptive $1+\varepsilon$ finite-family guarantee, nor optimal dependence on $\varepsilon$ or an optimized leading constant.
+
+\section{Reproducible verification and implementation}\label{sec:verification}
+
+The accompanying implementation separates query planning, oracle access, and answer processing into distinct functions. The only function issuing oracle calls is \texttt{collect\_answers}; \texttt{postprocess} receives stored arrays and has no oracle argument. Query blocks are precomputed and stored as read-only NumPy arrays. This separation makes the nonadaptivity condition inspectable in code.
+
+\subsection{Files and reproduction}
+The archive contains the LaTeX source and this PDF, a README with usage instructions, the reference implementation, unit tests, verification scripts, and machine-readable results. From the archive's root, run
+\begin{verbatim}
+python -m pip install -r requirements.txt
+cd code
+OPENBLAS_NUM_THREADS=1 python -m unittest -v test_re06
+OPENBLAS_NUM_THREADS=1 python verify.py
+\end{verbatim}
+The scripts were executed in the supplied environment using Python 3.13.5, NumPy 2.3.5, and SciPy 1.17.0. Small numerical differences across library versions or linear-algebra backends are possible.
+
+The theorem widths are intentionally very large and commonly activate the exact branch for ordinary numerical matrix sizes. The end-to-end experiments below use \emph{smaller, explicitly labeled experimental widths}. Their observed success must not be interpreted as a proof of the theorem's $0.99$ guarantee at those smaller widths.
+
+\subsection{Checks performed}
+All 11 unit tests passed. They cover the rounded query bound, exact and scalar cases, the precommitted query transcript, noiseless and low-rank reconstruction, a deliberately bad initial candidate corrected by reconstruction, the range-error majorant, the orthogonal regression-error identity, the final triangle inequality, probability constants, and input validation.
+
+The additional audit checks 846 flat-spectrum cases against numerically evaluated chi-square lower-tail probabilities. All satisfy Lemma~\ref{lem:trimmed}; the largest observed probability-to-bound ratio is approximately $0.437805$. It also checks the Chernoff exponent algebra for 3,000 nonflat spectra, with no negative slack. Four Gaussian pseudoinverse moment experiments use 5,000 trials each; these are distributional sanity checks, not exact integrations or proof certificates.
+
+The end-to-end runs use four fixed input families, 160 independent seeds per family, and $n=64$. Here $\varepsilon=0.25$; a failure in the table means a returned error above $3.25\OPT$.
+\begin{table}[ht]
+\centering
+\small
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{@{}lrrrrr@{}}
+\toprule
+Family & $M$ & $(s,k,\ell)$ & Queries & Initial failures & Final failures\\
+\midrule
+Rank-one distractors &129&$(1,8,18)$&27&148/160&0/160\\
+Translated rank-one &32&$(3,10,22)$&35&0/160&0/160\\
+Dense full-rank &32&$(3,8,18)$&29&0/160&0/160\\
+Mixed-rank, low-rank noise &48&$(2,10,22)$&34&0/160&0/160\\
+\bottomrule
+\end{tabular}
+\caption{Floating-point experiments with widths smaller than the theorem's sufficient parameters. These are illustrative, not universal probability guarantees.}
+\label{tab:experiments}
+\end{table}
+
+Every recorded query transcript matched its precomputed schedule. In the rank-one-distractor experiment, the initial candidate exceeded the target factor in 148 of 160 runs, while the final result selected an optimal candidate in all 160 runs. This illustrates the logical distinction behind the proof: the initial selection need only leave a small spectral tail, not have a small full residual.
+
+\section*{Conclusion}
+An independent small sketch can choose a residual with a controlled tail; a separate, already collected two-sided sketch can repair that residual. The resulting surrogate is close enough to the target that nearest-candidate postprocessing yields $3+\varepsilon$. The complete procedure uses a single precommitted batch and at most $O(\sqrt{\log M}\,\varepsilon^{-2})$ matvecs. This supplies the affirmative construction requested by RE-06.
+
+\begin{thebibliography}{9}
+\bibitem{re06}
+Open Problems in Numerical Linear Algebra.
+\emph{RE-06: Nonadaptive queries for finite-family matrix approximation}.
+Repository formulation, last checked September 10, 2026; accessed September 12, 2026.
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/tree/main/randomized-and-low-rank-approximation/RE-06}{Public RE-06 problem page}.
+
+\bibitem{amsel}
+N. Amsel, P. Avi, T. Chen, F. Duman Keles, C. Hegde, C. Musco, C. Musco, and D. Persson.
+\emph{Query Efficient Structured Matrix Learning}.
+Proceedings of the 39th Conference on Learning Theory, PMLR 336:158--194, 2026.
+\href{https://arxiv.org/html/2507.19290v2}{arXiv:2507.19290v2}, August 21, 2026, especially Section 5.
+\href{https://proceedings.mlr.press/v336/amsel26a.html}{PMLR record}.
+
+\bibitem{tropp}
+J. A. Tropp, A. Yurtsever, M. Udell, and V. Cevher.
+\emph{Practical Sketching Algorithms for Low-Rank Matrix Approximation}.
+SIAM Journal on Matrix Analysis and Applications 38(4):1454--1485, 2017.
+\href{https://arxiv.org/html/1609.00048v2}{arXiv:1609.00048v2}, especially Section 4 and Appendix A.
+
+\bibitem{hmt}
+N. Halko, P. G. Martinsson, and J. A. Tropp.
+\emph{Finding Structure with Randomness: Probabilistic Algorithms for Constructing Approximate Matrix Decompositions}.
+SIAM Review 53(2):217--288, 2011.
+\href{https://arxiv.org/abs/0909.4061}{arXiv:0909.4061}.
+\end{thebibliography}
+\end{document}

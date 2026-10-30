@@ -1,0 +1,39 @@
+namespace NLA.Proofs.TR04
+open NLA.Computation.SVDMachine TTMemoryLayout TensorFormat
+
+-- The reply is extracted from this actual legal trace. Its U-prefix is stored
+-- with the full-U row stride m, and every protected earlier-stage address survives.
+example {start : State ttProgram} {trace : Trace ttProgram}
+    (ht : LegalTrace ttProgram start trace) (offset : ℕ) (s : State ttProgram)
+    (he : trace.state offset=s) (hl : s.label=237) (hs : s.status=.running)
+    (L : Layout) (level : ℕ) (hlevel : level<L.order)
+    (hrows : s.natural 85≤L.entries) (hcols : s.natural 87≤L.entries)
+    (hq : s.natural 86≤s.natural 85)
+    (hframe : s.natural 94=L.frame level)
+    (hsigma : s.natural 103=L.childSigma) (hvbase : s.natural 104=L.childV)
+    (hcurrent : L.workA≤s.natural 89) :
+    ∃ U : Matrix (Fin (s.natural 85)) (Fin (s.natural 85)) ℝ,
+    ∃ sigma : Fin (min (s.natural 85) (s.natural 87)) → ℝ,
+    ∃ V : Matrix (Fin (s.natural 87)) (Fin (s.natural 87)) ℝ,
+      ValidSVD (readMatrix s.memory (s.natural 85) (s.natural 87) (s.natural 89)) U sigma V ∧
+      (trace.state (offset+4)).label=241 ∧
+      StoresFrame (trace.state (offset+4)).memory (L.frame level) (s.natural 85)
+        (U.submatrix id (Fin.castLE hq)) ∧
+      (∀ address,TTStageProtected L level address → (trace.state (offset+4)).memory address=s.memory address) ∧
+      CostThrough ttProgram trace (offset+4)≤CostThrough ttProgram trace offset+
+        (s.natural 85+s.natural 87+1)^3+3 := by
+  obtain ⟨U,sigma,V,hvalid,hlabel,_,_,_,_,hframe',_,hprotected,_,_,hcost⟩ :=
+    ttChild_svd_at ht offset s he hl hs L level hlevel hrows hcols hq hframe hsigma hvbase hcurrent
+  exact ⟨U,sigma,V,hvalid,hlabel,hframe',hprotected,hcost⟩
+
+-- Two actual-stage invariants compose on the concrete memory and allocation,
+-- retaining natural0/order and the earlier-stage address rather than a result value.
+example {L : Layout} {level : ℕ} {s t u : State ttProgram}
+    (h : TTStagePreserves L level s t) (k : TTStagePreserves L level t u)
+    (ha : TTAllocationRegisters L s) (address : ℕ) (hp : TTStageProtected L level address) :
+    TTAllocationRegisters L u ∧ u.memory address=s.memory address ∧ u.natural 0=s.natural 0 := by
+  have hcomp := ttStagePreserves_trans h k
+  exact ⟨ttStagePreserves_allocation hcomp ha,hcomp.1 address hp,
+    hcomp.2 0 (by unfold TTLoopKept;decide)⟩
+
+end NLA.Proofs.TR04

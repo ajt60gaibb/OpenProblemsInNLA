@@ -1,0 +1,37 @@
+
+namespace NLA.Proofs.TR04
+open NLA.Computation.SVDMachine NLA.Computation.TensorTrainApproximation TTMemoryLayout
+
+-- The actual original Start state reaches a running SVD instruction with
+-- output-block safety derived from its computed dimensions/allocation.
+example (S : Shape) (r : Ranks S) (A : Tensor S) (trace : Trace ttProgram)
+    (ht : LegalTrace ttProgram (Start ttProgram S r A) trace) :
+    ∃ t : ℕ, t ≤ 102*(Size S r+1) ∧
+      (trace.state t).label=167 ∧ (trace.state t).status=.running ∧
+      (trace.state t).memory=InputMemory S r A ∧
+      OutputBlocksDisjoint ((trace.state t).natural 81) ((trace.state t).natural 82)
+        ((trace.state t).natural 72) ((trace.state t).natural 73) ((trace.state t).natural 74) ∧
+      CostThrough ttProgram trace t ≤ 102*(Size S r+1) := by
+  obtain ⟨n,_,hd,htime,hcost⟩ := ttInitial_svd_ready S r A trace ht
+  refine ⟨ttFirstRankEntryTime S r+n,htime,hd.label,hd.status,hd.memory,?_,hcost⟩
+  rw [hd.rows,hd.cols,hd.allocation.firstU,hd.allocation.firstSigma,hd.allocation.firstV]
+  apply (ofShape S).first_outputs_disjoint
+  · have hi : 0<S.order := by have := S.order_ge; omega
+    change shapeHeaderValues S 0≤DenseSize S
+    simpa only [shapeHeaderValues,dif_pos hi] using shape_mode_le_denseSize S ⟨0,hi⟩
+  · exact ttFirstCols_le_denseSize S
+
+-- Requested zero ranks are decoded, rather than excluded by an entry premise.
+example (S : Shape) (A : Tensor S) (trace : Trace ttProgram)
+    (ht : LegalTrace ttProgram (Start ttProgram S (fun _ => 0) A) trace) :
+    ∃ t : ℕ, t ≤ 102*(Size S (fun _ => 0)+1) ∧
+      (trace.state t).label=167 ∧ (trace.state t).status=.running ∧
+      (trace.state t).natural 80=0 ∧ (trace.state t).natural 106=0 ∧
+      (trace.state t).memory=InputMemory S (fun _ => 0) A ∧
+      CostThrough ttProgram trace t ≤ 102*(Size S (fun _ => 0)+1) := by
+  obtain ⟨n,_,hd,htime,hcost⟩ := ttInitial_svd_ready S (fun _ => 0) A trace ht
+  refine ⟨ttFirstRankEntryTime S (fun _ => 0)+n,htime,hd.label,hd.status,?_,?_,hd.memory,hcost⟩
+  · simpa only [ttFirstRankValue] using hd.rank
+  · simpa only [ttFirstRankValue,Nat.zero_min] using hd.cap
+
+end NLA.Proofs.TR04

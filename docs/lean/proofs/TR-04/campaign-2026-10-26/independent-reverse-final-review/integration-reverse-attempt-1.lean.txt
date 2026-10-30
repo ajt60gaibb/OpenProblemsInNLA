@@ -1,0 +1,43 @@
+namespace NLA.Proofs.TR04
+open NLA.Computation.SVDMachine TensorFormat
+
+-- Actual four-cell metadata decoding, strided lift and buffer swap reach349
+-- at the top reverse level, with the destination pointer already computed.
+example {start : State ttProgram} {trace : Trace ttProgram}
+    (ht : LegalTrace ttProgram start trace) (offset m q : ℕ) (ns : List ℕ)
+    (stride frame input output : ℕ)
+    (hl : (trace.state offset).label=287) (hs : (trace.state offset).status=.running)
+    (hr : TTReverseRegisters (trace.state offset) frame input output)
+    (hzero : (trace.state offset).natural 84=0)
+    (hmetadata : TTReverseMetadata (trace.state offset).memory
+      ((trace.state offset).natural 68+4*(trace.state offset).natural 84) m q (suffixSize ns) stride)
+    (hq : q≤stride) (Q : Matrix (Fin m) (Fin q) ℝ)
+    (hQ : StoresFrame (trace.state offset).memory frame stride Q)
+    (A : Tensor (q::ns)) (hA : StoresTensor (trace.state offset).memory input (q::ns) A)
+    (hQblock : DisjointBlocks frame (m*stride) output (m*suffixSize ns))
+    (hAblock : DisjointBlocks input (q*suffixSize ns) output (m*suffixSize ns)) :
+    ∃ time : ℕ,(trace.state time).label=349 ∧ (trace.state time).status=.running ∧
+      (trace.state time).natural 123=(trace.state offset).natural 71+
+        (trace.state offset).natural 76*(trace.state offset).natural 64 ∧
+      StoresTensor (trace.state time).memory ((trace.state time).natural 89) (m::ns) (lift Q A) ∧
+      CostThrough ttProgram trace time≤CostThrough ttProgram trace offset+
+        ttReverseMetadataTime m q (suffixSize ns) stride+22+17*(m+q+suffixSize ns+1)^3+8 := by
+  obtain ⟨hresult,hcost⟩ := ttReverse_at ht offset m q ns stride frame input output hl hs hr
+    hmetadata hq Q hQ A hA hQblock hAblock
+  refine ⟨_,?_,hresult.running,hresult.candidatePointer hzero,hresult.currentStored,hcost⟩
+  simpa only [hzero,if_pos rfl] using hresult.label
+
+-- For a genuine parent level the same actual return goes to287 and decreases
+-- the level, rather than using the top-level candidate-copy continuation.
+example {old final : State ttProgram} {m q : ℕ} {ns : List ℕ}
+    {stride frame input output : ℕ} {Q : Matrix (Fin m) (Fin q) ℝ} {A : Tensor (q::ns)}
+    (h : TTReverseResult old final m q ns stride frame input output Q A)
+    (hpositive : 0<old.natural 84) :
+    final.label=287 ∧ final.status=.running ∧ final.natural 84+1=old.natural 84 ∧
+      StoresTensor final.memory (final.natural 89) (m::ns) (lift Q A) := by
+  refine ⟨?_,h.running,?_,h.currentStored⟩
+  · simpa only [if_neg (Nat.ne_of_gt hpositive)] using h.label
+  · have hh := h.level
+    omega
+
+end NLA.Proofs.TR04

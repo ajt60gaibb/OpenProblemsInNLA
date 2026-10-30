@@ -1,0 +1,20 @@
+/private/tmp/nla-re06-Gaussian-inventory-gl4z0n6k/source/Inventory/DropUnscaledFactor.lean:5:241: error: Type mismatch
+  @residualGaussian_lower_tail
+has type
+  ∀ {n : ℕ} (B : Matrix (Fin n) (Fin n) ℝ) (q offset r : ℕ),
+    r < n →
+      ∀ (η : ℝ),
+        0 < η →
+          η ≤ 1 →
+            GaussianLaw.real
+                {ω | squaredFrobenius (B * gaussianBlock n q offset ω) 0 < ↑q * (1 - η) * residualTailEnergy B r} ≤
+              Real.exp (-↑q * ↑r * η / 4)
+but is expected to have type
+  ∀ {n : ℕ} (B : Matrix (Fin n) (Fin n) ℝ) (q offset r : ℕ),
+    r < n →
+      ∀ (η : ℝ),
+        0 < η →
+          η ≤ 1 →
+            GaussianLaw.real
+                {ω | squaredFrobenius (B * gaussianBlock n q offset ω) 0 < (1 - η) * residualTailEnergy B r} ≤
+              Real.exp (-↑q * ↑r * η / 4)

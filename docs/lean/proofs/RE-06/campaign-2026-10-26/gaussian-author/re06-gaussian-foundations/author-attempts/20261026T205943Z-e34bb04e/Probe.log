@@ -1,0 +1,26 @@
+MeasureTheory.measureReal_mono.{u_1} {α : Type u_1} {x✝ : MeasurableSpace α} {μ : Measure α} {s₁ s₂ : Set α}
+  (h : s₁ ⊆ s₂) (h₂ : μ s₂ ≠ ⊤ := by finiteness) : μ.real s₁ ≤ μ.real s₂
+MeasureTheory.measureReal_mono_null.{u_1} {α : Type u_1} {x✝ : MeasurableSpace α} {μ : Measure α} {s₁ s₂ : Set α}
+  (h : s₁ ⊆ s₂) (h₂ : μ.real s₂ = 0) (h'₂ : μ s₂ ≠ ⊤ := by finiteness) : μ.real s₁ = 0
+ENNReal.ofReal_le_ofReal {p q : ℝ} (h : p ≤ q) : ENNReal.ofReal p ≤ ENNReal.ofReal q
+ENNReal.ofReal_toReal {a : ENNReal} (h : a ≠ ⊤) : ENNReal.ofReal a.toReal = a
+ENNReal.toReal_le_toReal {a b : ENNReal} (ha : a ≠ ⊤) (hb : b ≠ ⊤) : a.toReal ≤ b.toReal ↔ a ≤ b
+/private/tmp/nla-re06-gaussian-dev/source/Probe.lean:8:7: error(lean.unknownIdentifier): Unknown constant `Real.strictConcaveOn_log_Ioi`
+StrictConcaveOn.concaveOn.{u_1, u_2, u_5} {𝕜 : Type u_1} {E : Type u_2} {β : Type u_5} [Semiring 𝕜] [PartialOrder 𝕜]
+  [AddCommMonoid E] [AddCommMonoid β] [PartialOrder β] [Module 𝕜 E] [Module 𝕜 β] {s : Set E} {f : E → β}
+  (hf : StrictConcaveOn 𝕜 s f) : ConcaveOn 𝕜 s f
+Real.log_le_sub_one_of_pos {x : ℝ} (hx : 0 < x) : Real.log x ≤ x - 1
+Finset.sum_compl_add_sum.{u_1, u_4} {ι : Type u_1} {M : Type u_4} [AddCommMonoid M] [Fintype ι] [DecidableEq ι]
+  (s : Finset ι) (f : ι → M) : ∑ i ∈ sᶜ, f i + ∑ i ∈ s, f i = ∑ i, f i
+Finset.sum_add_sum_compl.{u_1, u_4} {ι : Type u_1} {M : Type u_4} [AddCommMonoid M] [Fintype ι] [DecidableEq ι]
+  (s : Finset ι) (f : ι → M) : ∑ i ∈ s, f i + ∑ i ∈ sᶜ, f i = ∑ i, f i
+Finset.sum_product.{u_3, u_4, u_5} {α : Type u_3} {β : Type u_4} {γ : Type u_5} [AddCommMonoid β] (s : Finset γ)
+  (t : Finset α) (f : γ × α → β) : ∑ x ∈ s ×ˢ t, f x = ∑ x ∈ s, ∑ y ∈ t, f (x, y)
+Finset.card_product.{u_1, u_2} {α : Type u_1} {β : Type u_2} (s : Finset α) (t : Finset β) :
+  (s ×ˢ t).card = s.card * t.card
+Real.exp_le_exp {x y : ℝ} : Real.exp x ≤ Real.exp y ↔ x ≤ y
+MeasureTheory.measure_biUnion_finset_le.{u_1, u_2, u_3} {α : Type u_1} {ι : Type u_2} {F : Type u_3}
+  [FunLike F (Set α) ENNReal] [OuterMeasureClass F α] {μ : F} (I : Finset ι) (s : ι → Set α) :
+  μ (⋃ i ∈ I, s i) ≤ ∑ i ∈ I, μ (s i)
+MeasureTheory.measure_iUnion_fintype_le.{u_1, u_2, u_3} {α : Type u_1} {ι : Type u_2} {F : Type u_3}
+  [FunLike F (Set α) ENNReal] [OuterMeasureClass F α] [Fintype ι] (μ : F) (s : ι → Set α) : μ (⋃ i, s i) ≤ ∑ i, μ (s i)

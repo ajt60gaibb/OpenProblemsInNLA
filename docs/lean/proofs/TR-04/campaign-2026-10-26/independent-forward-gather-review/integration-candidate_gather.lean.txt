@@ -1,0 +1,27 @@
+
+namespace NLA.Proofs.TR04
+open NLA.Computation.SVDMachine
+
+-- An actual bank call returns to metadata and preserves the live candidate,
+-- global allocation register and a real register outside gather scratch6.
+example {start : State ttProgram} {trace : Trace ttProgram}
+    (ht : LegalTrace ttProgram start trace) (offset : ℕ) (s : State ttProgram)
+    (he : trace.state offset=s) (hl : s.label=189) (hs : s.status=.running)
+    (hj : s.natural 76<s.natural 75) (hp : (ttCandidateGatherParameters s).Valid)
+    (hd : DisjointBlocks (s.natural 72) (s.natural 81*s.natural 81)
+      (s.natural 67) (s.natural 81*(ttCandidateGatherParameters s).width)) :
+    let P := ttCandidateGatherParameters s
+    let t := offset+(P.rows*(11*P.width+7)+24)
+    (trace.state t).label=241 ∧ (trace.state t).status=.running ∧
+      (trace.state t).natural 84=0 ∧
+      (trace.state t).natural 76=s.natural 76 ∧
+      (trace.state t).natural 64=s.natural 64 ∧
+      (trace.state t).real 0=s.real 0 ∧
+      CostThrough ttProgram trace t ≤ CostThrough ttProgram trace offset+P.rows*(11*P.width+7)+24 := by
+  obtain ⟨hl',hs',_,hf,hn,hr,hcost⟩ := ttCandidateGather_run ht offset s he hl hs hj hp hd
+  refine ⟨hl',hs',hf.level,?_,?_,hr 0 (by decide),?_⟩
+  · exact hn 76 (by unfold TTCandidateProtectedNat TTCandidateOutsideBank TTCandidateOutsideResult; decide)
+  · exact hn 64 (by unfold TTCandidateProtectedNat TTCandidateOutsideBank TTCandidateOutsideResult; decide)
+  · omega
+
+end NLA.Proofs.TR04

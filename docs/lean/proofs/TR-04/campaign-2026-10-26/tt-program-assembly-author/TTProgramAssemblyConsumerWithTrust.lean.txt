@@ -1,0 +1,191 @@
+import NLA.Proofs.TR04.MachineTTProgramFacts
+set_option leancert.trust "kernel"
+open NLA.Computation.SVDMachine NLA.Computation.TensorTrainApproximation NLA.Proofs.TR04
+
+example : ttProgram.extraLabels+1=512 ∧ ttProgram.realRegisters=16 ∧
+    ttProgram.extraNatRegisters+1=128 ∧ ttProgram.constantCount=0 := ⟨rfl,rfl,rfl,rfl⟩
+example : RoutineEmbedding headerProductProgram ttProgram := ttHeaderEmbedding
+example : RoutineEmbedding matrixMultiplyProgram ttProgram := ttMatrixEmbedding
+example : RoutineEmbedding copyProgram ttProgram := ttCopyEmbedding
+example : RoutineEmbedding frameGatherProgram ttProgram := ttGatherEmbedding
+example : RoutineEmbedding thresholdScanProgram ttProgram := ttThresholdEmbedding
+example : RoutineEmbedding bestCandidateProgram ttProgram := ttBestEmbedding
+
+example (S : Shape) (r : Ranks S) (A : Tensor S) :
+    ∃ tr : Trace ttProgram,LegalTrace ttProgram (Start ttProgram S r A) tr := ttProgram_trace_exists S r A
+
+example (S : Shape) (r : Ranks S) (A : Tensor S) (tr : Trace ttProgram)
+    (ht : LegalTrace ttProgram (Start ttProgram S r A) tr) :
+    (tr.state (headerProductReturnTime (shapeHeaderValues S) S.order)).label=10 ∧
+    (tr.state (headerProductReturnTime (shapeHeaderValues S) S.order)).status=.running ∧
+    (tr.state (headerProductReturnTime (shapeHeaderValues S) S.order)).natural 2=DenseSize S ∧
+    (tr.state (headerProductReturnTime (shapeHeaderValues S) S.order)).memory=InputMemory S r A ∧
+    CostThrough ttProgram tr (headerProductReturnTime (shapeHeaderValues S) S.order)≤7*Size S r :=
+  ttProgram_header_result S r A tr ht
+
+example (S : Shape) (r : Ranks S) (A : Tensor S) (tr : Trace ttProgram)
+    (ht : LegalTrace ttProgram (Start ttProgram S r A) tr) :
+    (tr.state (headerProductReturnTime (shapeHeaderValues S) S.order)).natural 97=0 ∧
+    (tr.state (headerProductReturnTime (shapeHeaderValues S) S.order)).natural 127=0 :=
+  ⟨ttProgram_header_natural_outside S r A tr ht 97 (by decide),
+   ttProgram_header_natural_outside S r A tr ht 127 (by decide)⟩
+
+example (label : Fin 512) : instructionIsSVD (ttProgram.code label)=true ↔
+    label.val=167 ∨ label.val=237 := ttProgram_svd_positions label
+
+example (label : Fin 512) (hl : 119≤label.val) :
+    ttProgram.code label=ttControllerProgram.code label := ttProgram_code_caller label hl
+
+example (start : State ttProgram) (tr : Trace ttProgram) (ht : LegalTrace ttProgram start tr)
+    (time : ℕ) (hl : (tr.state time).label=167) (hs : (tr.state time).status=.running)
+    (hd : OutputBlocksDisjoint ((tr.state time).natural 81) ((tr.state time).natural 82)
+      ((tr.state time).natural 72) ((tr.state time).natural 73) ((tr.state time).natural 74)) :
+    ∃ U : Matrix (Fin ((tr.state time).natural 81)) (Fin ((tr.state time).natural 81)) ℝ,
+    ∃ sigma : Fin (min ((tr.state time).natural 81) ((tr.state time).natural 82)) → ℝ,
+    ∃ V : Matrix (Fin ((tr.state time).natural 82)) (Fin ((tr.state time).natural 82)) ℝ,
+      ValidSVD (readMatrix (tr.state time).memory ((tr.state time).natural 81)
+        ((tr.state time).natural 82) ((tr.state time).natural 92)) U sigma V ∧
+      tr.state (time+1) =
+        { (tr.state time) with
+          label := 168
+          memory := writeSVD (tr.state time).memory ((tr.state time).natural 72)
+            ((tr.state time).natural 73) ((tr.state time).natural 74) U sigma V } ∧
+      tr.cost time=(((tr.state time).natural 81)+((tr.state time).natural 82)+1)^3 := by
+  apply trace_svd_at ht time 81 82 92 72 73 74 168 _ hs hd
+  rw [hl]
+  exact ttProgram_code_first_svd
+
+example : ttProgram.code 10=.jump 372 ∧ ttProgram.code 32=.equalNat 97 127 274 394 ∧
+    ttProgram.code 39=.jump 355 ∧ ttProgram.code 65=.jump 198 ∧
+    ttProgram.code 88=.jump 179 ∧ ttProgram.code 114=.copyNat 83 55 371 :=
+  ⟨rfl,rfl,rfl,rfl,rfl,rfl⟩
+#assert_trust kernel NLA.Proofs.TR04.BankRegisters
+#print axioms NLA.Proofs.TR04.BankRegisters
+#assert_trust kernel NLA.Proofs.TR04.offsetBankRegisters
+#print axioms NLA.Proofs.TR04.offsetBankRegisters
+#assert_trust kernel NLA.Proofs.TR04.bankLabel
+#print axioms NLA.Proofs.TR04.bankLabel
+#assert_trust kernel NLA.Proofs.TR04.installCodeBank
+#print axioms NLA.Proofs.TR04.installCodeBank
+#assert_trust kernel NLA.Proofs.TR04.installCodeBank_outside
+#print axioms NLA.Proofs.TR04.installCodeBank_outside
+#assert_trust kernel NLA.Proofs.TR04.installedBankEmbedding
+#print axioms NLA.Proofs.TR04.installedBankEmbedding
+#assert_trust kernel NLA.Proofs.TR04.RoutineEmbedding.throughInstalledBank
+#print axioms NLA.Proofs.TR04.RoutineEmbedding.throughInstalledBank
+#assert_trust kernel NLA.Proofs.TR04.installCodeBank_exit
+#print axioms NLA.Proofs.TR04.installCodeBank_exit
+#assert_trust kernel NLA.Proofs.TR04.trace_scalar_block_at
+#print axioms NLA.Proofs.TR04.trace_scalar_block_at
+#assert_trust kernel NLA.Proofs.TR04.trace_svd_at
+#print axioms NLA.Proofs.TR04.trace_svd_at
+#assert_trust kernel NLA.Proofs.TR04.ttControllerProgram
+#print axioms NLA.Proofs.TR04.ttControllerProgram
+#assert_trust kernel NLA.Proofs.TR04.ttHeaderRegisters
+#print axioms NLA.Proofs.TR04.ttHeaderRegisters
+#assert_trust kernel NLA.Proofs.TR04.ttBankStage1
+#print axioms NLA.Proofs.TR04.ttBankStage1
+#assert_trust kernel NLA.Proofs.TR04.ttMatrixRegisters
+#print axioms NLA.Proofs.TR04.ttMatrixRegisters
+#assert_trust kernel NLA.Proofs.TR04.ttBankStage2
+#print axioms NLA.Proofs.TR04.ttBankStage2
+#assert_trust kernel NLA.Proofs.TR04.ttCopyRegisters
+#print axioms NLA.Proofs.TR04.ttCopyRegisters
+#assert_trust kernel NLA.Proofs.TR04.ttBankStage3
+#print axioms NLA.Proofs.TR04.ttBankStage3
+#assert_trust kernel NLA.Proofs.TR04.ttGatherRegisters
+#print axioms NLA.Proofs.TR04.ttGatherRegisters
+#assert_trust kernel NLA.Proofs.TR04.ttBankStage4
+#print axioms NLA.Proofs.TR04.ttBankStage4
+#assert_trust kernel NLA.Proofs.TR04.ttThresholdRegisters
+#print axioms NLA.Proofs.TR04.ttThresholdRegisters
+#assert_trust kernel NLA.Proofs.TR04.ttBankStage5
+#print axioms NLA.Proofs.TR04.ttBankStage5
+#assert_trust kernel NLA.Proofs.TR04.ttBestRegisters
+#print axioms NLA.Proofs.TR04.ttBestRegisters
+#assert_trust kernel NLA.Proofs.TR04.ttBankStage6
+#print axioms NLA.Proofs.TR04.ttBankStage6
+#assert_trust kernel NLA.Proofs.TR04.ttProgram
+#print axioms NLA.Proofs.TR04.ttProgram
+#assert_trust kernel NLA.Proofs.TR04.ttHeaderEmbeddingStage1
+#print axioms NLA.Proofs.TR04.ttHeaderEmbeddingStage1
+#assert_trust kernel NLA.Proofs.TR04.ttHeaderEmbeddingStage2
+#print axioms NLA.Proofs.TR04.ttHeaderEmbeddingStage2
+#assert_trust kernel NLA.Proofs.TR04.ttHeaderEmbeddingStage3
+#print axioms NLA.Proofs.TR04.ttHeaderEmbeddingStage3
+#assert_trust kernel NLA.Proofs.TR04.ttHeaderEmbeddingStage4
+#print axioms NLA.Proofs.TR04.ttHeaderEmbeddingStage4
+#assert_trust kernel NLA.Proofs.TR04.ttHeaderEmbeddingStage5
+#print axioms NLA.Proofs.TR04.ttHeaderEmbeddingStage5
+#assert_trust kernel NLA.Proofs.TR04.ttHeaderEmbeddingStage6
+#print axioms NLA.Proofs.TR04.ttHeaderEmbeddingStage6
+#assert_trust kernel NLA.Proofs.TR04.ttHeaderEmbedding
+#print axioms NLA.Proofs.TR04.ttHeaderEmbedding
+#assert_trust kernel NLA.Proofs.TR04.ttMatrixEmbeddingStage2
+#print axioms NLA.Proofs.TR04.ttMatrixEmbeddingStage2
+#assert_trust kernel NLA.Proofs.TR04.ttMatrixEmbeddingStage3
+#print axioms NLA.Proofs.TR04.ttMatrixEmbeddingStage3
+#assert_trust kernel NLA.Proofs.TR04.ttMatrixEmbeddingStage4
+#print axioms NLA.Proofs.TR04.ttMatrixEmbeddingStage4
+#assert_trust kernel NLA.Proofs.TR04.ttMatrixEmbeddingStage5
+#print axioms NLA.Proofs.TR04.ttMatrixEmbeddingStage5
+#assert_trust kernel NLA.Proofs.TR04.ttMatrixEmbeddingStage6
+#print axioms NLA.Proofs.TR04.ttMatrixEmbeddingStage6
+#assert_trust kernel NLA.Proofs.TR04.ttMatrixEmbedding
+#print axioms NLA.Proofs.TR04.ttMatrixEmbedding
+#assert_trust kernel NLA.Proofs.TR04.ttCopyEmbeddingStage3
+#print axioms NLA.Proofs.TR04.ttCopyEmbeddingStage3
+#assert_trust kernel NLA.Proofs.TR04.ttCopyEmbeddingStage4
+#print axioms NLA.Proofs.TR04.ttCopyEmbeddingStage4
+#assert_trust kernel NLA.Proofs.TR04.ttCopyEmbeddingStage5
+#print axioms NLA.Proofs.TR04.ttCopyEmbeddingStage5
+#assert_trust kernel NLA.Proofs.TR04.ttCopyEmbeddingStage6
+#print axioms NLA.Proofs.TR04.ttCopyEmbeddingStage6
+#assert_trust kernel NLA.Proofs.TR04.ttCopyEmbedding
+#print axioms NLA.Proofs.TR04.ttCopyEmbedding
+#assert_trust kernel NLA.Proofs.TR04.ttGatherEmbeddingStage4
+#print axioms NLA.Proofs.TR04.ttGatherEmbeddingStage4
+#assert_trust kernel NLA.Proofs.TR04.ttGatherEmbeddingStage5
+#print axioms NLA.Proofs.TR04.ttGatherEmbeddingStage5
+#assert_trust kernel NLA.Proofs.TR04.ttGatherEmbeddingStage6
+#print axioms NLA.Proofs.TR04.ttGatherEmbeddingStage6
+#assert_trust kernel NLA.Proofs.TR04.ttGatherEmbedding
+#print axioms NLA.Proofs.TR04.ttGatherEmbedding
+#assert_trust kernel NLA.Proofs.TR04.ttThresholdEmbeddingStage5
+#print axioms NLA.Proofs.TR04.ttThresholdEmbeddingStage5
+#assert_trust kernel NLA.Proofs.TR04.ttThresholdEmbeddingStage6
+#print axioms NLA.Proofs.TR04.ttThresholdEmbeddingStage6
+#assert_trust kernel NLA.Proofs.TR04.ttThresholdEmbedding
+#print axioms NLA.Proofs.TR04.ttThresholdEmbedding
+#assert_trust kernel NLA.Proofs.TR04.ttBestEmbeddingStage6
+#print axioms NLA.Proofs.TR04.ttBestEmbeddingStage6
+#assert_trust kernel NLA.Proofs.TR04.ttBestEmbedding
+#print axioms NLA.Proofs.TR04.ttBestEmbedding
+#assert_trust kernel NLA.Proofs.TR04.ttProgram_code_first_svd
+#print axioms NLA.Proofs.TR04.ttProgram_code_first_svd
+#assert_trust kernel NLA.Proofs.TR04.ttProgram_code_child_svd
+#print axioms NLA.Proofs.TR04.ttProgram_code_child_svd
+#assert_trust kernel NLA.Proofs.TR04.ttProgram_code_header_exit
+#print axioms NLA.Proofs.TR04.ttProgram_code_header_exit
+#assert_trust kernel NLA.Proofs.TR04.ttProgram_code_matrix_exit
+#print axioms NLA.Proofs.TR04.ttProgram_code_matrix_exit
+#assert_trust kernel NLA.Proofs.TR04.ttProgram_code_copy_exit
+#print axioms NLA.Proofs.TR04.ttProgram_code_copy_exit
+#assert_trust kernel NLA.Proofs.TR04.ttProgram_code_gather_exit
+#print axioms NLA.Proofs.TR04.ttProgram_code_gather_exit
+#assert_trust kernel NLA.Proofs.TR04.ttProgram_code_threshold_exit
+#print axioms NLA.Proofs.TR04.ttProgram_code_threshold_exit
+#assert_trust kernel NLA.Proofs.TR04.ttProgram_code_best_exit
+#print axioms NLA.Proofs.TR04.ttProgram_code_best_exit
+#assert_trust kernel NLA.Proofs.TR04.ttProgram_code_caller
+#print axioms NLA.Proofs.TR04.ttProgram_code_caller
+#assert_trust kernel NLA.Proofs.TR04.ttProgram_svd_positions
+#print axioms NLA.Proofs.TR04.ttProgram_svd_positions
+#assert_trust kernel NLA.Proofs.TR04.ttHeader_initial_relates
+#print axioms NLA.Proofs.TR04.ttHeader_initial_relates
+#assert_trust kernel NLA.Proofs.TR04.ttProgram_trace_exists
+#print axioms NLA.Proofs.TR04.ttProgram_trace_exists
+#assert_trust kernel NLA.Proofs.TR04.ttProgram_header_result
+#print axioms NLA.Proofs.TR04.ttProgram_header_result
+#assert_trust kernel NLA.Proofs.TR04.ttProgram_header_natural_outside
+#print axioms NLA.Proofs.TR04.ttProgram_header_natural_outside

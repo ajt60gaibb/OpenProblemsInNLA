@@ -1,0 +1,26 @@
+# Independent RE-06 two-export source review
+
+**Approve exact immutable checkpoint `b48de1c1510ec2677ce8300d015e00cdc202065d` for `NLA.Proofs.RE06.svd_total` and `NLA.Proofs.RE06.query_bound` only.** I authored no RE-06 proof sources. The static audit passes **198 checks**. A separate own fresh replay passes **20/20 expected outcomes** and **47 checks**: 12 exact model/reuse/proof sources, one independent literal consumer/audit, and seven actual rejection commands.
+
+The five new RE-06 implementation/audit files and two installed TR-04 reuse files match the exact seven-file freeze (SHA-256 `ae082b622334d2b5a7381a6192d76e30a06e8796ff4620edfc754b450351bf60`). Both public signatures consume the literal reviewed six-export Challenge types. Explicit authorization `bb0dd13e3321bb35af762936a75c2c3a8a8363c6` precedes implementation and binds the matching fresh independent pre-proof approvals. All 103 original packet files, 49 published source/model/manuscript inputs, nine separate reuse/provenance inputs and all 217 permanent ID/path pairs are preserved. The canonical README remains byte-identical and **Solved**.
+
+The SVD wrapper proves the actual machine's `ValidSVDResult B (exactSVD B)` for every natural rectangular size and every real matrix. The byte-exact reused Gram-operator construction supplies full orthogonal bases, sorted nonnegative singular values and literal rectangular reconstruction; positive image vectors extend to a full left basis and zero tail terms truncate legitimately. The wrapper packages that actual existence into `SVDResult`, enters the actual choice branch and uses `Classical.choose_spec`. Zero rows, zero columns, zero rank and either rectangular orientation require no new assumption. Reuse is exact source `653b8f1641415f4160811648ff3e23889ba2e136`, with its separate provenance retained; this review independently rebuilds and audits its theorems rather than treating an older TR-04 approval as RE-06 approval.
+
+The count proof concerns the **actual** precommitted query list. Its length is exactly `min n (s+k+ell)` for every real stream: the full branch issues `n` basis queries and the other branch concatenates exactly its three finite sketch blocks. The proof uses the unchanged integer logarithm/root and real-ceiling width definitions. For `M=m+2`, `L=clog₂(2M)`, `r=ceil(sqrt L)` and `eta=epsilon/4`, it proves `r>=1`, `L<=r²`, `log(2M)>=1` and `r<=3 sqrt(log(2M))`. Ceiling estimates give `s<=97r/eta²`, `k<=259r/eta`, and `ell<=259²r/eta²`, so the sum is at most `67437r/eta²`. The resulting coefficient is **`67437*3*16 = 3,236,976 <= 4,000,000`**.
+
+Those 259 factors are deliberately looser than the preserved manuscript's 257 factors and 3,187,344 coefficient; the literal public 4,000,000 bound is unchanged. Every denominator is justified by the exact `0<epsilon<1/2` header. `m=0` still has `M>=2`; branch equality and small dimensions are covered by the minimum formula. No matrix, rank, family injectivity, probability event or Gaussian-success hypothesis enters this uniform count result. The exact overhead exponent remains `b=0`.
+
+The independent consumer checks **31 genuine theorem constants** with LeanCert kernel mode and transitive standard-only axioms: 28 source theorems, including all 13 count-support lemmas, plus three own literal consumers/identity. Both public theorem closures use exactly `propext`, `Classical.choice` and `Quot.sound`. Exact live/frozen Target identity is reflexive. The four remaining public exports are explicitly absent in the reviewed import environment.
+
+Actual controls separately reject a hole for each public type, a definition alias for each public proof, and a transitive custom-False-axiom counterfeit for each public proof. The complete unchanged six-hole reference Challenge is also actually rejected at all six trust checks. Every command's exact source, raw log, exit code and hash is retained. Official Lean 4.33.1 and all ten exact dependency heads are checked clean before and after. Only fresh own project objects were used; they are removed after replay. Newer untracked root/Gaussian/MP sources in the development worktree never enter this immutable replay.
+
+Sidney Holden retains credit for the unchanged RE-06 mathematical manuscript. This approval covers two support exports. It does **not** approve `successful`, `OriginalClaim`, `ExplicitClaim` or the full Target, promote status, substitute for the second independent source review, or claim Linux/Comparator evidence.
+
+Reproduce with Python 3, the bound Git objects, the official pinned Lean runtime and populated pinned dependency cache:
+
+```sh
+python3 /path/to/inventory/audit_source.py --repo /path/to/OpenProblemsInNLA --reuse-repo /path/to/read-only-TR04-repository --output /tmp/re06-counts-input-review
+python3 /path/to/inventory/reproduce.py --repo /path/to/OpenProblemsInNLA --lean /path/to/pinned/lean --packages /path/to/pinned/packages --output /tmp/re06-counts-independent-replay
+```
+
+`REVIEW.json` binds the exact source/approval, fresh replay and mathematical audit. `FILE_SHA256.json` binds all portable scripts, frozen source copies, raw logs and reports. No authored proof or canonical source was edited.

@@ -27,7 +27,7 @@
 
 | ID | Problem | Status | Difficulty | Impact | Read / source |
 | --- | --- | --- | --- | --- | --- |
-| [TR-04](TR-04/README.md) | Improve the worst-case approximation factor for prescribed tensor-train ranks | **✅ SOLVED** | extreme | interesting to the community | [PDF](TR-04/problem.pdf) · [TeX](TR-04/problem.tex) |
+| [TR-04](TR-04/README.md) | Improve the worst-case approximation factor for prescribed tensor-train ranks | **🏆 LEAN VERIFIED** | extreme | interesting to the community | [PDF](TR-04/problem.pdf) · [TeX](TR-04/problem.tex) |
 | [TR-06](TR-06/README.md) | Finite mean angular condition number for identifiable tensor decomposition | **🏆 LEAN VERIFIED** | challenging | interesting to specialist | [PDF](TR-06/problem.pdf) · [TeX](TR-06/problem.tex) |
 | [TR-13](TR-13/README.md) | Equality of ranks for generic odd-order Hankel tensors | **🏆 LEAN VERIFIED** | challenging | interesting to specialist | [PDF](TR-13/problem.pdf) · [TeX](TR-13/problem.tex) |
 | [TR-14](TR-14/README.md) | Comon's exact-rank conjecture for Hankel tensors | **🏆 LEAN VERIFIED** | challenging | interesting to specialist | [PDF](TR-14/problem.pdf) · [TeX](TR-14/problem.tex) |

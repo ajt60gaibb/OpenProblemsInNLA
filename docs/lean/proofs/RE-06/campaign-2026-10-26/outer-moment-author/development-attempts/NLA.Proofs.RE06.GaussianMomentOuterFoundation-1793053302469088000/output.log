@@ -1,0 +1,35 @@
+/private/tmp/nla-re06-pseudoinverse-dev/source/NLA/Proofs/RE06/GaussianMomentOuterFoundation.lean:37:6: error(lean.synthInstanceFailed): failed to synthesize instance of type class
+  SFinite μ
+
+Hint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.
+/private/tmp/nla-re06-pseudoinverse-dev/source/NLA/Proofs/RE06/GaussianMomentOuterFoundation.lean:35:42: error: unsolved goals
+Ω : Type u_1
+Γ : Type u_2
+inst✝² : MeasurableSpace Ω
+inst✝¹ : MeasurableSpace Γ
+μ : Measure Ω
+ν : Measure Γ
+inst✝ : SFinite ν
+V : Ω × Γ → ℝ
+hVm : Measurable V
+hV0 : ∀ (z : Ω × Γ), 0 ≤ V z
+M : Ω → ℝ
+hM : Integrable M μ
+hVi : ∀ᵐ (g : Ω) ∂μ, Integrable (fun h => V (g, h)) ν
+hmean : ∀ᵐ (g : Ω) ∂μ, ∫ (h : Γ), V (g, h) ∂ν ≤ M g
+hi : Integrable V (μ.prod ν)
+⊢ ∫ (z : Ω × Γ), V z ∂μ.prod ν ≤ ∫ (g : Ω), M g ∂μ
+/private/tmp/nla-re06-pseudoinverse-dev/source/NLA/Proofs/RE06/GaussianMomentOuterFoundation.lean:67:48: error: Application type mismatch: The argument
+  add_le_add_left hXa tail
+has type
+  ∫ (g : Ω), X g ∂μ + tail ≤ a * tail + tail
+but is expected to have type
+  tail + ∫ (g : Ω), X g ∂μ ≤ tail + a * tail
+in the application
+  mul_le_mul_of_nonneg_left (add_le_add_left hXa tail)
+/private/tmp/nla-re06-pseudoinverse-dev/source/NLA/Proofs/RE06/GaussianMomentOuterFoundation.lean:62:52: error: Type mismatch
+  add_le_add_left hVbound ?m.298
+has type
+  (integral.{max u_1 u_2, 0} (μ.prod ν) fun z => V z) + ?m.298 ≤ ∫ (g : Ω), b * (tail + X g) ∂μ + ?m.298
+but is expected to have type
+  (integral.{u_1, 0} μ fun g => X g) + ∫ (z : Ω × Γ), V z ∂μ.prod ν ≤ ∫ (g : Ω), X g ∂μ + ∫ (g : Ω), b * (tail + X g) ∂μ

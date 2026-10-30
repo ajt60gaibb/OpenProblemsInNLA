@@ -1,0 +1,150 @@
+'NLA.Proofs.TR04.ttChild_svd_stage_at' depends on axioms: [propext, Classical.choice, Quot.sound]
+NLA.Proofs.TR04.MachineTTStageChildSVD 0
+'NLA.Proofs.TR04.TTCoreResult.prefixCompletion' depends on axioms: [propext, Classical.choice, Quot.sound]
+NLA.Proofs.TR04.MachineTTRecursiveResult 0
+'NLA.Proofs.TR04.ttStage_reverse_at' depends on axioms: [propext, Classical.choice, Quot.sound]
+NLA.Proofs.TR04.MachineTTStageReverse 0
+'NLA.Proofs.TR04.ttCore_two_at' depends on axioms: [propext, Classical.choice, Quot.sound]
+NLA.Proofs.TR04.MachineTTRecursiveBase 0
+'NLA.Proofs.TR04.ttChild_rank_call_at' depends on axioms: [propext, Classical.choice, Quot.sound]
+NLA.Proofs.TR04.MachineTTChildInitializationCalls 0
+'NLA.Proofs.TR04.ttChild_initialize_at' depends on axioms: [propext, Classical.choice, Quot.sound]
+NLA.Proofs.TR04.MachineTTChildInitialization 0
+'NLA.Proofs.TR04.ttChild_initialize_original_at' depends on axioms: [propext, Classical.choice, Quot.sound]
+'NLA.Proofs.TR04.ttChild_initialize_reachable_at' depends on axioms: [propext, Classical.choice, Quot.sound]
+NLA.Proofs.TR04.MachineTTChildInitializationOriginal 0
+'NLA.Proofs.TR04.ttCore_complete_at' depends on axioms: [propext, Classical.choice, Quot.sound]
+NLA.Proofs.TR04.MachineTTRecursiveExecution 0
+'NLA.Proofs.TR04.bestCandidateProgram_first' depends on axioms: [propext, Classical.choice, Quot.sound]
+'NLA.Proofs.TR04.bestCandidateProgram_take' depends on axioms: [propext, Classical.choice, Quot.sound]
+'NLA.Proofs.TR04.bestCandidateProgram_keep' depends on axioms: [propext, Classical.choice, Quot.sound]
+NLA.Proofs.TR04.MachineBestCandidateBranches 0
+'NLA.Proofs.TR04.bestCandidateProgram_error' depends on axioms: [propext, Classical.choice, Quot.sound]
+NLA.Proofs.TR04.MachineBestCandidateError 0
+'NLA.Proofs.TR04.bestCandidateProgram_run' depends on axioms: [propext, Classical.choice, Quot.sound]
+'NLA.Proofs.TR04.bestCandidateProgram_exists_trace' depends on axioms: [propext, Classical.choice, Quot.sound]
+NLA.Proofs.TR04.MachineBestCandidateCorrectness 0
+'NLA.Proofs.TR04.RoutineEmbedding.bestCandidate_run_at' depends on axioms: [propext, Classical.choice, Quot.sound]
+'NLA.Proofs.TR04.RoutineEmbedding.bestCandidate_value_at' depends on axioms: [propext, Classical.choice, Quot.sound]
+NLA.Proofs.TR04.MachineBestCandidateCallable 0
+'NLA.Proofs.TR04.ttBest_halt_at' depends on axioms: [propext, Classical.choice, Quot.sound]
+NLA.Proofs.TR04.MachineTTFinalScalar 0
+'NLA.Proofs.TR04.ttCandidate_copy_at' depends on axioms: [propext, Classical.choice, Quot.sound]
+NLA.Proofs.TR04.MachineTTFinalCopy 0
+'NLA.Proofs.TR04.ttBest_halt_minimum_at' depends on axioms: [propext, Classical.choice, Quot.sound]
+NLA.Proofs.TR04.MachineTTFinalBest 0
+'NLA.Proofs.TR04.squaredErrorSum_eq_frobeniusSq' depends on axioms: [propext, Classical.choice, Quot.sound]
+'NLA.Proofs.TR04.RoutineEmbedding.squaredError_run_frobenius' depends on axioms: [propext, Classical.choice, Quot.sound]
+NLA.Proofs.TR04.MachineSquaredErrorOriginal 0
+'NLA.Proofs.TR04.ttCandidate_copy_original_at' depends on axioms: [propext, Classical.choice, Quot.sound]
+'NLA.Proofs.TR04.ttBest_halt_original_at' depends on axioms: [propext, Classical.choice, Quot.sound]
+NLA.Proofs.TR04.MachineTTFinalOriginal 0
+'NLA.Proofs.TR04.ttCandidate_copy349_at' depends on axioms: [propext, Classical.choice, Quot.sound]
+'NLA.Proofs.TR04.ttCandidate_copy349_original_at' depends on axioms: [propext, Classical.choice, Quot.sound]
+NLA.Proofs.TR04.MachineTTFinalCopy349 0
+'NLA.Proofs.TR04.ttCandidate_store_context_at' depends on axioms: [propext, Classical.choice, Quot.sound]
+NLA.Proofs.TR04.MachineTTStoreCandidate 0
+NLA/Proofs/TR04/MachineTTCandidateExecution.lean:53:6: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  stepRank (s0.natural 81) (n :: ns) (originalRanks S r)
+in the target expression
+  ∀ (Q : Matrix (Fin (s0.natural 81)) (Fin (stepRank (s0.natural 81) (n :: ns) fun j => originalRanks S r (0 + j))) ℝ)
+    (A_1 : TensorFormat.Tensor (s0.natural 81 :: n :: ns)),
+    Dimensions.Reachable (modeList S.mode) (originalRanks S r) 0 (s0.natural 81 :: n :: ns) →
+      (trace.state gathered).label = 241 →
+        (trace.state gathered).status = Status.running →
+          TTStageData (ofShape S) 0 (s0.natural 81)
+              (stepRank (s0.natural 81) (n :: ns) fun j => originalRanks S r (0 + j)) (n :: ns) Q A_1
+              (trace.state gathered) →
+            (∀ a < (ofShape S).input, (trace.state gathered).memory a = InputMemory S r A a) →
+              ∃ elapsed Z,
+                elapsed ≤ 3000 * ns.length * ttRecursiveUnit (Size S r) + 2000 * ttRecursiveUnit (Size S r) ∧
+                  TTCoreResult (trace.state gathered) (trace.state (gathered + elapsed)) (ofShape S) 0 (s0.natural 81)
+                      (stepRank (s0.natural 81) (n :: ns) fun j => originalRanks S r (0 + j)) n ns
+                      (fun j => originalRanks S r j) Q A_1 Z ∧
+                    CostThrough ttProgram trace (gathered + elapsed) ≤
+                      CostThrough ttProgram trace gathered +
+                        (3000 * ns.length * ttRecursiveUnit (Size S r) + 2000 * ttRecursiveUnit (Size S r))
+
+start s0 : State ttProgram
+trace : Trace ttProgram
+ht : LegalTrace ttProgram start trace
+offset : ℕ
+S : Shape
+r : Ranks S
+A : Computation.TensorTrainApproximation.Tensor S
+hrank : ∀ (j : Cut S), 1 ≤ r j
+hi : TTInitialSVDData S r A s0
+R : TTFirstReply s0
+hr : 1 ≤ s0.natural 80
+hctx : TTFirstContext R hr (ofShape S) (trace.state offset)
+n : ℕ
+ns : List ℕ
+hshape : modeList S.mode = s0.natural 81 :: n :: ns
+hcols : suffixSize (n :: ns) = s0.natural 82
+hl : (trace.state offset).label = 189
+hs : (trace.state offset).status = Status.running
+hj : (trace.state offset).natural 76 < (trace.state offset).natural 75
+L : Layout := ofShape S
+s : State ttProgram := trace.state offset
+gatherTime : ℕ := s0.natural 81 * (11 * s.natural 106 + 7) + 24
+gathered : ℕ := offset + gatherTime
+j : Fin R.family.count
+hjval : ↑j = s.natural 76
+hwidth : s.natural 106 = R.family.width
+hgTime : s0.natural 81 * (11 * s.natural 106 + 7) + 24 ≤ 24 * ((ofShape S).entries + 1) ^ 2
+hgLabel : (trace.state (offset + (s0.natural 81 * (11 * s.natural 106 + 7) + 24))).label = 241
+hgRunning : (trace.state (offset + (s0.natural 81 * (11 * s.natural 106 + 7) + 24))).status = Status.running
+hQ :
+  StoresFrame (trace.state (offset + (s0.natural 81 * (11 * s.natural 106 + 7) + 24))).memory (ofShape S).frames
+    R.family.width (R.family.frame j)
+hgContext : TTFirstContext R hr (ofShape S) (trace.state (offset + (s0.natural 81 * (11 * s.natural 106 + 7) + 24)))
+hgPres : TTStagePreserves (ofShape S) 0 s (trace.state (offset + (s0.natural 81 * (11 * s.natural 106 + 7) + 24)))
+hfields : TTCandidateMetadataFields s (trace.state (offset + (s0.natural 81 * (11 * s.natural 106 + 7) + 24)))
+hgCost :
+  CostThrough ttProgram trace (offset + (s0.natural 81 * (11 * s.natural 106 + 7) + 24)) ≤
+    CostThrough ttProgram trace offset + 24 * ((ofShape S).entries + 1) ^ 2
+hgData :
+  TTStageData (ofShape S) 0 (s0.natural 81) R.family.width (n :: ns) (R.family.frame j) (Original.input hshape A)
+    (trace.state (offset + (s0.natural 81 * (11 * s.natural 106 + 7) + 24)))
+hwidthStep : R.family.width = stepRank (s0.natural 81) (n :: ns) (originalRanks S r)
+H :
+  ∀ (Q : Matrix (Fin (s0.natural 81)) (Fin (stepRank (s0.natural 81) (n :: ns) fun j => originalRanks S r (0 + j))) ℝ)
+    (A_1 : TensorFormat.Tensor (s0.natural 81 :: n :: ns)),
+    Dimensions.Reachable (modeList S.mode) (originalRanks S r) 0 (s0.natural 81 :: n :: ns) →
+      (trace.state gathered).label = 241 →
+        (trace.state gathered).status = Status.running →
+          TTStageData (ofShape S) 0 (s0.natural 81)
+              (stepRank (s0.natural 81) (n :: ns) fun j => originalRanks S r (0 + j)) (n :: ns) Q A_1
+              (trace.state gathered) →
+            (∀ a < (ofShape S).input, (trace.state gathered).memory a = InputMemory S r A a) →
+              ∃ elapsed Z,
+                elapsed ≤ 3000 * ns.length * ttRecursiveUnit (Size S r) + 2000 * ttRecursiveUnit (Size S r) ∧
+                  TTCoreResult (trace.state gathered) (trace.state (gathered + elapsed)) (ofShape S) 0 (s0.natural 81)
+                      (stepRank (s0.natural 81) (n :: ns) fun j => originalRanks S r (0 + j)) n ns
+                      (fun j => originalRanks S r j) Q A_1 Z ∧
+                    CostThrough ttProgram trace (gathered + elapsed) ≤
+                      CostThrough ttProgram trace gathered +
+                        (3000 * ns.length * ttRecursiveUnit (Size S r) + 2000 * ttRecursiveUnit (Size S r))
+⊢ ∃ elapsed j Z,
+    elapsed ≤ 8000 * (Size S r + 1) ^ 4 ∧
+      ↑j = (trace.state offset).natural 76 ∧
+        Completion (R.family.width * n :: ns) (fun i => originalRanks S r (i + 1))
+            ((merge R.family.width n ns) (contract (R.family.frame j) (Original.input hshape A))) Z ∧
+          (trace.state (offset + elapsed)).label = 189 ∧
+            (trace.state (offset + elapsed)).status = Status.running ∧
+              TTFirstContext R hr (ofShape S) (trace.state (offset + elapsed)) ∧
+                (trace.state (offset + elapsed)).natural 76 = (trace.state offset).natural 76 + 1 ∧
+                  (∀ (x : Computation.TensorTrainApproximation.Index S),
+                      (trace.state (offset + elapsed)).memory ((ofShape S).candidate ↑j + Offset S x) =
+                        Original.output hshape (completionOutput (R.family.frame j) Z) x) ∧
+                    (∀ i < (trace.state offset).natural 76,
+                        ∀ k < DenseSize S,
+                          (trace.state (offset + elapsed)).memory ((ofShape S).candidate i + k) =
+                            (trace.state offset).memory ((ofShape S).candidate i + k)) ∧
+                      CostThrough ttProgram trace (offset + elapsed) ≤
+                        CostThrough ttProgram trace offset + 8000 * (Size S r + 1) ^ 4
+NLA/Proofs/TR04/MachineTTCandidateExecution.lean:112:21: error: #assert_trust: 'NLA.Proofs.TR04.ttCandidate_complete_at' depends on sorry or unrecognized axioms
+  foundational: propext, Classical.choice, Quot.sound
+  sorryAx: sorryAx
+'NLA.Proofs.TR04.ttCandidate_complete_at' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+NLA.Proofs.TR04.MachineTTCandidateExecution 1

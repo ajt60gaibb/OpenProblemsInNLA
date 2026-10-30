@@ -1,0 +1,6 @@
+import NLA.Proofs.RE06.TranscriptAudit
+set_option leancert.trust "kernel"
+open NLA.Computation.NonadaptiveMatrixQuery
+example {n : ℕ} (A : Matrix (Fin n) (Fin n) ℝ) (P : Plan n) (hP : P.full = false)
+    (j : Fin P.ell) : storedVector (oracleAnswers A P) (P.s+j.val) =
+      (fun i => (A.transpose * P.H) i j) := NLA.Proofs.RE06.storedVector_sketchH A P hP j

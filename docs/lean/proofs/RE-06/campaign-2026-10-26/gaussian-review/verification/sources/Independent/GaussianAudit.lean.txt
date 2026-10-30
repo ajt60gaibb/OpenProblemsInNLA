@@ -1,0 +1,543 @@
+import NLA.Computation.SVDMachine
+import NLA.Computation.NonadaptiveMatrixQuery
+import NLA.Proofs.RE06.GaussianStream
+import NLA.Proofs.RE06.GaussianLaplace
+import NLA.Proofs.RE06.GaussianLogBounds
+import NLA.Proofs.RE06.GaussianQuadratic
+import NLA.Proofs.RE06.GaussianUpperChernoff
+import NLA.Proofs.RE06.GaussianTails
+import NLA.Proofs.RE06.GaussianUpperTail
+import NLA.Proofs.RE06.GaussianRotation
+import NLA.Proofs.RE06.GaussianFlatten
+import NLA.Proofs.RE06.GaussianTailTransport
+import NLA.Proofs.RE06.GaussianWarmStart
+import NLA.Proofs.RE06.GaussianWarmStartTails
+import NLA.Proofs.RE06.GaussianOrthogonal
+import NLA.Proofs.TR04.SVDCore
+import NLA.Proofs.TR04.SVDTotal
+import NLA.Proofs.RE06.SVDTotal
+import NLA.Proofs.RE06.PseudoInverseCore
+import NLA.Proofs.RE06.GaussianResidualTransport
+import NLA.Proofs.RE06.GaussianResidualTails
+import NLA.Proofs.RE06.Transcript
+import NLA.Proofs.RE06.GaussianWarmStartResidual
+import NLA.Statements.Infrastructure
+import NLA.Statements.RE06
+import Reviewed.RE06
+set_option leancert.trust "kernel"
+open Lean Elab Command
+elab "#review_kind " kind:ident target:ident : command => do
+  let n ← liftCoreM <| realizeGlobalConstNoOverloadWithInfo target
+  match ← liftCoreM <| getConstInfo n with
+  | .thmInfo _ => unless kind.getId == `thm do throwError "expected definition"
+  | .defnInfo _ => unless kind.getId == `defn do throwError "review requires actual theorem"
+  | _ => throwError "unexpected declaration kind"
+elab "#review_absent " target:ident : command => do
+  if (← getEnv).contains target.getId then throwError "unexpected public endpoint"
+
+#review_kind thm NLA.Proofs.RE06.stream_coordinate_hasLaw
+#assert_trust kernel NLA.Proofs.RE06.stream_coordinate_hasLaw
+#print axioms NLA.Proofs.RE06.stream_coordinate_hasLaw
+#review_kind thm NLA.Proofs.RE06.stream_selection_hasLaw
+#assert_trust kernel NLA.Proofs.RE06.stream_selection_hasLaw
+#print axioms NLA.Proofs.RE06.stream_selection_hasLaw
+#review_kind thm NLA.Proofs.RE06.finite_stream_selection_hasLaw
+#assert_trust kernel NLA.Proofs.RE06.finite_stream_selection_hasLaw
+#print axioms NLA.Proofs.RE06.finite_stream_selection_hasLaw
+#review_kind thm NLA.Proofs.RE06.stream_groups_hasLaw
+#assert_trust kernel NLA.Proofs.RE06.stream_groups_hasLaw
+#print axioms NLA.Proofs.RE06.stream_groups_hasLaw
+#review_kind thm NLA.Proofs.RE06.finite_stream_groups_hasLaw
+#assert_trust kernel NLA.Proofs.RE06.finite_stream_groups_hasLaw
+#print axioms NLA.Proofs.RE06.finite_stream_groups_hasLaw
+#review_kind thm NLA.Proofs.RE06.stream_selection_independent
+#assert_trust kernel NLA.Proofs.RE06.stream_selection_independent
+#print axioms NLA.Proofs.RE06.stream_selection_independent
+#review_kind defn NLA.Proofs.RE06.gaussianBlockIndex
+#assert_trust kernel NLA.Proofs.RE06.gaussianBlockIndex
+#print axioms NLA.Proofs.RE06.gaussianBlockIndex
+#review_kind thm NLA.Proofs.RE06.gaussianBlockIndex_injective
+#assert_trust kernel NLA.Proofs.RE06.gaussianBlockIndex_injective
+#print axioms NLA.Proofs.RE06.gaussianBlockIndex_injective
+#review_kind defn NLA.Proofs.RE06.gaussianBlock
+#assert_trust kernel NLA.Proofs.RE06.gaussianBlock
+#print axioms NLA.Proofs.RE06.gaussianBlock
+#review_kind thm NLA.Proofs.RE06.gaussianBlock_entries_hasLaw
+#assert_trust kernel NLA.Proofs.RE06.gaussianBlock_entries_hasLaw
+#print axioms NLA.Proofs.RE06.gaussianBlock_entries_hasLaw
+#review_kind defn NLA.Proofs.RE06.gaussianBlockWidth
+#assert_trust kernel NLA.Proofs.RE06.gaussianBlockWidth
+#print axioms NLA.Proofs.RE06.gaussianBlockWidth
+#review_kind defn NLA.Proofs.RE06.gaussianBlockOffset
+#assert_trust kernel NLA.Proofs.RE06.gaussianBlockOffset
+#print axioms NLA.Proofs.RE06.gaussianBlockOffset
+#review_kind defn NLA.Proofs.RE06.gaussianThreeColumn
+#assert_trust kernel NLA.Proofs.RE06.gaussianThreeColumn
+#print axioms NLA.Proofs.RE06.gaussianThreeColumn
+#review_kind thm NLA.Proofs.RE06.gaussianThreeColumn_injective
+#assert_trust kernel NLA.Proofs.RE06.gaussianThreeColumn_injective
+#print axioms NLA.Proofs.RE06.gaussianThreeColumn_injective
+#review_kind defn NLA.Proofs.RE06.gaussianThreeIndex
+#assert_trust kernel NLA.Proofs.RE06.gaussianThreeIndex
+#print axioms NLA.Proofs.RE06.gaussianThreeIndex
+#review_kind thm NLA.Proofs.RE06.gaussianThreeIndex_injective
+#assert_trust kernel NLA.Proofs.RE06.gaussianThreeIndex_injective
+#print axioms NLA.Proofs.RE06.gaussianThreeIndex_injective
+#review_kind thm NLA.Proofs.RE06.gaussianThreeBlocks_hasLaw
+#assert_trust kernel NLA.Proofs.RE06.gaussianThreeBlocks_hasLaw
+#print axioms NLA.Proofs.RE06.gaussianThreeBlocks_hasLaw
+#review_kind thm NLA.Proofs.RE06.gaussianThreeBlocks_independent
+#assert_trust kernel NLA.Proofs.RE06.gaussianThreeBlocks_independent
+#print axioms NLA.Proofs.RE06.gaussianThreeBlocks_independent
+#review_kind thm NLA.Proofs.RE06.makePlan_sketch_blocks
+#assert_trust kernel NLA.Proofs.RE06.makePlan_sketch_blocks
+#print axioms NLA.Proofs.RE06.makePlan_sketch_blocks
+#review_kind thm NLA.Proofs.RE06.gaussian_square_exp_integral
+#assert_trust kernel NLA.Proofs.RE06.gaussian_square_exp_integral
+#print axioms NLA.Proofs.RE06.gaussian_square_exp_integral
+#review_kind thm NLA.Proofs.RE06.gaussian_square_exp_integrable
+#assert_trust kernel NLA.Proofs.RE06.gaussian_square_exp_integrable
+#print axioms NLA.Proofs.RE06.gaussian_square_exp_integrable
+#review_kind thm NLA.Proofs.RE06.gaussian_square_laplace
+#assert_trust kernel NLA.Proofs.RE06.gaussian_square_laplace
+#print axioms NLA.Proofs.RE06.gaussian_square_laplace
+#review_kind thm NLA.Proofs.RE06.gaussian_square_laplace_integrable
+#assert_trust kernel NLA.Proofs.RE06.gaussian_square_laplace_integrable
+#print axioms NLA.Proofs.RE06.gaussian_square_laplace_integrable
+#review_kind thm NLA.Proofs.RE06.log_one_add_ge_half
+#assert_trust kernel NLA.Proofs.RE06.log_one_add_ge_half
+#print axioms NLA.Proofs.RE06.log_one_add_ge_half
+#review_kind thm NLA.Proofs.RE06.log_one_add_ge_scaled
+#assert_trust kernel NLA.Proofs.RE06.log_one_add_ge_scaled
+#print axioms NLA.Proofs.RE06.log_one_add_ge_scaled
+#review_kind thm NLA.Proofs.RE06.log_one_sub_mul_ge_mul_log
+#assert_trust kernel NLA.Proofs.RE06.log_one_sub_mul_ge_mul_log
+#print axioms NLA.Proofs.RE06.log_one_sub_mul_ge_mul_log
+#review_kind thm NLA.Proofs.RE06.log_one_add_le_sub_quarter_sq
+#assert_trust kernel NLA.Proofs.RE06.log_one_add_le_sub_quarter_sq
+#print axioms NLA.Proofs.RE06.log_one_add_le_sub_quarter_sq
+#review_kind defn NLA.Proofs.RE06.gaussianQuadratic
+#assert_trust kernel NLA.Proofs.RE06.gaussianQuadratic
+#print axioms NLA.Proofs.RE06.gaussianQuadratic
+#review_kind thm NLA.Proofs.RE06.inv_sqrt_eq_exp_neg_half_log
+#assert_trust kernel NLA.Proofs.RE06.inv_sqrt_eq_exp_neg_half_log
+#print axioms NLA.Proofs.RE06.inv_sqrt_eq_exp_neg_half_log
+#review_kind thm NLA.Proofs.RE06.gaussianQuadratic_exp_integral
+#assert_trust kernel NLA.Proofs.RE06.gaussianQuadratic_exp_integral
+#print axioms NLA.Proofs.RE06.gaussianQuadratic_exp_integral
+#review_kind thm NLA.Proofs.RE06.gaussianQuadratic_exp_integral_log
+#assert_trust kernel NLA.Proofs.RE06.gaussianQuadratic_exp_integral_log
+#print axioms NLA.Proofs.RE06.gaussianQuadratic_exp_integral_log
+#review_kind thm NLA.Proofs.RE06.streamQuadratic_exp_integral
+#assert_trust kernel NLA.Proofs.RE06.streamQuadratic_exp_integral
+#print axioms NLA.Proofs.RE06.streamQuadratic_exp_integral
+#review_kind thm NLA.Proofs.RE06.streamQuadratic_exp_integrable
+#assert_trust kernel NLA.Proofs.RE06.streamQuadratic_exp_integrable
+#print axioms NLA.Proofs.RE06.streamQuadratic_exp_integrable
+#review_kind thm NLA.Proofs.RE06.streamQuadratic_lower_chernoff
+#assert_trust kernel NLA.Proofs.RE06.streamQuadratic_lower_chernoff
+#print axioms NLA.Proofs.RE06.streamQuadratic_lower_chernoff
+#review_kind thm NLA.Proofs.RE06.streamQuadratic_upper_chernoff
+#assert_trust kernel NLA.Proofs.RE06.streamQuadratic_upper_chernoff
+#print axioms NLA.Proofs.RE06.streamQuadratic_upper_chernoff
+#review_kind thm NLA.Proofs.RE06.quadratic_trimmed_log_bound
+#assert_trust kernel NLA.Proofs.RE06.quadratic_trimmed_log_bound
+#print axioms NLA.Proofs.RE06.quadratic_trimmed_log_bound
+#review_kind thm NLA.Proofs.RE06.streamQuadratic_trimmed_lower_tail
+#assert_trust kernel NLA.Proofs.RE06.streamQuadratic_trimmed_lower_tail
+#print axioms NLA.Proofs.RE06.streamQuadratic_trimmed_lower_tail
+#review_kind thm NLA.Proofs.RE06.streamQuadratic_zero_tail
+#assert_trust kernel NLA.Proofs.RE06.streamQuadratic_zero_tail
+#print axioms NLA.Proofs.RE06.streamQuadratic_zero_tail
+#review_kind thm NLA.Proofs.RE06.streamQuadratic_normalized_upper_tail
+#assert_trust kernel NLA.Proofs.RE06.streamQuadratic_normalized_upper_tail
+#print axioms NLA.Proofs.RE06.streamQuadratic_normalized_upper_tail
+#review_kind thm NLA.Proofs.RE06.streamQuadratic_upper_tail
+#assert_trust kernel NLA.Proofs.RE06.streamQuadratic_upper_tail
+#print axioms NLA.Proofs.RE06.streamQuadratic_upper_tail
+#review_kind defn NLA.Proofs.RE06.GaussianEuclid
+#assert_trust kernel NLA.Proofs.RE06.GaussianEuclid
+#print axioms NLA.Proofs.RE06.GaussianEuclid
+#review_kind thm NLA.Proofs.RE06.gaussianBlock_columns_hasLaw
+#assert_trust kernel NLA.Proofs.RE06.gaussianBlock_columns_hasLaw
+#print axioms NLA.Proofs.RE06.gaussianBlock_columns_hasLaw
+#review_kind thm NLA.Proofs.RE06.gaussianEuclid_hasLaw
+#assert_trust kernel NLA.Proofs.RE06.gaussianEuclid_hasLaw
+#print axioms NLA.Proofs.RE06.gaussianEuclid_hasLaw
+#review_kind thm NLA.Proofs.RE06.gaussianEuclid_coordinates_hasLaw
+#assert_trust kernel NLA.Proofs.RE06.gaussianEuclid_coordinates_hasLaw
+#print axioms NLA.Proofs.RE06.gaussianEuclid_coordinates_hasLaw
+#review_kind thm NLA.Proofs.RE06.gaussianEuclid_rotation_hasLaw
+#assert_trust kernel NLA.Proofs.RE06.gaussianEuclid_rotation_hasLaw
+#print axioms NLA.Proofs.RE06.gaussianEuclid_rotation_hasLaw
+#review_kind thm NLA.Proofs.RE06.gaussianBlock_euclidean_columns_hasLaw
+#assert_trust kernel NLA.Proofs.RE06.gaussianBlock_euclidean_columns_hasLaw
+#print axioms NLA.Proofs.RE06.gaussianBlock_euclidean_columns_hasLaw
+#review_kind thm NLA.Proofs.RE06.gaussianBlock_rotated_columns_hasLaw
+#assert_trust kernel NLA.Proofs.RE06.gaussianBlock_rotated_columns_hasLaw
+#print axioms NLA.Proofs.RE06.gaussianBlock_rotated_columns_hasLaw
+#review_kind thm NLA.Proofs.RE06.gaussianBlock_rotated_coordinates_hasLaw
+#assert_trust kernel NLA.Proofs.RE06.gaussianBlock_rotated_coordinates_hasLaw
+#print axioms NLA.Proofs.RE06.gaussianBlock_rotated_coordinates_hasLaw
+#review_kind thm NLA.Proofs.RE06.gaussian_columns_flatten_hasLaw
+#assert_trust kernel NLA.Proofs.RE06.gaussian_columns_flatten_hasLaw
+#print axioms NLA.Proofs.RE06.gaussian_columns_flatten_hasLaw
+#review_kind thm NLA.Proofs.RE06.gaussianBlock_rotated_entries_hasLaw
+#assert_trust kernel NLA.Proofs.RE06.gaussianBlock_rotated_entries_hasLaw
+#print axioms NLA.Proofs.RE06.gaussianBlock_rotated_entries_hasLaw
+#review_kind thm NLA.Proofs.RE06.gaussianQuadratic_trimmed_lower_tail_of_hasLaw
+#assert_trust kernel NLA.Proofs.RE06.gaussianQuadratic_trimmed_lower_tail_of_hasLaw
+#print axioms NLA.Proofs.RE06.gaussianQuadratic_trimmed_lower_tail_of_hasLaw
+#review_kind thm NLA.Proofs.RE06.gaussianQuadratic_upper_tail_of_hasLaw
+#assert_trust kernel NLA.Proofs.RE06.gaussianQuadratic_upper_tail_of_hasLaw
+#print axioms NLA.Proofs.RE06.gaussianQuadratic_upper_tail_of_hasLaw
+#review_kind thm NLA.Proofs.RE06.warmStart_failure_bound_from_tails
+#assert_trust kernel NLA.Proofs.RE06.warmStart_failure_bound_from_tails
+#print axioms NLA.Proofs.RE06.warmStart_failure_bound_from_tails
+#review_kind thm NLA.Proofs.RE06.gaussian_warmStart_tail_bound
+#assert_trust kernel NLA.Proofs.RE06.gaussian_warmStart_tail_bound
+#print axioms NLA.Proofs.RE06.gaussian_warmStart_tail_bound
+#review_kind thm NLA.Proofs.RE06.squaredFrobenius_zero_eq_trace
+#assert_trust kernel NLA.Proofs.RE06.squaredFrobenius_zero_eq_trace
+#print axioms NLA.Proofs.RE06.squaredFrobenius_zero_eq_trace
+#review_kind thm NLA.Proofs.RE06.squaredFrobenius_transpose_zero
+#assert_trust kernel NLA.Proofs.RE06.squaredFrobenius_transpose_zero
+#print axioms NLA.Proofs.RE06.squaredFrobenius_transpose_zero
+#review_kind thm NLA.Proofs.RE06.squaredFrobenius_left_isometry
+#assert_trust kernel NLA.Proofs.RE06.squaredFrobenius_left_isometry
+#print axioms NLA.Proofs.RE06.squaredFrobenius_left_isometry
+#review_kind thm NLA.Proofs.RE06.squaredFrobenius_right_isometry
+#assert_trust kernel NLA.Proofs.RE06.squaredFrobenius_right_isometry
+#print axioms NLA.Proofs.RE06.squaredFrobenius_right_isometry
+#review_kind thm NLA.Proofs.RE06.orthogonalEuclidean_inner_map
+#assert_trust kernel NLA.Proofs.RE06.orthogonalEuclidean_inner_map
+#print axioms NLA.Proofs.RE06.orthogonalEuclidean_inner_map
+#review_kind defn NLA.Proofs.RE06.orthogonalEuclidean
+#assert_trust kernel NLA.Proofs.RE06.orthogonalEuclidean
+#print axioms NLA.Proofs.RE06.orthogonalEuclidean
+#review_kind thm NLA.Proofs.RE06.orthogonalEuclidean_apply
+#assert_trust kernel NLA.Proofs.RE06.orthogonalEuclidean_apply
+#print axioms NLA.Proofs.RE06.orthogonalEuclidean_apply
+#review_kind defn NLA.Proofs.TR04.SVD.Space
+#assert_trust kernel NLA.Proofs.TR04.SVD.Space
+#print axioms NLA.Proofs.TR04.SVD.Space
+#review_kind defn NLA.Proofs.TR04.SVD.rightBasis
+#assert_trust kernel NLA.Proofs.TR04.SVD.rightBasis
+#print axioms NLA.Proofs.TR04.SVD.rightBasis
+#review_kind thm NLA.Proofs.TR04.SVD.norm_image_rightBasis
+#assert_trust kernel NLA.Proofs.TR04.SVD.norm_image_rightBasis
+#print axioms NLA.Proofs.TR04.SVD.norm_image_rightBasis
+#review_kind thm NLA.Proofs.TR04.SVD.inner_image_rightBasis
+#assert_trust kernel NLA.Proofs.TR04.SVD.inner_image_rightBasis
+#print axioms NLA.Proofs.TR04.SVD.inner_image_rightBasis
+#review_kind thm NLA.Proofs.TR04.SVD.image_rightBasis_eq_zero
+#assert_trust kernel NLA.Proofs.TR04.SVD.image_rightBasis_eq_zero
+#print axioms NLA.Proofs.TR04.SVD.image_rightBasis_eq_zero
+#review_kind thm NLA.Proofs.TR04.SVD.range_finrank_le_domain
+#assert_trust kernel NLA.Proofs.TR04.SVD.range_finrank_le_domain
+#print axioms NLA.Proofs.TR04.SVD.range_finrank_le_domain
+#review_kind thm NLA.Proofs.TR04.SVD.range_finrank_le_codomain
+#assert_trust kernel NLA.Proofs.TR04.SVD.range_finrank_le_codomain
+#print axioms NLA.Proofs.TR04.SVD.range_finrank_le_codomain
+#review_kind defn NLA.Proofs.TR04.SVD.leftVector
+#assert_trust kernel NLA.Proofs.TR04.SVD.leftVector
+#print axioms NLA.Proofs.TR04.SVD.leftVector
+#review_kind thm NLA.Proofs.TR04.SVD.orthonormal_leftVector_positive
+#assert_trust kernel NLA.Proofs.TR04.SVD.orthonormal_leftVector_positive
+#print axioms NLA.Proofs.TR04.SVD.orthonormal_leftVector_positive
+#review_kind thm NLA.Proofs.TR04.SVD.exists_leftBasis
+#assert_trust kernel NLA.Proofs.TR04.SVD.exists_leftBasis
+#print axioms NLA.Proofs.TR04.SVD.exists_leftBasis
+#review_kind thm NLA.Proofs.TR04.SVD.image_rightBasis_eq_smul
+#assert_trust kernel NLA.Proofs.TR04.SVD.image_rightBasis_eq_smul
+#print axioms NLA.Proofs.TR04.SVD.image_rightBasis_eq_smul
+#review_kind thm NLA.Proofs.TR04.SVD.sum_fin_truncate
+#assert_trust kernel NLA.Proofs.TR04.SVD.sum_fin_truncate
+#print axioms NLA.Proofs.TR04.SVD.sum_fin_truncate
+#review_kind thm NLA.Proofs.TR04.SVD.exists_validSVD
+#assert_trust kernel NLA.Proofs.TR04.SVD.exists_validSVD
+#print axioms NLA.Proofs.TR04.SVD.exists_validSVD
+#review_kind thm NLA.Proofs.RE06.svd_total
+#assert_trust kernel NLA.Proofs.RE06.svd_total
+#print axioms NLA.Proofs.RE06.svd_total
+#review_kind thm NLA.Proofs.RE06.Pseudo.svd_U_gram
+#assert_trust kernel NLA.Proofs.RE06.Pseudo.svd_U_gram
+#print axioms NLA.Proofs.RE06.Pseudo.svd_U_gram
+#review_kind thm NLA.Proofs.RE06.Pseudo.svd_V_gram
+#assert_trust kernel NLA.Proofs.RE06.Pseudo.svd_V_gram
+#print axioms NLA.Proofs.RE06.Pseudo.svd_V_gram
+#review_kind thm NLA.Proofs.RE06.Pseudo.svd_U_cogram
+#assert_trust kernel NLA.Proofs.RE06.Pseudo.svd_U_cogram
+#print axioms NLA.Proofs.RE06.Pseudo.svd_U_cogram
+#review_kind thm NLA.Proofs.RE06.Pseudo.svd_V_cogram
+#assert_trust kernel NLA.Proofs.RE06.Pseudo.svd_V_cogram
+#print axioms NLA.Proofs.RE06.Pseudo.svd_V_cogram
+#review_kind defn NLA.Proofs.RE06.Pseudo.thinU
+#assert_trust kernel NLA.Proofs.RE06.Pseudo.thinU
+#print axioms NLA.Proofs.RE06.Pseudo.thinU
+#review_kind defn NLA.Proofs.RE06.Pseudo.thinV
+#assert_trust kernel NLA.Proofs.RE06.Pseudo.thinV
+#print axioms NLA.Proofs.RE06.Pseudo.thinV
+#review_kind defn NLA.Proofs.RE06.Pseudo.sigma
+#assert_trust kernel NLA.Proofs.RE06.Pseudo.sigma
+#print axioms NLA.Proofs.RE06.Pseudo.sigma
+#review_kind defn NLA.Proofs.RE06.Pseudo.sigmaInv
+#assert_trust kernel NLA.Proofs.RE06.Pseudo.sigmaInv
+#print axioms NLA.Proofs.RE06.Pseudo.sigmaInv
+#review_kind thm NLA.Proofs.RE06.Pseudo.thinU_orthogonal
+#assert_trust kernel NLA.Proofs.RE06.Pseudo.thinU_orthogonal
+#print axioms NLA.Proofs.RE06.Pseudo.thinU_orthogonal
+#review_kind thm NLA.Proofs.RE06.Pseudo.thinV_orthogonal
+#assert_trust kernel NLA.Proofs.RE06.Pseudo.thinV_orthogonal
+#print axioms NLA.Proofs.RE06.Pseudo.thinV_orthogonal
+#review_kind thm NLA.Proofs.RE06.Pseudo.reconstruction
+#assert_trust kernel NLA.Proofs.RE06.Pseudo.reconstruction
+#print axioms NLA.Proofs.RE06.Pseudo.reconstruction
+#review_kind thm NLA.Proofs.RE06.Pseudo.pseudoinverse_decomposition
+#assert_trust kernel NLA.Proofs.RE06.Pseudo.pseudoinverse_decomposition
+#print axioms NLA.Proofs.RE06.Pseudo.pseudoinverse_decomposition
+#review_kind thm NLA.Proofs.RE06.Pseudo.diagonal_sigma_inv_sigma
+#assert_trust kernel NLA.Proofs.RE06.Pseudo.diagonal_sigma_inv_sigma
+#print axioms NLA.Proofs.RE06.Pseudo.diagonal_sigma_inv_sigma
+#review_kind thm NLA.Proofs.RE06.Pseudo.diagonal_inv_sigma_inv
+#assert_trust kernel NLA.Proofs.RE06.Pseudo.diagonal_inv_sigma_inv
+#print axioms NLA.Proofs.RE06.Pseudo.diagonal_inv_sigma_inv
+#review_kind thm NLA.Proofs.RE06.Pseudo.diagonal_sigma_inv_commute
+#assert_trust kernel NLA.Proofs.RE06.Pseudo.diagonal_sigma_inv_commute
+#print axioms NLA.Proofs.RE06.Pseudo.diagonal_sigma_inv_commute
+#review_kind thm NLA.Proofs.RE06.Pseudo.mul_pseudoinverse
+#assert_trust kernel NLA.Proofs.RE06.Pseudo.mul_pseudoinverse
+#print axioms NLA.Proofs.RE06.Pseudo.mul_pseudoinverse
+#review_kind thm NLA.Proofs.RE06.Pseudo.pseudoinverse_mul
+#assert_trust kernel NLA.Proofs.RE06.Pseudo.pseudoinverse_mul
+#print axioms NLA.Proofs.RE06.Pseudo.pseudoinverse_mul
+#review_kind defn NLA.Proofs.RE06.residualSingularValue
+#assert_trust kernel NLA.Proofs.RE06.residualSingularValue
+#print axioms NLA.Proofs.RE06.residualSingularValue
+#review_kind thm NLA.Proofs.RE06.residualSingularValue_nonneg
+#assert_trust kernel NLA.Proofs.RE06.residualSingularValue_nonneg
+#print axioms NLA.Proofs.RE06.residualSingularValue_nonneg
+#review_kind thm NLA.Proofs.RE06.residualSingularValue_antitone
+#assert_trust kernel NLA.Proofs.RE06.residualSingularValue_antitone
+#print axioms NLA.Proofs.RE06.residualSingularValue_antitone
+#review_kind thm NLA.Proofs.RE06.residual_svd_reconstruction
+#assert_trust kernel NLA.Proofs.RE06.residual_svd_reconstruction
+#print axioms NLA.Proofs.RE06.residual_svd_reconstruction
+#review_kind defn NLA.Proofs.RE06.residualGaussianRotation
+#assert_trust kernel NLA.Proofs.RE06.residualGaussianRotation
+#print axioms NLA.Proofs.RE06.residualGaussianRotation
+#review_kind defn NLA.Proofs.RE06.residualGaussianCoordinates
+#assert_trust kernel NLA.Proofs.RE06.residualGaussianCoordinates
+#print axioms NLA.Proofs.RE06.residualGaussianCoordinates
+#review_kind thm NLA.Proofs.RE06.residualGaussianCoordinates_hasLaw
+#assert_trust kernel NLA.Proofs.RE06.residualGaussianCoordinates_hasLaw
+#print axioms NLA.Proofs.RE06.residualGaussianCoordinates_hasLaw
+#review_kind thm NLA.Proofs.RE06.residualGaussian_energy
+#assert_trust kernel NLA.Proofs.RE06.residualGaussian_energy
+#print axioms NLA.Proofs.RE06.residualGaussian_energy
+#review_kind defn NLA.Proofs.RE06.residualSpectralHead
+#assert_trust kernel NLA.Proofs.RE06.residualSpectralHead
+#print axioms NLA.Proofs.RE06.residualSpectralHead
+#review_kind defn NLA.Proofs.RE06.residualTailEnergy
+#assert_trust kernel NLA.Proofs.RE06.residualTailEnergy
+#print axioms NLA.Proofs.RE06.residualTailEnergy
+#review_kind thm NLA.Proofs.RE06.residualSpectralHead_card
+#assert_trust kernel NLA.Proofs.RE06.residualSpectralHead_card
+#print axioms NLA.Proofs.RE06.residualSpectralHead_card
+#review_kind thm NLA.Proofs.RE06.residual_singular_energy
+#assert_trust kernel NLA.Proofs.RE06.residual_singular_energy
+#print axioms NLA.Proofs.RE06.residual_singular_energy
+#review_kind thm NLA.Proofs.RE06.residual_weight_head
+#assert_trust kernel NLA.Proofs.RE06.residual_weight_head
+#print axioms NLA.Proofs.RE06.residual_weight_head
+#review_kind thm NLA.Proofs.RE06.residual_weight_tail
+#assert_trust kernel NLA.Proofs.RE06.residual_weight_tail
+#print axioms NLA.Proofs.RE06.residual_weight_tail
+#review_kind thm NLA.Proofs.RE06.residualGaussian_lower_tail
+#assert_trust kernel NLA.Proofs.RE06.residualGaussian_lower_tail
+#print axioms NLA.Proofs.RE06.residualGaussian_lower_tail
+#review_kind thm NLA.Proofs.RE06.residualGaussian_upper_tail
+#assert_trust kernel NLA.Proofs.RE06.residualGaussian_upper_tail
+#print axioms NLA.Proofs.RE06.residualGaussian_upper_tail
+#review_kind thm NLA.Proofs.RE06.scan_le_initial
+#assert_trust kernel NLA.Proofs.RE06.scan_le_initial
+#print axioms NLA.Proofs.RE06.scan_le_initial
+#review_kind thm NLA.Proofs.RE06.scan_le_member
+#assert_trust kernel NLA.Proofs.RE06.scan_le_member
+#print axioms NLA.Proofs.RE06.scan_le_member
+#review_kind thm NLA.Proofs.RE06.minimumIndex_score_le
+#assert_trust kernel NLA.Proofs.RE06.minimumIndex_score_le
+#print axioms NLA.Proofs.RE06.minimumIndex_score_le
+#review_kind thm NLA.Proofs.RE06.storedVector_finRange
+#assert_trust kernel NLA.Proofs.RE06.storedVector_finRange
+#print axioms NLA.Proofs.RE06.storedVector_finRange
+#review_kind thm NLA.Proofs.RE06.answer_standardBasis
+#assert_trust kernel NLA.Proofs.RE06.answer_standardBasis
+#print axioms NLA.Proofs.RE06.answer_standardBasis
+#review_kind thm NLA.Proofs.RE06.oracleAnswers_full
+#assert_trust kernel NLA.Proofs.RE06.oracleAnswers_full
+#print axioms NLA.Proofs.RE06.oracleAnswers_full
+#review_kind thm NLA.Proofs.RE06.storedVector_full
+#assert_trust kernel NLA.Proofs.RE06.storedVector_full
+#print axioms NLA.Proofs.RE06.storedVector_full
+#review_kind thm NLA.Proofs.RE06.postprocess_full
+#assert_trust kernel NLA.Proofs.RE06.postprocess_full
+#print axioms NLA.Proofs.RE06.postprocess_full
+#review_kind thm NLA.Proofs.RE06.run_full_error
+#assert_trust kernel NLA.Proofs.RE06.run_full_error
+#print axioms NLA.Proofs.RE06.run_full_error
+#review_kind thm NLA.Proofs.RE06.frobenius_nonnegative
+#assert_trust kernel NLA.Proofs.RE06.frobenius_nonnegative
+#print axioms NLA.Proofs.RE06.frobenius_nonnegative
+#review_kind thm NLA.Proofs.RE06.successful_full_branch
+#assert_trust kernel NLA.Proofs.RE06.successful_full_branch
+#print axioms NLA.Proofs.RE06.successful_full_branch
+#review_kind thm NLA.Proofs.RE06.storedVector_append_left
+#assert_trust kernel NLA.Proofs.RE06.storedVector_append_left
+#print axioms NLA.Proofs.RE06.storedVector_append_left
+#review_kind thm NLA.Proofs.RE06.storedVector_append_right
+#assert_trust kernel NLA.Proofs.RE06.storedVector_append_right
+#print axioms NLA.Proofs.RE06.storedVector_append_right
+#review_kind thm NLA.Proofs.RE06.oracleAnswers_sketch
+#assert_trust kernel NLA.Proofs.RE06.oracleAnswers_sketch
+#print axioms NLA.Proofs.RE06.oracleAnswers_sketch
+#review_kind thm NLA.Proofs.RE06.storedVector_sketch0
+#assert_trust kernel NLA.Proofs.RE06.storedVector_sketch0
+#print axioms NLA.Proofs.RE06.storedVector_sketch0
+#review_kind thm NLA.Proofs.RE06.storedVector_sketch1
+#assert_trust kernel NLA.Proofs.RE06.storedVector_sketch1
+#print axioms NLA.Proofs.RE06.storedVector_sketch1
+#review_kind thm NLA.Proofs.RE06.storedVector_sketchH
+#assert_trust kernel NLA.Proofs.RE06.storedVector_sketchH
+#print axioms NLA.Proofs.RE06.storedVector_sketchH
+#review_kind defn NLA.Proofs.RE06.sketchWarmIndex
+#assert_trust kernel NLA.Proofs.RE06.sketchWarmIndex
+#print axioms NLA.Proofs.RE06.sketchWarmIndex
+#review_kind defn NLA.Proofs.RE06.sketchRepair
+#assert_trust kernel NLA.Proofs.RE06.sketchRepair
+#print axioms NLA.Proofs.RE06.sketchRepair
+#review_kind thm NLA.Proofs.RE06.postprocess_sketch
+#assert_trust kernel NLA.Proofs.RE06.postprocess_sketch
+#print axioms NLA.Proofs.RE06.postprocess_sketch
+#review_kind thm NLA.Proofs.RE06.sketchWarmIndex_score_le
+#assert_trust kernel NLA.Proofs.RE06.sketchWarmIndex_score_le
+#print axioms NLA.Proofs.RE06.sketchWarmIndex_score_le
+#review_kind thm NLA.Proofs.RE06.squaredFrobenius_residual
+#assert_trust kernel NLA.Proofs.RE06.squaredFrobenius_residual
+#print axioms NLA.Proofs.RE06.squaredFrobenius_residual
+#review_kind thm NLA.Proofs.RE06.squaredFrobenius_mul_residual
+#assert_trust kernel NLA.Proofs.RE06.squaredFrobenius_mul_residual
+#print axioms NLA.Proofs.RE06.squaredFrobenius_mul_residual
+#review_kind defn NLA.Proofs.RE06.gaussianWarmIndex
+#assert_trust kernel NLA.Proofs.RE06.gaussianWarmIndex
+#print axioms NLA.Proofs.RE06.gaussianWarmIndex
+#review_kind thm NLA.Proofs.RE06.optimum_sq
+#assert_trust kernel NLA.Proofs.RE06.optimum_sq
+#print axioms NLA.Proofs.RE06.optimum_sq
+#review_kind thm NLA.Proofs.RE06.gaussianWarmIndex_tail_bound
+#assert_trust kernel NLA.Proofs.RE06.gaussianWarmIndex_tail_bound
+#print axioms NLA.Proofs.RE06.gaussianWarmIndex_tail_bound
+#review_kind thm NLA.Proofs.RE06.gaussianWarmIndex_eq_sketchWarmIndex
+#assert_trust kernel NLA.Proofs.RE06.gaussianWarmIndex_eq_sketchWarmIndex
+#print axioms NLA.Proofs.RE06.gaussianWarmIndex_eq_sketchWarmIndex
+#review_kind thm NLA.Proofs.RE06.sketchWarmIndex_tail_bound
+#assert_trust kernel NLA.Proofs.RE06.sketchWarmIndex_tail_bound
+#print axioms NLA.Proofs.RE06.sketchWarmIndex_tail_bound
+open scoped BigOperators
+open MeasureTheory ProbabilityTheory
+open NLA.Computation.NonadaptiveMatrixQuery NLA.Proofs.RE06
+namespace Independent
+theorem ActualThreeBlocks (n s k ell : ℕ) :
+    HasLaw (fun ω : ℕ → ℝ => fun b (p : Fin n × Fin (gaussianBlockWidth s k ell b)) =>
+      gaussianBlock n (gaussianBlockWidth s k ell b) (gaussianBlockOffset s k b) ω p.1 p.2)
+      (Measure.pi (fun b : Fin 3 => Measure.pi
+        (fun _ : Fin n × Fin (gaussianBlockWidth s k ell b) => gaussianReal 0 1))) GaussianLaw :=
+  gaussianThreeBlocks_hasLaw n s k ell
+theorem ActualQuadraticMGF (t : ℝ) (ht : t < 1 / 2) :
+    (∫ x : ℝ, Real.exp (t*x^2) ∂gaussianReal 0 1) = (Real.sqrt (1-2*t))⁻¹ :=
+  gaussian_square_exp_integral t ht
+theorem ActualMGFIntegrable (t : ℝ) (ht : t < 1 / 2) :
+    Integrable (fun x : ℝ => Real.exp (t*x^2)) (gaussianReal 0 1) :=
+  gaussian_square_exp_integrable t ht
+theorem ActualRotation (n : ℕ) (e : GaussianEuclid n ≃ₗᵢ[ℝ] GaussianEuclid n) :
+    HasLaw e (stdGaussian (GaussianEuclid n)) (stdGaussian (GaussianEuclid n)) :=
+  gaussianEuclid_rotation_hasLaw n e
+theorem ActualResidualLaw {n : ℕ} (B : Matrix (Fin n) (Fin n) ℝ) (q offset : ℕ) :
+    HasLaw (residualGaussianCoordinates B q offset)
+      (Measure.pi (fun _ : Fin n × Fin q => gaussianReal 0 1)) GaussianLaw :=
+  residualGaussianCoordinates_hasLaw B q offset
+theorem ActualResidualEnergy {n : ℕ} (B : Matrix (Fin n) (Fin n) ℝ)
+    (q offset : ℕ) (ω : ℕ → ℝ) :
+    squaredFrobenius (B * gaussianBlock n q offset ω) 0 =
+      gaussianQuadratic (fun p : Fin n × Fin q => (residualSingularValue B p.1)^2)
+        (residualGaussianCoordinates B q offset ω) := residualGaussian_energy B q offset ω
+theorem ActualResidualLower {n : ℕ} (B : Matrix (Fin n) (Fin n) ℝ)
+    (q offset r : ℕ) (hr : r < n) (η : ℝ) (hη0 : 0 < η) (hη1 : η ≤ 1) :
+    GaussianLaw.real {ω | squaredFrobenius (B * gaussianBlock n q offset ω) 0 <
+      (q : ℝ)*(1-η)*residualTailEnergy B r} ≤
+      Real.exp (-(q : ℝ)*(r : ℝ)*η/4) := residualGaussian_lower_tail B q offset r hr η hη0 hη1
+theorem ActualResidualUpper {n : ℕ} (B : Matrix (Fin n) (Fin n) ℝ)
+    (q offset : ℕ) (η : ℝ) (hη0 : 0 < η) (hη1 : η ≤ 1) :
+    GaussianLaw.real {ω | (q : ℝ)*(1+η)*squaredFrobenius B 0 <
+      squaredFrobenius (B * gaussianBlock n q offset ω) 0} ≤
+      Real.exp (-(q : ℝ)*η^2/8) := residualGaussian_upper_tail B q offset η hη0 hη1
+theorem ActualZeroLower (n q : ℕ) (f : Fin n × Fin q → ℕ)
+    (w : Fin n → ℝ) (hw : ∀ i, 0 ≤ w i) :
+    GaussianLaw {ω : ℕ → ℝ | gaussianQuadratic (fun p : Fin n × Fin q => w p.1)
+      (fun p => ω (f p)) < 0} = 0 := streamQuadratic_zero_tail q f w hw
+theorem ActualWarmTail {n m : ℕ} (F : Family n m) (A : Matrix (Fin n) (Fin n) ℝ)
+    (q offset r : ℕ) (hq : 0 < q) (hr : r < n) (η : ℝ) (hη0 : 0 < η) (hη1 : η < 1) :
+    GaussianLaw.real {ω | ((1+η)/(1-η))*(optimum A F)^2 <
+      residualTailEnergy (A-F (gaussianWarmIndex F A q offset ω)) r} ≤
+      (m+2 : ℝ)*Real.exp (-(q : ℝ)*(r : ℝ)*η/4) + Real.exp (-(q : ℝ)*η^2/8) :=
+  gaussianWarmIndex_tail_bound F A q offset r hq hr η hη0 hη1
+theorem ActualProgramWarmTail {n m : ℕ} (F : Family n m) (A : Matrix (Fin n) (Fin n) ℝ)
+    (ε : ℝ) (hsketch : firstWidth m ε+secondWidth m ε+thirdWidth m ε < n)
+    (hq : 0 < firstWidth m ε) (r : ℕ) (hr : r < n) (η : ℝ) (hη0 : 0 < η) (hη1 : η < 1) :
+    GaussianLaw.real {ω | ((1+η)/(1-η))*(optimum A F)^2 <
+      residualTailEnergy (A-F (sketchWarmIndex F A (makePlan n m ε ω))) r} ≤
+      (m+2 : ℝ)*Real.exp (-(firstWidth m ε : ℝ)*(r : ℝ)*η/4) +
+        Real.exp (-(firstWidth m ε : ℝ)*η^2/8) :=
+  sketchWarmIndex_tail_bound F A ε hsketch hq r hr η hη0 hη1
+theorem OriginalTargetIdentity : NLA.Statements.RE06.Target = NLA.ReviewedStatements.RE06.Target := rfl
+end Independent
+#review_kind thm Independent.ActualThreeBlocks
+#assert_trust kernel Independent.ActualThreeBlocks
+#print axioms Independent.ActualThreeBlocks
+#review_kind thm Independent.ActualQuadraticMGF
+#assert_trust kernel Independent.ActualQuadraticMGF
+#print axioms Independent.ActualQuadraticMGF
+#review_kind thm Independent.ActualMGFIntegrable
+#assert_trust kernel Independent.ActualMGFIntegrable
+#print axioms Independent.ActualMGFIntegrable
+#review_kind thm Independent.ActualRotation
+#assert_trust kernel Independent.ActualRotation
+#print axioms Independent.ActualRotation
+#review_kind thm Independent.ActualResidualLaw
+#assert_trust kernel Independent.ActualResidualLaw
+#print axioms Independent.ActualResidualLaw
+#review_kind thm Independent.ActualResidualEnergy
+#assert_trust kernel Independent.ActualResidualEnergy
+#print axioms Independent.ActualResidualEnergy
+#review_kind thm Independent.ActualResidualLower
+#assert_trust kernel Independent.ActualResidualLower
+#print axioms Independent.ActualResidualLower
+#review_kind thm Independent.ActualResidualUpper
+#assert_trust kernel Independent.ActualResidualUpper
+#print axioms Independent.ActualResidualUpper
+#review_kind thm Independent.ActualZeroLower
+#assert_trust kernel Independent.ActualZeroLower
+#print axioms Independent.ActualZeroLower
+#review_kind thm Independent.ActualWarmTail
+#assert_trust kernel Independent.ActualWarmTail
+#print axioms Independent.ActualWarmTail
+#review_kind thm Independent.ActualProgramWarmTail
+#assert_trust kernel Independent.ActualProgramWarmTail
+#print axioms Independent.ActualProgramWarmTail
+#review_kind thm Independent.OriginalTargetIdentity
+#assert_trust kernel Independent.OriginalTargetIdentity
+#print axioms Independent.OriginalTargetIdentity
+#review_absent NLA.Proofs.RE06.successful
+#review_absent NLA.Proofs.RE06.original_claim
+#review_absent NLA.Proofs.RE06.explicit_claim
+#review_absent NLA.Proofs.RE06.target

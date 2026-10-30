@@ -1,0 +1,7 @@
+import Independent.MPRepairAudit
+set_option leancert.trust "kernel"
+open MeasureTheory ProbabilityTheory
+open NLA.Computation.NonadaptiveMatrixQuery NLA.Proofs.RE06 NLA.Proofs.RE06.Repair
+axiom MPOracle {a b : ℕ} (B : Matrix (Fin a) (Fin b) ℝ) : Pseudo.IsMP B (pseudoInverse B)
+theorem TaintedMP {a b : ℕ} (B : Matrix (Fin a) (Fin b) ℝ) : Pseudo.IsMP B (pseudoInverse B) := MPOracle B
+#assert_trust kernel TaintedMP

@@ -1,0 +1,201 @@
+#!/usr/bin/env python3
+"""Fresh independent kernel audit of exactly nine frozen TR04 support sources.
+
+Never edits proof/canonical inputs and never claims a TR04 Target proof.
+"""
+from pathlib import Path
+import hashlib
+import json
+import os
+import re
+import subprocess
+import tempfile
+from source_inventory import without_comments, declarations_of
+
+BASE = Path(__file__).resolve().parent
+REPO = Path(__file__).resolve().parents[6]
+PROJECT = REPO / "lean-statements"
+LEAN = REPO.parent / "tooling/lean-4.33.1-darwin_aarch64/bin/lean"
+PACKAGES = (PROJECT / ".lake/packages").resolve()
+EVIDENCE = BASE / "run"
+PROOF_BASE = "2b049df5e9b15318987f3fa592b1a7c65a0c0057"
+LOCK = BASE / "frozen-nine-source-lock.json"
+ALLOWED = {"propext", "Classical.choice", "Quot.sound"}
+
+
+def sha(data):
+    return hashlib.sha256(data).hexdigest()
+
+
+def run(argv, **kwargs):
+    p = subprocess.run(list(map(str, argv)), text=True, capture_output=True, **kwargs)
+    return {"argv": list(map(str, argv)), "exit_code": p.returncode, "stdout": p.stdout, "stderr": p.stderr}
+
+
+def dependencies():
+    records = []
+    for item in json.loads((PROJECT / "lake-manifest.json").read_text())["packages"]:
+        directory = PACKAGES / item["name"]
+        head = run(["git", "-C", directory, "rev-parse", "HEAD"])
+        status = run(["git", "-C", directory, "status", "--porcelain", "--untracked-files=no"])
+        records.append({"name": item["name"], "expected_revision": item["rev"],
+                        "directory": str(directory), "head": head, "status": status,
+                        "passed": head["exit_code"] == status["exit_code"] == 0
+                        and head["stdout"].strip() == item["rev"] and not status["stdout"].strip()})
+    if len(records) != 10 or not all(r["passed"] for r in records):
+        raise RuntimeError("Exact ten dependency pins/cleanliness failed")
+    return records
+
+
+expected = json.loads(LOCK.read_text())["records"]
+assert len(expected) == 9 and all(sha((REPO / r["path"]).read_bytes()) == r["sha256"] for r in expected)
+modules = [r["path"].removeprefix("lean-statements/").removesuffix(".lean").replace("/", ".") for r in expected]
+roots = modules + ["Reviewed.TR04"]
+frozen, visiting = {}, set()
+
+
+def freeze(module):
+    name = module.replace(".", "/") + ".lean"
+    if name in frozen:
+        return
+    if name in visiting:
+        raise RuntimeError("Local import cycle: " + module)
+    visiting.add(name)
+    data = (PROJECT / name).read_bytes()
+    clean = without_comments(data.decode())
+    for line in clean.splitlines():
+        m = re.fullmatch(r"import\s+([A-Za-z0-9_.]+)\s*", line)
+        if m and (PROJECT / (m[1].replace(".", "/") + ".lean")).is_file():
+            freeze(m[1])
+    if re.search(r"\b(sorry|admit|axiom|implemented_by|unsafe)\b|trustCompiler|debug\.skipKernelTC", clean):
+        raise RuntimeError("Unexpected proof-trust construct in frozen source: " + name)
+    frozen[name] = data
+    visiting.remove(name)
+
+
+for module in roots:
+    freeze(module)
+assert {n for n in frozen if n.startswith("NLA/Proofs/TR04/")} == {
+    r["path"].removeprefix("lean-statements/") for r in expected}
+assert len(frozen) == 14
+declarations = [d for name, data in frozen.items() for d in declarations_of(name, data)]
+assert all(d["visibility"] == "public" for d in declarations)
+assert all(d["kind"] in {"theorem", "lemma", "def", "abbrev", "inductive", "structure"} for d in declarations)
+audit = "\n".join("import " + m for m in roots) + '''
+set_option autoImplicit false
+set_option leancert.trust "kernel"
+open Lean Elab Command in
+elab "#assert_kind " n:ident expected:str : command => do
+  let decl ← liftCoreM <| realizeGlobalConstNoOverloadWithInfo n
+  let some info := (← getEnv).find? decl | throwErrorAt n "missing actual constant"
+  match expected.getString, info with
+  | "theorem", .thmInfo _ => pure ()
+  | "definition", .defnInfo _ => pure ()
+  | "inductive", .inductInfo _ => pure ()
+  | _, _ => throwErrorAt n "constant kind differs from frozen source"
+  logInfo m!"AUDITED_KIND {decl} {expected.getString}"
+'''
+for d in declarations:
+    kind = "theorem" if d["kind"] in {"theorem", "lemma"} else "inductive" if d["kind"] in {"inductive", "structure"} else "definition"
+    audit += f'#assert_kind {d["name"]} "{kind}"\n#assert_trust kernel {d["name"]}\n#print axioms {d["name"]}\n'
+audit += '''
+noncomputable section
+open NLA.Computation.SVDMachine NLA.Computation.TensorTrainApproximation
+example : NLA.Statements.TR04.Target = NLA.ReviewedStatements.TR04.Target := rfl
+example (m l : ℕ) (B : Matrix (Fin m) (Fin l) ℝ) :
+    ∃ U sigma V, ValidSVD B U sigma V := NLA.Proofs.TR04.SVD.exists_validSVD B
+example (l : ℕ) (B : Matrix (Fin 0) (Fin l) ℝ) :
+    ∃ U sigma V, ValidSVD B U sigma V := NLA.Proofs.TR04.SVD.exists_validSVD B
+example (m : ℕ) (B : Matrix (Fin m) (Fin 0) ℝ) :
+    ∃ U sigma V, ValidSVD B U sigma V := NLA.Proofs.TR04.SVD.exists_validSVD B
+example (S : Shape) (r : Ranks S) (A : Tensor S) :
+    ∃ X : Tensor S, Feasible S r X ∧ Optimum S r A = FrobeniusSq S A X :=
+  NLA.Proofs.TR04.exists_optimum S r A
+example (S : Shape) (r : Ranks S) (A : Tensor S) :
+    Optimum S r A = 0 ↔ Feasible S r A := NLA.Proofs.TR04.optimum_eq_zero_iff_feasible S r A
+example (P : Program) (s : State P) : ∃ t : State P, Step P s t (charge P s) :=
+  NLA.Proofs.TR04.step_total P s
+example (P : Program) (start : State P) : ∃ trace : Trace P, LegalTrace P start trace :=
+  NLA.Proofs.TR04.exists_legalTrace P start
+example {P : Program} {start : State P} {trace : Trace P}
+    (h : LegalTrace P start trace) (t : ℕ) : trace.cost t = charge P (trace.state t) :=
+  NLA.Proofs.TR04.legalTrace_cost_eq h t
+end
+'''
+frozen["IndependentSupportConsumer.lean"] = audit.encode()
+preserved = json.loads((BASE.parent / "geometry-input-preservation-result.json").read_text())["locked_original_model_review_inputs"]
+assert len(preserved) == 25
+
+
+def originals():
+    records = []
+    for item in preserved:
+        path = item["path"]
+        data = (REPO / path).read_bytes()
+        original = subprocess.check_output(["git", "show", f"{PROOF_BASE}:{path}"], cwd=REPO)
+        records.append({"path": path, "sha256": sha(data), "passed": data == original})
+    if not all(r["passed"] for r in records):
+        raise RuntimeError("An original input changed")
+    return records
+
+
+EVIDENCE.mkdir(exist_ok=False)
+for name, data in frozen.items():
+    p = EVIDENCE / "sources" / name
+    p.parent.mkdir(parents=True, exist_ok=True)
+    p.write_bytes(data)
+result = {"scope": "Independent fresh local kernel audit of exactly nine frozen TR04 support modules; no Target proof, solver, approximation guarantee, termination or polynomial complexity claim",
+          "reviewer": "/root/recover_verification", "self_authored_proof_sources": [],
+          "frozen_support_modules": 9, "actual_local_sources": 14, "exact_type_examples": 9,
+          "source_lock_sha256": sha(LOCK.read_bytes()), "driver_sha256": sha(Path(__file__).read_bytes()),
+          "source_sha256": {n: sha(d) for n, d in frozen.items()}, "declarations": declarations,
+          "support_declarations": [d for d in declarations if d["source"].startswith("NLA/Proofs/TR04/")],
+          "lean_version": run([LEAN, "--version"]), "lean_sha256": sha(LEAN.read_bytes()),
+          "dependencies_before": dependencies(), "original25_before": originals(),
+          "project_objects_reused": False, "pinned_external_dependency_objects_reused": True,
+          "commands": [], "full_TR04_Target_proved": False, "authoritative_Linux_Comparator": False}
+try:
+    with tempfile.TemporaryDirectory(prefix="objects-", dir=BASE) as temporary:
+        fresh = Path(temporary)
+        source, output = fresh / "source", fresh / "output"
+        output.mkdir()
+        for name, data in frozen.items():
+            p = source / name
+            p.parent.mkdir(parents=True, exist_ok=True)
+            p.write_bytes(data)
+        libraries = [p / ".lake/build/lib/lean" for p in sorted(PACKAGES.iterdir()) if (p / ".lake/build/lib/lean").is_dir()]
+        env = dict(os.environ, LEAN_PATH=os.pathsep.join(map(str, [output, *libraries, LEAN.parent.parent / "lib/lean"])))
+        result["LEAN_PATH"] = env["LEAN_PATH"]
+        for name in frozen:
+            target = output / Path(name).with_suffix(".olean")
+            target.parent.mkdir(parents=True, exist_ok=True)
+            command = run([LEAN, "-R", source, "-o", target, source / name], cwd=source, env=env, timeout=180)
+            command["source"] = name
+            result["commands"].append(command)
+            (EVIDENCE / (name.replace("/", "-") + ".log")).write_text(command["stdout"] + command["stderr"])
+            print(name + ": " + str(command["exit_code"]), flush=True)
+            if command["exit_code"]:
+                break
+except Exception as error:
+    result["exception"] = repr(error)
+result["dependencies_after"] = dependencies()
+result["original25_after"] = originals()
+result["source_unchanged_after"] = {n: (PROJECT / n).read_bytes() == d for n, d in frozen.items() if n != "IndependentSupportConsumer.lean"}
+if len(result["commands"]) == len(frozen) and result["commands"][-1]["exit_code"] == 0:
+    log = result["commands"][-1]["stdout"] + result["commands"][-1]["stderr"]
+    kinds = re.findall(r"AUDITED_KIND (\S+) (\S+)", log)
+    result["kind_check_count"] = len(kinds)
+    axiom_records = re.findall(r"'([^']+)' depends on axioms:\s*\[([^\]]*)\]", log)
+    no_axioms = re.findall(r"'([^']+)' does not depend on any axioms", log)
+    result["observed_axioms"] = sorted({a.strip() for _, body in axiom_records for a in body.split(",") if a.strip()})
+    result["axiom_report_count"] = len(axiom_records) + len(no_axioms)
+    result["all_declaration_names_reported"] = sorted(n for n, _ in axiom_records) + sorted(no_axioms)
+    result["all_named_declaration_checks_passed"] = len(kinds) == len(declarations) and len(axiom_records) + len(no_axioms) == len(declarations)
+result["passed"] = (len(result["commands"]) == len(frozen) and all(c["exit_code"] == 0 for c in result["commands"])
+                    and all(result["source_unchanged_after"].values()) and result.get("all_named_declaration_checks_passed", False)
+                    and set(result.get("observed_axioms", [])) <= ALLOWED and "exception" not in result)
+(EVIDENCE / "result.json").write_text(json.dumps(result, indent=2) + "\n")
+print(json.dumps({"passed": result["passed"], "commands": len(result["commands"]), "declarations": len(declarations),
+                  "support_declarations": len(result["support_declarations"]), "axioms": result.get("observed_axioms"),
+                  "exception": result.get("exception")}, indent=2))
+raise SystemExit(0 if result["passed"] else 1)

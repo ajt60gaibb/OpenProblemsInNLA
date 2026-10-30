@@ -1,0 +1,1355 @@
+{
+  "started_utc": "2026-10-26T01:45:35.460814+00:00",
+  "started_local": "2026-10-25T21:45:35.461198-04:00",
+  "scope": "Frozen MachineSVDMemory support only: literal U/sigma/V write/readback and outside memory preservation. Fresh two-source rebuild after consumer-only namespace diagnostic; no Target, full program, runtime, Linux or Comparator claim.",
+  "reviewer": "/root/recover_verification",
+  "self_authored_proof_sources": [],
+  "source_lock_sha256": "dcdbd0591286d6d687a9375ee7936e81d5f797312dde2962564b64beb082c4e5",
+  "driver_sha256": "1dbf91d09478a1f56d6d808be4e561d93d9b7f83c1eed9b30f0a3a1ba4f182d6",
+  "inventory_sha256": "5517262730e51e9f023066ae41c7023c3c69fe9c3374209c2479871fb6c70256",
+  "project_sources": 2,
+  "source_sha256": {
+    "NLA/Computation/SVDMachine.lean": "8ec5866326b5a311b334651600db5d7f3065f2059175823626319afef7cf7581",
+    "NLA/Proofs/TR04/MachineSVDMemory.lean": "6b1663e4df0847690b296475a5b255c4e9f6a8318a55742d2f7f7d3c8feee043"
+  },
+  "consumer_sha256": {
+    "Independent_svd_memory_Consumer.lean": "9c21a159553f300db639ad0c659e9aa101ea32bfdba67b8910043efdcc8bef12"
+  },
+  "consumer_bindings": {
+    "svd_memory": {
+      "source": "Independent_svd_memory_Consumer.lean",
+      "literal_examples": [
+        {
+          "name": "NLA.Proofs.TR04.matrixCell_entry",
+          "source": "NLA/Proofs/TR04/MachineSVDMemory.lean",
+          "line": 21,
+          "verbatim_header_sha256": "0ce06c8c280b36ef4dfa76e80af26cefb0e9bb70cac1f18623298834ff318b7f",
+          "application_arguments": [
+            "m",
+            "l",
+            "A",
+            "i",
+            "j"
+          ]
+        },
+        {
+          "name": "NLA.Proofs.TR04.readMatrix_writeSVD_u",
+          "source": "NLA/Proofs/TR04/MachineSVDMemory.lean",
+          "line": 62,
+          "verbatim_header_sha256": "5177189e1e1039c30aa1e2708fd4fa9cd7bd83fc1e352e4704bd2331b8026b40",
+          "application_arguments": [
+            "m",
+            "l",
+            "memory",
+            "uBase",
+            "sigmaBase",
+            "vBase",
+            "U",
+            "sigma",
+            "V"
+          ]
+        },
+        {
+          "name": "NLA.Proofs.TR04.writeSVD_sigma_entry",
+          "source": "NLA/Proofs/TR04/MachineSVDMemory.lean",
+          "line": 69,
+          "verbatim_header_sha256": "67a82228ac14cb50be5bcf623421d33780c19ea8b66ae3c165b8454290d6e450",
+          "application_arguments": [
+            "m",
+            "l",
+            "memory",
+            "uBase",
+            "sigmaBase",
+            "vBase",
+            "U",
+            "sigma",
+            "V",
+            "h",
+            "k"
+          ]
+        },
+        {
+          "name": "NLA.Proofs.TR04.readMatrix_writeSVD_v",
+          "source": "NLA/Proofs/TR04/MachineSVDMemory.lean",
+          "line": 98,
+          "verbatim_header_sha256": "cd6b80ba8b792b24d4106b287b548001b8a8e9d7b71be847689b26a4d59d68a3",
+          "application_arguments": [
+            "m",
+            "l",
+            "memory",
+            "uBase",
+            "sigmaBase",
+            "vBase",
+            "U",
+            "sigma",
+            "V",
+            "h"
+          ]
+        },
+        {
+          "name": "NLA.Proofs.TR04.writeSVD_outside",
+          "source": "NLA/Proofs/TR04/MachineSVDMemory.lean",
+          "line": 106,
+          "verbatim_header_sha256": "237ba6c98574bc4a8a9d170a8e351ed3bf34d23be1901b4783c63b98e2e15987",
+          "application_arguments": [
+            "m",
+            "l",
+            "memory",
+            "uBase",
+            "sigmaBase",
+            "vBase",
+            "U",
+            "sigma",
+            "V",
+            "address",
+            "hu",
+            "hs",
+            "hv"
+          ]
+        }
+      ]
+    }
+  },
+  "declarations": [
+    {
+      "name": "NLA.Computation.SVDMachine.Instruction",
+      "kind": "inductive",
+      "source": "NLA/Computation/SVDMachine.lean",
+      "line": 17,
+      "visibility": "public"
+    },
+    {
+      "name": "NLA.Computation.SVDMachine.Program",
+      "kind": "structure",
+      "source": "NLA/Computation/SVDMachine.lean",
+      "line": 44,
+      "visibility": "public"
+    },
+    {
+      "name": "NLA.Computation.SVDMachine.Status",
+      "kind": "inductive",
+      "source": "NLA/Computation/SVDMachine.lean",
+      "line": 54,
+      "visibility": "public"
+    },
+    {
+      "name": "NLA.Computation.SVDMachine.State",
+      "kind": "structure",
+      "source": "NLA/Computation/SVDMachine.lean",
+      "line": 60,
+      "visibility": "public"
+    },
+    {
+      "name": "NLA.Computation.SVDMachine.initial",
+      "kind": "def",
+      "source": "NLA/Computation/SVDMachine.lean",
+      "line": 68,
+      "visibility": "public"
+    },
+    {
+      "name": "NLA.Computation.SVDMachine.ordinaryStep",
+      "kind": "def",
+      "source": "NLA/Computation/SVDMachine.lean",
+      "line": 77,
+      "visibility": "public"
+    },
+    {
+      "name": "NLA.Computation.SVDMachine.ValidSVD",
+      "kind": "def",
+      "source": "NLA/Computation/SVDMachine.lean",
+      "line": 131,
+      "visibility": "public"
+    },
+    {
+      "name": "NLA.Computation.SVDMachine.DisjointBlocks",
+      "kind": "def",
+      "source": "NLA/Computation/SVDMachine.lean",
+      "line": 143,
+      "visibility": "public"
+    },
+    {
+      "name": "NLA.Computation.SVDMachine.OutputBlocksDisjoint",
+      "kind": "def",
+      "source": "NLA/Computation/SVDMachine.lean",
+      "line": 146,
+      "visibility": "public"
+    },
+    {
+      "name": "NLA.Computation.SVDMachine.matrixCell",
+      "kind": "def",
+      "source": "NLA/Computation/SVDMachine.lean",
+      "line": 153,
+      "visibility": "public"
+    },
+    {
+      "name": "NLA.Computation.SVDMachine.readMatrix",
+      "kind": "def",
+      "source": "NLA/Computation/SVDMachine.lean",
+      "line": 164,
+      "visibility": "public"
+    },
+    {
+      "name": "NLA.Computation.SVDMachine.writeSVD",
+      "kind": "def",
+      "source": "NLA/Computation/SVDMachine.lean",
+      "line": 168,
+      "visibility": "public"
+    },
+    {
+      "name": "NLA.Computation.SVDMachine.charge",
+      "kind": "def",
+      "source": "NLA/Computation/SVDMachine.lean",
+      "line": 180,
+      "visibility": "public"
+    },
+    {
+      "name": "NLA.Computation.SVDMachine.Step",
+      "kind": "def",
+      "source": "NLA/Computation/SVDMachine.lean",
+      "line": 190,
+      "visibility": "public"
+    },
+    {
+      "name": "NLA.Computation.SVDMachine.Trace",
+      "kind": "structure",
+      "source": "NLA/Computation/SVDMachine.lean",
+      "line": 212,
+      "visibility": "public"
+    },
+    {
+      "name": "NLA.Computation.SVDMachine.LegalTrace",
+      "kind": "def",
+      "source": "NLA/Computation/SVDMachine.lean",
+      "line": 216,
+      "visibility": "public"
+    },
+    {
+      "name": "NLA.Computation.SVDMachine.CostThrough",
+      "kind": "def",
+      "source": "NLA/Computation/SVDMachine.lean",
+      "line": 219,
+      "visibility": "public"
+    },
+    {
+      "name": "NLA.Proofs.TR04.matrix_offset_lt",
+      "kind": "theorem",
+      "source": "NLA/Proofs/TR04/MachineSVDMemory.lean",
+      "line": 14,
+      "visibility": "public"
+    },
+    {
+      "name": "NLA.Proofs.TR04.matrixCell_entry",
+      "kind": "theorem",
+      "source": "NLA/Proofs/TR04/MachineSVDMemory.lean",
+      "line": 21,
+      "visibility": "public"
+    },
+    {
+      "name": "NLA.Proofs.TR04.disjointBlocks_not_mem_right",
+      "kind": "theorem",
+      "source": "NLA/Proofs/TR04/MachineSVDMemory.lean",
+      "line": 35,
+      "visibility": "public"
+    },
+    {
+      "name": "NLA.Proofs.TR04.disjointBlocks_not_mem_left",
+      "kind": "theorem",
+      "source": "NLA/Proofs/TR04/MachineSVDMemory.lean",
+      "line": 42,
+      "visibility": "public"
+    },
+    {
+      "name": "NLA.Proofs.TR04.writeSVD_u_entry",
+      "kind": "theorem",
+      "source": "NLA/Proofs/TR04/MachineSVDMemory.lean",
+      "line": 49,
+      "visibility": "public"
+    },
+    {
+      "name": "NLA.Proofs.TR04.readMatrix_writeSVD_u",
+      "kind": "theorem",
+      "source": "NLA/Proofs/TR04/MachineSVDMemory.lean",
+      "line": 62,
+      "visibility": "public"
+    },
+    {
+      "name": "NLA.Proofs.TR04.writeSVD_sigma_entry",
+      "kind": "theorem",
+      "source": "NLA/Proofs/TR04/MachineSVDMemory.lean",
+      "line": 69,
+      "visibility": "public"
+    },
+    {
+      "name": "NLA.Proofs.TR04.writeSVD_v_entry",
+      "kind": "theorem",
+      "source": "NLA/Proofs/TR04/MachineSVDMemory.lean",
+      "line": 83,
+      "visibility": "public"
+    },
+    {
+      "name": "NLA.Proofs.TR04.readMatrix_writeSVD_v",
+      "kind": "theorem",
+      "source": "NLA/Proofs/TR04/MachineSVDMemory.lean",
+      "line": 98,
+      "visibility": "public"
+    },
+    {
+      "name": "NLA.Proofs.TR04.writeSVD_outside",
+      "kind": "theorem",
+      "source": "NLA/Proofs/TR04/MachineSVDMemory.lean",
+      "line": 106,
+      "visibility": "public"
+    }
+  ],
+  "private_or_local_named_declarations": [],
+  "lean_version": {
+    "argv": [
+      "/Users/ajt253/Documents/OpenProblemsInNLA/campaign-workspaces/tooling/lean-4.33.1-darwin_aarch64/bin/lean",
+      "--version"
+    ],
+    "exit_code": 0,
+    "stdout": "Lean (version 4.33.1, arm64-apple-darwin24.6.0, commit 819816b2e0a3bf405af45ae5c7af2491d8f5bee6, Release)\n",
+    "stderr": ""
+  },
+  "lean_sha256": "1b370cfcbf44e80d1b004ab1b1ab9a4c73951f9f7c242140bcff9bc577576554",
+  "dependencies_before": [
+    {
+      "name": "leancert",
+      "expected_revision": "621a43d7cf21f87872392a01e874f2f1dbddc926",
+      "directory": "/Users/ajt253/.codex/worktrees/pf05-lean-proof/OpenProblemsInNLA/nonnegative-and-positive-factorizations/PF-05/lean/.lake/packages/leancert",
+      "head": {
+        "argv": [
+          "git",
+          "-C",
+          "/Users/ajt253/.codex/worktrees/pf05-lean-proof/OpenProblemsInNLA/nonnegative-and-positive-factorizations/PF-05/lean/.lake/packages/leancert",
+          "rev-parse",
+          "HEAD"
+        ],
+        "exit_code": 0,
+        "stdout": "621a43d7cf21f87872392a01e874f2f1dbddc926\n",
+        "stderr": ""
+      },
+      "status": {
+        "argv": [
+          "git",
+          "-C",
+          "/Users/ajt253/.codex/worktrees/pf05-lean-proof/OpenProblemsInNLA/nonnegative-and-positive-factorizations/PF-05/lean/.lake/packages/leancert",
+          "status",
+          "--porcelain",
+          "--untracked-files=no"
+        ],
+        "exit_code": 0,
+        "stdout": "",
+        "stderr": ""
+      },
+      "passed": true
+    },
+    {
+      "name": "mathlib",
+      "expected_revision": "0df444a360eaa60ab8c11dca51a86af692955474",
+      "directory": "/Users/ajt253/.codex/worktrees/pf05-lean-proof/OpenProblemsInNLA/nonnegative-and-positive-factorizations/PF-05/lean/.lake/packages/mathlib",
+      "head": {
+        "argv": [
+          "git",
+          "-C",
+          "/Users/ajt253/.codex/worktrees/pf05-lean-proof/OpenProblemsInNLA/nonnegative-and-positive-factorizations/PF-05/lean/.lake/packages/mathlib",
+          "rev-parse",
+          "HEAD"
+        ],
+        "exit_code": 0,
+        "stdout": "0df444a360eaa60ab8c11dca51a86af692955474\n",
+        "stderr": ""
+      },
+      "status": {
+        "argv": [
+          "git",
+          "-C",
+          "/Users/ajt253/.codex/worktrees/pf05-lean-proof/OpenProblemsInNLA/nonnegative-and-positive-factorizations/PF-05/lean/.lake/packages/mathlib",
+          "status",
+          "--porcelain",
+          "--untracked-files=no"
+        ],
+        "exit_code": 0,
+        "stdout": "",
+        "stderr": ""
+      },
+      "passed": true
+    },
+    {
+      "name": "plausible",
+      "expected_revision": "b7eb3304aeae834b12dda98993a37f6a41f6f0bb",
+      "directory": "/Users/ajt253/.codex/worktrees/pf05-lean-proof/OpenProblemsInNLA/nonnegative-and-positive-factorizations/PF-05/lean/.lake/packages/plausible",
+      "head": {
+        "argv": [
+          "git",
+          "-C",
+          "/Users/ajt253/.codex/worktrees/pf05-lean-proof/OpenProblemsInNLA/nonnegative-and-positive-factorizations/PF-05/lean/.lake/packages/plausible",
+          "rev-parse",
+          "HEAD"
+        ],
+        "exit_code": 0,
+        "stdout": "b7eb3304aeae834b12dda98993a37f6a41f6f0bb\n",
+        "stderr": ""
+      },
+      "status": {
+        "argv": [
+          "git",
+          "-C",
+          "/Users/ajt253/.codex/worktrees/pf05-lean-proof/OpenProblemsInNLA/nonnegative-and-positive-factorizations/PF-05/lean/.lake/packages/plausible",
+          "status",
+          "--porcelain",
+          "--untracked-files=no"
+        ],
+        "exit_code": 0,
+        "stdout": "",
+        "stderr": ""
+      },
+      "passed": true
+    },
+    {
+      "name": "LeanSearchClient",
+      "expected_revision": "5f4d51b81cbd3f6b32b156bfad9056621a040404",
+      "directory": "/Users/ajt253/.codex/worktrees/pf05-lean-proof/OpenProblemsInNLA/nonnegative-and-positive-factorizations/PF-05/lean/.lake/packages/LeanSearchClient",
+      "head": {
+        "argv": [
+          "git",
+          "-C",
+          "/Users/ajt253/.codex/worktrees/pf05-lean-proof/OpenProblemsInNLA/nonnegative-and-positive-factorizations/PF-05/lean/.lake/packages/LeanSearchClient",
+          "rev-parse",
+          "HEAD"
+        ],
+        "exit_code": 0,
+        "stdout": "5f4d51b81cbd3f6b32b156bfad9056621a040404\n",
+        "stderr": ""
+      },
+      "status": {
+        "argv": [
+          "git",
+          "-C",
+          "/Users/ajt253/.codex/worktrees/pf05-lean-proof/OpenProblemsInNLA/nonnegative-and-positive-factorizations/PF-05/lean/.lake/packages/LeanSearchClient",
+          "status",
+          "--porcelain",
+          "--untracked-files=no"
+        ],
+        "exit_code": 0,
+        "stdout": "",
+        "stderr": ""
+      },
+      "passed": true
+    },
+    {
+      "name": "importGraph",
+      "expected_revision": "16f02aa7642864af59f1ff0e384a015994db9118",
+      "directory": "/Users/ajt253/.codex/worktrees/pf05-lean-proof/OpenProblemsInNLA/nonnegative-and-positive-factorizations/PF-05/lean/.lake/packages/importGraph",
+      "head": {
+        "argv": [
+          "git",
+          "-C",
+          "/Users/ajt253/.codex/worktrees/pf05-lean-proof/OpenProblemsInNLA/nonnegative-and-positive-factorizations/PF-05/lean/.lake/packages/importGraph",
+          "rev-parse",
+          "HEAD"
+        ],
+        "exit_code": 0,
+        "stdout": "16f02aa7642864af59f1ff0e384a015994db9118\n",
+        "stderr": ""
+      },
+      "status": {
+        "argv": [
+          "git",
+          "-C",
+          "/Users/ajt253/.codex/worktrees/pf05-lean-proof/OpenProblemsInNLA/nonnegative-and-positive-factorizations/PF-05/lean/.lake/packages/importGraph",
+          "status",
+          "--porcelain",
+          "--untracked-files=no"
+        ],
+        "exit_code": 0,
+        "stdout": "",
+        "stderr": ""
+      },
+      "passed": true
+    },
+    {
+      "name": "proofwidgets",
+      "expected_revision": "4be2e3d5087eeb272cf5a8853b8f9dd025ef5957",
+      "directory": "/Users/ajt253/.codex/worktrees/pf05-lean-proof/OpenProblemsInNLA/nonnegative-and-positive-factorizations/PF-05/lean/.lake/packages/proofwidgets",
+      "head": {
+        "argv": [
+          "git",
+          "-C",
+          "/Users/ajt253/.codex/worktrees/pf05-lean-proof/OpenProblemsInNLA/nonnegative-and-positive-factorizations/PF-05/lean/.lake/packages/proofwidgets",
+          "rev-parse",
+          "HEAD"
+        ],
+        "exit_code": 0,
+        "stdout": "4be2e3d5087eeb272cf5a8853b8f9dd025ef5957\n",
+        "stderr": ""
+      },
+      "status": {
+        "argv": [
+          "git",
+          "-C",
+          "/Users/ajt253/.codex/worktrees/pf05-lean-proof/OpenProblemsInNLA/nonnegative-and-positive-factorizations/PF-05/lean/.lake/packages/proofwidgets",
+          "status",
+          "--porcelain",
+          "--untracked-files=no"
+        ],
+        "exit_code": 0,
+        "stdout": "",
+        "stderr": ""
+      },
+      "passed": true
+    },
+    {
+      "name": "aesop",
+      "expected_revision": "3448c0bcc5ce01b2d1546e483ec3620e32df3d0e",
+      "directory": "/Users/ajt253/.codex/worktrees/pf05-lean-proof/OpenProblemsInNLA/nonnegative-and-positive-factorizations/PF-05/lean/.lake/packages/aesop",
+      "head": {
+        "argv": [
+          "git",
+          "-C",
+          "/Users/ajt253/.codex/worktrees/pf05-lean-proof/OpenProblemsInNLA/nonnegative-and-positive-factorizations/PF-05/lean/.lake/packages/aesop",
+          "rev-parse",
+          "HEAD"
+        ],
+        "exit_code": 0,
+        "stdout": "3448c0bcc5ce01b2d1546e483ec3620e32df3d0e\n",
+        "stderr": ""
+      },
+      "status": {
+        "argv": [
+          "git",
+          "-C",
+          "/Users/ajt253/.codex/worktrees/pf05-lean-proof/OpenProblemsInNLA/nonnegative-and-positive-factorizations/PF-05/lean/.lake/packages/aesop",
+          "status",
+          "--porcelain",
+          "--untracked-files=no"
+        ],
+        "exit_code": 0,
+        "stdout": "",
+        "stderr": ""
+      },
+      "passed": true
+    },
+    {
+      "name": "Qq",
+      "expected_revision": "92c15be17b7caf78c2ad767ec40f89052d908d81",
+      "directory": "/Users/ajt253/.codex/worktrees/pf05-lean-proof/OpenProblemsInNLA/nonnegative-and-positive-factorizations/PF-05/lean/.lake/packages/Qq",
+      "head": {
+        "argv": [
+          "git",
+          "-C",
+          "/Users/ajt253/.codex/worktrees/pf05-lean-proof/OpenProblemsInNLA/nonnegative-and-positive-factorizations/PF-05/lean/.lake/packages/Qq",
+          "rev-parse",
+          "HEAD"
+        ],
+        "exit_code": 0,
+        "stdout": "92c15be17b7caf78c2ad767ec40f89052d908d81\n",
+        "stderr": ""
+      },
+      "status": {
+        "argv": [
+          "git",
+          "-C",
+          "/Users/ajt253/.codex/worktrees/pf05-lean-proof/OpenProblemsInNLA/nonnegative-and-positive-factorizations/PF-05/lean/.lake/packages/Qq",
+          "status",
+          "--porcelain",
+          "--untracked-files=no"
+        ],
+        "exit_code": 0,
+        "stdout": "",
+        "stderr": ""
+      },
+      "passed": true
+    },
+    {
+      "name": "batteries",
+      "expected_revision": "4488d40d070b9700d4d5a6aa342f0d40c31b2a2d",
+      "directory": "/Users/ajt253/.codex/worktrees/pf05-lean-proof/OpenProblemsInNLA/nonnegative-and-positive-factorizations/PF-05/lean/.lake/packages/batteries",
+      "head": {
+        "argv": [
+          "git",
+          "-C",
+          "/Users/ajt253/.codex/worktrees/pf05-lean-proof/OpenProblemsInNLA/nonnegative-and-positive-factorizations/PF-05/lean/.lake/packages/batteries",
+          "rev-parse",
+          "HEAD"
+        ],
+        "exit_code": 0,
+        "stdout": "4488d40d070b9700d4d5a6aa342f0d40c31b2a2d\n",
+        "stderr": ""
+      },
+      "status": {
+        "argv": [
+          "git",
+          "-C",
+          "/Users/ajt253/.codex/worktrees/pf05-lean-proof/OpenProblemsInNLA/nonnegative-and-positive-factorizations/PF-05/lean/.lake/packages/batteries",
+          "status",
+          "--porcelain",
+          "--untracked-files=no"
+        ],
+        "exit_code": 0,
+        "stdout": "",
+        "stderr": ""
+      },
+      "passed": true
+    },
+    {
+      "name": "Cli",
+      "expected_revision": "6130a47896ce867c6a4a55373441e59e565bad0f",
+      "directory": "/Users/ajt253/.codex/worktrees/pf05-lean-proof/OpenProblemsInNLA/nonnegative-and-positive-factorizations/PF-05/lean/.lake/packages/Cli",
+      "head": {
+        "argv": [
+          "git",
+          "-C",
+          "/Users/ajt253/.codex/worktrees/pf05-lean-proof/OpenProblemsInNLA/nonnegative-and-positive-factorizations/PF-05/lean/.lake/packages/Cli",
+          "rev-parse",
+          "HEAD"
+        ],
+        "exit_code": 0,
+        "stdout": "6130a47896ce867c6a4a55373441e59e565bad0f\n",
+        "stderr": ""
+      },
+      "status": {
+        "argv": [
+          "git",
+          "-C",
+          "/Users/ajt253/.codex/worktrees/pf05-lean-proof/OpenProblemsInNLA/nonnegative-and-positive-factorizations/PF-05/lean/.lake/packages/Cli",
+          "status",
+          "--porcelain",
+          "--untracked-files=no"
+        ],
+        "exit_code": 0,
+        "stdout": "",
+        "stderr": ""
+      },
+      "passed": true
+    }
+  ],
+  "original25_before": [
+    {
+      "path": "problem_ids.json",
+      "sha256": "d7f9925a483d40030ef266917bc8e413dac6d45530ad5515da506ffe9583e763",
+      "base_sha256": "d7f9925a483d40030ef266917bc8e413dac6d45530ad5515da506ffe9583e763",
+      "passed": true
+    },
+    {
+      "path": "tensor-computations/TR-04/README.md",
+      "sha256": "614dfc1189a99b0c2de54a04b948c01d35301d468e0b723c7fcb34b9918957cf",
+      "base_sha256": "614dfc1189a99b0c2de54a04b948c01d35301d468e0b723c7fcb34b9918957cf",
+      "passed": true
+    },
+    {
+      "path": "tensor-computations/TR-04/problem.tex",
+      "sha256": "5b07e197470623eb5b26cca49d4a78a6bfba580c36442c8ee456abacb536ef36",
+      "base_sha256": "5b07e197470623eb5b26cca49d4a78a6bfba580c36442c8ee456abacb536ef36",
+      "passed": true
+    },
+    {
+      "path": "tensor-computations/TR-04/problem.pdf",
+      "sha256": "3228867152976425346f22aacadc9585043a1470cf6fadc62246bbb70b47f49b",
+      "base_sha256": "3228867152976425346f22aacadc9585043a1470cf6fadc62246bbb70b47f49b",
+      "passed": true
+    },
+    {
+      "path": "tensor-computations/TR-04/lean/Challenge.lean",
+      "sha256": "e2593ab837691309d993bc46c77c5d37e8c12e9c975254324adbebace2246f32",
+      "base_sha256": "e2593ab837691309d993bc46c77c5d37e8c12e9c975254324adbebace2246f32",
+      "passed": true
+    },
+    {
+      "path": "tensor-computations/TR-04/lean/Solution.lean",
+      "sha256": "dd02b5ba519b14e19aeebd005a72c85aba30084347bc3e82d5d8f61d4a94aa75",
+      "base_sha256": "dd02b5ba519b14e19aeebd005a72c85aba30084347bc3e82d5d8f61d4a94aa75",
+      "passed": true
+    },
+    {
+      "path": "tensor-computations/TR-04/lean/SPEC.md",
+      "sha256": "9a67b4545286ff189a6c12c880862df4ca1767e1da3107c4509569d8a3600902",
+      "base_sha256": "9a67b4545286ff189a6c12c880862df4ca1767e1da3107c4509569d8a3600902",
+      "passed": true
+    },
+    {
+      "path": "tensor-computations/TR-04/lean/README.md",
+      "sha256": "04e3c9948ae24b055f9e84b8cb9e47a924dbfb8aa0d678dbc869db792e2c6275",
+      "base_sha256": "04e3c9948ae24b055f9e84b8cb9e47a924dbfb8aa0d678dbc869db792e2c6275",
+      "passed": true
+    },
+    {
+      "path": "references/colbrook-recovered-tensors-2026-09-11/manuscripts/TR-04.tex",
+      "sha256": "e7770aa08ee91fbda82e0bfe3e087f1a9c8ee2a076218144bf0040e4d282bf73",
+      "base_sha256": "e7770aa08ee91fbda82e0bfe3e087f1a9c8ee2a076218144bf0040e4d282bf73",
+      "passed": true
+    },
+    {
+      "path": "references/colbrook-recovered-tensors-2026-09-11/verification/reviews/TR-04-review.md",
+      "sha256": "0189cecc988d1d1f93c93e5dca159265641efc598105b2729049b570524b19f2",
+      "base_sha256": "0189cecc988d1d1f93c93e5dca159265641efc598105b2729049b570524b19f2",
+      "passed": true
+    },
+    {
+      "path": "lean-statements/NLA/Statements/TR04.lean",
+      "sha256": "6f595cd3fa4c5d317bc757628a3e7858ab4576c90cbe967ac5289c8b3fbd780c",
+      "base_sha256": "6f595cd3fa4c5d317bc757628a3e7858ab4576c90cbe967ac5289c8b3fbd780c",
+      "passed": true
+    },
+    {
+      "path": "lean-statements/Reviewed/TR04.lean",
+      "sha256": "5b2260e25e8ce7dda5455a3cf11a5c16fc2493ce3d0cf1ab84a447d2fb1f54cd",
+      "base_sha256": "5b2260e25e8ce7dda5455a3cf11a5c16fc2493ce3d0cf1ab84a447d2fb1f54cd",
+      "passed": true
+    },
+    {
+      "path": "lean-statements/NLA/Computation/SVDMachine.lean",
+      "sha256": "8ec5866326b5a311b334651600db5d7f3065f2059175823626319afef7cf7581",
+      "base_sha256": "8ec5866326b5a311b334651600db5d7f3065f2059175823626319afef7cf7581",
+      "passed": true
+    },
+    {
+      "path": "lean-statements/NLA/Computation/SVDControls.lean",
+      "sha256": "340bed2b81f7a74853d06847f8af4562600548801254a770de1a97e7fd6fac54",
+      "base_sha256": "340bed2b81f7a74853d06847f8af4562600548801254a770de1a97e7fd6fac54",
+      "passed": true
+    },
+    {
+      "path": "lean-statements/NLA/Computation/TensorTrainApproximation.lean",
+      "sha256": "05038abcc6cf85d422cf580b3cc527e7aa7dad146802da5621911b6331494d2d",
+      "base_sha256": "05038abcc6cf85d422cf580b3cc527e7aa7dad146802da5621911b6331494d2d",
+      "passed": true
+    },
+    {
+      "path": "lean-statements/NLA/Computation/NonadaptiveMatrixQuery.lean",
+      "sha256": "66345a3ed3274e6dd351ffaa7e1b75a0aa95afa63c3ece937d37f1efaad29b21",
+      "base_sha256": "66345a3ed3274e6dd351ffaa7e1b75a0aa95afa63c3ece937d37f1efaad29b21",
+      "passed": true
+    },
+    {
+      "path": "docs/lean/statements/TR-04/NUMERICAL_TARGETS.md",
+      "sha256": "f1bfd6d4a73a326a5dec79c052dba4f5ae38cc2f4c9e40622492a7694c5074f4",
+      "base_sha256": "f1bfd6d4a73a326a5dec79c052dba4f5ae38cc2f4c9e40622492a7694c5074f4",
+      "passed": true
+    },
+    {
+      "path": "docs/lean/statements/TR-04/IMPLEMENTATION_NOTES.md",
+      "sha256": "a661d83390918eef7ceb893f9e035bb569eb955f361b4f1df2f670e8e09f2390",
+      "base_sha256": "a661d83390918eef7ceb893f9e035bb569eb955f361b4f1df2f670e8e09f2390",
+      "passed": true
+    },
+    {
+      "path": "docs/lean/statements/TR-04/source-lock.json",
+      "sha256": "1203a4fc275f4c0624db2673ec1535e4b5a71a810c5a10c599548066f6660b72",
+      "base_sha256": "1203a4fc275f4c0624db2673ec1535e4b5a71a810c5a10c599548066f6660b72",
+      "passed": true
+    },
+    {
+      "path": "docs/lean/statements/TR-04/reviews/lean-boundary-root.md",
+      "sha256": "07123fa7869bd3a59ed2a17aeae0cc7611d928c4a0c1a7a50c492548d5d1275f",
+      "base_sha256": "07123fa7869bd3a59ed2a17aeae0cc7611d928c4a0c1a7a50c492548d5d1275f",
+      "passed": true
+    },
+    {
+      "path": "docs/lean/statements/TR-04/reviews/lean-boundary-root.json",
+      "sha256": "cd986da8d2f3b8d46251430c0833ca5fe11d7f97bee186a9b88aa6b7590108da",
+      "base_sha256": "cd986da8d2f3b8d46251430c0833ca5fe11d7f97bee186a9b88aa6b7590108da",
+      "passed": true
+    },
+    {
+      "path": "docs/lean/statements/TR-04/reviews/lean-boundary-statement_design.md",
+      "sha256": "4dae400258e650a6cd27a700997345737a96bd8087e40c0676e17e190e332480",
+      "base_sha256": "4dae400258e650a6cd27a700997345737a96bd8087e40c0676e17e190e332480",
+      "passed": true
+    },
+    {
+      "path": "docs/lean/statements/TR-04/reviews/lean-boundary-statement_design.json",
+      "sha256": "a18cdcafd249ed96e03dc712d04a24a61277240dc842f006f06c93517965e5b5",
+      "base_sha256": "a18cdcafd249ed96e03dc712d04a24a61277240dc842f006f06c93517965e5b5",
+      "passed": true
+    },
+    {
+      "path": "lean-statements/lean-toolchain",
+      "sha256": "3aac669c7a910ec2389f4e4f921b605adf6ebf2d1e0c9b9cd0be4d33f3f5db71",
+      "base_sha256": "3aac669c7a910ec2389f4e4f921b605adf6ebf2d1e0c9b9cd0be4d33f3f5db71",
+      "passed": true
+    },
+    {
+      "path": "lean-statements/lake-manifest.json",
+      "sha256": "a19377882192a9dbfc01c4d4e73edd887a8de91f735edabaeff2dfa38a4b4ec8",
+      "base_sha256": "a19377882192a9dbfc01c4d4e73edd887a8de91f735edabaeff2dfa38a4b4ec8",
+      "passed": true
+    }
+  ],
+  "project_objects_reused": false,
+  "pinned_external_dependency_objects_reused": true,
+  "fresh_closure_build_shared_by_blocks": true,
+  "commands": [
+    {
+      "argv": [
+        "/Users/ajt253/Documents/OpenProblemsInNLA/campaign-workspaces/tooling/lean-4.33.1-darwin_aarch64/bin/lean",
+        "-R",
+        "/Users/ajt253/Documents/OpenProblemsInNLA/campaign-workspaces/tr04/docs/lean/proofs/TR-04/campaign-2026-10-25/independent-svd-memory-review/objects-xtbpkvf0/source",
+        "-o",
+        "/Users/ajt253/Documents/OpenProblemsInNLA/campaign-workspaces/tr04/docs/lean/proofs/TR-04/campaign-2026-10-25/independent-svd-memory-review/objects-xtbpkvf0/output/NLA/Computation/SVDMachine.olean",
+        "/Users/ajt253/Documents/OpenProblemsInNLA/campaign-workspaces/tr04/docs/lean/proofs/TR-04/campaign-2026-10-25/independent-svd-memory-review/objects-xtbpkvf0/source/NLA/Computation/SVDMachine.lean"
+      ],
+      "exit_code": 0,
+      "source": "NLA/Computation/SVDMachine.lean",
+      "log": "NLA-Computation-SVDMachine.lean.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "/Users/ajt253/Documents/OpenProblemsInNLA/campaign-workspaces/tooling/lean-4.33.1-darwin_aarch64/bin/lean",
+        "-R",
+        "/Users/ajt253/Documents/OpenProblemsInNLA/campaign-workspaces/tr04/docs/lean/proofs/TR-04/campaign-2026-10-25/independent-svd-memory-review/objects-xtbpkvf0/source",
+        "-o",
+        "/Users/ajt253/Documents/OpenProblemsInNLA/campaign-workspaces/tr04/docs/lean/proofs/TR-04/campaign-2026-10-25/independent-svd-memory-review/objects-xtbpkvf0/output/NLA/Proofs/TR04/MachineSVDMemory.olean",
+        "/Users/ajt253/Documents/OpenProblemsInNLA/campaign-workspaces/tr04/docs/lean/proofs/TR-04/campaign-2026-10-25/independent-svd-memory-review/objects-xtbpkvf0/source/NLA/Proofs/TR04/MachineSVDMemory.lean"
+      ],
+      "exit_code": 0,
+      "source": "NLA/Proofs/TR04/MachineSVDMemory.lean",
+      "log": "NLA-Proofs-TR04-MachineSVDMemory.lean.log",
+      "log_sha256": "5e7ead54ca44e74a0e333fd1c437ef21cd1f84bd594614f4579e097aea061ba1"
+    },
+    {
+      "argv": [
+        "/Users/ajt253/Documents/OpenProblemsInNLA/campaign-workspaces/tooling/lean-4.33.1-darwin_aarch64/bin/lean",
+        "-R",
+        "/Users/ajt253/Documents/OpenProblemsInNLA/campaign-workspaces/tr04/docs/lean/proofs/TR-04/campaign-2026-10-25/independent-svd-memory-review/objects-xtbpkvf0/source",
+        "-o",
+        "/Users/ajt253/Documents/OpenProblemsInNLA/campaign-workspaces/tr04/docs/lean/proofs/TR-04/campaign-2026-10-25/independent-svd-memory-review/objects-xtbpkvf0/output/Independent_svd_memory_Consumer.olean",
+        "/Users/ajt253/Documents/OpenProblemsInNLA/campaign-workspaces/tr04/docs/lean/proofs/TR-04/campaign-2026-10-25/independent-svd-memory-review/objects-xtbpkvf0/source/Independent_svd_memory_Consumer.lean"
+      ],
+      "exit_code": 0,
+      "source": "Independent_svd_memory_Consumer.lean",
+      "log": "Independent_svd_memory_Consumer.lean.log",
+      "log_sha256": "7463fdd8205a24640c2006f73b532fc5520f7615ba4719245980d317b60c9eaa"
+    }
+  ],
+  "blocks": {
+    "svd_memory": {
+      "author": "/root/recover_geometry",
+      "source_lock_sha256": "d82b1ad398e4c13e69acfe21c074759f0917300ebe05b117f1d4728431fa8525",
+      "project_closure_count": 2,
+      "owned_source_count": 1,
+      "owned_declarations": [
+        "NLA.Proofs.TR04.disjointBlocks_not_mem_left",
+        "NLA.Proofs.TR04.disjointBlocks_not_mem_right",
+        "NLA.Proofs.TR04.matrixCell_entry",
+        "NLA.Proofs.TR04.matrix_offset_lt",
+        "NLA.Proofs.TR04.readMatrix_writeSVD_u",
+        "NLA.Proofs.TR04.readMatrix_writeSVD_v",
+        "NLA.Proofs.TR04.writeSVD_outside",
+        "NLA.Proofs.TR04.writeSVD_sigma_entry",
+        "NLA.Proofs.TR04.writeSVD_u_entry",
+        "NLA.Proofs.TR04.writeSVD_v_entry"
+      ],
+      "explicit_named_declarations": 27,
+      "theorem_kinds": 10,
+      "owned_theorem_kinds": 10,
+      "literal_examples": 5,
+      "consumer": {
+        "argv": [
+          "/Users/ajt253/Documents/OpenProblemsInNLA/campaign-workspaces/tooling/lean-4.33.1-darwin_aarch64/bin/lean",
+          "-R",
+          "/Users/ajt253/Documents/OpenProblemsInNLA/campaign-workspaces/tr04/docs/lean/proofs/TR-04/campaign-2026-10-25/independent-svd-memory-review/objects-xtbpkvf0/source",
+          "-o",
+          "/Users/ajt253/Documents/OpenProblemsInNLA/campaign-workspaces/tr04/docs/lean/proofs/TR-04/campaign-2026-10-25/independent-svd-memory-review/objects-xtbpkvf0/output/Independent_svd_memory_Consumer.olean",
+          "/Users/ajt253/Documents/OpenProblemsInNLA/campaign-workspaces/tr04/docs/lean/proofs/TR-04/campaign-2026-10-25/independent-svd-memory-review/objects-xtbpkvf0/source/Independent_svd_memory_Consumer.lean"
+        ],
+        "exit_code": 0,
+        "source": "Independent_svd_memory_Consumer.lean",
+        "log": "Independent_svd_memory_Consumer.lean.log",
+        "log_sha256": "7463fdd8205a24640c2006f73b532fc5520f7615ba4719245980d317b60c9eaa"
+      },
+      "kind_check_count": 27,
+      "axiom_report_count": 27,
+      "observed_axioms": [
+        "Classical.choice",
+        "Quot.sound",
+        "propext"
+      ],
+      "all_named_declaration_checks_passed": true,
+      "fresh_closure_command_indices": [
+        0,
+        1
+      ],
+      "source_unchanged_after": true,
+      "private_or_local_named_declarations": [],
+      "passed": true
+    }
+  },
+  "full_TR04_Target_proved": false,
+  "authoritative_Linux_Comparator": false,
+  "LEAN_PATH": "/Users/ajt253/Documents/OpenProblemsInNLA/campaign-workspaces/tr04/docs/lean/proofs/TR-04/campaign-2026-10-25/independent-svd-memory-review/objects-xtbpkvf0/output:/Users/ajt253/.codex/worktrees/pf05-lean-proof/OpenProblemsInNLA/nonnegative-and-positive-factorizations/PF-05/lean/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/Users/ajt253/.codex/worktrees/pf05-lean-proof/OpenProblemsInNLA/nonnegative-and-positive-factorizations/PF-05/lean/.lake/packages/Qq/.lake/build/lib/lean:/Users/ajt253/.codex/worktrees/pf05-lean-proof/OpenProblemsInNLA/nonnegative-and-positive-factorizations/PF-05/lean/.lake/packages/aesop/.lake/build/lib/lean:/Users/ajt253/.codex/worktrees/pf05-lean-proof/OpenProblemsInNLA/nonnegative-and-positive-factorizations/PF-05/lean/.lake/packages/batteries/.lake/build/lib/lean:/Users/ajt253/.codex/worktrees/pf05-lean-proof/OpenProblemsInNLA/nonnegative-and-positive-factorizations/PF-05/lean/.lake/packages/importGraph/.lake/build/lib/lean:/Users/ajt253/.codex/worktrees/pf05-lean-proof/OpenProblemsInNLA/nonnegative-and-positive-factorizations/PF-05/lean/.lake/packages/leancert/.lake/build/lib/lean:/Users/ajt253/.codex/worktrees/pf05-lean-proof/OpenProblemsInNLA/nonnegative-and-positive-factorizations/PF-05/lean/.lake/packages/mathlib/.lake/build/lib/lean:/Users/ajt253/.codex/worktrees/pf05-lean-proof/OpenProblemsInNLA/nonnegative-and-positive-factorizations/PF-05/lean/.lake/packages/plausible/.lake/build/lib/lean:/Users/ajt253/.codex/worktrees/pf05-lean-proof/OpenProblemsInNLA/nonnegative-and-positive-factorizations/PF-05/lean/.lake/packages/proofwidgets/.lake/build/lib/lean:/Users/ajt253/Documents/OpenProblemsInNLA/campaign-workspaces/tooling/lean-4.33.1-darwin_aarch64/lib/lean",
+  "dependencies_after": [
+    {
+      "name": "leancert",
+      "expected_revision": "621a43d7cf21f87872392a01e874f2f1dbddc926",
+      "directory": "/Users/ajt253/.codex/worktrees/pf05-lean-proof/OpenProblemsInNLA/nonnegative-and-positive-factorizations/PF-05/lean/.lake/packages/leancert",
+      "head": {
+        "argv": [
+          "git",
+          "-C",
+          "/Users/ajt253/.codex/worktrees/pf05-lean-proof/OpenProblemsInNLA/nonnegative-and-positive-factorizations/PF-05/lean/.lake/packages/leancert",
+          "rev-parse",
+          "HEAD"
+        ],
+        "exit_code": 0,
+        "stdout": "621a43d7cf21f87872392a01e874f2f1dbddc926\n",
+        "stderr": ""
+      },
+      "status": {
+        "argv": [
+          "git",
+          "-C",
+          "/Users/ajt253/.codex/worktrees/pf05-lean-proof/OpenProblemsInNLA/nonnegative-and-positive-factorizations/PF-05/lean/.lake/packages/leancert",
+          "status",
+          "--porcelain",
+          "--untracked-files=no"
+        ],
+        "exit_code": 0,
+        "stdout": "",
+        "stderr": ""
+      },
+      "passed": true
+    },
+    {
+      "name": "mathlib",
+      "expected_revision": "0df444a360eaa60ab8c11dca51a86af692955474",
+      "directory": "/Users/ajt253/.codex/worktrees/pf05-lean-proof/OpenProblemsInNLA/nonnegative-and-positive-factorizations/PF-05/lean/.lake/packages/mathlib",
+      "head": {
+        "argv": [
+          "git",
+          "-C",
+          "/Users/ajt253/.codex/worktrees/pf05-lean-proof/OpenProblemsInNLA/nonnegative-and-positive-factorizations/PF-05/lean/.lake/packages/mathlib",
+          "rev-parse",
+          "HEAD"
+        ],
+        "exit_code": 0,
+        "stdout": "0df444a360eaa60ab8c11dca51a86af692955474\n",
+        "stderr": ""
+      },
+      "status": {
+        "argv": [
+          "git",
+          "-C",
+          "/Users/ajt253/.codex/worktrees/pf05-lean-proof/OpenProblemsInNLA/nonnegative-and-positive-factorizations/PF-05/lean/.lake/packages/mathlib",
+          "status",
+          "--porcelain",
+          "--untracked-files=no"
+        ],
+        "exit_code": 0,
+        "stdout": "",
+        "stderr": ""
+      },
+      "passed": true
+    },
+    {
+      "name": "plausible",
+      "expected_revision": "b7eb3304aeae834b12dda98993a37f6a41f6f0bb",
+      "directory": "/Users/ajt253/.codex/worktrees/pf05-lean-proof/OpenProblemsInNLA/nonnegative-and-positive-factorizations/PF-05/lean/.lake/packages/plausible",
+      "head": {
+        "argv": [
+          "git",
+          "-C",
+          "/Users/ajt253/.codex/worktrees/pf05-lean-proof/OpenProblemsInNLA/nonnegative-and-positive-factorizations/PF-05/lean/.lake/packages/plausible",
+          "rev-parse",
+          "HEAD"
+        ],
+        "exit_code": 0,
+        "stdout": "b7eb3304aeae834b12dda98993a37f6a41f6f0bb\n",
+        "stderr": ""
+      },
+      "status": {
+        "argv": [
+          "git",
+          "-C",
+          "/Users/ajt253/.codex/worktrees/pf05-lean-proof/OpenProblemsInNLA/nonnegative-and-positive-factorizations/PF-05/lean/.lake/packages/plausible",
+          "status",
+          "--porcelain",
+          "--untracked-files=no"
+        ],
+        "exit_code": 0,
+        "stdout": "",
+        "stderr": ""
+      },
+      "passed": true
+    },
+    {
+      "name": "LeanSearchClient",
+      "expected_revision": "5f4d51b81cbd3f6b32b156bfad9056621a040404",
+      "directory": "/Users/ajt253/.codex/worktrees/pf05-lean-proof/OpenProblemsInNLA/nonnegative-and-positive-factorizations/PF-05/lean/.lake/packages/LeanSearchClient",
+      "head": {
+        "argv": [
+          "git",
+          "-C",
+          "/Users/ajt253/.codex/worktrees/pf05-lean-proof/OpenProblemsInNLA/nonnegative-and-positive-factorizations/PF-05/lean/.lake/packages/LeanSearchClient",
+          "rev-parse",
+          "HEAD"
+        ],
+        "exit_code": 0,
+        "stdout": "5f4d51b81cbd3f6b32b156bfad9056621a040404\n",
+        "stderr": ""
+      },
+      "status": {
+        "argv": [
+          "git",
+          "-C",
+          "/Users/ajt253/.codex/worktrees/pf05-lean-proof/OpenProblemsInNLA/nonnegative-and-positive-factorizations/PF-05/lean/.lake/packages/LeanSearchClient",
+          "status",
+          "--porcelain",
+          "--untracked-files=no"
+        ],
+        "exit_code": 0,
+        "stdout": "",
+        "stderr": ""
+      },
+      "passed": true
+    },
+    {
+      "name": "importGraph",
+      "expected_revision": "16f02aa7642864af59f1ff0e384a015994db9118",
+      "directory": "/Users/ajt253/.codex/worktrees/pf05-lean-proof/OpenProblemsInNLA/nonnegative-and-positive-factorizations/PF-05/lean/.lake/packages/importGraph",
+      "head": {
+        "argv": [
+          "git",
+          "-C",
+          "/Users/ajt253/.codex/worktrees/pf05-lean-proof/OpenProblemsInNLA/nonnegative-and-positive-factorizations/PF-05/lean/.lake/packages/importGraph",
+          "rev-parse",
+          "HEAD"
+        ],
+        "exit_code": 0,
+        "stdout": "16f02aa7642864af59f1ff0e384a015994db9118\n",
+        "stderr": ""
+      },
+      "status": {
+        "argv": [
+          "git",
+          "-C",
+          "/Users/ajt253/.codex/worktrees/pf05-lean-proof/OpenProblemsInNLA/nonnegative-and-positive-factorizations/PF-05/lean/.lake/packages/importGraph",
+          "status",
+          "--porcelain",
+          "--untracked-files=no"
+        ],
+        "exit_code": 0,
+        "stdout": "",
+        "stderr": ""
+      },
+      "passed": true
+    },
+    {
+      "name": "proofwidgets",
+      "expected_revision": "4be2e3d5087eeb272cf5a8853b8f9dd025ef5957",
+      "directory": "/Users/ajt253/.codex/worktrees/pf05-lean-proof/OpenProblemsInNLA/nonnegative-and-positive-factorizations/PF-05/lean/.lake/packages/proofwidgets",
+      "head": {
+        "argv": [
+          "git",
+          "-C",
+          "/Users/ajt253/.codex/worktrees/pf05-lean-proof/OpenProblemsInNLA/nonnegative-and-positive-factorizations/PF-05/lean/.lake/packages/proofwidgets",
+          "rev-parse",
+          "HEAD"
+        ],
+        "exit_code": 0,
+        "stdout": "4be2e3d5087eeb272cf5a8853b8f9dd025ef5957\n",
+        "stderr": ""
+      },
+      "status": {
+        "argv": [
+          "git",
+          "-C",
+          "/Users/ajt253/.codex/worktrees/pf05-lean-proof/OpenProblemsInNLA/nonnegative-and-positive-factorizations/PF-05/lean/.lake/packages/proofwidgets",
+          "status",
+          "--porcelain",
+          "--untracked-files=no"
+        ],
+        "exit_code": 0,
+        "stdout": "",
+        "stderr": ""
+      },
+      "passed": true
+    },
+    {
+      "name": "aesop",
+      "expected_revision": "3448c0bcc5ce01b2d1546e483ec3620e32df3d0e",
+      "directory": "/Users/ajt253/.codex/worktrees/pf05-lean-proof/OpenProblemsInNLA/nonnegative-and-positive-factorizations/PF-05/lean/.lake/packages/aesop",
+      "head": {
+        "argv": [
+          "git",
+          "-C",
+          "/Users/ajt253/.codex/worktrees/pf05-lean-proof/OpenProblemsInNLA/nonnegative-and-positive-factorizations/PF-05/lean/.lake/packages/aesop",
+          "rev-parse",
+          "HEAD"
+        ],
+        "exit_code": 0,
+        "stdout": "3448c0bcc5ce01b2d1546e483ec3620e32df3d0e\n",
+        "stderr": ""
+      },
+      "status": {
+        "argv": [
+          "git",
+          "-C",
+          "/Users/ajt253/.codex/worktrees/pf05-lean-proof/OpenProblemsInNLA/nonnegative-and-positive-factorizations/PF-05/lean/.lake/packages/aesop",
+          "status",
+          "--porcelain",
+          "--untracked-files=no"
+        ],
+        "exit_code": 0,
+        "stdout": "",
+        "stderr": ""
+      },
+      "passed": true
+    },
+    {
+      "name": "Qq",
+      "expected_revision": "92c15be17b7caf78c2ad767ec40f89052d908d81",
+      "directory": "/Users/ajt253/.codex/worktrees/pf05-lean-proof/OpenProblemsInNLA/nonnegative-and-positive-factorizations/PF-05/lean/.lake/packages/Qq",
+      "head": {
+        "argv": [
+          "git",
+          "-C",
+          "/Users/ajt253/.codex/worktrees/pf05-lean-proof/OpenProblemsInNLA/nonnegative-and-positive-factorizations/PF-05/lean/.lake/packages/Qq",
+          "rev-parse",
+          "HEAD"
+        ],
+        "exit_code": 0,
+        "stdout": "92c15be17b7caf78c2ad767ec40f89052d908d81\n",
+        "stderr": ""
+      },
+      "status": {
+        "argv": [
+          "git",
+          "-C",
+          "/Users/ajt253/.codex/worktrees/pf05-lean-proof/OpenProblemsInNLA/nonnegative-and-positive-factorizations/PF-05/lean/.lake/packages/Qq",
+          "status",
+          "--porcelain",
+          "--untracked-files=no"
+        ],
+        "exit_code": 0,
+        "stdout": "",
+        "stderr": ""
+      },
+      "passed": true
+    },
+    {
+      "name": "batteries",
+      "expected_revision": "4488d40d070b9700d4d5a6aa342f0d40c31b2a2d",
+      "directory": "/Users/ajt253/.codex/worktrees/pf05-lean-proof/OpenProblemsInNLA/nonnegative-and-positive-factorizations/PF-05/lean/.lake/packages/batteries",
+      "head": {
+        "argv": [
+          "git",
+          "-C",
+          "/Users/ajt253/.codex/worktrees/pf05-lean-proof/OpenProblemsInNLA/nonnegative-and-positive-factorizations/PF-05/lean/.lake/packages/batteries",
+          "rev-parse",
+          "HEAD"
+        ],
+        "exit_code": 0,
+        "stdout": "4488d40d070b9700d4d5a6aa342f0d40c31b2a2d\n",
+        "stderr": ""
+      },
+      "status": {
+        "argv": [
+          "git",
+          "-C",
+          "/Users/ajt253/.codex/worktrees/pf05-lean-proof/OpenProblemsInNLA/nonnegative-and-positive-factorizations/PF-05/lean/.lake/packages/batteries",
+          "status",
+          "--porcelain",
+          "--untracked-files=no"
+        ],
+        "exit_code": 0,
+        "stdout": "",
+        "stderr": ""
+      },
+      "passed": true
+    },
+    {
+      "name": "Cli",
+      "expected_revision": "6130a47896ce867c6a4a55373441e59e565bad0f",
+      "directory": "/Users/ajt253/.codex/worktrees/pf05-lean-proof/OpenProblemsInNLA/nonnegative-and-positive-factorizations/PF-05/lean/.lake/packages/Cli",
+      "head": {
+        "argv": [
+          "git",
+          "-C",
+          "/Users/ajt253/.codex/worktrees/pf05-lean-proof/OpenProblemsInNLA/nonnegative-and-positive-factorizations/PF-05/lean/.lake/packages/Cli",
+          "rev-parse",
+          "HEAD"
+        ],
+        "exit_code": 0,
+        "stdout": "6130a47896ce867c6a4a55373441e59e565bad0f\n",
+        "stderr": ""
+      },
+      "status": {
+        "argv": [
+          "git",
+          "-C",
+          "/Users/ajt253/.codex/worktrees/pf05-lean-proof/OpenProblemsInNLA/nonnegative-and-positive-factorizations/PF-05/lean/.lake/packages/Cli",
+          "status",
+          "--porcelain",
+          "--untracked-files=no"
+        ],
+        "exit_code": 0,
+        "stdout": "",
+        "stderr": ""
+      },
+      "passed": true
+    }
+  ],
+  "original25_after": [
+    {
+      "path": "problem_ids.json",
+      "sha256": "d7f9925a483d40030ef266917bc8e413dac6d45530ad5515da506ffe9583e763",
+      "base_sha256": "d7f9925a483d40030ef266917bc8e413dac6d45530ad5515da506ffe9583e763",
+      "passed": true
+    },
+    {
+      "path": "tensor-computations/TR-04/README.md",
+      "sha256": "614dfc1189a99b0c2de54a04b948c01d35301d468e0b723c7fcb34b9918957cf",
+      "base_sha256": "614dfc1189a99b0c2de54a04b948c01d35301d468e0b723c7fcb34b9918957cf",
+      "passed": true
+    },
+    {
+      "path": "tensor-computations/TR-04/problem.tex",
+      "sha256": "5b07e197470623eb5b26cca49d4a78a6bfba580c36442c8ee456abacb536ef36",
+      "base_sha256": "5b07e197470623eb5b26cca49d4a78a6bfba580c36442c8ee456abacb536ef36",
+      "passed": true
+    },
+    {
+      "path": "tensor-computations/TR-04/problem.pdf",
+      "sha256": "3228867152976425346f22aacadc9585043a1470cf6fadc62246bbb70b47f49b",
+      "base_sha256": "3228867152976425346f22aacadc9585043a1470cf6fadc62246bbb70b47f49b",
+      "passed": true
+    },
+    {
+      "path": "tensor-computations/TR-04/lean/Challenge.lean",
+      "sha256": "e2593ab837691309d993bc46c77c5d37e8c12e9c975254324adbebace2246f32",
+      "base_sha256": "e2593ab837691309d993bc46c77c5d37e8c12e9c975254324adbebace2246f32",
+      "passed": true
+    },
+    {
+      "path": "tensor-computations/TR-04/lean/Solution.lean",
+      "sha256": "dd02b5ba519b14e19aeebd005a72c85aba30084347bc3e82d5d8f61d4a94aa75",
+      "base_sha256": "dd02b5ba519b14e19aeebd005a72c85aba30084347bc3e82d5d8f61d4a94aa75",
+      "passed": true
+    },
+    {
+      "path": "tensor-computations/TR-04/lean/SPEC.md",
+      "sha256": "9a67b4545286ff189a6c12c880862df4ca1767e1da3107c4509569d8a3600902",
+      "base_sha256": "9a67b4545286ff189a6c12c880862df4ca1767e1da3107c4509569d8a3600902",
+      "passed": true
+    },
+    {
+      "path": "tensor-computations/TR-04/lean/README.md",
+      "sha256": "04e3c9948ae24b055f9e84b8cb9e47a924dbfb8aa0d678dbc869db792e2c6275",
+      "base_sha256": "04e3c9948ae24b055f9e84b8cb9e47a924dbfb8aa0d678dbc869db792e2c6275",
+      "passed": true
+    },
+    {
+      "path": "references/colbrook-recovered-tensors-2026-09-11/manuscripts/TR-04.tex",
+      "sha256": "e7770aa08ee91fbda82e0bfe3e087f1a9c8ee2a076218144bf0040e4d282bf73",
+      "base_sha256": "e7770aa08ee91fbda82e0bfe3e087f1a9c8ee2a076218144bf0040e4d282bf73",
+      "passed": true
+    },
+    {
+      "path": "references/colbrook-recovered-tensors-2026-09-11/verification/reviews/TR-04-review.md",
+      "sha256": "0189cecc988d1d1f93c93e5dca159265641efc598105b2729049b570524b19f2",
+      "base_sha256": "0189cecc988d1d1f93c93e5dca159265641efc598105b2729049b570524b19f2",
+      "passed": true
+    },
+    {
+      "path": "lean-statements/NLA/Statements/TR04.lean",
+      "sha256": "6f595cd3fa4c5d317bc757628a3e7858ab4576c90cbe967ac5289c8b3fbd780c",
+      "base_sha256": "6f595cd3fa4c5d317bc757628a3e7858ab4576c90cbe967ac5289c8b3fbd780c",
+      "passed": true
+    },
+    {
+      "path": "lean-statements/Reviewed/TR04.lean",
+      "sha256": "5b2260e25e8ce7dda5455a3cf11a5c16fc2493ce3d0cf1ab84a447d2fb1f54cd",
+      "base_sha256": "5b2260e25e8ce7dda5455a3cf11a5c16fc2493ce3d0cf1ab84a447d2fb1f54cd",
+      "passed": true
+    },
+    {
+      "path": "lean-statements/NLA/Computation/SVDMachine.lean",
+      "sha256": "8ec5866326b5a311b334651600db5d7f3065f2059175823626319afef7cf7581",
+      "base_sha256": "8ec5866326b5a311b334651600db5d7f3065f2059175823626319afef7cf7581",
+      "passed": true
+    },
+    {
+      "path": "lean-statements/NLA/Computation/SVDControls.lean",
+      "sha256": "340bed2b81f7a74853d06847f8af4562600548801254a770de1a97e7fd6fac54",
+      "base_sha256": "340bed2b81f7a74853d06847f8af4562600548801254a770de1a97e7fd6fac54",
+      "passed": true
+    },
+    {
+      "path": "lean-statements/NLA/Computation/TensorTrainApproximation.lean",
+      "sha256": "05038abcc6cf85d422cf580b3cc527e7aa7dad146802da5621911b6331494d2d",
+      "base_sha256": "05038abcc6cf85d422cf580b3cc527e7aa7dad146802da5621911b6331494d2d",
+      "passed": true
+    },
+    {
+      "path": "lean-statements/NLA/Computation/NonadaptiveMatrixQuery.lean",
+      "sha256": "66345a3ed3274e6dd351ffaa7e1b75a0aa95afa63c3ece937d37f1efaad29b21",
+      "base_sha256": "66345a3ed3274e6dd351ffaa7e1b75a0aa95afa63c3ece937d37f1efaad29b21",
+      "passed": true
+    },
+    {
+      "path": "docs/lean/statements/TR-04/NUMERICAL_TARGETS.md",
+      "sha256": "f1bfd6d4a73a326a5dec79c052dba4f5ae38cc2f4c9e40622492a7694c5074f4",
+      "base_sha256": "f1bfd6d4a73a326a5dec79c052dba4f5ae38cc2f4c9e40622492a7694c5074f4",
+      "passed": true
+    },
+    {
+      "path": "docs/lean/statements/TR-04/IMPLEMENTATION_NOTES.md",
+      "sha256": "a661d83390918eef7ceb893f9e035bb569eb955f361b4f1df2f670e8e09f2390",
+      "base_sha256": "a661d83390918eef7ceb893f9e035bb569eb955f361b4f1df2f670e8e09f2390",
+      "passed": true
+    },
+    {
+      "path": "docs/lean/statements/TR-04/source-lock.json",
+      "sha256": "1203a4fc275f4c0624db2673ec1535e4b5a71a810c5a10c599548066f6660b72",
+      "base_sha256": "1203a4fc275f4c0624db2673ec1535e4b5a71a810c5a10c599548066f6660b72",
+      "passed": true
+    },
+    {
+      "path": "docs/lean/statements/TR-04/reviews/lean-boundary-root.md",
+      "sha256": "07123fa7869bd3a59ed2a17aeae0cc7611d928c4a0c1a7a50c492548d5d1275f",
+      "base_sha256": "07123fa7869bd3a59ed2a17aeae0cc7611d928c4a0c1a7a50c492548d5d1275f",
+      "passed": true
+    },
+    {
+      "path": "docs/lean/statements/TR-04/reviews/lean-boundary-root.json",
+      "sha256": "cd986da8d2f3b8d46251430c0833ca5fe11d7f97bee186a9b88aa6b7590108da",
+      "base_sha256": "cd986da8d2f3b8d46251430c0833ca5fe11d7f97bee186a9b88aa6b7590108da",
+      "passed": true
+    },
+    {
+      "path": "docs/lean/statements/TR-04/reviews/lean-boundary-statement_design.md",
+      "sha256": "4dae400258e650a6cd27a700997345737a96bd8087e40c0676e17e190e332480",
+      "base_sha256": "4dae400258e650a6cd27a700997345737a96bd8087e40c0676e17e190e332480",
+      "passed": true
+    },
+    {
+      "path": "docs/lean/statements/TR-04/reviews/lean-boundary-statement_design.json",
+      "sha256": "a18cdcafd249ed96e03dc712d04a24a61277240dc842f006f06c93517965e5b5",
+      "base_sha256": "a18cdcafd249ed96e03dc712d04a24a61277240dc842f006f06c93517965e5b5",
+      "passed": true
+    },
+    {
+      "path": "lean-statements/lean-toolchain",
+      "sha256": "3aac669c7a910ec2389f4e4f921b605adf6ebf2d1e0c9b9cd0be4d33f3f5db71",
+      "base_sha256": "3aac669c7a910ec2389f4e4f921b605adf6ebf2d1e0c9b9cd0be4d33f3f5db71",
+      "passed": true
+    },
+    {
+      "path": "lean-statements/lake-manifest.json",
+      "sha256": "a19377882192a9dbfc01c4d4e73edd887a8de91f735edabaeff2dfa38a4b4ec8",
+      "base_sha256": "a19377882192a9dbfc01c4d4e73edd887a8de91f735edabaeff2dfa38a4b4ec8",
+      "passed": true
+    }
+  ],
+  "source_unchanged_after": {
+    "NLA/Computation/SVDMachine.lean": true,
+    "NLA/Proofs/TR04/MachineSVDMemory.lean": true
+  },
+  "author_locks_unchanged_after": {
+    "svd_memory": true
+  },
+  "passed": true,
+  "finished_utc": "2026-10-26T01:45:46.072119+00:00"
+}

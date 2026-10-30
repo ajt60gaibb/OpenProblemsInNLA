@@ -1,0 +1,74 @@
+import NLA.Proofs.TR04.MachineTTStartup
+set_option leancert.trust "kernel"
+open NLA.Computation.SVDMachine NLA.Proofs.TR04 NLA.Proofs.TR04.TTMemoryLayout
+
+example (s : State ttProgram) (L : Layout) (hl : s.label=119) (hs : s.status=.running)
+    (hd : s.natural 0=L.order) (hn : s.natural 2=L.entries) (hz : s.natural 127=0) :
+    (ordinaryStep ttProgram)^[25] s=ttStartupEnd s L := ttStartup_steps s L hl hs hd hn hz
+
+example (s : State ttProgram) (L : Layout) (hd : s.natural 0=L.order) (hz : s.natural 127=0) :
+    (ttStartupEnd s L).natural 64=L.entries ∧
+    (ttStartupEnd s L).natural 72=L.input+L.entries ∧
+    (ttStartupEnd s L).natural 68=L.frames+L.order*L.entries^2 ∧
+    (ttStartupEnd s L).natural 71=L.workB+L.entries := by
+  have h := ttStartup_allocation s L hd hz
+  exact ⟨h.entries,h.firstU,h.metadata,h.store⟩
+
+example (start : State ttProgram) (tr : Trace ttProgram) (ht : LegalTrace ttProgram start tr)
+    (offset : ℕ) (L : Layout) (value : ℕ)
+    (hl : (tr.state offset).label=119) (hs : (tr.state offset).status=.running)
+    (hd : (tr.state offset).natural 0=L.order) (hn : (tr.state offset).natural 2=L.entries)
+    (hz : (tr.state offset).natural 127=0) (hm : (tr.state offset).memory 0=(value : ℝ)) :
+    ttHeaderEmbedding.Relates
+      (headerProductDecodeState (tr.state offset).memory L.order L.order 1 value
+        ((tr.state offset).real 1)) (tr.state (offset+25)) ∧
+    TTAllocationRegisters L (tr.state (offset+25)) ∧
+    (tr.state (offset+25)).natural 76=0 ∧ (tr.state (offset+25)).natural 97=1 ∧
+    CostThrough ttProgram tr (offset+25)≤CostThrough ttProgram tr offset+25 :=
+  ttStartup_run_at ht offset L value hl hs hd hn hz hm
+
+example (start : State ttProgram) (tr : Trace ttProgram) (ht : LegalTrace ttProgram start tr)
+    (offset : ℕ) (L : Layout) (value : ℕ)
+    (hl : (tr.state offset).label=119) (hs : (tr.state offset).status=.running)
+    (hd : (tr.state offset).natural 0=L.order) (hn : (tr.state offset).natural 2=L.entries)
+    (hz : (tr.state offset).natural 127=0) (hm : (tr.state offset).memory 0=(value : ℝ)) :
+    (tr.state (offset+25+(3*value+5))).label=10 ∧
+    (tr.state (offset+25+(3*value+5))).status=.running ∧
+    (tr.state (offset+25+(3*value+5))).natural 2=value ∧
+    (tr.state (offset+25+(3*value+5))).memory=(tr.state offset).memory ∧
+    CostThrough ttProgram tr (offset+25+(3*value+5))≤CostThrough ttProgram tr offset+25+(3*value+5) := by
+  obtain ⟨hentry,_,_,_,hcost⟩ := ttStartup_run_at ht offset L value hl hs hd hn hz hm
+  obtain ⟨hreturn,hcost'⟩ := ttHeaderEmbedding.headerSingle_run_at (tr.state offset).memory
+    L.order value ((tr.state offset).real 1) ht (offset+25) hentry
+  refine ⟨hreturn.label,hreturn.status,hreturn.natural_apply 2,hreturn.memory,?_⟩
+  omega
+#assert_trust kernel NLA.Proofs.TR04.ordinary_nosvd_prefix_of_running
+#print axioms NLA.Proofs.TR04.ordinary_nosvd_prefix_of_running
+#assert_trust kernel NLA.Proofs.TR04.ttStartupNatural
+#print axioms NLA.Proofs.TR04.ttStartupNatural
+#assert_trust kernel NLA.Proofs.TR04.ttStartupEnd
+#print axioms NLA.Proofs.TR04.ttStartupEnd
+#assert_trust kernel NLA.Proofs.TR04.ttStartupNaturalPrefix
+#print axioms NLA.Proofs.TR04.ttStartupNaturalPrefix
+#assert_trust kernel NLA.Proofs.TR04.ttStartupMiddle
+#print axioms NLA.Proofs.TR04.ttStartupMiddle
+#assert_trust kernel NLA.Proofs.TR04.ttStartup_first
+#print axioms NLA.Proofs.TR04.ttStartup_first
+#assert_trust kernel NLA.Proofs.TR04.ttStartup_second
+#print axioms NLA.Proofs.TR04.ttStartup_second
+#assert_trust kernel NLA.Proofs.TR04.ttStartup_third
+#print axioms NLA.Proofs.TR04.ttStartup_third
+#assert_trust kernel NLA.Proofs.TR04.ttStartup_fourth
+#print axioms NLA.Proofs.TR04.ttStartup_fourth
+#assert_trust kernel NLA.Proofs.TR04.ttStartup_steps
+#print axioms NLA.Proofs.TR04.ttStartup_steps
+#assert_trust kernel NLA.Proofs.TR04.TTAllocationRegisters
+#print axioms NLA.Proofs.TR04.TTAllocationRegisters
+#assert_trust kernel NLA.Proofs.TR04.ttStartup_allocation
+#print axioms NLA.Proofs.TR04.ttStartup_allocation
+#assert_trust kernel NLA.Proofs.TR04.ttStartup_decoder
+#print axioms NLA.Proofs.TR04.ttStartup_decoder
+#assert_trust kernel NLA.Proofs.TR04.ttStartup_flags
+#print axioms NLA.Proofs.TR04.ttStartup_flags
+#assert_trust kernel NLA.Proofs.TR04.ttStartup_run_at
+#print axioms NLA.Proofs.TR04.ttStartup_run_at

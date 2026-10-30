@@ -1,0 +1,8 @@
+import Independent.MPRepairAudit
+set_option leancert.trust "kernel"
+open MeasureTheory ProbabilityTheory
+open NLA.Computation.NonadaptiveMatrixQuery NLA.Proofs.RE06 NLA.Proofs.RE06.Repair
+example (d p offset : ℕ) : ∀ᵐ ω ∂GaussianLaw,
+   (gaussianBlock d p offset ω*(gaussianBlock d p offset ω).transpose).det ≠ 0 :=
+   GaussianMoment.stream_block_gram_det_ne_zero_ae d p offset
+ 

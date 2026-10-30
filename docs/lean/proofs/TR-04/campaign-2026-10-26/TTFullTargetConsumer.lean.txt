@@ -1,0 +1,235 @@
+import NLA.Proofs.TR04.MachineTTCandidateLoopInduction
+import NLA.Proofs.TR04.MachineTTCompletedCandidates
+import NLA.Proofs.TR04.TTFullBudget
+import NLA.Proofs.TR04.MachineTTCandidateExecution
+import NLA.Proofs.TR04.MachineTTCandidateAll
+import NLA.Proofs.TR04.MachineTTFull
+set_option autoImplicit false
+set_option leancert.trust "kernel"
+set_option backward.isDefEq.respectTransparency false
+noncomputable section
+
+section
+open NLA.Proofs.TR04
+open NLA.Computation.SVDMachine
+
+-- Literal public theorem header from MachineTTCandidateLoopInduction.lean: ttCandidateLoop_induction
+example : ∀ (trace : Trace ttProgram) (K budget : ℕ)
+    (I : State ttProgram → Prop)
+    (step : ∀ offset : ℕ,I (trace.state offset) →
+      (trace.state offset).label=189 → (trace.state offset).status=.running →
+      (trace.state offset).natural 76<K →
+      ∃ elapsed : ℕ,elapsed≤budget ∧ I (trace.state (offset+elapsed)) ∧
+        (trace.state (offset+elapsed)).label=189 ∧
+        (trace.state (offset+elapsed)).status=.running ∧
+        (trace.state (offset+elapsed)).natural 76=(trace.state offset).natural 76+1 ∧
+        CostThrough ttProgram trace (offset+elapsed)≤CostThrough ttProgram trace offset+budget)
+    (offset : ℕ) (hi : I (trace.state offset))
+    (hl : (trace.state offset).label=189) (hs : (trace.state offset).status=.running)
+    (hj : (trace.state offset).natural 76=0),
+  (
+    ∃ elapsed : ℕ,elapsed≤K*budget ∧ I (trace.state (offset+elapsed)) ∧
+      (trace.state (offset+elapsed)).label=189 ∧
+      (trace.state (offset+elapsed)).status=.running ∧
+      (trace.state (offset+elapsed)).natural 76=K ∧
+      CostThrough ttProgram trace (offset+elapsed)≤CostThrough ttProgram trace offset+K*budget
+  ) := @NLA.Proofs.TR04.ttCandidateLoop_induction
+end
+
+section
+open NLA.Proofs.TR04
+open NLA.Computation.SVDMachine NLA.Computation.TensorTrainApproximation TTMemoryLayout
+open TensorFormat TensorFormat.TTStrict
+
+-- Literal public theorem header from MachineTTCompletedCandidates.lean: ttCompletedCandidates_zero
+example : ∀ (S : Shape) (r : Ranks S)
+    (A : NLA.Computation.TensorTrainApproximation.Tensor S)
+    {m n rank : ℕ} {ns : List ℕ} (hshape : modeList S.mode=m::n::ns)
+    (F : FirstFrames m rank) (s : State ttProgram),
+  (
+    TTCompletedCandidates S r A hshape F s 0
+  ) := @NLA.Proofs.TR04.ttCompletedCandidates_zero
+
+-- Literal public theorem header from MachineTTCompletedCandidates.lean: TTCompletedCandidates.memory_eq
+example : ∀ {S : Shape} {r : Ranks S}
+    {A : NLA.Computation.TensorTrainApproximation.Tensor S}
+    {m n rank : ℕ} {ns : List ℕ} {hshape : modeList S.mode=m::n::ns}
+    {F : FirstFrames m rank} {s t : State ttProgram} {done : ℕ}
+    (h : TTCompletedCandidates S r A hshape F s done)
+    (hn : t.natural 71=s.natural 71)
+    (hm : ∀ a,s.natural 71≤a → t.memory a=s.memory a),
+  (
+    TTCompletedCandidates S r A hshape F t done
+  ) := @NLA.Proofs.TR04.TTCompletedCandidates.memory_eq
+
+-- Literal public theorem header from MachineTTCompletedCandidates.lean: TTCompletedCandidates.extend
+example : ∀ {S : Shape} {r : Ranks S}
+    {A : NLA.Computation.TensorTrainApproximation.Tensor S}
+    {m n rank : ℕ} {ns : List ℕ} {hshape : modeList S.mode=m::n::ns}
+    {F : FirstFrames m rank} {s t : State ttProgram} (j : Fin F.count)
+    (h : TTCompletedCandidates S r A hshape F s j.val)
+    (hn : t.natural 71=s.natural 71)
+    (hm : ∀ i<j.val,∀ x,
+      t.memory (s.natural 71+i*DenseSize S+Offset S x)=
+        s.memory (s.natural 71+i*DenseSize S+Offset S x))
+    (Z : TensorFormat.Tensor ((F.width*n)::ns))
+    (hZ : Completion ((F.width*n)::ns) (fun i => originalRanks S r (i+1))
+      (merge F.width n ns (contract (F.frame j) (Original.input hshape A))) Z)
+    (hstored : ∀ x,t.memory (s.natural 71+j.val*DenseSize S+Offset S x)=
+      Original.output hshape (completionOutput (F.frame j) Z) x),
+  (
+    TTCompletedCandidates S r A hshape F t (j.val+1)
+  ) := @NLA.Proofs.TR04.TTCompletedCandidates.extend
+
+-- Literal public theorem header from MachineTTCompletedCandidates.lean: TTCompletedCandidates.collect
+example : ∀ {S : Shape} {r : Ranks S}
+    {A : NLA.Computation.TensorTrainApproximation.Tensor S}
+    {m n rank : ℕ} {ns : List ℕ} {hshape : modeList S.mode=m::n::ns}
+    {F : FirstFrames m rank} {s : State ttProgram}
+    (h : TTCompletedCandidates S r A hshape F s F.count),
+  (
+    ∃ Z : Fin F.count → TensorFormat.Tensor ((F.width*n)::ns),
+      (∀ j,Completion ((F.width*n)::ns) (fun i => originalRanks S r (i+1))
+        (merge F.width n ns (contract (F.frame j) (Original.input hshape A))) (Z j)) ∧
+      ∀ j : Fin F.count,∀ x,s.memory (s.natural 71+j.val*DenseSize S+Offset S x)=
+        Original.output hshape (completionOutput (F.frame j) (Z j)) x
+  ) := @NLA.Proofs.TR04.TTCompletedCandidates.collect
+end
+
+section
+open NLA.Proofs.TR04
+
+
+-- Literal public theorem header from TTFullBudget.lean: ttFullBudget_power_step
+example : ∀ (size exponent : ℕ),
+  (
+    (size+1)^exponent≤(size+1)^(exponent+1)
+  ) := @NLA.Proofs.TR04.ttFullBudget_power_step
+
+-- Literal public theorem header from TTFullBudget.lean: ttFullBudget_candidate
+example : ∀ (size depth : ℕ) (hd : depth≤size),
+  (
+    24*(size+1)^2+(3000*depth*ttRecursiveUnit size+2000*ttRecursiveUnit size)+
+      18*(size+1)≤8000*(size+1)^4
+  ) := @NLA.Proofs.TR04.ttFullBudget_candidate
+
+-- Literal public theorem header from TTFullBudget.lean: ttFullBudget_total_shifted
+example : ∀ (size candidates : ℕ) (hc : candidates≤size),
+  (
+    1024*(size+1)^3+candidates*(8000*(size+1)^4)+300*(size+1)^2≤10000*(size+1)^5
+  ) := @NLA.Proofs.TR04.ttFullBudget_total_shifted
+
+-- Literal public theorem header from TTFullBudget.lean: ttFullBudget_total
+example : ∀ (size candidates : ℕ) (hs : 1≤size) (hc : candidates≤size),
+  (
+    1024*(size+1)^3+candidates*(8000*(size+1)^4)+300*(size+1)^2≤1000000*size^5
+  ) := @NLA.Proofs.TR04.ttFullBudget_total
+end
+
+section
+open NLA.Proofs.TR04
+open NLA.Computation.SVDMachine NLA.Computation.TensorTrainApproximation TTMemoryLayout
+open TensorFormat TensorFormat.TTStrict
+
+-- Literal public theorem header from MachineTTCandidateExecution.lean: ttCandidate_complete_at
+example : ∀ {start s0 : State ttProgram} {trace : Trace ttProgram}
+    (ht : LegalTrace ttProgram start trace) (offset : ℕ)
+    (S : Shape) (r : Ranks S) (A : NLA.Computation.TensorTrainApproximation.Tensor S)
+    (hrank : ∀ j,1≤r j) (hi : TTInitialSVDData S r A s0)
+    {R : TTFirstReply s0} {hr : 1≤s0.natural 80}
+    (hctx : TTFirstContext R hr (ofShape S) (trace.state offset))
+    {n : ℕ} {ns : List ℕ} (hshape : modeList S.mode=s0.natural 81::n::ns)
+    (hcols : suffixSize (n::ns)=s0.natural 82)
+    (hl : (trace.state offset).label=189) (hs : (trace.state offset).status=.running)
+    (hj : (trace.state offset).natural 76<(trace.state offset).natural 75),
+  (
+    ∃ elapsed : ℕ,∃ j : Fin R.family.count,
+    ∃ Z : TensorFormat.Tensor ((R.family.width*n)::ns),
+      elapsed≤8000*(Size S r+1)^4 ∧ j.val=(trace.state offset).natural 76 ∧
+      Completion ((R.family.width*n)::ns) (fun i => originalRanks S r (i+1))
+        (merge R.family.width n ns (contract (R.family.frame j) (Original.input hshape A))) Z ∧
+      (trace.state (offset+elapsed)).label=189 ∧
+      (trace.state (offset+elapsed)).status=.running ∧
+      TTFirstContext R hr (ofShape S) (trace.state (offset+elapsed)) ∧
+      (trace.state (offset+elapsed)).natural 76=(trace.state offset).natural 76+1 ∧
+      (∀ x,(trace.state (offset+elapsed)).memory ((ofShape S).candidate j.val+Offset S x)=
+        Original.output hshape (completionOutput (R.family.frame j) Z) x) ∧
+      (∀ i<(trace.state offset).natural 76,∀ k<DenseSize S,
+        (trace.state (offset+elapsed)).memory ((ofShape S).candidate i+k)=
+          (trace.state offset).memory ((ofShape S).candidate i+k)) ∧
+      CostThrough ttProgram trace (offset+elapsed)≤CostThrough ttProgram trace offset+8000*(Size S r+1)^4
+  ) := @NLA.Proofs.TR04.ttCandidate_complete_at
+end
+
+section
+open NLA.Proofs.TR04
+open NLA.Computation.SVDMachine NLA.Computation.TensorTrainApproximation TTMemoryLayout
+open TensorFormat TensorFormat.TTStrict
+
+-- Literal public theorem header from MachineTTCandidateAll.lean: ttCandidates_all_at
+example : ∀ {start s0 : State ttProgram} {trace : Trace ttProgram}
+    (ht : LegalTrace ttProgram start trace) (offset : ℕ)
+    (S : Shape) (r : Ranks S) (A : NLA.Computation.TensorTrainApproximation.Tensor S)
+    (hrank : ∀ j,1≤r j) (hi : TTInitialSVDData S r A s0)
+    {R : TTFirstReply s0} {hr : 1≤s0.natural 80}
+    (hctx : TTFirstContext R hr (ofShape S) (trace.state offset))
+    {n : ℕ} {ns : List ℕ} (hshape : modeList S.mode=s0.natural 81::n::ns)
+    (hcols : suffixSize (n::ns)=s0.natural 82)
+    (hl : (trace.state offset).label=189) (hs : (trace.state offset).status=.running)
+    (hj : (trace.state offset).natural 76=0),
+  (
+    ∃ elapsed : ℕ,elapsed≤R.family.count*(8000*(Size S r+1)^4) ∧
+      (trace.state (offset+elapsed)).label=189 ∧
+      (trace.state (offset+elapsed)).status=.running ∧
+      TTFirstContext R hr (ofShape S) (trace.state (offset+elapsed)) ∧
+      (trace.state (offset+elapsed)).natural 76=R.family.count ∧
+      TTCompletedCandidates S r A hshape R.family (trace.state (offset+elapsed)) R.family.count ∧
+      CostThrough ttProgram trace (offset+elapsed)≤CostThrough ttProgram trace offset+
+        R.family.count*(8000*(Size S r+1)^4)
+  ) := @NLA.Proofs.TR04.ttCandidates_all_at
+end
+
+section
+open NLA.Proofs.TR04
+open NLA.Computation.SVDMachine NLA.Computation.TensorTrainApproximation TTMemoryLayout
+
+-- Literal public theorem header from MachineTTFull.lean: ttProgram_original_trace
+example : ∀ (S : Shape) (r : Ranks S) (hr : ∀ j,1≤r j)
+    (A : Tensor S) (trace : Trace ttProgram)
+    (ht : LegalTrace ttProgram (Start ttProgram S r A) trace),
+  (
+    ∃ t : ℕ,∃ X : Tensor S,
+      Returns ttProgram S (trace.state t) X ∧
+      CostThrough ttProgram trace t≤1000000*Size S r^5 ∧
+      Feasible S r X ∧
+      (0<Optimum S r A → FrobeniusSq S A X<((S.order : ℝ)-1)*Optimum S r A) ∧
+      (Optimum S r A=0 → X=A)
+  ) := @NLA.Proofs.TR04.ttProgram_original_trace
+
+-- Literal public theorem header from MachineTTFull.lean: fullTarget
+example : (
+    NLA.Statements.TR04.Target
+  ) := @NLA.Proofs.TR04.fullTarget
+end
+
+
+open NLA.Computation.SVDMachine NLA.Computation.TensorTrainApproximation NLA.Proofs.TR04
+-- Full original statement expanded independently of the Target alias.
+example : ∃ P : Program,∃ C k : ℕ,1≤C ∧
+    ∀ S : Shape,∀ r : Ranks S,(∀ j,1≤r j) → ∀ A : Tensor S,
+      (∃ trace : Trace P,LegalTrace P (Start P S r A) trace) ∧
+      ∀ trace : Trace P,LegalTrace P (Start P S r A) trace →
+        ∃ t : ℕ,∃ X : Tensor S,Returns P S (trace.state t) X ∧
+          CostThrough P trace t≤C*Size S r^k ∧ Feasible S r X ∧
+          (0<Optimum S r A → FrobeniusSq S A X<((S.order : ℝ)-1)*Optimum S r A) ∧
+          (Optimum S r A=0 → X=A) := NLA.Proofs.TR04.fullTarget
+-- A single fixed program admits an actual trace and succeeds for EVERY legal reply trace.
+example : (∀ S : Shape,∀ r : Ranks S,∀ A : Tensor S,
+      ∃ trace : Trace ttProgram,LegalTrace ttProgram (Start ttProgram S r A) trace) ∧
+    (∀ S : Shape,∀ r : Ranks S,(∀ j,1≤r j) → ∀ A : Tensor S,
+      ∀ trace : Trace ttProgram,LegalTrace ttProgram (Start ttProgram S r A) trace →
+        ∃ t : ℕ,∃ X : Tensor S,Returns ttProgram S (trace.state t) X ∧
+          CostThrough ttProgram trace t≤1000000*Size S r^5 ∧ Feasible S r X ∧
+          (0<Optimum S r A → FrobeniusSq S A X<((S.order : ℝ)-1)*Optimum S r A) ∧
+          (Optimum S r A=0 → X=A)) :=
+  ⟨ttProgram_trace_exists,ttProgram_original_trace⟩

@@ -1,0 +1,29 @@
+NLA/Proofs/TR04/MachineExecution.lean:55:46: error: unsolved goals
+hsvd : ∀ (m l : ℕ) (B : Matrix (Fin m) (Fin l) ℝ), ∃ U sigma V, ValidSVD B U sigma V
+P : Program
+s : State P
+hs : s.status = Status.running
+rows✝ cols✝ inputBase✝ uBase✝ sigmaBase✝ vBase✝ : Fin (P.extraNatRegisters + 1)
+next✝ : Fin (P.extraLabels + 1)
+hi : P.code s.label = Instruction.svd rows✝ cols✝ inputBase✝ uBase✝ sigmaBase✝ vBase✝ next✝
+⊢ if
+      OutputBlocksDisjoint (s.natural rows✝) (s.natural cols✝) (s.natural uBase✝) (s.natural sigmaBase✝)
+        (s.natural vBase✝) then
+    ∃ U sigma V,
+      ValidSVD (readMatrix s.memory (s.natural rows✝) (s.natural cols✝) (s.natural inputBase✝)) U sigma V ∧
+        ordinaryStep P s =
+          { label := next✝, real := s.real, natural := s.natural,
+            memory := writeSVD s.memory (s.natural uBase✝) (s.natural sigmaBase✝) (s.natural vBase✝) U sigma V,
+            status := Status.running }
+  else
+    ordinaryStep P s =
+      { label := s.label, real := s.real, natural := s.natural, memory := s.memory, status := Status.failed }
+NLA/Proofs/TR04/MachineExecution.lean:56:6: error: No goals to be solved
+NLA/Proofs/TR04/MachineExecution.lean:80:21: error: #assert_trust: 'NLA.Proofs.TR04.step_total_of_svd_total' depends on sorry or unrecognized axioms
+  foundational: propext, Classical.choice, Quot.sound
+  sorryAx: sorryAx
+NLA/Proofs/TR04/MachineExecution.lean:81:21: error: #assert_trust: 'NLA.Proofs.TR04.exists_legalTrace_of_svd_total' depends on sorry or unrecognized axioms
+  foundational: propext, Classical.choice, Quot.sound
+  sorryAx: sorryAx
+'NLA.Proofs.TR04.exists_legalTrace_of_svd_total' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+NLA.Proofs.TR04.MachineExecution 1

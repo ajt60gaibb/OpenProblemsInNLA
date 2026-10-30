@@ -1,0 +1,137 @@
+import NLA.Computation.SVDMachine
+import NLA.Proofs.TR04.SVDCore
+import NLA.Proofs.TR04.SVDTotal
+import NLA.Computation.NonadaptiveMatrixQuery
+import NLA.Proofs.RE06.SVDTotal
+import NLA.Proofs.RE06.QueryCount
+import NLA.Proofs.RE06.WidthBounds
+import NLA.Proofs.RE06.QueryBound
+import NLA.Statements.Infrastructure
+import NLA.Statements.RE06
+import Reviewed.RE06
+import NLA.Proofs.RE06.CountAudit
+set_option leancert.trust "kernel"
+open Lean Elab Command
+elab "#review_kind " kind:ident target:ident : command => do
+  let n ← liftCoreM <| realizeGlobalConstNoOverloadWithInfo target
+  match ← liftCoreM <| getConstInfo n with
+  | .thmInfo _ => unless kind.getId == `thm do throwError "expected definition"
+  | .defnInfo _ => unless kind.getId == `defn do throwError "review requires actual theorem"
+  | _ => throwError "unexpected declaration kind"
+elab "#review_absent " target:ident : command => do
+  if (← getEnv).contains target.getId then throwError "unexpected full scope declaration"
+#review_kind defn NLA.Proofs.TR04.SVD.Space
+#assert_trust kernel NLA.Proofs.TR04.SVD.Space
+#print axioms NLA.Proofs.TR04.SVD.Space
+#review_kind defn NLA.Proofs.TR04.SVD.rightBasis
+#assert_trust kernel NLA.Proofs.TR04.SVD.rightBasis
+#print axioms NLA.Proofs.TR04.SVD.rightBasis
+#review_kind thm NLA.Proofs.TR04.SVD.norm_image_rightBasis
+#assert_trust kernel NLA.Proofs.TR04.SVD.norm_image_rightBasis
+#print axioms NLA.Proofs.TR04.SVD.norm_image_rightBasis
+#review_kind thm NLA.Proofs.TR04.SVD.inner_image_rightBasis
+#assert_trust kernel NLA.Proofs.TR04.SVD.inner_image_rightBasis
+#print axioms NLA.Proofs.TR04.SVD.inner_image_rightBasis
+#review_kind thm NLA.Proofs.TR04.SVD.image_rightBasis_eq_zero
+#assert_trust kernel NLA.Proofs.TR04.SVD.image_rightBasis_eq_zero
+#print axioms NLA.Proofs.TR04.SVD.image_rightBasis_eq_zero
+#review_kind thm NLA.Proofs.TR04.SVD.range_finrank_le_domain
+#assert_trust kernel NLA.Proofs.TR04.SVD.range_finrank_le_domain
+#print axioms NLA.Proofs.TR04.SVD.range_finrank_le_domain
+#review_kind thm NLA.Proofs.TR04.SVD.range_finrank_le_codomain
+#assert_trust kernel NLA.Proofs.TR04.SVD.range_finrank_le_codomain
+#print axioms NLA.Proofs.TR04.SVD.range_finrank_le_codomain
+#review_kind defn NLA.Proofs.TR04.SVD.leftVector
+#assert_trust kernel NLA.Proofs.TR04.SVD.leftVector
+#print axioms NLA.Proofs.TR04.SVD.leftVector
+#review_kind thm NLA.Proofs.TR04.SVD.orthonormal_leftVector_positive
+#assert_trust kernel NLA.Proofs.TR04.SVD.orthonormal_leftVector_positive
+#print axioms NLA.Proofs.TR04.SVD.orthonormal_leftVector_positive
+#review_kind thm NLA.Proofs.TR04.SVD.exists_leftBasis
+#assert_trust kernel NLA.Proofs.TR04.SVD.exists_leftBasis
+#print axioms NLA.Proofs.TR04.SVD.exists_leftBasis
+#review_kind thm NLA.Proofs.TR04.SVD.image_rightBasis_eq_smul
+#assert_trust kernel NLA.Proofs.TR04.SVD.image_rightBasis_eq_smul
+#print axioms NLA.Proofs.TR04.SVD.image_rightBasis_eq_smul
+#review_kind thm NLA.Proofs.TR04.SVD.sum_fin_truncate
+#assert_trust kernel NLA.Proofs.TR04.SVD.sum_fin_truncate
+#print axioms NLA.Proofs.TR04.SVD.sum_fin_truncate
+#review_kind thm NLA.Proofs.TR04.SVD.exists_validSVD
+#assert_trust kernel NLA.Proofs.TR04.SVD.exists_validSVD
+#print axioms NLA.Proofs.TR04.SVD.exists_validSVD
+#review_kind thm NLA.Proofs.RE06.svd_total
+#assert_trust kernel NLA.Proofs.RE06.svd_total
+#print axioms NLA.Proofs.RE06.svd_total
+#review_kind thm NLA.Proofs.RE06.Counts.queryList_length
+#assert_trust kernel NLA.Proofs.RE06.Counts.queryList_length
+#print axioms NLA.Proofs.RE06.Counts.queryList_length
+#review_kind thm NLA.Proofs.RE06.Counts.makePlan_query_count
+#assert_trust kernel NLA.Proofs.RE06.Counts.makePlan_query_count
+#print axioms NLA.Proofs.RE06.Counts.makePlan_query_count
+#review_kind thm NLA.Proofs.RE06.Counts.logWidth_pos
+#assert_trust kernel NLA.Proofs.RE06.Counts.logWidth_pos
+#print axioms NLA.Proofs.RE06.Counts.logWidth_pos
+#review_kind thm NLA.Proofs.RE06.Counts.rootWidth_pos
+#assert_trust kernel NLA.Proofs.RE06.Counts.rootWidth_pos
+#print axioms NLA.Proofs.RE06.Counts.rootWidth_pos
+#review_kind thm NLA.Proofs.RE06.Counts.logWidth_le_root_sq
+#assert_trust kernel NLA.Proofs.RE06.Counts.logWidth_le_root_sq
+#print axioms NLA.Proofs.RE06.Counts.logWidth_le_root_sq
+#review_kind thm NLA.Proofs.RE06.Counts.rootWidth_le_sqrt_add_one
+#assert_trust kernel NLA.Proofs.RE06.Counts.rootWidth_le_sqrt_add_one
+#print axioms NLA.Proofs.RE06.Counts.rootWidth_le_sqrt_add_one
+#review_kind thm NLA.Proofs.RE06.Counts.log_size_ge_one
+#assert_trust kernel NLA.Proofs.RE06.Counts.log_size_ge_one
+#print axioms NLA.Proofs.RE06.Counts.log_size_ge_one
+#review_kind thm NLA.Proofs.RE06.Counts.logWidth_le_two_log_add_one
+#assert_trust kernel NLA.Proofs.RE06.Counts.logWidth_le_two_log_add_one
+#print axioms NLA.Proofs.RE06.Counts.logWidth_le_two_log_add_one
+#review_kind thm NLA.Proofs.RE06.Counts.rootWidth_le_three_sqrt_log
+#assert_trust kernel NLA.Proofs.RE06.Counts.rootWidth_le_three_sqrt_log
+#print axioms NLA.Proofs.RE06.Counts.rootWidth_le_three_sqrt_log
+#review_kind thm NLA.Proofs.RE06.Counts.scaled_self_le_div
+#assert_trust kernel NLA.Proofs.RE06.Counts.scaled_self_le_div
+#print axioms NLA.Proofs.RE06.Counts.scaled_self_le_div
+#review_kind thm NLA.Proofs.RE06.Counts.step_ceil_bound
+#assert_trust kernel NLA.Proofs.RE06.Counts.step_ceil_bound
+#print axioms NLA.Proofs.RE06.Counts.step_ceil_bound
+#review_kind thm NLA.Proofs.RE06.Counts.firstWidth_bound
+#assert_trust kernel NLA.Proofs.RE06.Counts.firstWidth_bound
+#print axioms NLA.Proofs.RE06.Counts.firstWidth_bound
+#review_kind thm NLA.Proofs.RE06.Counts.total_width_bound
+#assert_trust kernel NLA.Proofs.RE06.Counts.total_width_bound
+#print axioms NLA.Proofs.RE06.Counts.total_width_bound
+#review_kind thm NLA.Proofs.RE06.query_bound
+#assert_trust kernel NLA.Proofs.RE06.query_bound
+#print axioms NLA.Proofs.RE06.query_bound
+#review_kind thm NLA.Proofs.RE06.CountAudit.exact_svd_total
+#assert_trust kernel NLA.Proofs.RE06.CountAudit.exact_svd_total
+#print axioms NLA.Proofs.RE06.CountAudit.exact_svd_total
+#review_kind thm NLA.Proofs.RE06.CountAudit.exact_query_bound
+#assert_trust kernel NLA.Proofs.RE06.CountAudit.exact_query_bound
+#print axioms NLA.Proofs.RE06.CountAudit.exact_query_bound
+#review_kind thm NLA.Proofs.RE06.CountAudit.live_frozen_identity
+#assert_trust kernel NLA.Proofs.RE06.CountAudit.live_frozen_identity
+#print axioms NLA.Proofs.RE06.CountAudit.live_frozen_identity
+theorem IndependentExact_svd_total  : NLA.Computation.NonadaptiveMatrixQuery.SVDTotal := NLA.Proofs.RE06.svd_total
+#review_kind thm IndependentExact_svd_total
+#assert_trust kernel IndependentExact_svd_total
+#print axioms IndependentExact_svd_total
+theorem IndependentExact_query_bound (n m : ℕ) (hn : 0 < n) (ε : ℝ) (hε0 : 0 < ε) (hεh : ε < 1 / 2) : NLA.Computation.NonadaptiveMatrixQuery.QueryBound n m ε 4000000 0 := NLA.Proofs.RE06.query_bound n m hn ε hε0 hεh
+#review_kind thm IndependentExact_query_bound
+#assert_trust kernel IndependentExact_query_bound
+#print axioms IndependentExact_query_bound
+theorem IndependentFrozenIdentity : NLA.Statements.RE06.Target = NLA.ReviewedStatements.RE06.Target := rfl
+#review_kind thm IndependentFrozenIdentity
+#assert_trust kernel IndependentFrozenIdentity
+#print axioms IndependentFrozenIdentity
+#review_absent NLA.Proofs.RE06.successful
+#review_absent NLA.Proofs.RE06.original_claim
+#review_absent NLA.Proofs.RE06.explicit_claim
+#review_absent NLA.Proofs.RE06.target
+open NLA.Computation.NonadaptiveMatrixQuery
+example (n m : ℕ) (ε : ℝ) (ω : ℕ → ℝ) :
+    (queryList (makePlan n m ε ω)).length = min n (firstWidth m ε+secondWidth m ε+thirdWidth m ε) := NLA.Proofs.RE06.Counts.makePlan_query_count n m ε ω
+example (m : ℕ) (ε : ℝ) : (queryList (makePlan 0 m ε (fun _ => 0))).length = 0 := by rw [NLA.Proofs.RE06.Counts.makePlan_query_count]; simp
+example : logWidth 0 = 2 := by decide
+example : rootWidth 0 = 2 := by decide
