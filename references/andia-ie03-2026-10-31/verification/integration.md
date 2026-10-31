@@ -36,3 +36,14 @@ The following checks passed:
 The manuscript PDF is the author's original file, not the locally rebuilt
 copy. The renderer change only adjusts IE-03's page breaks, keeping its
 original target intact on the second page. No Lean proof was added or run.
+
+Before submission, upstream `main` was fetched and still matched the base
+above. The author's newly published discovery account was inspected at
+`matias-ma/hadamard_cp` revision
+`53c1796f1f315f035f4d6b5985f69850b7ddcd0f`; the public `order4096/main.pdf`,
+`matrix.npy`, `verify_construction.py`, and `verify_dense.py` have the same Git
+blob hashes as the files in this submission. The account includes selected
+prompts and a link to a shared conversation about an earlier, larger-order
+counterexample. The conversation itself could not be retrieved by the web
+reader, so no review of its contents is claimed. These provenance links do
+not replace the finite verification evidence recorded here.

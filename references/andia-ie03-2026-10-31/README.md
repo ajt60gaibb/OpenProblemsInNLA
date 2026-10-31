@@ -105,6 +105,15 @@ verification scripts. The dense and construction programs are different
 computational verification routes; that does not imply independent human
 authorship or external peer review.
 
+The author's [public discovery account and selected prompts](https://github.com/matias-ma/hadamard_cp/blob/53c1796f1f315f035f4d6b5985f69850b7ddcd0f/README.md#how-the-growth-factor-counterexample-was-found)
+also links a [shared ChatGPT conversation](https://chatgpt.com/share/6ae67148-5ba0-83ea-85ed-969f617e35ff).
+The author describes that conversation as containing an earlier counterexample
+of larger order that supplied the central idea for the present construction.
+It is discovery context; the reproducible evidence for the order-4096 result
+is the manuscript, explicit matrix, and verifiers included here. The public
+[`order4096` package](https://github.com/matias-ma/hadamard_cp/tree/53c1796f1f315f035f4d6b5985f69850b7ddcd0f/order4096)
+contains identical copies of this manuscript PDF, matrix, and both verifiers.
+
 The proposed catalog status is **Solution claimed**, pending a documented
 independent full-result audit or publication. The fresh computational runs
 are reported with their actual scope; they are not Lean or other
