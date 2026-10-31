@@ -34,7 +34,7 @@ conjecture},pdfauthor={Open Problems in Numerical Linear Algebra}}
 \fancyhf{}
 \fancyhead[L]{\sffamily\footnotesize\color{muted}OPEN PROBLEMS IN NUMERICAL LINEAR ALGEBRA}
 \fancyhead[R]{\sffamily\bfseries\footnotesize\color{accent}IE-03}
-\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-09-10}}
+\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-10-31}}
 \fancyfoot[R]{\sffamily\footnotesize\color{muted}\thepage}
 \renewcommand{\headrulewidth}{0.3pt}
 \renewcommand{\headrule}{\hbox to\headwidth{\color{accent}\leaders\hrule height \headrulewidth\hfill}}
@@ -51,14 +51,55 @@ Hadamard complete-pivoting conjecture\par}
 \vspace{7pt}
 {\sffamily\small\textbf{Difficulty:} extreme\quad\textbf{Importance:} interesting
 to the community\par}
-{\sffamily\small\bfseries\color{accent}Status: Partially resolved\par}
+{\sffamily\small\bfseries\color{accent}Status: Solution claimed\par}
 \vspace{4pt}
 {\color{accent}\hrule height 0.8pt}
 \vspace{6pt}
+\subsection{Negative resolution claimed ---
+2026-10-31}\label{negative-resolution-claimed-2026-10-31}
+
+Matias Andia (Princeton University),
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/references/andia-ie03-2026-10-31/main.pdf}{\emph{A
+Hadamard matrix with growth factor greater than its order}},
+\textbf{Theorem 1} (page 1; construction and proof in Section 2, pages
+1--4), exhibits a row and column permutation of the Sylvester Hadamard
+matrix of order \(n=4096\) with a valid complete-pivoting path for which
+
+\[\rho(H)=4608=\frac98\,4096>4096.\]
+
+The matrix is already ordered so that every diagonal pivot is maximal in
+absolute value in the active Schur complement. The first pivot exceeding
+the order is \(+4608\) at step \(4089\). This addresses the exact
+real-Hadamard, exact-arithmetic target below: a single admissible path
+with growth greater than the order refutes the universal assertion,
+including its quantification over all tie choices. \textbf{Corollary 1}
+(Section 3, page 4) extends the example to every order \(2^d\) with
+\(d\ge12\). The manuscript's separate asymptotic Conjecture 1 remains a
+conjecture; no smallest-counterexample claim is made.
+
+The
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/references/andia-ie03-2026-10-31/README.md}{submission
+package} contains the manuscript source, explicit matrix, two supplied
+verification scripts, and
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/references/andia-ie03-2026-10-31/verification/README.md}{fresh
+computational reproduction records}. Codex reran the construction and
+dense checks during PR preparation. These are computational checks, not
+a documented independent full-result audit, external human peer review,
+or Lean verification; the status is therefore \textbf{Solution claimed}.
+The author credits extensive AI assistance, specifically GPT-6 Astra
+Pro's production of the counterexample, in the manuscript's
+acknowledgements.
+
+The original ID, mathematical target, and earlier status checks are
+retained. The difficulty, importance, and rating rationale are
+historical assessments of the original open target.
+
 \textbf{Rating rationale:} Extreme reflects a longstanding conjecture
 across every Hadamard order and pivot path; community impact comes from
 sharp complete-pivoting stability and its connection to Hadamard
 structure.
+
+\newpage
 
 \subsection{Context and notation}\label{context-and-notation}
 
@@ -67,9 +108,7 @@ All elimination in this problem is in exact arithmetic. Write
 active Schur complements \(S_1=A,S_2,\ldots,S_n\), with row/column
 permutations as appropriate. Its element-growth factor is
 
-\[
-\rho(A)=\frac{\max_{1\leq j\leq n}\|S_j\|_{\max}}{\|A\|_{\max}}.
-\]
+\[\rho(A)=\frac{\max_{1\leq j\leq n}\|S_j\|_{\max}}{\|A\|_{\max}}.\]
 
 Partial pivoting chooses a largest-magnitude entry in the active first
 column; complete pivoting chooses one anywhere in the active matrix. If
@@ -84,9 +123,7 @@ A real Hadamard matrix of order \(n\) is a matrix
 \(H\in\{-1,1\}^{n\times n}\) satisfying \(HH^T=nI\). Prove or disprove
 that, for every Hadamard matrix and every complete-pivoting path,
 
-\[
-\rho(H)=n.
-\]
+\[\rho(H)=n.\]
 
 The quantified input is an existing Hadamard matrix; this question does
 not ask whether Hadamard matrices exist in every order divisible by
@@ -96,7 +133,6 @@ The final pivot already supplies the matching lower bound. Permuting or
 resigning rows and columns does not remove the need to account for all
 allowed pivot paths.
 
-\newpage
 \subsection{References}\label{references}
 
 N. J. Higham,
@@ -130,4 +166,11 @@ every Hadamard matrix of order at most 16. Hence the status now records
 partial resolution. Searches for Cryer/Hadamard growth and later
 complete-pivoting results found no general proof or counterexample;
 asymptotic bounds for unrestricted matrices do not settle this subclass.
+
+\textbf{Clarification --- 2026-10-31:} The preceding paragraph records
+the earlier audit, not the current status. Its reference to
+Sylvester-type matrices must not be read as a bound for every admissible
+pivot path on every permutation: the submitted counterexample is itself
+a permuted Sylvester matrix. The current claim and its verification
+level are described above.
 \end{document}
