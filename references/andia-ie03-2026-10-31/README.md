@@ -4,7 +4,7 @@
 
 **Submission date:** 31 October 2026.
 
-[Manuscript](main.pdf) · [LaTeX source](main.tex) · [Original IE-03 target](../../linear-systems-and-elimination/IE-03/README.md)
+[Paper on Zenodo](https://zenodo.org/records/23871097) · [Local PDF](main.pdf) · [LaTeX source](main.tex) · [Original IE-03 target](../../linear-systems-and-elimination/IE-03/README.md)
 
 ## Result and scope
 

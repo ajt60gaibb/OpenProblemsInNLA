@@ -42,7 +42,7 @@ The passing scopes include AC-01's small-CW upper bound (also relevant to AC-04)
 
 **Negative solution claimed; recorded 31 October 2026.** Matias Andia
 (Princeton University), [*A Hadamard matrix with growth factor greater than
-its order*](references/andia-ie03-2026-10-31/main.pdf), **Theorem 1** (page 1;
+its order*](https://zenodo.org/records/23871097), **Theorem 1** (page 1;
 Section 2, pages 1–4), gives a permuted Sylvester Hadamard matrix of order
 $`4096`$ with a complete-pivoting path of growth $`4608=(9/8)4096`$.
 The first pivot exceeding the order is $`+4608`$ at step $`4089`$.

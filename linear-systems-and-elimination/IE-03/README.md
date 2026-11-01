@@ -12,7 +12,7 @@
 ## Negative resolution claimed — 2026-10-31
 
 Matias Andia (Princeton University), [*A Hadamard matrix with growth factor
-greater than its order*](../../references/andia-ie03-2026-10-31/main.pdf),
+greater than its order*](https://zenodo.org/records/23871097),
 **Theorem 1** (page 1; construction and proof in Section 2, pages 1–4),
 exhibits a row and column permutation of the Sylvester Hadamard matrix of
 order $`n=4096`$ with a valid complete-pivoting path for which
