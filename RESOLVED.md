@@ -1350,6 +1350,14 @@ The proof extends Zhou–Zhu's shared-class discrepancy, joint-rate and heavy-tu
 
 Submitted by Diar Haidary; [supplied ChatGPT 6 Pro audit and revision](https://chatgpt.com/share/6abd7541-acb0-83ed-a0bc-fde3f977bf84), [preserved source](references/haidary-resolutions-2026-09-30/TR-21-Seginer-comparison-revised.tex) and [submission record](references/haidary-resolutions-2026-09-30/README.md). This records an informal AI audit, not external human peer review or formal verification. The original conjecture remains above the resolution, with its historical ratings and literature check retained.
 
+## IE-11 — matching global fifth complete-pivoting bound reported by Ma and Wu
+
+**Solution claimed, affirmative; first public release 12 September 2026; reported here 1 November 2026.** Qianli Ma and Chao Wu, [*The exact maximum growth factor for complete pivoting on real 5 × 5 matrices*](https://doi.org/10.5281/zenodo.23057256), report the global upper bound $`g_5\leq\alpha`$ and hence equality with Chen–Edelman–Urschel's established algebraic lower bound. The claim covers real matrices, exact arithmetic and every legal complete-pivoting path, including ties. See Theorem 1.2 (p. 2) and Section 10 (p. 25) of the [26-page concise article](references/ma-wu-rho5-2026-11-01/manuscript.pdf), with the [52-page full proof supplement](references/ma-wu-rho5-2026-11-01/full-proof-supplement.pdf) and [9-page supplementary index](references/ma-wu-rho5-2026-11-01/supplementary-index.pdf).
+
+The [first public source/certificate release](https://github.com/hkjtsgmc79-boop/rho5-proof/releases/tag/v1.0.0) dates to **12 September 2026, 10:37:12 UTC**; the [first Zenodo manuscript](https://doi.org/10.5281/zenodo.22727368) was published on **12 September 2026**. [Zenodo v1.0.2](https://doi.org/10.5281/zenodo.23057256) and [GitHub v1.0.2](https://github.com/hkjtsgmc79-boop/rho5-proof/releases/tag/v1.0.2) date to **30 September 2026**. The November concise copies are a later exposition of the reported result. [Submission, exact-target comparison, public chronology and file identities](references/ma-wu-rho5-2026-11-01/README.md).
+
+Exact rational certificates and external verification code accompany the analytic proof. The Lean formalization is partial; this notice does not assert a complete unconditional Lean proof, formal verification of the external acceptors, or an independent proof audit by this catalog. The [canonical IE-11 page](linear-systems-and-elimination/IE-11/README.md) retains the original target, Chen–Edelman–Urschel's candidate/lower-bound attribution and the separately credited earlier local supporting results.
+
 ## Recording a new resolution
 
 1. Keep the original problem ID, folder and statement. Do not delete or reuse the ID.

@@ -13,13 +13,13 @@ If one of your favorite open problems is solved here, we strongly encourage you 
 [NLA, explained](https://nla-explained.com/) welcomes papers and videos that explain proofs from this repository, with credit to the original authors and sources. If you would like to help make these results easier to understand, consider contributing an explanation.
 
 <!-- catalog-summary -->
-**96 problems with open targets:** 36 open and 60 partially resolved. **121 other retained entries**, excluded from the open count.
+**95 problems with open targets:** 35 open and 60 partially resolved. **122 other retained entries**, excluded from the open count.
 
 **Resolution evidence:** 36 solved (published or independently audited); 83 solved with Lean verification.
 
 Each entry records its own literature-check date. Literature checks are bounded; ratings are editorial. “Impact” uses the canonical `Importance` field.
 
-**[Browse all 96 open targets →](CATALOG.md)** · **[Solved and claimed solutions →](RESOLVED.md)**
+**[Browse all 95 open targets →](CATALOG.md)** · **[Solved and claimed solutions →](RESOLVED.md)**
 <!-- /catalog-summary -->
 
 ## Special thanks
@@ -34,7 +34,7 @@ If you would like to get involved but don't know how, please email [townsend@cor
 
 | Category | Problems |
 | --- | ---: |
-| [Linear systems and elimination](linear-systems-and-elimination/README.md) | 7 |
+| [Linear systems and elimination](linear-systems-and-elimination/README.md) | 6 |
 | [Eigenvalues and inverse problems](eigenvalues-and-inverse-problems/README.md) | 12 |
 | [Matrix functions and stability](matrix-functions-and-stability/README.md) | 9 |
 | [Randomized and low-rank approximation](randomized-and-low-rank-approximation/README.md) | 11 |
