@@ -64,6 +64,36 @@ the presentation and takes responsibility for the content. The permanent
 ID, original target, and historical ratings are retained; the entry leaves
 the open count under the repository's **Solution claimed** policy.
 
+### ✅ TR-29 — exact partially symmetric rank of products of W-states
+
+**Solved affirmatively, 2 November 2026.** Wenqi Zhu (University of Oxford)
+and Ping Nie (University of Waterloo). Theorem 1.1 (p. 2) of
+[*The Exact Partially Symmetric Rank of Products of W-States*](https://github.com/erenup/w-tensor-product-rank/blob/b60a62dd7fc4595fa82dafdd56649e462440b38f/paper/main.pdf),
+at immutable revision `b60a62dd7fc4595fa82dafdd56649e462440b38f`, proves
+$`R(W_{d_1}\otimes\cdots\otimes W_{d_k})=2^{k-1}(d_1+\cdots+d_k-2k+2)`$
+over $`\mathbb C`$, with the blocks fixed, for every $`k\ge2`$ and all
+$`d_i\ge3`$. This is the full range of the
+[retained TR-29 target](tensor-computations/TR-29/README.md); the scalar
+relating $`W_d`$ to $`x^{d-1}y`$ is absorbed into the decomposition. The
+paper proves the lower bound in Sections 2–7; the upper bound is Theorem 1.1
+of Canino, Casarotti and Santarsiero,
+[arXiv:2512.05828v1](https://arxiv.org/abs/2512.05828v1). Theorem 8.1 also
+determines the exact rank of every product of binary monomials
+$`\prod_i x_i^{a_i}y_i^{b_i}`$ with $`a_i\ge b_i\ge1`$, with an explicit matching
+decomposition.
+
+Solved by several independent informal AI-agent audits of the complete
+written proof, all accepting it with minor corrections, which are incorporated
+in the paper. The complete argument was also checked by coauthor Wenqi Zhu.
+Haibin Chen (Qufu Normal University), a specialist in tensor decompositions
+who was not involved in the work, reviewed the proof and found it correct. The [review record](https://github.com/erenup/w-tensor-product-rank/blob/b60a62dd7fc4595fa82dafdd56649e462440b38f/verification/reviews/README.md) contains the audit reports. A
+Lean formalization at the same revision covers only seven algebraic core
+targets ([formal scope](https://github.com/erenup/w-tensor-product-rank/blob/b60a62dd7fc4595fa82dafdd56649e462440b38f/lean/SCOPE.md)); the reduction to moment
+conditions, the test functions and the rank formula are proved in the written
+text, so the status is Solved, not Lean verified. The paper discloses its use of AI tools. The catalogue did not rerun
+the Lean or exact checks. The original ID, statement, historical ratings and Maximilian
+Behr's two-factor partial result are retained.
+
 ### 🏆 IV-01 — two-vertex certification of nonsingular sign regularity
 
 **Lean verified, affirmative, 15 October 2026.** Wenqi Zhu (University of
@@ -119,7 +149,7 @@ Separate Codex agents reviewed the statement correspondence and the author's dat
 
 **Lean verified, 2 October 2026.** Wenqi Zhu (Mathematical Institute, University of Oxford) and Ping Nie (David R. Cheriton School of Computer Science, University of Waterloo). The answer to [MI-15](matrix-inequalities-and-norms/MI-15/README.md) is **no**: $`F_n`$ is not a finite sum of squares of real homogeneous quadratic forms for every integer $`n\ge2^{9961475}`$, with arbitrary real coefficients and any finite square count. The original ID, statement and earlier partial result are retained; the difficulty and impact ratings are historical.
 
-The primary references are `ToeplitzSOS.Negative.not_MI15` and `ToeplitzSOS.Negative.sharp_negative_explicit` in the [immutable Lean source](https://github.com/erenup/toeplitz-bw-not-sos/blob/7126c0841b008dc89a21edfd008bbf1b748d280f/lean/ToeplitzSOS/Negative/Resolution.lean). The [canonical evidence section](matrix-inequalities-and-norms/MI-15/README.md#lean-proof-and-verification-evidence) gives the definitions, exact statement comparison, dependency pins and reproduction commands; the dated [verification log and transitive axiom report](https://github.com/erenup/toeplitz-bw-not-sos/blob/7126c0841b008dc89a21edfd008bbf1b748d280f/VERIFICATION.md) supply the formal verification evidence. The catalogue did not rerun the checks.
+The primary references are `ToeplitzSOS.Negative.not_MI15` and `ToeplitzSOS.Negative.sharp_negative_explicit` in the [immutable Lean source](https://github.com/erenup/toeplitz-bw-not-sos/blob/7126c0841b008dc89a21edfd008bbf1b748d280f/lean/ToeplitzSOS/Negative/Resolution.lean). The [canonical evidence section](matrix-inequalities-and-norms/MI-15/README.md#lean-proof-and-verification-evidence) gives the definitions, exact statement comparison, dependency pins and reproduction commands; the dated [verification log and transitive axiom report](https://github.com/erenup/toeplitz-bw-not-sos/blob/7126c0841b008dc89a21edfd008bbf1b748d280f/VERIFICATION.md) supply the formal verification evidence. The catalogue did not rerun the Lean or exact checks.
 
 Lean proves SOS for $`2\le n\le20`$; [exact rational certificates](https://github.com/erenup/toeplitz-bw-not-sos/blob/7126c0841b008dc89a21edfd008bbf1b748d280f/verification/README.md#positive-orders) establish SOS for every $`2\le n\le50`$. The gap $`51\le n<2^{9961475}`$, the smallest bad order, and a smaller explicit obstruction threshold remain open. All-order nonnegativity is unaffected. Zhu and Nie's [arXiv:2610.08980v1](https://arxiv.org/abs/2610.08980), posted 6 October 2026, presents these results and proves that the form is SOS at every order when either Toeplitz factor is symmetric or skew-symmetric and the other is arbitrary real Toeplitz. The paper is the mathematical exposition; the Lean declarations and verification record above remain the formal evidence.
 
@@ -245,7 +275,7 @@ The original targets and permanent IDs are retained: [IE-20](linear-systems-and-
 
 ### 🟡 TR-29 — the two-factor W-state rank — Maximilian Behr
 
-**Partially resolved, 13 September 2026.** Maximilian Behr. [Theorem 1.1](references/behr-tr29-2026-09-13/manuscript/TR29_two_factor_rank.pdf) proves $`R(W_{d_1}\otimes W_{d_2})=2(d_1+d_2-2)`$ for all $`d_1,d_2\ge2`$, settling the case $`k=2`$ of [TR-29](tensor-computations/TR-29/README.md); Corollary 5.4 gives the partially symmetric rank of every bihomogeneous binary monomial with positive exponents. The case $`k\ge3`$ remains open.
+**Partially resolved, 13 September 2026.** Maximilian Behr. [Theorem 1.1](references/behr-tr29-2026-09-13/manuscript/TR29_two_factor_rank.pdf) proves $`R(W_{d_1}\otimes W_{d_2})=2(d_1+d_2-2)`$ for all $`d_1,d_2\ge2`$, settling the case $`k=2`$ of [TR-29](tensor-computations/TR-29/README.md); Corollary 5.4 gives the partially symmetric rank of every bihomogeneous binary monomial with positive exponents. This preceded the [complete affirmative resolution](tensor-computations/TR-29/README.md#resolution--2-november-2026), which also covers $`k\ge3`$.
 
 Two separate [independent AI-agent informal audits](references/behr-tr29-2026-09-13/verification/independent-review.md) passed this partial scope. AI assistance is disclosed; no external human peer review or formal verification is asserted. No Lean verification was performed. [Submission record, checks and reproduction](references/behr-tr29-2026-09-13/README.md).
 
