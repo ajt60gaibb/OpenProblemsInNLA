@@ -38,6 +38,32 @@ The passing scopes include AC-01's small-CW upper bound (also relevant to AC-04)
 
 ## Resolved catalog entries
 
+### 🟠 IE-03 — Cryer's Hadamard complete-pivoting conjecture — Matias Andia
+
+**Negative solution claimed; recorded 31 October 2026.** Matias Andia
+(Princeton University), [*A Hadamard matrix with growth factor greater than
+its order*](https://zenodo.org/records/23871097), **Theorem 1** (page 1;
+Section 2, pages 1–4), gives a permuted Sylvester Hadamard matrix of order
+$`4096`$ with a complete-pivoting path of growth $`4608=(9/8)4096`$.
+The first pivot exceeding the order is $`+4608`$ at step $`4089`$.
+One such admissible exact-arithmetic path refutes the universal assertion
+over all Hadamard matrices and all complete-pivoting tie choices in the
+[retained IE-03 target](linear-systems-and-elimination/IE-03/README.md).
+**Corollary 1** (Section 3, page 4) gives the same growth-to-order ratio for
+every power-of-two order at least $`4096`$; the paper's asymptotic conjecture
+is not claimed as proved.
+
+The [submission package](references/andia-ie03-2026-10-31/README.md) includes
+the manuscript source, explicit matrix, both supplied verification scripts,
+and [fresh computational logs](references/andia-ie03-2026-10-31/verification/README.md).
+Codex reran both checkers while preparing the PR. No documented independent
+full-result audit, external human peer review, or Lean verification is
+claimed. The manuscript credits extensive AI assistance, specifically
+GPT-6 Astra Pro's production of the counterexample; Matias Andia organized
+the presentation and takes responsibility for the content. The permanent
+ID, original target, and historical ratings are retained; the entry leaves
+the open count under the repository's **Solution claimed** policy.
+
 ### ✅ TR-29 — exact partially symmetric rank of products of W-states
 
 **Solved affirmatively, 2 November 2026.** Wenqi Zhu (University of Oxford)
