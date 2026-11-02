@@ -1,6 +1,6 @@
 # All problems and their status
 
-**96 problems with open targets:** 35 open and 61 partially resolved. **121 other retained entries**, excluded from the open count.
+**95 problems with open targets:** 35 open and 60 partially resolved. **122 other retained entries**, excluded from the open count.
 
 **Resolution evidence:** 36 solved (published or independently audited); 83 solved with Lean verification.
 
@@ -13,7 +13,6 @@ Each entry records its own literature-check date. Literature checks are bounded;
 
 | ID | Problem | Status | Difficulty | Impact | Read / source |
 | --- | --- | --- | --- | --- | --- |
-| [IE-03](linear-systems-and-elimination/IE-03/README.md) | Cryer's Hadamard complete-pivoting conjecture | **🟡 PARTIAL** | extreme | interesting to the community | [PDF](linear-systems-and-elimination/IE-03/problem.pdf) · [TeX](linear-systems-and-elimination/IE-03/problem.tex) |
 | [IE-20](linear-systems-and-elimination/IE-20/README.md) | Precision required for conjugate gradients to attain backward accuracy in n steps | **🟡 PARTIAL** | extreme | interesting to the community | [PDF](linear-systems-and-elimination/IE-20/problem.pdf) · [TeX](linear-systems-and-elimination/IE-20/problem.tex) |
 | [IE-24](linear-systems-and-elimination/IE-24/README.md) | RILU conditioning for the Neumann problem on smooth planar domains | **🔵 OPEN** | challenging | interesting to the community | [PDF](linear-systems-and-elimination/IE-24/problem.pdf) · [TeX](linear-systems-and-elimination/IE-24/problem.tex) |
 | [IE-25](linear-systems-and-elimination/IE-25/README.md) | Perturbed MILU conditioning for Neumann problems in two and three dimensions | **🔵 OPEN** | challenging | interesting to the community | [PDF](linear-systems-and-elimination/IE-25/problem.pdf) · [TeX](linear-systems-and-elimination/IE-25/problem.tex) |
@@ -27,6 +26,7 @@ Retained entries outside the open count:
 | --- | --- | --- | --- | --- | --- |
 | [IE-01](linear-systems-and-elimination/IE-01/README.md) | Forsythe's conjecture beyond restart length two | **🏆 LEAN VERIFIED** | extreme | interesting to the community | [PDF](linear-systems-and-elimination/IE-01/problem.pdf) · [TeX](linear-systems-and-elimination/IE-01/problem.tex) |
 | [IE-02](linear-systems-and-elimination/IE-02/README.md) | Is the ideal GMRES bound sharp for every Jordan block? | **🏆 LEAN VERIFIED** | challenging | interesting to specialist | [PDF](linear-systems-and-elimination/IE-02/problem.pdf) · [TeX](linear-systems-and-elimination/IE-02/problem.tex) |
+| [IE-03](linear-systems-and-elimination/IE-03/README.md) | Cryer's Hadamard complete-pivoting conjecture | **🟠 SOLUTION CLAIMED** | extreme | interesting to the community | [PDF](linear-systems-and-elimination/IE-03/problem.pdf) · [TeX](linear-systems-and-elimination/IE-03/problem.tex) |
 | [IE-04](linear-systems-and-elimination/IE-04/README.md) | Exponential smoothed tail bounds for partial pivoting | **🏆 LEAN VERIFIED** | extreme | broadly interesting | [PDF](linear-systems-and-elimination/IE-04/problem.pdf) · [TeX](linear-systems-and-elimination/IE-04/problem.tex) |
 | [IE-05](linear-systems-and-elimination/IE-05/README.md) | Exact extremizers for partial pivoting on orthogonal matrices | **🏆 LEAN VERIFIED** | challenging | interesting to specialist | [PDF](linear-systems-and-elimination/IE-05/problem.pdf) · [TeX](linear-systems-and-elimination/IE-05/problem.tex) |
 | [IE-06](linear-systems-and-elimination/IE-06/README.md) | The square-root upper bound for Gaussian partial-pivoting growth | **🏆 LEAN VERIFIED** | challenging | interesting to the community | [PDF](linear-systems-and-elimination/IE-06/problem.pdf) · [TeX](linear-systems-and-elimination/IE-06/problem.tex) |

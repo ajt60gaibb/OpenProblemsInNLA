@@ -6,8 +6,43 @@
 
 **Difficulty:** extreme  
 **Importance:** interesting to the community  
-**Status:** Partially resolved  
-**Last checked:** 2026-09-10  
+**Status:** Solution claimed
+**Last checked:** 2026-10-31
+
+## Negative resolution claimed — 2026-10-31
+
+Matias Andia (Princeton University), [*A Hadamard matrix with growth factor
+greater than its order*](https://zenodo.org/records/23871097),
+**Theorem 1** (page 1; construction and proof in Section 2, pages 1–4),
+exhibits a row and column permutation of the Sylvester Hadamard matrix of
+order $`n=4096`$ with a valid complete-pivoting path for which
+
+```math
+\rho(H)=4608=\frac98\,4096>4096.
+```
+
+The matrix is already ordered so that every diagonal pivot is maximal in
+absolute value in the active Schur complement. The first pivot exceeding the
+order is $`+4608`$ at step $`4089`$. This addresses the exact real-Hadamard,
+exact-arithmetic target below: a single admissible path with growth greater
+than the order refutes the universal assertion, including its quantification
+over all tie choices. **Corollary 1** (Section 3, page 4) extends the example to
+every order $`2^d`$ with $`d\ge12`$. The manuscript's separate asymptotic
+Conjecture 1 remains a conjecture; no smallest-counterexample claim is made.
+
+The [submission package](../../references/andia-ie03-2026-10-31/README.md)
+contains the manuscript source, explicit matrix, two supplied verification
+scripts, and [fresh computational reproduction records](../../references/andia-ie03-2026-10-31/verification/README.md).
+Codex reran the construction and dense checks during PR preparation. These
+are computational checks, not a documented independent full-result audit,
+external human peer review, or Lean verification; the status is therefore
+**Solution claimed**. The author credits extensive AI assistance, specifically
+GPT-6 Astra Pro's production of the counterexample, in the manuscript's
+acknowledgements.
+
+The original ID, mathematical target, and earlier status checks are retained.
+The difficulty, importance, and rating rationale are historical assessments
+of the original open target.
 
 **Rating rationale:** Extreme reflects a longstanding conjecture across every Hadamard order and pivot path; community impact comes from sharp complete-pivoting stability and its connection to Hadamard structure.
 
@@ -44,3 +79,9 @@ Searches for `Hadamard Cryer 2026` and `Hadamard growth conjecture 2026 proof` f
 ## Audit update — 2026-09-10
 
 The [2026 butterfly paper](https://www.tandfonline.com/doi/abs/10.1080/03081087.2026.2660796), §3, retains the general Hadamard conjecture while recording proofs for Sylvester-type matrices in all their orders and every Hadamard matrix of order at most 16. Hence the status now records partial resolution. Searches for Cryer/Hadamard growth and later complete-pivoting results found no general proof or counterexample; asymptotic bounds for unrestricted matrices do not settle this subclass.
+
+**Clarification — 2026-10-31:** The preceding paragraph records the earlier
+audit, not the current status. Its reference to Sylvester-type matrices must
+not be read as a bound for every admissible pivot path on every permutation:
+the submitted counterexample is itself a permuted Sylvester matrix. The
+current claim and its verification level are described above.
