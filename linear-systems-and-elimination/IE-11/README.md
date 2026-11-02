@@ -10,7 +10,7 @@
 
 **Last checked:** 2026-11-01
 
-**Rating rationale:** Challenging reflects a nonconvex global optimization problem with a high-degree algebraic candidate; specialist impact is an exact low-order pivoting constant.
+**Rating rationale:** Challenging reflects a nonconvex global optimization problem with a high-degree algebraic candidate; specialist impact is an exact low-order pivoting constant. These ratings are historical assessments of the original target.
 
 ## Full global resolution reported — first public release 12 September 2026
 

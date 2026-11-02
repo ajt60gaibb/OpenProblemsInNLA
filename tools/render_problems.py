@@ -101,7 +101,7 @@ def render(source):
         body = body[:match.start()] + body[match.end():]
     body = re.sub(r"<!-- navigation -->.*?<!-- /navigation -->", "", body, flags=re.S)
     body = restore_pdf_layout(identifier, body)
-    if identifier in {"IE-04", "IE-05", "SP-15", "MF-02", "MF-12", "RE-03", "RA-01", "MF-24", "PF-03", "PF-05"}:
+    if identifier in {"IE-04", "IE-05", "IE-11", "SP-15", "MF-02", "MF-12", "RE-03", "RA-01", "MF-24", "PF-03", "PF-05"}:
         # Keep the unchanged original target together after its resolution notice.
         # This PDF-only layout instruction should not appear on the GitHub page.
         body = body.replace("## Context and notation\n", "\\newpage\n\n## Context and notation\n", 1)
