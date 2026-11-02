@@ -6,10 +6,86 @@
 
 **Difficulty:** challenging  
 **Importance:** interesting to specialist  
-**Status:** Partially resolved  
-**Last checked:** 2026-09-13
+**Status:** Solved  
+**Last checked:** 2026-11-02
 
-**Rating rationale:** Matching constructive upper bounds by sharp lower bounds for arbitrary products requires substantial new decomposition arguments. The exact partially symmetric rank of this particular family chiefly interests specialists in tensor rank and multipartite entanglement.
+**Rating rationale:** Matching constructive upper bounds by sharp lower bounds for arbitrary products requires substantial new decomposition arguments. The exact partially symmetric rank of this particular family chiefly interests specialists in tensor rank and multipartite entanglement. These ratings are historical and refer to the original question, which is resolved below.
+
+## Resolution — 2 November 2026
+
+**Resolved affirmatively.** Wenqi Zhu (University of Oxford) and Ping Nie
+(University of Waterloo).
+
+For every $`k\ge2`$ and all $`d_1,\ldots,d_k\ge3`$,
+
+```math
+R(W_{d_1}\otimes\cdots\otimes W_{d_k})=2^{k-1}(d_1+\cdots+d_k-2k+2).
+```
+
+In particular $`R(W_3\otimes W_3\otimes W_3)=20`$. This is Theorem 1.1,
+stated on p. 2 of the 16-page paper
+[*The Exact Partially Symmetric Rank of Products of W-States*](https://github.com/erenup/w-tensor-product-rank/blob/b60a62dd7fc4595fa82dafdd56649e462440b38f/paper/main.pdf)
+at the immutable
+[revision `b60a62d`](https://github.com/erenup/w-tensor-product-rank/tree/b60a62dd7fc4595fa82dafdd56649e462440b38f),
+made public on 2 November 2026. The paper proves the lower bound for every
+decomposition in Sections 2–7, completing it at the end of Section 7 (p. 7).
+The matching upper bound is Theorem 1.1 of Canino, Casarotti and Santarsiero
+(reference 3 below).
+
+**Comparison with the target.** The paper works over $`\mathbb C`$ with the
+polynomial $`\prod_{i=1}^k x_i^{d_i-1}y_i`$. Its partially symmetric rank is
+the least $`r`$ with
+
+```math
+\prod_{i=1}^k x_i^{d_i-1}y_i=\sum_{\ell=1}^{r}c_\ell\prod_{i=1}^k(a_{i\ell}x_i+b_{i\ell}y_i)^{d_i},
+\qquad c_\ell,a_{i\ell},b_{i\ell}\in\mathbb C,
+```
+
+with the blocks $`(x_i,y_i)`$ and the degrees $`d_i`$ fixed. The standard
+isomorphism of
+$`\mathop{\mathrm{Sym}}\nolimits^{d_1}(\mathbb C^2)\otimes\cdots\otimes\mathop{\mathrm{Sym}}\nolimits^{d_k}(\mathbb C^2)`$
+with multihomogeneous polynomials of multidegree $`(d_1,\ldots,d_k)`$ sends
+$`T_{\mathbf d}`$ to $`d_1\cdots d_k\prod_i x_i^{d_i-1}y_i`$. It sends each term
+$`(v_{1,\ell})^{\otimes d_1}\otimes\cdots\otimes(v_{k,\ell})^{\otimes d_k}`$,
+with $`v_{i,\ell}=(a_{i\ell},b_{i\ell})`$, to
+$`\prod_i(a_{i\ell}x_i+b_{i\ell}y_i)^{d_i}`$. Over $`\mathbb C`$ the nonzero
+scalars $`d_1\cdots d_k`$ and $`c_\ell`$ are absorbed into the vectors
+$`v_{1,\ell}`$, so the paper's rank equals the minimum $`s`$ in the problem
+statement below. Theorem 1.1 assumes exactly $`k\ge2`$ and $`d_i\ge3`$, as the
+target does, and so covers its full range. It concerns the rank with the blocks
+fixed, not the border rank or the rank after grouping modes from different
+blocks. For $`k=2`$ it overlaps, and agrees with, the two-factor partial
+resolution below.
+
+**Extension.** Theorem 8.1 (p. 8) determines the exact rank of every product
+of binary monomials $`\prod_i x_i^{a_i}y_i^{b_i}`$ with $`a_i\ge b_i\ge1`$,
+with an explicit matching decomposition; with every $`b_i=1`$ it gives the
+displayed formula for all $`k\ge1`$ and $`d_i\ge2`$ (Remark 8.1, p. 13).
+
+**Proof and verification scope.** Both rank formulas are proved in the
+written paper. A Lean formalization at the same revision proves only an
+algebraic core of seven universal targets, recorded in its
+[formal scope](https://github.com/erenup/w-tensor-product-rank/blob/b60a62dd7fc4595fa82dafdd56649e462440b38f/lean/SCOPE.md): the one-coordinate moment lower bound, a
+geometric-series inverse, the formal Laurent leading term with a nonzero
+series determinant, the anti-diagonal block determinant, the bilinear Gram
+assembly, the Gram count under explicit hypotheses, and finite parameter
+avoidance. The reduction of an arbitrary decomposition to moment conditions,
+the test functions and their cross-block cancellations, the identification of
+each block with its formal expansion, the multivariate moment theorem and both
+rank formulas are proved in the text only. No Lean theorem states a rank
+formula, so this is not a Lean verification of the target. The
+[verification record](https://github.com/erenup/w-tensor-product-rank/blob/b60a62dd7fc4595fa82dafdd56649e462440b38f/VERIFICATION.md) also describes exact checks of
+finite instances.
+
+**Review.** Solved by several independent informal AI-agent audits of the
+complete written proof, all accepting it with minor corrections, which are
+incorporated in the paper. The complete argument was also checked by coauthor
+Wenqi Zhu (University of Oxford). Haibin Chen (Qufu Normal University), a
+specialist in tensor decompositions who was not involved in the work, reviewed
+the proof and found it correct. The [review record](https://github.com/erenup/w-tensor-product-rank/blob/b60a62dd7fc4595fa82dafdd56649e462440b38f/verification/reviews/README.md) contains the audit reports. The paper discloses its use of AI tools. The catalogue did not rerun the Lean or exact checks.
+
+The retained partial-result and literature records below predate this
+resolution.
 
 ## Partial resolution — the two-factor case k = 2, 13 September 2026
 
