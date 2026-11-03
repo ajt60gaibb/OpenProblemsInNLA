@@ -1,0 +1,15 @@
+# TR-06 elementary algebraic foundations
+
+Formalization: George Stepaniants, Department of Computing and Mathematical Sciences, California Institute of Technology. Original TR-06 mathematical proof attribution: Matthew J. Colbrook. These new elementary supporting lemmas are AI-assisted implementations; no independent final proof approval is claimed by their author.
+
+Copy only NLA/TR06/Complexification.lean and NLA/TR06/ClosedFibers.lean into the pinned project. Definitions.lean is a byte-identical development copy of the frozen boundary and should not overwrite it. Both owned modules import Definitions, never Challenge. STATEMENT_PLAN.md records the exact root-approved supporting boundary before implementation. FINAL-EVIDENCE.json records final hashes and clean logs.
+
+Complexification is the coordinatewise real-to-complex inclusion. The module proves injectivity, preservation of zero/addition/finite sums/pure tensors/nonzero rank-one tensors/decompositions, conditional real exactness from a supplied real decomposition and complex exactness, and real identifiability from complex identifiability. It does not assert universal equality of real and complex rank.
+
+ClosedFibers defines actual rank-at-most-one tensor tuples, including zeros, and their full addition fiber. It constructs a shorter genuine decomposition by enumerating all nonzero positions, with a strict length decrease whenever a zero entry exists. Exact rank therefore excludes every zero entry of the full fiber. Identifiability then contains that fiber in a finite permutation orbit; a given exact-rank decomposition proves it nonempty. These statements assume only RCLike for the field and work for arbitrary d,n,r, including r=0. No genericity, differentiability, positivity of dimension, or nonempty factor index is assumed.
+
+The final clean compiler runs are evidence/003-Complexification.log and evidence/004-ClosedFibers.log, exit 0 with no warnings. Their printed transitive axiom closures are exactly propext, Classical.choice and Quot.sound, and every central statement passes LeanCert #assert_trust kernel. There is no sorry, admit, native_decide, custom axiom or Challenge dependency. The initial log002 is a successful development compile with unused-simp warnings subsequently removed; it is not the final receipt.
+
+These are pinned Lean 4.33.1 development checks on macOS arm64 against pinned dependency caches, not Linux replay or Lean4 Comparator. Full independent contribution review remains required. This work does not prove the cone is topologically closed, the polynomial minor description, infinite fibers for shorter rank, generic finiteness, the generic_addition_regular_certificate, regular-locus correspondence, graph volume, or finite angular mean. No complete TR-06 verification or status promotion is claimed.
+
+Recheck with python3 check.py NLA/TR06/Definitions.lean NLA/TR06/Complexification.lean NLA/TR06/ClosedFibers.lean. The runner records exact commands/environment/source and log hashes, and writes only within this temporary artifact.

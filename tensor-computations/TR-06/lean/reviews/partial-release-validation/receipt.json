@@ -1,0 +1,88 @@
+{
+  "scope": "Incomplete draft publication checks; not complete problem verification",
+  "checks": [
+    {
+      "command": [
+        "/private/tmp/tr06-python/bin/python",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_lean_verification.py",
+        "-v"
+      ],
+      "exit_code": 0,
+      "log": "check-0.log"
+    },
+    {
+      "command": [
+        "/private/tmp/tr06-python/bin/python",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tools/lean",
+        "-p",
+        "test_*.py",
+        "-v"
+      ],
+      "exit_code": 0,
+      "log": "check-1.log"
+    },
+    {
+      "command": [
+        "/private/tmp/tr06-python/bin/python",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_problem_ids.py",
+        "-v"
+      ],
+      "exit_code": 0,
+      "log": "check-2.log"
+    },
+    {
+      "command": [
+        "/private/tmp/tr06-python/bin/python",
+        "tools/validate_problem_ids.py",
+        "--base-ref",
+        "origin/main"
+      ],
+      "exit_code": 0,
+      "log": "check-3.log"
+    },
+    {
+      "command": [
+        "git",
+        "diff",
+        "--check"
+      ],
+      "exit_code": 0,
+      "log": "check-4.log"
+    }
+  ],
+  "metadata_schema": "pass",
+  "complete_gate": "expected rejection: incomplete metadata",
+  "comparator_run": false,
+  "authoritative_linux_run": false,
+  "frozen_boundary": {
+    "NLA/TR06/Definitions.lean": "e5fe5314f4c17df41b5bec54f2c407b2d1eba8ba59be5d85525de13e262f8898",
+    "Challenge.lean": "5706c286e2d184965962c31c01805a4d119696459e5bc6e2f90226587e452fbe",
+    "NUMERICAL_TARGETS.md": "e3a0b1fd548018a1b7afe60d857ff88cf672a429039d240f63068ae4502e355a",
+    "README.md": "85f8b768d76749fe1b0c25f0de070efc3dd832a459fb66aad16d014e41d2fb5c"
+  },
+  "protected_files": {
+    "problem_ids.json": "d7f9925a483d40030ef266917bc8e413dac6d45530ad5515da506ffe9583e763",
+    "tensor-computations/TR-06/README.md": "f364f4b2ad51065c17d7dd08ea32e729a5d53a8333f0785a11a368165942de6b",
+    "tensor-computations/TR-06/problem.tex": "6aed567679c67ae78599ef21e69706d0914a2b5b3bf55846465db01d06cebbed",
+    "tensor-computations/TR-06/problem.pdf": "477349c4287380512251bbb12b52afc186f7237f5ba1efb74dd077090862add2",
+    "references/colbrook-unclaimed-2026-09-11/manuscripts/TR-06.md": "65f9b731628a7a9ab0580d8522cead94bf7e4599ee3c4285e485287d35d451b2"
+  },
+  "challenge_placeholders": 10,
+  "completed_problem_targets": 0
+}
