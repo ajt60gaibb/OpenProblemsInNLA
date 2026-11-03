@@ -38,6 +38,42 @@ The passing scopes include AC-01's small-CW upper bound (also relevant to AC-04)
 
 ## Resolved catalog entries
 
+### ✅ TR-28 — the entropy law for the asymptotic subrank of Dicke tensors
+
+**Solved affirmatively, 2 November 2026.** Wenqi Zhu (University of Oxford),
+Chunlin Liu (University of Science and Technology of China), Kai Zou (King's
+College London) and Ping Nie (University of Waterloo). Theorem 1.1 (p. 2) of
+[*The Entropy Law for the Asymptotic Subrank of Dicke Tensors*](https://github.com/erenup/dicke-tensor-subrank/blob/e344c05618a8a76941fc6dc166b22ed54384f6cf/paper/main.pdf),
+at immutable revision `e344c05618a8a76941fc6dc166b22ed54384f6cf`, proves
+$`\widetilde Q(D_{\mathbf d})=2^{H(d_1/k,\ldots,d_n/k)}`$, with $`H`$ the
+base-two entropy, over $`\mathbb C`$ with all $`k`$ modes separate, for every
+$`n\ge2`$ and every tuple of positive integers $`\mathbf d`$. This is the full
+range of the [retained TR-28 target](tensor-computations/TR-28/README.md),
+with its ordinary subrank under arbitrary independent linear maps and its
+powers grouping corresponding modes; the paper writes the value as
+$`\exp H(p)`$ with natural logarithms. The lower bound uses coordinate
+restrictions (Sections 4–9); the upper bound
+$`Q(D_{\mathbf d}^{\boxtimes N})\le k\,2^{NH(d_1/k,\ldots,d_n/k)}`$ for every
+$`N\ge1`$ and arbitrary linear maps is Proposition 10.3 (p. 11). The
+coordinate-restriction asymptotic subrank has the same value; through
+Theorem 1.11 of Christandl, Vrana and Zuiddam, the paper deduces an answer to
+their Question 1.58, whose monomial rate is defined by degeneration rather
+than restriction (Section 2 of the paper).
+
+Solved by two independent informal AI-agent audits of the written statement,
+proof and exact checks, both accepting the proof; the one correction
+requested, to the comparison with the convention of that question, is
+incorporated. The complete argument was also checked by coauthor Wenqi Zhu.
+Chunlin Liu, a coauthor working on entropy, reviewed the proof. The [review record](https://github.com/erenup/dicke-tensor-subrank/blob/e344c05618a8a76941fc6dc166b22ed54384f6cf/verification/reviews/README.md) contains the audit reports. A
+Lean formalization at the same revision covers only ten finite algebraic and
+combinatorial targets ([formal scope](https://github.com/erenup/dicke-tensor-subrank/blob/e344c05618a8a76941fc6dc166b22ed54384f6cf/lean/SCOPE.md)); the entropy
+inequality, the average-free sets, the hashing probabilities, the tensor form
+of the isolation step, the asymptotic statements and the slice-rank upper
+bound are proved in the written text, so the status is Solved, not Lean
+verified. The paper discloses its use of AI tools. The catalogue did not rerun
+the Lean or exact checks. The original ID, statement and historical ratings
+are retained.
+
 ### 🟠 IE-03 — Cryer's Hadamard complete-pivoting conjecture — Matias Andia
 
 **Negative solution claimed; recorded 31 October 2026.** Matias Andia
