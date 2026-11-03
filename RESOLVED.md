@@ -38,6 +38,45 @@ The passing scopes include AC-01's small-CW upper bound (also relevant to AC-04)
 
 ## Resolved catalog entries
 
+### ✅ TR-23 — a reducible asymptotic tensor-rank sublevel in order four
+
+**Solved negatively, 3 November 2026.** Wenqi Zhu (University of Oxford),
+Qiyuan Chen (Academy of Mathematics and Systems Science, Chinese Academy of
+Sciences) and Ping Nie (University of Waterloo). Theorem 1.1 (p. 1) of
+[*Asymptotic Tensor-Rank Sublevels Need Not Be Irreducible*](https://github.com/erenup/asymptotic-rank-sublevels/blob/5e35de12ef4addb8ea26486e365de00146efdfce/paper/main.pdf),
+at immutable revision `5e35de12ef4addb8ea26486e365de00146efdfce`, proves that
+over $`\mathbb C`$ the sublevel
+$`\{T\in\mathbb C^3\otimes\mathbb C^3\otimes\mathbb C^3\otimes\mathbb C^2:\widetilde R(T)\leq\sqrt[3]{62}\}`$
+is the union of two proper relatively Zariski-closed subsets (Sections 3–5);
+the asymptotic-rank bound it needs for its witness tensor is already given by
+Corollary 7.2 of Alman and Li. With the tensor rank, grouped powers and
+convention $`\widetilde R(0)=0`$ of the
+[retained TR-23 target](tensor-computations/TR-23/README.md), this one
+order-four instance refutes its assertion over all algebraically closed
+fields, orders $`k\geq3`$, formats and thresholds $`a\geq0`$. The
+counterexample does not settle the order-three question, or other fields,
+formats and thresholds, apart from the extensions below. As extensions,
+Theorem 6.5 gives at least
+$`\binom{t_n}{3}+1`$ irreducible components of the complex sublevel for every
+order $`k\geq4`$, all $`d_i\geq2`$, $`n\geq3`$ and $`B_n\leq a< n+1`$, with
+$`t_n=\#\{i:d_i\geq n\}`$ and an explicit $`n< B_n< n+1`$, and Proposition 6.6
+shows that the grouped three-mode sublevel in format $`(9,3,2)`$ is
+irreducible for $`3\leq a<4`$.
+
+Solved by independent informal AI-agent audits, two of the main theorem and
+two of the component-growth results, together with audits of the Lean
+statement and of the paper; none requested a mathematical correction. The
+complete argument was also checked by coauthor Wenqi Zhu. Qiyuan Chen, a
+coauthor, discussed the proof and agreed with it. The [review record](https://github.com/erenup/asymptotic-rank-sublevels/blob/5e35de12ef4addb8ea26486e365de00146efdfce/verification/reviews/README.md)
+contains the audit reports. A Lean formalization at the same revision covers
+only a finite certificate layer of identities and witness ranks
+([Lean guide](https://github.com/erenup/asymptotic-rank-sublevels/blob/5e35de12ef4addb8ea26486e365de00146efdfce/lean/README.md));
+asymptotic rank, the spectral and tight-support theorems, the ambient open set
+and the reducibility argument are not formalized, so the status is Solved,
+not Lean verified. The paper discloses its use of AI tools. The catalogue did
+not rerun the Lean or exact checks. The original ID, statement, status check
+and historical ratings are retained.
+
 ### ✅ TR-28 — the entropy law for the asymptotic subrank of Dicke tensors
 
 **Solved affirmatively, 2 November 2026.** Wenqi Zhu (University of Oxford),
