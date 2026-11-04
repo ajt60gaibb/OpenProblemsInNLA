@@ -227,7 +227,7 @@ Regenerate with `python3 tools/statement_inventory.py --base-ref <published-comm
 | [TR-22](../../../tensor-computations/TR-22/README.md) | Open | missing-statement | Not audited here. |
 | [TR-23](../../../tensor-computations/TR-23/README.md) | Solved | missing-statement | Not audited here. |
 | [TR-24](../../../tensor-computations/TR-24/README.md) | Open | missing-statement | Not audited here. |
-| [TR-25](../../../tensor-computations/TR-25/README.md) | Partially resolved | missing-statement | Not audited here. |
+| [TR-25](../../../tensor-computations/TR-25/README.md) | Solved | missing-statement | Not audited here. |
 | [TR-26](../../../tensor-computations/TR-26/README.md) | Solved | shared-statement-source | Not audited here. |
 | [TR-27](../../../tensor-computations/TR-27/README.md) | Lean verified | local-statement-source | Not audited here. |
 | [TR-28](../../../tensor-computations/TR-28/README.md) | Solved | missing-statement | Not audited here. |
@@ -239,6 +239,6 @@ Regenerate with `python3 tools/statement_inventory.py --base-ref <published-comm
 
 Within each status, finite explicit assertions can share basic matrix definitions. Computational, probabilistic, and algebraic-geometric targets require concrete models; uninterpreted predicates are not complete replacements for those targets.
 
-- **Solved (3):** TR-23, TR-28, TR-29.
-- **Partially resolved (59):** AC-07, AC-08, AC-09, AC-11, AC-12, AC-13, AV-03, FR-02, FR-07, FR-08, FR-09, FR-11, IE-20, IE-27, IE-28, IS-04, IS-05, KE-01, KE-02, MF-04, MF-15, MF-19, MF-20, MI-01, MI-02, MI-05, MI-08, MI-09, MI-10, MI-11, MI-12, MI-14, MI-17, MI-25, MI-30, NR-01, NR-02, PF-01, RA-01, RA-11, RA-14, RA-15, RA-17, RA-18, RE-03, SP-03, SP-08, SP-09, SP-10, TR-03, TR-05, TR-10, TR-11, TR-12, TR-18, TR-19, TR-25, TR-30, TR-31.
+- **Solved (4):** TR-23, TR-25, TR-28, TR-29.
+- **Partially resolved (58):** AC-07, AC-08, AC-09, AC-11, AC-12, AC-13, AV-03, FR-02, FR-07, FR-08, FR-09, FR-11, IE-20, IE-27, IE-28, IS-04, IS-05, KE-01, KE-02, MF-04, MF-15, MF-19, MF-20, MI-01, MI-02, MI-05, MI-08, MI-09, MI-10, MI-11, MI-12, MI-14, MI-17, MI-25, MI-30, NR-01, NR-02, PF-01, RA-01, RA-11, RA-14, RA-15, RA-17, RA-18, RE-03, SP-03, SP-08, SP-09, SP-10, TR-03, TR-05, TR-10, TR-11, TR-12, TR-18, TR-19, TR-30, TR-31.
 - **Open (34):** AC-01, AC-02, AC-03, AC-04, AC-05, AC-06, AC-10, FR-01, FR-03, FR-04, FR-06, IE-07, IE-24, IE-25, IS-01, MD-02, MD-05, MF-01, MF-09, MF-10, MF-11, MF-13, MI-20, NM-01, RA-16, RE-01, RE-02, SP-01, SP-02, SP-07, TR-09, TR-16, TR-22, TR-24.

@@ -38,6 +38,53 @@ The passing scopes include AC-01's small-CW upper bound (also relevant to AC-04)
 
 ## Resolved catalog entries
 
+### ✅ TR-25 — tensor border-rank varieties that are not Cohen–Macaulay
+
+**Solved negatively, 4 November 2026.** Wenqi Zhu (University of Oxford)
+and Ping Nie (University of Waterloo). Theorem 1.1 (p. 1) of
+[*Secant Varieties of Segre Products Need Not Be Cohen–Macaulay*](https://github.com/erenup/segre-secant-cohen-macaulay/blob/3d8b1586b4e6e7ee7164116711aced9f7a23a057/paper/main.pdf),
+at immutable revision `3d8b1586b4e6e7ee7164116711aced9f7a23a057`, proves
+that for all $`r\geq5`$, $`a,b\geq3`$, $`a+b\geq r+2`$ and $`c\geq r`$, in
+any order of the factors, the reduced affine variety $`X_r(a,b,c)`$ of tensors
+of border rank at most $`r`$ in
+$`\mathbb C^a\otimes\mathbb C^b\otimes\mathbb C^c`$ fails $`S_2`$ and has
+depth less than its dimension $`r(a+b+c-2)`$ at the homogeneous maximal
+ideal. With the reduced affine cone, coordinate ring $`S/I(X_r)`$ and
+positive-degree maximal ideal of the
+[retained TR-25 target](tensor-computations/TR-25/README.md), its case
+$`k=3`$, $`(n_1,n_2,n_3)=(3,4,5)`$, $`r=5`$, of dimension $`50`$
+(Corollary 1.2, p. 2), refutes the assertion for all orders $`k\geq3`$,
+formats and ranks; by Corollary 1.3 the projective secants are not even
+locally Cohen–Macaulay. The examples include the unit-tensor orbit closures
+$`X_r(r,r,r)`$, $`r\geq5`$, already known to be nonnormal; nonnormality alone
+does not imply failure of Cohen–Macaulayness. The counterexample does not
+settle the vertex depth, formats outside the theorem such as $`X_5(3,4,4)`$
+and $`X_5(4,4,4)`$, or ranks $`r\leq4`$. As extensions, Proposition 6.2 shows
+that $`X_5(3,3,c)`$ is Cohen–Macaulay for every $`c\geq1`$; Corollary 7.3 and
+Theorems 7.6, 7.8 and 7.9 determine normalization fibres over explicit
+witnesses; Theorem 7.10 presents the completed local ring at the rank-five
+witness, of dimension $`50`$ and depth $`49`$ in format $`3\times4\times5`$;
+and Theorems 7.12–7.14 give boundary models.
+
+Solved by independent informal AI-agent audits, two by different referees of
+each written result, together with audits of the statement and proof of each
+Lean certificate and of earlier drafts of the paper; none requested a
+mathematical correction. The
+[review record](https://github.com/erenup/segre-secant-cohen-macaulay/blob/3d8b1586b4e6e7ee7164116711aced9f7a23a057/verification/reviews/README.md)
+contains the audit reports and records their independence caveats. A Lean formalization at the same revision covers
+only two finite certificate layers, for the integer witness in format
+$`3\times3\times5`$ with its $`6\times6\times6`$ padding and in format
+$`3\times4\times5`$: tensor identities, flattening ranks, six determinant
+values and coordinate Jacobian ranks
+([Lean guide](https://github.com/erenup/segre-secant-cohen-macaulay/blob/3d8b1586b4e6e7ee7164116711aced9f7a23a057/lean/witness-666/README.md),
+[family Lean guide](https://github.com/erenup/segre-secant-cohen-macaulay/blob/3d8b1586b4e6e7ee7164116711aced9f7a23a057/lean/family-345/README.md));
+border rank, secant dimension, geometric tangent spaces, normalization, the
+conductor argument, $`S_2`$, Cohen–Macaulayness, any depth statement and the
+family for all ranks and formats are not formalized, so the status is Solved, not Lean verified. The
+paper discloses its use of AI tools. The catalogue did not rerun the Lean or
+exact checks. The original ID, statement, status check and historical ratings
+are retained.
+
 ### ✅ TR-23 — a reducible asymptotic tensor-rank sublevel in order four
 
 **Solved negatively, 3 November 2026.** Wenqi Zhu (University of Oxford),
