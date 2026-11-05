@@ -1,8 +1,8 @@
 # All problems and their status
 
-**93 problems with open targets:** 34 open and 59 partially resolved. **124 other retained entries**, excluded from the open count.
+**92 problems with open targets:** 34 open and 58 partially resolved. **125 other retained entries**, excluded from the open count.
 
-**Resolution evidence:** 38 solved (published or independently audited); 83 solved with Lean verification.
+**Resolution evidence:** 39 solved (published or independently audited); 83 solved with Lean verification.
 
 Each entry records its own literature-check date. Literature checks are bounded; ratings are editorial. “Impact” uses the canonical `Importance` field.
 
@@ -173,7 +173,6 @@ Retained entries outside the open count:
 | [TR-19](tensor-computations/TR-19/README.md) | Exact best-rank-one approximation ratios for general tensor formats | **🟡 PARTIAL** | extreme | interesting to the community | [PDF](tensor-computations/TR-19/problem.pdf) · [TeX](tensor-computations/TR-19/problem.tex) |
 | [TR-22](tensor-computations/TR-22/README.md) | Discreteness from below of asymptotic tensor rank | **🔵 OPEN** | extreme | interesting to the community | [PDF](tensor-computations/TR-22/problem.pdf) · [TeX](tensor-computations/TR-22/problem.tex) |
 | [TR-24](tensor-computations/TR-24/README.md) | Degree-five, six, and nine generation of the Salmon tensor ideal | **🔵 OPEN** | extreme | interesting to specialist | [PDF](tensor-computations/TR-24/problem.pdf) · [TeX](tensor-computations/TR-24/problem.tex) |
-| [TR-25](tensor-computations/TR-25/README.md) | Cohen–Macaulay coordinate rings for every tensor border-rank variety | **🟡 PARTIAL** | extreme | interesting to specialist | [PDF](tensor-computations/TR-25/problem.pdf) · [TeX](tensor-computations/TR-25/problem.tex) |
 | [TR-30](tensor-computations/TR-30/README.md) | Dimension of tensor loci with prescribed minimum border subrank | **🟡 PARTIAL** | challenging | interesting to specialist | [PDF](tensor-computations/TR-30/problem.pdf) · [TeX](tensor-computations/TR-30/problem.tex) |
 | [TR-31](tensor-computations/TR-31/README.md) | The four-exception conjecture for alternating tensor border-rank varieties | **🟡 PARTIAL** | extreme | interesting to specialist | [PDF](tensor-computations/TR-31/problem.pdf) · [TeX](tensor-computations/TR-31/problem.tex) |
 
@@ -190,6 +189,7 @@ Retained entries outside the open count:
 | [TR-20](tensor-computations/TR-20/README.md) | Rayleigh–Ritz discriminant degrees for rank-one matrices | **✅ SOLVED** | challenging | interesting to specialist | [PDF](tensor-computations/TR-20/problem.pdf) · [TeX](tensor-computations/TR-20/problem.tex) |
 | [TR-21](tensor-computations/TR-21/README.md) | A Seginer theorem for arbitrary independent identically distributed tensor entries | **✅ SOLVED** | challenging | interesting to the community | [PDF](tensor-computations/TR-21/problem.pdf) · [TeX](tensor-computations/TR-21/problem.tex) |
 | [TR-23](tensor-computations/TR-23/README.md) | Irreducibility of asymptotic tensor-rank sublevel varieties | **✅ SOLVED** | extreme | interesting to specialist | [PDF](tensor-computations/TR-23/problem.pdf) · [TeX](tensor-computations/TR-23/problem.tex) |
+| [TR-25](tensor-computations/TR-25/README.md) | Cohen–Macaulay coordinate rings for every tensor border-rank variety | **✅ SOLVED** | extreme | interesting to specialist | [PDF](tensor-computations/TR-25/problem.pdf) · [TeX](tensor-computations/TR-25/problem.tex) |
 | [TR-26](tensor-computations/TR-26/README.md) | Degrees of the two Rayleigh–Ritz discriminant parts for rational normal curves | **✅ SOLVED** | challenging | interesting to specialist | [PDF](tensor-computations/TR-26/problem.pdf) · [TeX](tensor-computations/TR-26/problem.tex) |
 | [TR-27](tensor-computations/TR-27/README.md) | Border-rank deficiency forcing strict submultiplicativity at the tensor square | **🏆 LEAN VERIFIED** | extreme | interesting to the community | [PDF](tensor-computations/TR-27/problem.pdf) · [TeX](tensor-computations/TR-27/problem.tex) |
 | [TR-28](tensor-computations/TR-28/README.md) | Entropy formula for the asymptotic subrank of Dicke tensors | **✅ SOLVED** | challenging | interesting to the community | [PDF](tensor-computations/TR-28/problem.pdf) · [TeX](tensor-computations/TR-28/problem.tex) |
