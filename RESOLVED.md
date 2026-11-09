@@ -160,9 +160,9 @@ verified. The paper discloses its use of AI tools. The catalogue did not rerun
 the Lean or exact checks. The original ID, statement and historical ratings
 are retained.
 
-### 🟠 IE-03 — Cryer's Hadamard complete-pivoting conjecture — Matias Andia
+### 🏆 IE-03 — Cryer's Hadamard complete-pivoting conjecture — Matias Andia
 
-**Negative solution claimed; recorded 31 October 2026.** Matias Andia
+**Negative resolution, recorded 31 October 2026.** Matias Andia
 (Princeton University), [*A Hadamard matrix with growth factor greater than
 its order*](https://zenodo.org/records/23871097), **Theorem 1** (page 1;
 Section 2, pages 1–4), gives a permuted Sylvester Hadamard matrix of order
@@ -178,13 +178,17 @@ is not claimed as proved.
 The [submission package](references/andia-ie03-2026-10-31/README.md) includes
 the manuscript source, explicit matrix, both supplied verification scripts,
 and [fresh computational logs](references/andia-ie03-2026-10-31/verification/README.md).
-Codex reran both checkers while preparing the PR. No documented independent
-full-result audit, external human peer review, or Lean verification is
-claimed. The manuscript credits extensive AI assistance, specifically
-GPT-6 Astra Pro's production of the counterexample; Matias Andia organized
-the presentation and takes responsibility for the content. The permanent
-ID, original target, and historical ratings are retained; the entry leaves
-the open count under the repository's **Solution claimed** policy.
+Codex reran both checkers when the result was recorded as **Solution claimed**.
+Matias Andia authored the manuscript and credits GPT-6 Astra Pro with finding
+the counterexample.
+
+**Lean verified — 9 November 2026.** OpenAI Codex formalized the real
+Hadamard witness, the complete order-4096 path, and its exact growth of 4608.
+`NLA.IE03.cryer_false` refutes the retained universal assertion. Both
+declarations passed independent AI-agent review, isolated Linux Comparator,
+and the default kernel with only the three standard axioms.
+[Scope, reviews and evidence](linear-systems-and-elimination/IE-03/README.md#lean-proof-and-verification-evidence)
+· [Linux run](https://github.com/ajt60gaibb/OpenProblemsInNLA/actions/runs/42710286364).
 
 ### ✅ TR-29 — exact partially symmetric rank of products of W-states
 

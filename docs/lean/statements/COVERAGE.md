@@ -48,7 +48,7 @@ Regenerate with `python3 tools/statement_inventory.py --base-ref <published-comm
 | [FR-12](../../../frames-and-matrix-designs/FR-12/README.md) | Lean verified | local-statement-source | Not audited here. |
 | [IE-01](../../../linear-systems-and-elimination/IE-01/README.md) | Lean verified | external-statement-source | Not audited here. |
 | [IE-02](../../../linear-systems-and-elimination/IE-02/README.md) | Lean verified | local-statement-source | Not audited here. |
-| [IE-03](../../../linear-systems-and-elimination/IE-03/README.md) | Solution claimed | local-statement-source | Not audited here. |
+| [IE-03](../../../linear-systems-and-elimination/IE-03/README.md) | Lean verified | local-statement-source | Not audited here. |
 | [IE-04](../../../linear-systems-and-elimination/IE-04/README.md) | Lean verified | local-statement-source | Not audited here. |
 | [IE-05](../../../linear-systems-and-elimination/IE-05/README.md) | Lean verified | local-statement-source | Not audited here. |
 | [IE-06](../../../linear-systems-and-elimination/IE-06/README.md) | Lean verified | local-statement-source | Not audited here. |

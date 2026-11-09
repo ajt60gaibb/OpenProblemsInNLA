@@ -51,3 +51,16 @@ The [local log](verification/local-build-and-axioms.log) records the macOS
 build and axiom audit. Independent final reviews cover
 [fidelity](reviews/final-fidelity.md), [correctness](reviews/final-correctness.md),
 and [reuse and attribution](reviews/final-reuse.md).
+
+
+The [isolated Linux run](https://github.com/ajt60gaibb/OpenProblemsInNLA/actions/runs/42710286364) verified both exports with the pinned
+Comparator and default kernel. The [retained evidence](verification/linux-2026-11-09/README.md)
+binds the checked inputs to the reviewed proof revision. To reproduce the
+isolated run on Ubuntu, prepare the user systemd session and Bubblewrap as in
+the [workflow](../../../.github/workflows/lean-verification.yml), then run
+from the repository root:
+
+```sh
+tools/lean/bootstrap.sh /tmp/nla-lean-tools
+tools/lean/verify.sh linear-systems-and-elimination/IE-03/lean /tmp/nla-lean-tools
+```
