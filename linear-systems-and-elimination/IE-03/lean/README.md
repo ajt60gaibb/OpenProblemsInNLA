@@ -30,7 +30,8 @@ proof consumes the source tables and checks their arithmetic independently.
 
 The project pins Lean 4.33.1, Mathlib
 `0df444a360eaa60ab8c11dca51a86af692955474`, and transitive revisions in the
-[Lake manifest](lake-manifest.json). With that toolchain available, run:
+[Lake manifest](lake-manifest.json). Reproducing the generated inputs also
+requires Python 3.10 or newer. With both available, run:
 
 ```sh
 python3 generate_checkpoints.py --check
@@ -47,5 +48,6 @@ decision proofs. The two exported declarations use `propext`,
 [Statement review A](reviews/statement-a.md) and
 [statement review B](reviews/statement-b.md) bind the mathematical boundary.
 The [local log](verification/local-build-and-axioms.log) records the macOS
-build and axiom audit. Isolated Linux Comparator and final independent
-proof review are separate gates.
+build and axiom audit. Independent final reviews cover
+[fidelity](reviews/final-fidelity.md), [correctness](reviews/final-correctness.md),
+and [reuse and attribution](reviews/final-reuse.md).
