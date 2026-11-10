@@ -34,7 +34,7 @@ conjecture},pdfauthor={Open Problems in Numerical Linear Algebra}}
 \fancyhf{}
 \fancyhead[L]{\sffamily\footnotesize\color{muted}OPEN PROBLEMS IN NUMERICAL LINEAR ALGEBRA}
 \fancyhead[R]{\sffamily\bfseries\footnotesize\color{accent}IE-03}
-\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-10-31}}
+\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Verification check: 2026-11-09}}
 \fancyfoot[R]{\sffamily\footnotesize\color{muted}\thepage}
 \renewcommand{\headrulewidth}{0.3pt}
 \renewcommand{\headrule}{\hbox to\headwidth{\color{accent}\leaders\hrule height \headrulewidth\hfill}}
@@ -51,12 +51,12 @@ Hadamard complete-pivoting conjecture\par}
 \vspace{7pt}
 {\sffamily\small\textbf{Difficulty:} extreme\quad\textbf{Importance:} interesting
 to the community\par}
-{\sffamily\small\bfseries\color{accent}Status: Solution claimed\par}
+{\sffamily\small\bfseries\color{accent}Status: Lean verified\par}
 \vspace{4pt}
 {\color{accent}\hrule height 0.8pt}
 \vspace{6pt}
-\subsection{Negative resolution claimed ---
-2026-10-31}\label{negative-resolution-claimed-2026-10-31}
+\subsection{Negative resolution ---
+2026-10-31}\label{negative-resolution-2026-10-31}
 
 Matias Andia (Princeton University),
 \href{https://zenodo.org/records/23871097}{\emph{A Hadamard matrix with
@@ -83,12 +83,40 @@ package} contains the manuscript source, explicit matrix, two supplied
 verification scripts, and
 \href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/references/andia-ie03-2026-10-31/verification/README.md}{fresh
 computational reproduction records}. Codex reran the construction and
-dense checks during PR preparation. These are computational checks, not
-a documented independent full-result audit, external human peer review,
-or Lean verification; the status is therefore \textbf{Solution claimed}.
-The author credits extensive AI assistance, specifically GPT-6 Astra
-Pro's production of the counterexample, in the manuscript's
-acknowledgements.
+dense checks during PR preparation. The catalog initially recorded the
+result as \textbf{Solution claimed}. In the manuscript's
+acknowledgements, Matias Andia credits GPT-6 Astra Pro with finding the
+counterexample.
+
+\subsection{Lean proof and verification
+evidence}\label{lean-proof-and-verification-evidence}
+
+\textbf{Lean verified --- 9 November 2026.} OpenAI Codex formalized the
+result using Lean 4.33.1 and Mathlib revision \textit{0df444a}. The
+declaration \textit{NLA.IE03.counterexample} constructs a real
+order-4096 matrix with sign entries, the Hadamard Gram identity, and a
+legal complete-pivoting path of exact growth 4608. The declaration
+\textit{NLA.IE03.cryer\_false} negates the original assertion over all
+positive orders, real Hadamard matrices, and admissible paths. The
+formalization checks all 124 local pivots and Schur updates and proves
+the four lifts that extend them to the full 4096-step path.
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/tree/89987eb5059ce5a497c18ce50c9b86f8cf394b86/linear-systems-and-elimination/IE-03/lean}{Immutable
+proof revision} ·
+\href{https://github.com/leanprover-community/mathlib4/tree/0df444a360eaa60ab8c11dca51a86af692955474}{Pinned
+Mathlib revision}.
+
+Two independent AI-agent reviews approved the exact statement before
+proof development. Three further reports approved the proof's fidelity,
+correctness, and reuse and attribution. The isolated Linux run passed
+Comparator, Lean's default kernel, and the sandbox and rejection
+controls for the reviewed proof sources. Both exports depend on
+\textit{propext}, \textit{Classical.choice}, and \textit{Quot.sound}.
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/linear-systems-and-elimination/IE-03/lean/README.md}{Reproduction
+and reviews} ·
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/linear-systems-and-elimination/IE-03/lean/verification/linux-2026-11-09/README.md}{Retained
+Linux evidence} ·
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/actions/runs/42710286364}{Linux
+run}.
 
 The original ID, mathematical target, and earlier status checks are
 retained. The difficulty, importance, and rating rationale are

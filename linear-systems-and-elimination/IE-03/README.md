@@ -6,10 +6,10 @@
 
 **Difficulty:** extreme  
 **Importance:** interesting to the community  
-**Status:** Solution claimed
-**Last checked:** 2026-10-31
+**Status:** Lean verified
+**Last checked:** 2026-11-09
 
-## Negative resolution claimed — 2026-10-31
+## Negative resolution — 2026-10-31
 
 Matias Andia (Princeton University), [*A Hadamard matrix with growth factor
 greater than its order*](https://zenodo.org/records/23871097),
@@ -33,12 +33,32 @@ Conjecture 1 remains a conjecture; no smallest-counterexample claim is made.
 The [submission package](../../references/andia-ie03-2026-10-31/README.md)
 contains the manuscript source, explicit matrix, two supplied verification
 scripts, and [fresh computational reproduction records](../../references/andia-ie03-2026-10-31/verification/README.md).
-Codex reran the construction and dense checks during PR preparation. These
-are computational checks, not a documented independent full-result audit,
-external human peer review, or Lean verification; the status is therefore
-**Solution claimed**. The author credits extensive AI assistance, specifically
-GPT-6 Astra Pro's production of the counterexample, in the manuscript's
-acknowledgements.
+Codex reran the construction and dense checks during PR preparation. The
+catalog initially recorded the result as **Solution claimed**. In the
+manuscript's acknowledgements, Matias Andia credits GPT-6 Astra Pro with
+finding the counterexample.
+
+## Lean proof and verification evidence
+
+**Lean verified — 9 November 2026.** OpenAI Codex formalized the result
+using Lean 4.33.1 and Mathlib revision `0df444a`.
+The declaration `NLA.IE03.counterexample` constructs a real order-4096 matrix
+with sign entries, the Hadamard Gram identity, and a legal complete-pivoting
+path of exact growth 4608. The declaration `NLA.IE03.cryer_false` negates
+the original assertion over all positive orders, real Hadamard
+matrices, and admissible paths. The formalization checks all 124 local pivots
+and Schur updates and proves the four lifts that extend them to the full
+4096-step path. [Immutable proof revision](https://github.com/ajt60gaibb/OpenProblemsInNLA/tree/89987eb5059ce5a497c18ce50c9b86f8cf394b86/linear-systems-and-elimination/IE-03/lean)
+· [Pinned Mathlib revision](https://github.com/leanprover-community/mathlib4/tree/0df444a360eaa60ab8c11dca51a86af692955474).
+
+Two independent AI-agent reviews approved the exact statement before proof
+development. Three further reports approved the proof's fidelity,
+correctness, and reuse and attribution. The isolated Linux run passed
+Comparator, Lean's default kernel, and the sandbox and rejection controls
+for the reviewed proof sources. Both exports depend on `propext`,
+`Classical.choice`, and `Quot.sound`. [Reproduction and reviews](lean/README.md)
+· [Retained Linux evidence](lean/verification/linux-2026-11-09/README.md)
+· [Linux run](https://github.com/ajt60gaibb/OpenProblemsInNLA/actions/runs/42710286364).
 
 The original ID, mathematical target, and earlier status checks are retained.
 The difficulty, importance, and rating rationale are historical assessments

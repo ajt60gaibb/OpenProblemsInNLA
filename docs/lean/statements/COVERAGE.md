@@ -7,8 +7,8 @@ This generated source inventory covers every permanent registered ID. It does no
 Registered entries: **217**.
 
 - external-statement-source: **6**
-- local-statement-source: **67**
-- missing-statement: **99**
+- local-statement-source: **68**
+- missing-statement: **98**
 - shared-statement-source: **45**
 
 The six existing scope gaps remain explicit even when a new shared statement is recorded. IE-01, TR-01, IV-01, MI-15, MI-18, MF-23, and MI-32 cite pinned external formalizations and are tracked separately from entries with no Lean statement. Copied historical and review projects do not count.
@@ -48,7 +48,7 @@ Regenerate with `python3 tools/statement_inventory.py --base-ref <published-comm
 | [FR-12](../../../frames-and-matrix-designs/FR-12/README.md) | Lean verified | local-statement-source | Not audited here. |
 | [IE-01](../../../linear-systems-and-elimination/IE-01/README.md) | Lean verified | external-statement-source | Not audited here. |
 | [IE-02](../../../linear-systems-and-elimination/IE-02/README.md) | Lean verified | local-statement-source | Not audited here. |
-| [IE-03](../../../linear-systems-and-elimination/IE-03/README.md) | Solution claimed | missing-statement | Not audited here. |
+| [IE-03](../../../linear-systems-and-elimination/IE-03/README.md) | Lean verified | local-statement-source | Not audited here. |
 | [IE-04](../../../linear-systems-and-elimination/IE-04/README.md) | Lean verified | local-statement-source | Not audited here. |
 | [IE-05](../../../linear-systems-and-elimination/IE-05/README.md) | Lean verified | local-statement-source | Not audited here. |
 | [IE-06](../../../linear-systems-and-elimination/IE-06/README.md) | Lean verified | local-statement-source | Not audited here. |

@@ -19,7 +19,7 @@
 | --- | --- | --- | --- | --- | --- |
 | [IE-01](IE-01/README.md) | Forsythe's conjecture beyond restart length two | **🏆 LEAN VERIFIED** | extreme | interesting to the community | [PDF](IE-01/problem.pdf) · [TeX](IE-01/problem.tex) |
 | [IE-02](IE-02/README.md) | Is the ideal GMRES bound sharp for every Jordan block? | **🏆 LEAN VERIFIED** | challenging | interesting to specialist | [PDF](IE-02/problem.pdf) · [TeX](IE-02/problem.tex) |
-| [IE-03](IE-03/README.md) | Cryer's Hadamard complete-pivoting conjecture | **🟠 SOLUTION CLAIMED** | extreme | interesting to the community | [PDF](IE-03/problem.pdf) · [TeX](IE-03/problem.tex) |
+| [IE-03](IE-03/README.md) | Cryer's Hadamard complete-pivoting conjecture | **🏆 LEAN VERIFIED** | extreme | interesting to the community | [PDF](IE-03/problem.pdf) · [TeX](IE-03/problem.tex) |
 | [IE-04](IE-04/README.md) | Exponential smoothed tail bounds for partial pivoting | **🏆 LEAN VERIFIED** | extreme | broadly interesting | [PDF](IE-04/problem.pdf) · [TeX](IE-04/problem.tex) |
 | [IE-05](IE-05/README.md) | Exact extremizers for partial pivoting on orthogonal matrices | **🏆 LEAN VERIFIED** | challenging | interesting to specialist | [PDF](IE-05/problem.pdf) · [TeX](IE-05/problem.tex) |
 | [IE-06](IE-06/README.md) | The square-root upper bound for Gaussian partial-pivoting growth | **🏆 LEAN VERIFIED** | challenging | interesting to the community | [PDF](IE-06/problem.pdf) · [TeX](IE-06/problem.tex) |
