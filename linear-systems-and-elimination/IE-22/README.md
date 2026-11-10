@@ -6,8 +6,8 @@
 
 **Difficulty:** challenging  
 **Importance:** interesting to the community  
-**Status:** Solved
-**Last checked:** 2026-09-11
+**Status:** Lean verified
+**Last checked:** 2026-11-10
 
 <!-- colbrook-recovered -->
 ## Independently reviewed resolution - 2026-09-11
@@ -21,9 +21,14 @@ The difficulty, importance and rating rationale below are historical assessments
 
 **Rating rationale:** Challenging reflects an optimal uniform extremum over matrices and deleted row sets; community impact is a sharp robustness limit for row-sampling methods.
 
-## Lean formalization scaffold
+## Lean proof and verification evidence
 
-The repository retains the approved statement boundary and current supporting Lean work in [`lean/`](lean/), including [`Challenge.lean`](lean/Challenge.lean) and [`Solution.lean`](lean/Solution.lean). This is an **unverified, incomplete formalization**; the existing mathematical status and resolution above are unchanged. See [`lean/README.md`](lean/README.md) for scope, blockers, pinned metadata, and review records.
+**Lean verified.** The formalization proves the optimal eventual uniform row-deletion constant and shows that every smaller real constant fails. It also gives the squared upper bound for every positive row count and near-sharp unit-row matrix witnesses beyond every dimension and aspect-ratio threshold.
+
+The independent reviews and isolated Linux checks cover the full original
+target in Lean 4.33.1. The proof uses the standard three axioms.
+[Immutable proof and dependency pins](https://github.com/ajt60gaibb/OpenProblemsInNLA/tree/ccc7864f5034cf7c4602f7577ceaf083ebf63d52/linear-systems-and-elimination/IE-22/lean)
+· [Reviews, reproduction, and verification logs](../../docs/lean/proofs/IE-22/main-promotion/README.md).
 
 ## Problem statement
 

@@ -1,0 +1,58 @@
+version: v0.4
+project:
+  name: 'IE-22 Lean formalization scaffold'
+  description: 'Statement-first formalization of the complete uniform row-deletion target; supporting lemmas only.'
+  authors:
+  - Matthew J. Colbrook
+  responsible_maintainers:
+  - OpenProblemsInNLA formalization team
+  license: Apache-2.0
+repository:
+  role: substantive-development
+sources:
+- title: 'IE-22 problem statement and independently reviewed resolution'
+  id: https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/aa8d010bdd5a/linear-systems-and-elimination/IE-22/README.md
+  type: web-post
+  relationship: formalizes
+  note: 'Canonical source snapshot recorded in SPEC.md.'
+- title: 'IE-21/IE-22 resolution manuscript'
+  type: manuscript
+  location: '04_twenty_problem_resolutions/main.tex, sec:rows'
+  relationship: formalizes
+automation:
+  methods:
+  - method: agent
+    framework: OpenAI Codex
+    tool_setup: Pinned Lean 4.33.1, Mathlib and LeanCert revisions are recorded in lakefile.toml.
+    prompting_notes: The full Challenge target is isolated from the supporting Solution lemmas.
+toolchain:
+  lean: leanprover/lean4:v4.33.1
+  mathlib: 0df444a360eaa60ab8c11dca51a86af692955474
+  leancert: 621a43d7cf21f87872392a01e874f2f1dbddc926
+  dependency_manifest: lake-manifest.json
+status:
+  scope: 'Challenge.lean records the full uniform row-deletion theorem; Solution.lean proves only l2Sq_zero and rowEnergy_empty.'
+  whole_problem_verified: false
+  canonical_status: 'not Lean verified'
+  sorry_count: 0
+  sorry_in_definitions: 0
+  axioms:
+  - propext
+  - Classical.choice
+  - Quot.sound
+  main_results:
+  - declaration: IE22.l2Sq_zero
+    file: Solution.lean
+    sorry_count: 0
+    axioms: [propext, Classical.choice, Quot.sound]
+    comparator_config: comparator.json
+  - declaration: IE22.rowEnergy_empty
+    file: Solution.lean
+    sorry_count: 0
+    axioms: [propext, Classical.choice, Quot.sound]
+    comparator_config: comparator.json
+fidelity:
+  divergences: 'The complete probability infrastructure for uniform sphere laws and varying-dimensional convergence remains an explicit blocker; the full target is retained in Challenge.lean.'
+review:
+  status: 'AI statement-reviewed; proof-blocked'
+  notes: 'Independent proof and Comparator verification remain pending.'
