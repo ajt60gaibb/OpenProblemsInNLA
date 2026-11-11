@@ -1,0 +1,7 @@
+# Independent character-fiber contribution review
+
+Reviewer: root, nonauthor of these two modules; author of the imported FiniteCharacters result, separately reviewed by agent2. APPROVE FiniteCharacterFiber.lean SHA256 `704c590297c82d6bfa71e4a653aebcf1a8c67ca0ae958ed4353d7a70635a7f4d`, definitions `b67e6771906fcd9baf8b0fdbadf79782ab09173931397808b6ba86c733de5410` exactly matching the approved boundary.
+
+Read the full implementation. The quotient correspondence proves the actual prescribed precomposition map lands in the character fiber using r minus its scalar value, proves injectivity by quotient-surjectivity, and constructs the inverse using the full extended kernel ideal. It works over the approved arbitrary commutative base. Finite characters transfer through the actual BijOn; the finite-type quotient theorem retains nilpotents. Module finiteness under the compatible R action then supplies the correctly identified weak quasi-finite quotient, where kernel-under equality is explicitly proved. The finite-type public theorem upgrades to genuine QuasiFiniteAt, and the final statement uses an actual selected fiber character and domain zero prime to generalize. Nonemptiness is not omitted.
+
+Fresh copied-source rerun passed with exit0, no warnings, standard-three closures and all three LeanCert kernel assertions. Dependencies use pinned prebuilt caches; authored supporting-dependency role disclosed. No tensor-source application, analytic regularity, Linux Comparator or complete-target proof is claimed.

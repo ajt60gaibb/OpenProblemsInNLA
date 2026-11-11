@@ -1,0 +1,7 @@
+# Independent pre-proof review: finite-generator character bound
+
+Reviewer: /root/tr06_statement_referee_1, AI agent, nonauthor. Date: 2026-09-24. Reviewed plan SHA256 `63a825db06cab6e0e33287033605861bf1dc1d6311224b553804bd4310c93d7d` at /private/tmp/tr06-proof-root/ALGEBRA_FIBER_PLAN.md.
+
+Verdict: APPROVE the exact proposed auxiliary statement. An R-module generating family of N elements determines every R-linear map A→K by its values on those elements. Scalar multiplication in K makes the evaluation map K-linear; its injectivity uses the span hypothesis, not freeness. Artin independence of distinct unital R-algebra homomorphisms gives K-linear independence of their images under evaluation. Finite dimension of K^N then bounds the cardinality by N. No field structure on R or A, no separability, and no injectivity of R→K are needed. For N=0 the source module is trivial; there can be no unital algebra homomorphism to the nontrivial field K, consistent with the same argument and bound zero.
+
+This is uniform for each chosen R-algebra structure on K because N and its generating family are independent of that structure. It is only a character bound, not a fiber identification or a generic-finiteness theorem. Source coordinates, finite envelopes, compactness, tangent/Jacobian and real/complex bridges remain separate. This is mathematical boundary approval before implementation, not a proof or kernel check.
