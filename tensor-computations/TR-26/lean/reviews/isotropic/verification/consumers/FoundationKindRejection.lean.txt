@@ -1,0 +1,17 @@
+import NLA.Statements.TR26
+open Lean Elab Command
+elab "#review_theorem " target:ident : command => do
+  let name ← liftCoreM <| realizeGlobalConstNoOverloadWithInfo target
+  match ← liftCoreM <| getConstInfo name with
+  | .thmInfo _ => pure ()
+  | _ => throwError "review requires an actual theorem: {name}"
+elab "#review_definition " target:ident : command => do
+  let name ← liftCoreM <| realizeGlobalConstNoOverloadWithInfo target
+  match ← liftCoreM <| getConstInfo name with
+  | .defnInfo _ => pure ()
+  | _ => throwError "review requires an actual definition: {name}"
+elab "#review_absent " target:ident : command => do
+  if (← getEnv).contains target.getId then
+    throwError "support scope unexpectedly contains {target.getId}"
+def FoundationFakeTheorem : True := True.intro
+#review_theorem FoundationFakeTheorem

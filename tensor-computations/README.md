@@ -33,7 +33,7 @@
 | [TR-21](TR-21/README.md) | A Seginer theorem for arbitrary independent identically distributed tensor entries | **✅ SOLVED** | challenging | interesting to the community | [PDF](TR-21/problem.pdf) · [TeX](TR-21/problem.tex) |
 | [TR-23](TR-23/README.md) | Irreducibility of asymptotic tensor-rank sublevel varieties | **✅ SOLVED** | extreme | interesting to specialist | [PDF](TR-23/problem.pdf) · [TeX](TR-23/problem.tex) |
 | [TR-25](TR-25/README.md) | Cohen–Macaulay coordinate rings for every tensor border-rank variety | **✅ SOLVED** | extreme | interesting to specialist | [PDF](TR-25/problem.pdf) · [TeX](TR-25/problem.tex) |
-| [TR-26](TR-26/README.md) | Degrees of the two Rayleigh–Ritz discriminant parts for rational normal curves | **✅ SOLVED** | challenging | interesting to specialist | [PDF](TR-26/problem.pdf) · [TeX](TR-26/problem.tex) |
+| [TR-26](TR-26/README.md) | Degrees of the two Rayleigh–Ritz discriminant parts for rational normal curves | **🏆 LEAN VERIFIED** | challenging | interesting to specialist | [PDF](TR-26/problem.pdf) · [TeX](TR-26/problem.tex) |
 | [TR-27](TR-27/README.md) | Border-rank deficiency forcing strict submultiplicativity at the tensor square | **🏆 LEAN VERIFIED** | extreme | interesting to the community | [PDF](TR-27/problem.pdf) · [TeX](TR-27/problem.tex) |
 | [TR-28](TR-28/README.md) | Entropy formula for the asymptotic subrank of Dicke tensors | **✅ SOLVED** | challenging | interesting to the community | [PDF](TR-28/problem.pdf) · [TeX](TR-28/problem.tex) |
 | [TR-29](TR-29/README.md) | Exact partially symmetric rank of products of generalized W tensors | **✅ SOLVED** | challenging | interesting to specialist | [PDF](TR-29/problem.pdf) · [TeX](TR-29/problem.tex) |

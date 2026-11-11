@@ -75,7 +75,7 @@ def restore_pdf_layout(identifier, body):
     if identifier == "MF-23":
         # Keep the resolution notice and retained original target on separate pages.
         body = body.replace("## Context and notation\n", "\\newpage\n\n## Context and notation\n", 1)
-    if identifier in {"RA-12", "RA-13"}:
+    if identifier in {"RA-12", "RA-13", "TR-26"}:
         heading = "## Problem statement\n"
         body = body.replace(heading, "\\newpage\n\n" + heading, 1)
     if identifier == "IE-18":
@@ -130,7 +130,7 @@ def render(source):
             tex = tex.replace(r"\subsection{Resolution", "\\newpage\n" + r"\subsection{Resolution", 1)
         if identifier == "TR-27":
             tex = tex.replace("headheight=15pt", "headheight=20pt")
-        if identifier in {"IE-02", "IE-03", "IE-04", "IE-06", "IE-14", "IV-01", "IV-03", "KE-05", "MF-05", "MF-12", "MF-18", "MF-21", "MF-22", "MI-15", "MI-18", "MI-24", "MI-27", "MI-28", "NM-04", "NR-04", "PF-03", "PF-05", "SP-04", "SP-05", "SP-11", "SP-12", "SP-15", "TR-07", "TR-14", "TR-27", "IE-22"}:
+        if identifier in {"IE-02", "IE-03", "IE-04", "IE-06", "IE-14", "IV-01", "IV-03", "KE-05", "MF-05", "MF-12", "MF-18", "MF-21", "MF-22", "MI-15", "MI-18", "MI-24", "MI-27", "MI-28", "NM-04", "NR-04", "PF-03", "PF-05", "SP-04", "SP-05", "SP-11", "SP-12", "SP-15", "TR-07", "TR-14", "TR-27", "IE-22", "TR-26"}:
             # These publication dates record formal verification, not a literature search.
             tex = tex.replace("Literature check:", "Verification check:")
         # The code spans in this catalog are literal search phrases. Set them
@@ -150,7 +150,7 @@ def render(source):
             'RA-02', 'RA-06', 'RA-08', 'RA-09', 'RA-10', 'RA-12',
             'RE-01', 'RE-02', 'RE-06', 'SP-04',
             'SP-05', 'SP-06', 'SP-09', 'SP-12', 'TR-11', 'TR-20', 'TR-21',
-            'TR-24', 'TR-26', 'TR-30',
+            'TR-24', 'TR-30',
             'IE-27', 'MI-30', 'MI-31',
         }:
             tex = re.sub(r"\\subsection\{References?(?:\s+and\s+status\s+check)?\}",

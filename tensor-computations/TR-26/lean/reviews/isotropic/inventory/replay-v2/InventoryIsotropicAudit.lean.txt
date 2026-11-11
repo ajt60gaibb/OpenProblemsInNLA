@@ -1,0 +1,702 @@
+import NLA.Proofs.TR26.AnalyticConormal
+import NLA.Proofs.TR26.BinaryDefinitions
+import NLA.Proofs.TR26.BinaryScaling
+import NLA.Proofs.TR26.ChartIncidence
+import NLA.Proofs.TR26.CommonRootWronskian
+import NLA.Proofs.TR26.ConormalLemmas
+import NLA.Proofs.TR26.CurveEquations
+import NLA.Proofs.TR26.CurveNormalRank
+import NLA.Proofs.TR26.Denominator
+import NLA.Proofs.TR26.FamilyDiscriminant
+import NLA.Proofs.TR26.FamilyDiscriminantEvaluation
+import NLA.Proofs.TR26.FixedDiscriminant
+import NLA.Proofs.TR26.FixedDiscriminantBinary
+import NLA.Proofs.TR26.FixedDiscriminantNonzero
+import NLA.Proofs.TR26.FixedDiscriminantResultant
+import NLA.Proofs.TR26.FixedDiscriminantRoots
+import NLA.Proofs.TR26.FixedDiscriminantSpecialization
+import NLA.Proofs.TR26.IncidenceIdeal
+import NLA.Proofs.TR26.IncidenceScaling
+import NLA.Proofs.TR26.IsotropicDivisibility
+import NLA.Proofs.TR26.IsotropicFactor
+import NLA.Proofs.TR26.IsotropicFamilyFactor
+import NLA.Proofs.TR26.LinearCriticalGraph
+import NLA.Proofs.TR26.LocalConormal
+import NLA.Proofs.TR26.Numerator
+import NLA.Proofs.TR26.TangentRank
+import NLA.Proofs.TR26.Wronskian
+import NLA.Proofs.TR26.WronskianLinear
+import NLA.Proofs.TR26.WronskianCharts
+import NLA.Proofs.TR26.CriticalEquation
+import NLA.Proofs.TR26.IsotropicChartCover
+import NLA.Proofs.TR26.IsotropicImageContainment
+import NLA.Proofs.TR26.IsotropicDegree
+import NLA.Statements.Infrastructure
+import NLA.Statements.TR26
+import Reviewed.TR26
+set_option autoImplicit false
+set_option leancert.trust "kernel"
+open Lean Elab Command in
+elab "#assert_proof_constant " n:ident : command => do
+  let decl ← liftCoreM <| realizeGlobalConstNoOverloadWithInfo n
+  match (← getEnv).find? decl with
+  | some (.thmInfo _) => pure ()
+  | _ => throwErrorAt n "expected a proved theorem constant"
+#assert_proof_constant NLA.Proofs.TR26.hasDerivAt_eval_curve
+#assert_trust kernel NLA.Proofs.TR26.hasDerivAt_eval_curve
+#print axioms NLA.Proofs.TR26.hasDerivAt_eval_curve
+#assert_proof_constant NLA.Proofs.TR26.continuousAt_zero_of_polynomial_exclusion
+#assert_trust kernel NLA.Proofs.TR26.continuousAt_zero_of_polynomial_exclusion
+#print axioms NLA.Proofs.TR26.continuousAt_zero_of_polynomial_exclusion
+#assert_proof_constant NLA.Proofs.TR26.continuousOn_zero_of_polynomial_exclusion
+#assert_trust kernel NLA.Proofs.TR26.continuousOn_zero_of_polynomial_exclusion
+#print axioms NLA.Proofs.TR26.continuousOn_zero_of_polynomial_exclusion
+#assert_proof_constant NLA.Proofs.TR26.eventually_zero_of_polynomial_exclusion
+#assert_trust kernel NLA.Proofs.TR26.eventually_zero_of_polynomial_exclusion
+#print axioms NLA.Proofs.TR26.eventually_zero_of_polynomial_exclusion
+#assert_proof_constant NLA.Proofs.TR26.idealConormal_annihilates_curve
+#assert_trust kernel NLA.Proofs.TR26.idealConormal_annihilates_curve
+#print axioms NLA.Proofs.TR26.idealConormal_annihilates_curve
+#assert_proof_constant NLA.Proofs.TR26.idealConormal_annihilates_curve_excluding_polynomial
+#assert_trust kernel NLA.Proofs.TR26.idealConormal_annihilates_curve_excluding_polynomial
+#print axioms NLA.Proofs.TR26.idealConormal_annihilates_curve_excluding_polynomial
+#assert_proof_constant NLA.Proofs.TR26.coordinateEntry_eq
+#assert_trust kernel NLA.Proofs.TR26.coordinateEntry_eq
+#print axioms NLA.Proofs.TR26.coordinateEntry_eq
+#assert_proof_constant NLA.Proofs.TR26.binaryVeronese_eval
+#assert_trust kernel NLA.Proofs.TR26.binaryVeronese_eval
+#print axioms NLA.Proofs.TR26.binaryVeronese_eval
+#assert_proof_constant NLA.Proofs.TR26.binaryDenominator_eval
+#assert_trust kernel NLA.Proofs.TR26.binaryDenominator_eval
+#print axioms NLA.Proofs.TR26.binaryDenominator_eval
+#assert_proof_constant NLA.Proofs.TR26.binaryNumerator_eval
+#assert_trust kernel NLA.Proofs.TR26.binaryNumerator_eval
+#print axioms NLA.Proofs.TR26.binaryNumerator_eval
+#assert_proof_constant NLA.Proofs.TR26.binaryEval_homogeneous_smul
+#assert_trust kernel NLA.Proofs.TR26.binaryEval_homogeneous_smul
+#print axioms NLA.Proofs.TR26.binaryEval_homogeneous_smul
+#assert_proof_constant NLA.Proofs.TR26.binaryEval_homogeneous_zero
+#assert_trust kernel NLA.Proofs.TR26.binaryEval_homogeneous_zero
+#print axioms NLA.Proofs.TR26.binaryEval_homogeneous_zero
+#assert_proof_constant NLA.Proofs.TR26.binaryEval_affine_ratio
+#assert_trust kernel NLA.Proofs.TR26.binaryEval_affine_ratio
+#print axioms NLA.Proofs.TR26.binaryEval_affine_ratio
+#assert_proof_constant NLA.Proofs.TR26.binaryEval_reverse_ratio
+#assert_trust kernel NLA.Proofs.TR26.binaryEval_reverse_ratio
+#print axioms NLA.Proofs.TR26.binaryEval_reverse_ratio
+#assert_proof_constant NLA.Proofs.TR26.incidenceCoordinates_continuousAt
+#assert_trust kernel NLA.Proofs.TR26.incidenceCoordinates_continuousAt
+#print axioms NLA.Proofs.TR26.incidenceCoordinates_continuousAt
+#assert_proof_constant NLA.Proofs.TR26.chart_incidence_of_root
+#assert_trust kernel NLA.Proofs.TR26.chart_incidence_of_root
+#print axioms NLA.Proofs.TR26.chart_incidence_of_root
+#assert_proof_constant NLA.Proofs.TR26.chart_jacobian_annihilates_of_double_root
+#assert_trust kernel NLA.Proofs.TR26.chart_jacobian_annihilates_of_double_root
+#print axioms NLA.Proofs.TR26.chart_jacobian_annihilates_of_double_root
+#assert_proof_constant NLA.Proofs.TR26.chart_ramification_of_double_root
+#assert_trust kernel NLA.Proofs.TR26.chart_ramification_of_double_root
+#print axioms NLA.Proofs.TR26.chart_ramification_of_double_root
+#assert_proof_constant NLA.Proofs.TR26.binary_euler_eval_one
+#assert_trust kernel NLA.Proofs.TR26.binary_euler_eval_one
+#print axioms NLA.Proofs.TR26.binary_euler_eval_one
+#assert_proof_constant NLA.Proofs.TR26.binary_mixed_partials_comm
+#assert_trust kernel NLA.Proofs.TR26.binary_mixed_partials_comm
+#print axioms NLA.Proofs.TR26.binary_mixed_partials_comm
+#assert_proof_constant NLA.Proofs.TR26.binaryJacobian_homogeneous
+#assert_trust kernel NLA.Proofs.TR26.binaryJacobian_homogeneous
+#print axioms NLA.Proofs.TR26.binaryJacobian_homogeneous
+#assert_proof_constant NLA.Proofs.TR26.binaryJacobian_double_root_of_common_root
+#assert_trust kernel NLA.Proofs.TR26.binaryJacobian_double_root_of_common_root
+#print axioms NLA.Proofs.TR26.binaryJacobian_double_root_of_common_root
+#assert_proof_constant NLA.Proofs.TR26.partialGradient_zero
+#assert_trust kernel NLA.Proofs.TR26.partialGradient_zero
+#print axioms NLA.Proofs.TR26.partialGradient_zero
+#assert_proof_constant NLA.Proofs.TR26.partialGradient_add
+#assert_trust kernel NLA.Proofs.TR26.partialGradient_add
+#print axioms NLA.Proofs.TR26.partialGradient_add
+#assert_proof_constant NLA.Proofs.TR26.partialGradient_mul
+#assert_trust kernel NLA.Proofs.TR26.partialGradient_mul
+#print axioms NLA.Proofs.TR26.partialGradient_mul
+#assert_proof_constant NLA.Proofs.TR26.gradient_mem_conormal
+#assert_trust kernel NLA.Proofs.TR26.gradient_mem_conormal
+#print axioms NLA.Proofs.TR26.gradient_mem_conormal
+#assert_proof_constant NLA.Proofs.TR26.idealConormal_mono
+#assert_trust kernel NLA.Proofs.TR26.idealConormal_mono
+#print axioms NLA.Proofs.TR26.idealConormal_mono
+#assert_proof_constant NLA.Proofs.TR26.idealConormal_span
+#assert_trust kernel NLA.Proofs.TR26.idealConormal_span
+#print axioms NLA.Proofs.TR26.idealConormal_span
+#assert_proof_constant NLA.Proofs.TR26.gradient_mul_at_zero
+#assert_trust kernel NLA.Proofs.TR26.gradient_mul_at_zero
+#print axioms NLA.Proofs.TR26.gradient_mul_at_zero
+#assert_proof_constant NLA.Proofs.TR26.gradient_mem_iff_mul_at_zero
+#assert_trust kernel NLA.Proofs.TR26.gradient_mem_iff_mul_at_zero
+#print axioms NLA.Proofs.TR26.gradient_mem_iff_mul_at_zero
+#assert_proof_constant NLA.Proofs.TR26.affineCurveEquation_eval
+#assert_trust kernel NLA.Proofs.TR26.affineCurveEquation_eval
+#print axioms NLA.Proofs.TR26.affineCurveEquation_eval
+#assert_proof_constant NLA.Proofs.TR26.affineCurveEquation_vanishes_onCurve
+#assert_trust kernel NLA.Proofs.TR26.affineCurveEquation_vanishes_onCurve
+#print axioms NLA.Proofs.TR26.affineCurveEquation_vanishes_onCurve
+#assert_proof_constant NLA.Proofs.TR26.affineCurveEquation_mem_openVanishingIdeal
+#assert_trust kernel NLA.Proofs.TR26.affineCurveEquation_mem_openVanishingIdeal
+#print axioms NLA.Proofs.TR26.affineCurveEquation_mem_openVanishingIdeal
+#assert_proof_constant NLA.Proofs.TR26.normalCurveIndex_injective
+#assert_trust kernel NLA.Proofs.TR26.normalCurveIndex_injective
+#print axioms NLA.Proofs.TR26.normalCurveIndex_injective
+#assert_proof_constant NLA.Proofs.TR26.partialGradient_affineCurveEquation_tail
+#assert_trust kernel NLA.Proofs.TR26.partialGradient_affineCurveEquation_tail
+#print axioms NLA.Proofs.TR26.partialGradient_affineCurveEquation_tail
+#assert_proof_constant NLA.Proofs.TR26.affineNormalVector_tail
+#assert_trust kernel NLA.Proofs.TR26.affineNormalVector_tail
+#print axioms NLA.Proofs.TR26.affineNormalVector_tail
+#assert_proof_constant NLA.Proofs.TR26.affineNormalVectors_independent
+#assert_trust kernel NLA.Proofs.TR26.affineNormalVectors_independent
+#print axioms NLA.Proofs.TR26.affineNormalVectors_independent
+#assert_proof_constant NLA.Proofs.TR26.affineNormalVector_mem_jacobianSpace
+#assert_trust kernel NLA.Proofs.TR26.affineNormalVector_mem_jacobianSpace
+#print axioms NLA.Proofs.TR26.affineNormalVector_mem_jacobianSpace
+#assert_proof_constant NLA.Proofs.TR26.affineCurve_jacobian_rank_lower
+#assert_trust kernel NLA.Proofs.TR26.affineCurve_jacobian_rank_lower
+#print axioms NLA.Proofs.TR26.affineCurve_jacobian_rank_lower
+#assert_proof_constant NLA.Proofs.TR26.affineDenominatorOver_zero
+#assert_trust kernel NLA.Proofs.TR26.affineDenominatorOver_zero
+#print axioms NLA.Proofs.TR26.affineDenominatorOver_zero
+#assert_proof_constant NLA.Proofs.TR26.affineDenominatorOver_succ
+#assert_trust kernel NLA.Proofs.TR26.affineDenominatorOver_succ
+#print axioms NLA.Proofs.TR26.affineDenominatorOver_succ
+#assert_proof_constant NLA.Proofs.TR26.affineDenominatorOver_isMonicOfDegree
+#assert_trust kernel NLA.Proofs.TR26.affineDenominatorOver_isMonicOfDegree
+#print axioms NLA.Proofs.TR26.affineDenominatorOver_isMonicOfDegree
+#assert_proof_constant NLA.Proofs.TR26.affineDenominator_natDegree
+#assert_trust kernel NLA.Proofs.TR26.affineDenominator_natDegree
+#print axioms NLA.Proofs.TR26.affineDenominator_natDegree
+#assert_proof_constant NLA.Proofs.TR26.affineDenominator_monic
+#assert_trust kernel NLA.Proofs.TR26.affineDenominator_monic
+#print axioms NLA.Proofs.TR26.affineDenominator_monic
+#assert_proof_constant NLA.Proofs.TR26.affineDenominator_ne_zero
+#assert_trust kernel NLA.Proofs.TR26.affineDenominator_ne_zero
+#print axioms NLA.Proofs.TR26.affineDenominator_ne_zero
+#assert_proof_constant NLA.Proofs.TR26.affineDenominatorOver_factor
+#assert_trust kernel NLA.Proofs.TR26.affineDenominatorOver_factor
+#print axioms NLA.Proofs.TR26.affineDenominatorOver_factor
+#assert_proof_constant NLA.Proofs.TR26.affineDenominator_separable
+#assert_trust kernel NLA.Proofs.TR26.affineDenominator_separable
+#print axioms NLA.Proofs.TR26.affineDenominator_separable
+#assert_proof_constant NLA.Proofs.TR26.affineDenominator_eval_zero
+#assert_trust kernel NLA.Proofs.TR26.affineDenominator_eval_zero
+#print axioms NLA.Proofs.TR26.affineDenominator_eval_zero
+#assert_proof_constant NLA.Proofs.TR26.affineDenominator_eval_one
+#assert_trust kernel NLA.Proofs.TR26.affineDenominator_eval_one
+#print axioms NLA.Proofs.TR26.affineDenominator_eval_one
+#assert_proof_constant NLA.Proofs.TR26.affineDenominator_eval_neg_one
+#assert_trust kernel NLA.Proofs.TR26.affineDenominator_eval_neg_one
+#print axioms NLA.Proofs.TR26.affineDenominator_eval_neg_one
+#assert_proof_constant NLA.Proofs.TR26.mem_denominatorRoots_iff
+#assert_trust kernel NLA.Proofs.TR26.mem_denominatorRoots_iff
+#print axioms NLA.Proofs.TR26.mem_denominatorRoots_iff
+#assert_proof_constant NLA.Proofs.TR26.denominatorRoots_card
+#assert_trust kernel NLA.Proofs.TR26.denominatorRoots_card
+#print axioms NLA.Proofs.TR26.denominatorRoots_card
+#assert_proof_constant NLA.Proofs.TR26.denominator_root_nonzero
+#assert_trust kernel NLA.Proofs.TR26.denominator_root_nonzero
+#print axioms NLA.Proofs.TR26.denominator_root_nonzero
+#assert_proof_constant NLA.Proofs.TR26.denominator_derivative_at_root_ne_zero
+#assert_trust kernel NLA.Proofs.TR26.denominator_derivative_at_root_ne_zero
+#print axioms NLA.Proofs.TR26.denominator_derivative_at_root_ne_zero
+#assert_proof_constant NLA.Proofs.TR26.binaryDenominator_eval_zero_one
+#assert_trust kernel NLA.Proofs.TR26.binaryDenominator_eval_zero_one
+#print axioms NLA.Proofs.TR26.binaryDenominator_eval_zero_one
+#assert_proof_constant NLA.Proofs.TR26.CoefficientsHomogeneous.C
+#assert_trust kernel NLA.Proofs.TR26.CoefficientsHomogeneous.C
+#print axioms NLA.Proofs.TR26.CoefficientsHomogeneous.C
+#assert_proof_constant NLA.Proofs.TR26.CoefficientsHomogeneous.X
+#assert_trust kernel NLA.Proofs.TR26.CoefficientsHomogeneous.X
+#print axioms NLA.Proofs.TR26.CoefficientsHomogeneous.X
+#assert_proof_constant NLA.Proofs.TR26.CoefficientsHomogeneous.mul
+#assert_trust kernel NLA.Proofs.TR26.CoefficientsHomogeneous.mul
+#print axioms NLA.Proofs.TR26.CoefficientsHomogeneous.mul
+#assert_proof_constant NLA.Proofs.TR26.CoefficientsHomogeneous.sub
+#assert_trust kernel NLA.Proofs.TR26.CoefficientsHomogeneous.sub
+#print axioms NLA.Proofs.TR26.CoefficientsHomogeneous.sub
+#assert_proof_constant NLA.Proofs.TR26.CoefficientsHomogeneous.sum
+#assert_trust kernel NLA.Proofs.TR26.CoefficientsHomogeneous.sum
+#print axioms NLA.Proofs.TR26.CoefficientsHomogeneous.sum
+#assert_proof_constant NLA.Proofs.TR26.CoefficientsHomogeneous.pow_zero_degree
+#assert_trust kernel NLA.Proofs.TR26.CoefficientsHomogeneous.pow_zero_degree
+#print axioms NLA.Proofs.TR26.CoefficientsHomogeneous.pow_zero_degree
+#assert_proof_constant NLA.Proofs.TR26.CoefficientsHomogeneous.pderiv
+#assert_trust kernel NLA.Proofs.TR26.CoefficientsHomogeneous.pderiv
+#print axioms NLA.Proofs.TR26.CoefficientsHomogeneous.pderiv
+#assert_proof_constant NLA.Proofs.TR26.binaryVeronese_coefficientsHomogeneous
+#assert_trust kernel NLA.Proofs.TR26.binaryVeronese_coefficientsHomogeneous
+#print axioms NLA.Proofs.TR26.binaryVeronese_coefficientsHomogeneous
+#assert_proof_constant NLA.Proofs.TR26.binaryDenominator_coefficientsHomogeneous
+#assert_trust kernel NLA.Proofs.TR26.binaryDenominator_coefficientsHomogeneous
+#print axioms NLA.Proofs.TR26.binaryDenominator_coefficientsHomogeneous
+#assert_proof_constant NLA.Proofs.TR26.binaryNumerator_coefficientsHomogeneous
+#assert_trust kernel NLA.Proofs.TR26.binaryNumerator_coefficientsHomogeneous
+#print axioms NLA.Proofs.TR26.binaryNumerator_coefficientsHomogeneous
+#assert_proof_constant NLA.Proofs.TR26.binaryWronskian_coefficientsHomogeneous
+#assert_trust kernel NLA.Proofs.TR26.binaryWronskian_coefficientsHomogeneous
+#print axioms NLA.Proofs.TR26.binaryWronskian_coefficientsHomogeneous
+#assert_proof_constant NLA.Proofs.TR26.wronskian_family_coefficient_homogeneous
+#assert_trust kernel NLA.Proofs.TR26.wronskian_family_coefficient_homogeneous
+#print axioms NLA.Proofs.TR26.wronskian_family_coefficient_homogeneous
+#assert_proof_constant NLA.Proofs.TR26.wronskianFamilyDiscriminant_homogeneous
+#assert_trust kernel NLA.Proofs.TR26.wronskianFamilyDiscriminant_homogeneous
+#print axioms NLA.Proofs.TR26.wronskianFamilyDiscriminant_homogeneous
+#assert_proof_constant NLA.Proofs.TR26.eval_coordinateEntry
+#assert_trust kernel NLA.Proofs.TR26.eval_coordinateEntry
+#print axioms NLA.Proofs.TR26.eval_coordinateEntry
+#assert_proof_constant NLA.Proofs.TR26.map_binaryVeroneseOver
+#assert_trust kernel NLA.Proofs.TR26.map_binaryVeroneseOver
+#print axioms NLA.Proofs.TR26.map_binaryVeroneseOver
+#assert_proof_constant NLA.Proofs.TR26.map_binaryDenominatorOver
+#assert_trust kernel NLA.Proofs.TR26.map_binaryDenominatorOver
+#print axioms NLA.Proofs.TR26.map_binaryDenominatorOver
+#assert_proof_constant NLA.Proofs.TR26.map_parameter_binaryNumerator
+#assert_trust kernel NLA.Proofs.TR26.map_parameter_binaryNumerator
+#print axioms NLA.Proofs.TR26.map_parameter_binaryNumerator
+#assert_proof_constant NLA.Proofs.TR26.map_parameter_binaryWronskian
+#assert_trust kernel NLA.Proofs.TR26.map_parameter_binaryWronskian
+#print axioms NLA.Proofs.TR26.map_parameter_binaryWronskian
+#assert_proof_constant NLA.Proofs.TR26.eval_wronskian_family_coefficient
+#assert_trust kernel NLA.Proofs.TR26.eval_wronskian_family_coefficient
+#print axioms NLA.Proofs.TR26.eval_wronskian_family_coefficient
+#assert_proof_constant NLA.Proofs.TR26.eval_wronskianFamilyDiscriminant
+#assert_trust kernel NLA.Proofs.TR26.eval_wronskianFamilyDiscriminant
+#print axioms NLA.Proofs.TR26.eval_wronskianFamilyDiscriminant
+#assert_proof_constant NLA.Proofs.TR26.eval_wronskianFamilyDiscriminant_eq_zero_iff
+#assert_trust kernel NLA.Proofs.TR26.eval_wronskianFamilyDiscriminant_eq_zero_iff
+#print axioms NLA.Proofs.TR26.eval_wronskianFamilyDiscriminant_eq_zero_iff
+#assert_proof_constant NLA.Proofs.TR26.BinaryDiscriminant.partialA_homogeneous
+#assert_trust kernel NLA.Proofs.TR26.BinaryDiscriminant.partialA_homogeneous
+#print axioms NLA.Proofs.TR26.BinaryDiscriminant.partialA_homogeneous
+#assert_proof_constant NLA.Proofs.TR26.BinaryDiscriminant.partialB_homogeneous
+#assert_trust kernel NLA.Proofs.TR26.BinaryDiscriminant.partialB_homogeneous
+#print axioms NLA.Proofs.TR26.BinaryDiscriminant.partialB_homogeneous
+#assert_proof_constant NLA.Proofs.TR26.BinaryDiscriminant.sylvester_entry_homogeneous
+#assert_trust kernel NLA.Proofs.TR26.BinaryDiscriminant.sylvester_entry_homogeneous
+#print axioms NLA.Proofs.TR26.BinaryDiscriminant.sylvester_entry_homogeneous
+#assert_proof_constant NLA.Proofs.TR26.BinaryDiscriminant.fixedDiscriminant_homogeneous
+#assert_trust kernel NLA.Proofs.TR26.BinaryDiscriminant.fixedDiscriminant_homogeneous
+#print axioms NLA.Proofs.TR26.BinaryDiscriminant.fixedDiscriminant_homogeneous
+#assert_proof_constant NLA.Proofs.TR26.BinaryDiscriminant.binaryFromCoefficients_eval
+#assert_trust kernel NLA.Proofs.TR26.BinaryDiscriminant.binaryFromCoefficients_eval
+#print axioms NLA.Proofs.TR26.BinaryDiscriminant.binaryFromCoefficients_eval
+#assert_proof_constant NLA.Proofs.TR26.BinaryDiscriminant.binaryFromCoefficients_homogeneous
+#assert_trust kernel NLA.Proofs.TR26.BinaryDiscriminant.binaryFromCoefficients_homogeneous
+#print axioms NLA.Proofs.TR26.BinaryDiscriminant.binaryFromCoefficients_homogeneous
+#assert_proof_constant NLA.Proofs.TR26.BinaryDiscriminant.binaryFromCoefficients_partialA
+#assert_trust kernel NLA.Proofs.TR26.BinaryDiscriminant.binaryFromCoefficients_partialA
+#print axioms NLA.Proofs.TR26.BinaryDiscriminant.binaryFromCoefficients_partialA
+#assert_proof_constant NLA.Proofs.TR26.BinaryDiscriminant.binaryFromCoefficients_partialB
+#assert_trust kernel NLA.Proofs.TR26.BinaryDiscriminant.binaryFromCoefficients_partialB
+#print axioms NLA.Proofs.TR26.BinaryDiscriminant.binaryFromCoefficients_partialB
+#assert_proof_constant NLA.Proofs.TR26.BinaryDiscriminant.eval_partialA_binaryFromCoefficients
+#assert_trust kernel NLA.Proofs.TR26.BinaryDiscriminant.eval_partialA_binaryFromCoefficients
+#print axioms NLA.Proofs.TR26.BinaryDiscriminant.eval_partialA_binaryFromCoefficients
+#assert_proof_constant NLA.Proofs.TR26.BinaryDiscriminant.eval_partialB_binaryFromCoefficients
+#assert_trust kernel NLA.Proofs.TR26.BinaryDiscriminant.eval_partialB_binaryFromCoefficients
+#print axioms NLA.Proofs.TR26.BinaryDiscriminant.eval_partialB_binaryFromCoefficients
+#assert_proof_constant NLA.Proofs.TR26.BinaryDiscriminant.eval_fixedDiscriminant_eq_zero_of_actual_partials
+#assert_trust kernel NLA.Proofs.TR26.BinaryDiscriminant.eval_fixedDiscriminant_eq_zero_of_actual_partials
+#print axioms NLA.Proofs.TR26.BinaryDiscriminant.eval_fixedDiscriminant_eq_zero_of_actual_partials
+#assert_proof_constant NLA.Proofs.TR26.BinaryDiscriminant.map_sylvesterMatrix
+#assert_trust kernel NLA.Proofs.TR26.BinaryDiscriminant.map_sylvesterMatrix
+#print axioms NLA.Proofs.TR26.BinaryDiscriminant.map_sylvesterMatrix
+#assert_proof_constant NLA.Proofs.TR26.BinaryDiscriminant.eval_fixedDiscriminant
+#assert_trust kernel NLA.Proofs.TR26.BinaryDiscriminant.eval_fixedDiscriminant
+#print axioms NLA.Proofs.TR26.BinaryDiscriminant.eval_fixedDiscriminant
+#assert_proof_constant NLA.Proofs.TR26.BinaryDiscriminant.fermat_partialA
+#assert_trust kernel NLA.Proofs.TR26.BinaryDiscriminant.fermat_partialA
+#print axioms NLA.Proofs.TR26.BinaryDiscriminant.fermat_partialA
+#assert_proof_constant NLA.Proofs.TR26.BinaryDiscriminant.fermat_partialB
+#assert_trust kernel NLA.Proofs.TR26.BinaryDiscriminant.fermat_partialB
+#print axioms NLA.Proofs.TR26.BinaryDiscriminant.fermat_partialB
+#assert_proof_constant NLA.Proofs.TR26.BinaryDiscriminant.fermat_shiftedA
+#assert_trust kernel NLA.Proofs.TR26.BinaryDiscriminant.fermat_shiftedA
+#print axioms NLA.Proofs.TR26.BinaryDiscriminant.fermat_shiftedA
+#assert_proof_constant NLA.Proofs.TR26.BinaryDiscriminant.fermat_shiftedB
+#assert_trust kernel NLA.Proofs.TR26.BinaryDiscriminant.fermat_shiftedB
+#print axioms NLA.Proofs.TR26.BinaryDiscriminant.fermat_shiftedB
+#assert_proof_constant NLA.Proofs.TR26.BinaryDiscriminant.fermat_sylvesterMatrix
+#assert_trust kernel NLA.Proofs.TR26.BinaryDiscriminant.fermat_sylvesterMatrix
+#print axioms NLA.Proofs.TR26.BinaryDiscriminant.fermat_sylvesterMatrix
+#assert_proof_constant NLA.Proofs.TR26.BinaryDiscriminant.eval_fermat_fixedDiscriminant
+#assert_trust kernel NLA.Proofs.TR26.BinaryDiscriminant.eval_fermat_fixedDiscriminant
+#print axioms NLA.Proofs.TR26.BinaryDiscriminant.eval_fermat_fixedDiscriminant
+#assert_proof_constant NLA.Proofs.TR26.BinaryDiscriminant.fixedDiscriminant_ne_zero
+#assert_trust kernel NLA.Proofs.TR26.BinaryDiscriminant.fixedDiscriminant_ne_zero
+#print axioms NLA.Proofs.TR26.BinaryDiscriminant.fixedDiscriminant_ne_zero
+#assert_proof_constant NLA.Proofs.TR26.BinaryDiscriminant.fixedDiscriminant_totalDegree
+#assert_trust kernel NLA.Proofs.TR26.BinaryDiscriminant.fixedDiscriminant_totalDegree
+#print axioms NLA.Proofs.TR26.BinaryDiscriminant.fixedDiscriminant_totalDegree
+#assert_proof_constant NLA.Proofs.TR26.BinaryDiscriminant.shiftedCoeff_eq_ofFn
+#assert_trust kernel NLA.Proofs.TR26.BinaryDiscriminant.shiftedCoeff_eq_ofFn
+#print axioms NLA.Proofs.TR26.BinaryDiscriminant.shiftedCoeff_eq_ofFn
+#assert_proof_constant NLA.Proofs.TR26.BinaryDiscriminant.sylvesterMatrix_eq_polynomial
+#assert_trust kernel NLA.Proofs.TR26.BinaryDiscriminant.sylvesterMatrix_eq_polynomial
+#print axioms NLA.Proofs.TR26.BinaryDiscriminant.sylvesterMatrix_eq_polynomial
+#assert_proof_constant NLA.Proofs.TR26.BinaryDiscriminant.eval_fixedDiscriminant_resultant
+#assert_trust kernel NLA.Proofs.TR26.BinaryDiscriminant.eval_fixedDiscriminant_resultant
+#print axioms NLA.Proofs.TR26.BinaryDiscriminant.eval_fixedDiscriminant_resultant
+#assert_proof_constant NLA.Proofs.TR26.BinaryDiscriminant.homogeneousEval_at_one
+#assert_trust kernel NLA.Proofs.TR26.BinaryDiscriminant.homogeneousEval_at_one
+#print axioms NLA.Proofs.TR26.BinaryDiscriminant.homogeneousEval_at_one
+#assert_proof_constant NLA.Proofs.TR26.BinaryDiscriminant.homogeneousEval_at_infinity
+#assert_trust kernel NLA.Proofs.TR26.BinaryDiscriminant.homogeneousEval_at_infinity
+#print axioms NLA.Proofs.TR26.BinaryDiscriminant.homogeneousEval_at_infinity
+#assert_proof_constant NLA.Proofs.TR26.BinaryDiscriminant.common_root_of_resultant_zero_full_left
+#assert_trust kernel NLA.Proofs.TR26.BinaryDiscriminant.common_root_of_resultant_zero_full_left
+#print axioms NLA.Proofs.TR26.BinaryDiscriminant.common_root_of_resultant_zero_full_left
+#assert_proof_constant NLA.Proofs.TR26.BinaryDiscriminant.common_projective_root_of_resultant_zero
+#assert_trust kernel NLA.Proofs.TR26.BinaryDiscriminant.common_projective_root_of_resultant_zero
+#print axioms NLA.Proofs.TR26.BinaryDiscriminant.common_projective_root_of_resultant_zero
+#assert_proof_constant NLA.Proofs.TR26.BinaryDiscriminant.eval_fixedDiscriminant_eq_zero_iff
+#assert_trust kernel NLA.Proofs.TR26.BinaryDiscriminant.eval_fixedDiscriminant_eq_zero_iff
+#print axioms NLA.Proofs.TR26.BinaryDiscriminant.eval_fixedDiscriminant_eq_zero_iff
+#assert_proof_constant NLA.Proofs.TR26.BinaryDiscriminant.eval_fixedDiscriminant_eq_zero_iff_actual_partials
+#assert_trust kernel NLA.Proofs.TR26.BinaryDiscriminant.eval_fixedDiscriminant_eq_zero_iff_actual_partials
+#print axioms NLA.Proofs.TR26.BinaryDiscriminant.eval_fixedDiscriminant_eq_zero_iff_actual_partials
+#assert_proof_constant NLA.Proofs.TR26.BinaryDiscriminant.binaryValue_eq_zero_of_partials
+#assert_trust kernel NLA.Proofs.TR26.BinaryDiscriminant.binaryValue_eq_zero_of_partials
+#print axioms NLA.Proofs.TR26.BinaryDiscriminant.binaryValue_eq_zero_of_partials
+#assert_proof_constant NLA.Proofs.TR26.BinaryDiscriminant.contract_shiftedCoeff
+#assert_trust kernel NLA.Proofs.TR26.BinaryDiscriminant.contract_shiftedCoeff
+#print axioms NLA.Proofs.TR26.BinaryDiscriminant.contract_shiftedCoeff
+#assert_proof_constant NLA.Proofs.TR26.BinaryDiscriminant.evaluationCovector_ne_zero
+#assert_trust kernel NLA.Proofs.TR26.BinaryDiscriminant.evaluationCovector_ne_zero
+#print axioms NLA.Proofs.TR26.BinaryDiscriminant.evaluationCovector_ne_zero
+#assert_proof_constant NLA.Proofs.TR26.BinaryDiscriminant.multiple_projective_root_vanishes
+#assert_trust kernel NLA.Proofs.TR26.BinaryDiscriminant.multiple_projective_root_vanishes
+#print axioms NLA.Proofs.TR26.BinaryDiscriminant.multiple_projective_root_vanishes
+#assert_proof_constant NLA.Proofs.TR26.BinaryDiscriminant.fixedDiscriminant_aeval_homogeneous
+#assert_trust kernel NLA.Proofs.TR26.BinaryDiscriminant.fixedDiscriminant_aeval_homogeneous
+#print axioms NLA.Proofs.TR26.BinaryDiscriminant.fixedDiscriminant_aeval_homogeneous
+#assert_proof_constant NLA.Proofs.TR26.BinaryDiscriminant.eval_specialized_fixedDiscriminant
+#assert_trust kernel NLA.Proofs.TR26.BinaryDiscriminant.eval_specialized_fixedDiscriminant
+#print axioms NLA.Proofs.TR26.BinaryDiscriminant.eval_specialized_fixedDiscriminant
+#assert_proof_constant NLA.Proofs.TR26.mem_openVanishingIdeal_iff
+#assert_trust kernel NLA.Proofs.TR26.mem_openVanishingIdeal_iff
+#print axioms NLA.Proofs.TR26.mem_openVanishingIdeal_iff
+#assert_proof_constant NLA.Proofs.TR26.incidence_iff_zeroLocus
+#assert_trust kernel NLA.Proofs.TR26.incidence_iff_zeroLocus
+#print axioms NLA.Proofs.TR26.incidence_iff_zeroLocus
+#assert_proof_constant NLA.Proofs.TR26.onCurve_ne_zero
+#assert_trust kernel NLA.Proofs.TR26.onCurve_ne_zero
+#print axioms NLA.Proofs.TR26.onCurve_ne_zero
+#assert_proof_constant NLA.Proofs.TR26.openCritical_onCurve
+#assert_trust kernel NLA.Proofs.TR26.openCritical_onCurve
+#print axioms NLA.Proofs.TR26.openCritical_onCurve
+#assert_proof_constant NLA.Proofs.TR26.openCritical_incidence
+#assert_trust kernel NLA.Proofs.TR26.openCritical_incidence
+#print axioms NLA.Proofs.TR26.openCritical_incidence
+#assert_proof_constant NLA.Proofs.TR26.jacobianSpace_eq_conormal
+#assert_trust kernel NLA.Proofs.TR26.jacobianSpace_eq_conormal
+#print axioms NLA.Proofs.TR26.jacobianSpace_eq_conormal
+#assert_proof_constant NLA.Proofs.TR26.ramification_iff_conormal
+#assert_trust kernel NLA.Proofs.TR26.ramification_iff_conormal
+#print axioms NLA.Proofs.TR26.ramification_iff_conormal
+#assert_proof_constant NLA.Proofs.TR26.onCurve_smul
+#assert_trust kernel NLA.Proofs.TR26.onCurve_smul
+#print axioms NLA.Proofs.TR26.onCurve_smul
+#assert_proof_constant NLA.Proofs.TR26.openCritical_smul
+#assert_trust kernel NLA.Proofs.TR26.openCritical_smul
+#print axioms NLA.Proofs.TR26.openCritical_smul
+#assert_proof_constant NLA.Proofs.TR26.eval_scaleIncidencePolynomial
+#assert_trust kernel NLA.Proofs.TR26.eval_scaleIncidencePolynomial
+#print axioms NLA.Proofs.TR26.eval_scaleIncidencePolynomial
+#assert_proof_constant NLA.Proofs.TR26.incidence_smul
+#assert_trust kernel NLA.Proofs.TR26.incidence_smul
+#print axioms NLA.Proofs.TR26.incidence_smul
+#assert_proof_constant NLA.Proofs.TR26.jacobianSpace_annihilates_radial
+#assert_trust kernel NLA.Proofs.TR26.jacobianSpace_annihilates_radial
+#print axioms NLA.Proofs.TR26.jacobianSpace_annihilates_radial
+#assert_proof_constant NLA.Proofs.TR26.numeratorEvaluationPolynomial_dvd_of_vanishing
+#assert_trust kernel NLA.Proofs.TR26.numeratorEvaluationPolynomial_dvd_of_vanishing
+#print axioms NLA.Proofs.TR26.numeratorEvaluationPolynomial_dvd_of_vanishing
+#assert_proof_constant NLA.Proofs.TR26.isotropicEvaluationFactor_dvd_of_vanishing
+#assert_trust kernel NLA.Proofs.TR26.isotropicEvaluationFactor_dvd_of_vanishing
+#print axioms NLA.Proofs.TR26.isotropicEvaluationFactor_dvd_of_vanishing
+#assert_proof_constant NLA.Proofs.TR26.eval_numeratorEvaluationPolynomial
+#assert_trust kernel NLA.Proofs.TR26.eval_numeratorEvaluationPolynomial
+#print axioms NLA.Proofs.TR26.eval_numeratorEvaluationPolynomial
+#assert_proof_constant NLA.Proofs.TR26.numeratorEvaluationPolynomial_homogeneous
+#assert_trust kernel NLA.Proofs.TR26.numeratorEvaluationPolynomial_homogeneous
+#print axioms NLA.Proofs.TR26.numeratorEvaluationPolynomial_homogeneous
+#assert_proof_constant NLA.Proofs.TR26.numeratorEvaluationPolynomial_ne_zero
+#assert_trust kernel NLA.Proofs.TR26.numeratorEvaluationPolynomial_ne_zero
+#print axioms NLA.Proofs.TR26.numeratorEvaluationPolynomial_ne_zero
+#assert_proof_constant NLA.Proofs.TR26.numeratorEvaluationPolynomial_irreducible
+#assert_trust kernel NLA.Proofs.TR26.numeratorEvaluationPolynomial_irreducible
+#print axioms NLA.Proofs.TR26.numeratorEvaluationPolynomial_irreducible
+#assert_proof_constant NLA.Proofs.TR26.numeratorEvaluationPolynomial_not_dvd
+#assert_trust kernel NLA.Proofs.TR26.numeratorEvaluationPolynomial_not_dvd
+#print axioms NLA.Proofs.TR26.numeratorEvaluationPolynomial_not_dvd
+#assert_proof_constant NLA.Proofs.TR26.isotropicEvaluationFactor_ne_zero
+#assert_trust kernel NLA.Proofs.TR26.isotropicEvaluationFactor_ne_zero
+#print axioms NLA.Proofs.TR26.isotropicEvaluationFactor_ne_zero
+#assert_proof_constant NLA.Proofs.TR26.isotropicEvaluationFactor_homogeneous
+#assert_trust kernel NLA.Proofs.TR26.isotropicEvaluationFactor_homogeneous
+#print axioms NLA.Proofs.TR26.isotropicEvaluationFactor_homogeneous
+#assert_proof_constant NLA.Proofs.TR26.isotropicEvaluationFactor_squarefree
+#assert_trust kernel NLA.Proofs.TR26.isotropicEvaluationFactor_squarefree
+#print axioms NLA.Proofs.TR26.isotropicEvaluationFactor_squarefree
+#assert_proof_constant NLA.Proofs.TR26.isotropicEvaluationFactor_totalDegree
+#assert_trust kernel NLA.Proofs.TR26.isotropicEvaluationFactor_totalDegree
+#print axioms NLA.Proofs.TR26.isotropicEvaluationFactor_totalDegree
+#assert_proof_constant NLA.Proofs.TR26.eval_isotropicEvaluationFactor_eq_zero_iff
+#assert_trust kernel NLA.Proofs.TR26.eval_isotropicEvaluationFactor_eq_zero_iff
+#print axioms NLA.Proofs.TR26.eval_isotropicEvaluationFactor_eq_zero_iff
+#assert_proof_constant NLA.Proofs.TR26.binaryDenominator_eval_one_eq_affine
+#assert_trust kernel NLA.Proofs.TR26.binaryDenominator_eval_one_eq_affine
+#print axioms NLA.Proofs.TR26.binaryDenominator_eval_one_eq_affine
+#assert_proof_constant NLA.Proofs.TR26.binaryNumerator_eval_one_eq_affine
+#assert_trust kernel NLA.Proofs.TR26.binaryNumerator_eval_one_eq_affine
+#print axioms NLA.Proofs.TR26.binaryNumerator_eval_one_eq_affine
+#assert_proof_constant NLA.Proofs.TR26.binaryWronskian_partials_zero_at_common_root
+#assert_trust kernel NLA.Proofs.TR26.binaryWronskian_partials_zero_at_common_root
+#print axioms NLA.Proofs.TR26.binaryWronskian_partials_zero_at_common_root
+#assert_proof_constant NLA.Proofs.TR26.wronskianFamilyDiscriminant_vanishes_on_isotropic_hyperplane
+#assert_trust kernel NLA.Proofs.TR26.wronskianFamilyDiscriminant_vanishes_on_isotropic_hyperplane
+#print axioms NLA.Proofs.TR26.wronskianFamilyDiscriminant_vanishes_on_isotropic_hyperplane
+#assert_proof_constant NLA.Proofs.TR26.isotropicEvaluationFactor_dvd_wronskianFamilyDiscriminant
+#assert_trust kernel NLA.Proofs.TR26.isotropicEvaluationFactor_dvd_wronskianFamilyDiscriminant
+#print axioms NLA.Proofs.TR26.isotropicEvaluationFactor_dvd_wronskianFamilyDiscriminant
+#assert_proof_constant NLA.Proofs.TR26.linearCriticalPolynomial_eval
+#assert_trust kernel NLA.Proofs.TR26.linearCriticalPolynomial_eval
+#print axioms NLA.Proofs.TR26.linearCriticalPolynomial_eval
+#assert_proof_constant NLA.Proofs.TR26.criticalGraphParameter_at_root
+#assert_trust kernel NLA.Proofs.TR26.criticalGraphParameter_at_root
+#print axioms NLA.Proofs.TR26.criticalGraphParameter_at_root
+#assert_proof_constant NLA.Proofs.TR26.criticalGraphParameter_is_root
+#assert_trust kernel NLA.Proofs.TR26.criticalGraphParameter_is_root
+#print axioms NLA.Proofs.TR26.criticalGraphParameter_is_root
+#assert_proof_constant NLA.Proofs.TR26.criticalGraphParameter_continuousAt
+#assert_trust kernel NLA.Proofs.TR26.criticalGraphParameter_continuousAt
+#print axioms NLA.Proofs.TR26.criticalGraphParameter_continuousAt
+#assert_proof_constant NLA.Proofs.TR26.hasDerivAt_criticalGraphParameter_of_double_root
+#assert_trust kernel NLA.Proofs.TR26.hasDerivAt_criticalGraphParameter_of_double_root
+#print axioms NLA.Proofs.TR26.hasDerivAt_criticalGraphParameter_of_double_root
+#assert_proof_constant NLA.Proofs.TR26.idealConormal_eq_of_local_generators
+#assert_trust kernel NLA.Proofs.TR26.idealConormal_eq_of_local_generators
+#print axioms NLA.Proofs.TR26.idealConormal_eq_of_local_generators
+#assert_proof_constant NLA.Proofs.TR26.coordinateEntry_single_diagonal
+#assert_trust kernel NLA.Proofs.TR26.coordinateEntry_single_diagonal
+#print axioms NLA.Proofs.TR26.coordinateEntry_single_diagonal
+#assert_proof_constant NLA.Proofs.TR26.coordinateEntry_single_offdiagonal
+#assert_trust kernel NLA.Proofs.TR26.coordinateEntry_single_offdiagonal
+#print axioms NLA.Proofs.TR26.coordinateEntry_single_offdiagonal
+#assert_proof_constant NLA.Proofs.TR26.affineNumerator_single_diagonal
+#assert_trust kernel NLA.Proofs.TR26.affineNumerator_single_diagonal
+#print axioms NLA.Proofs.TR26.affineNumerator_single_diagonal
+#assert_proof_constant NLA.Proofs.TR26.affineNumerator_single_offdiagonal
+#assert_trust kernel NLA.Proofs.TR26.affineNumerator_single_offdiagonal
+#print axioms NLA.Proofs.TR26.affineNumerator_single_offdiagonal
+#assert_proof_constant NLA.Proofs.TR26.numeratorBasis_order
+#assert_trust kernel NLA.Proofs.TR26.numeratorBasis_order
+#print axioms NLA.Proofs.TR26.numeratorBasis_order
+#assert_proof_constant NLA.Proofs.TR26.numeratorBasis_sum
+#assert_trust kernel NLA.Proofs.TR26.numeratorBasis_sum
+#print axioms NLA.Proofs.TR26.numeratorBasis_sum
+#assert_proof_constant NLA.Proofs.TR26.affineNumerator_basis
+#assert_trust kernel NLA.Proofs.TR26.affineNumerator_basis
+#print axioms NLA.Proofs.TR26.affineNumerator_basis
+#assert_proof_constant NLA.Proofs.TR26.affineNumerator_lift
+#assert_trust kernel NLA.Proofs.TR26.affineNumerator_lift
+#print axioms NLA.Proofs.TR26.affineNumerator_lift
+#assert_proof_constant NLA.Proofs.TR26.numeratorCoefficientMap_lift
+#assert_trust kernel NLA.Proofs.TR26.numeratorCoefficientMap_lift
+#print axioms NLA.Proofs.TR26.numeratorCoefficientMap_lift
+#assert_proof_constant NLA.Proofs.TR26.numeratorCoefficientMap_surjective
+#assert_trust kernel NLA.Proofs.TR26.numeratorCoefficientMap_surjective
+#print axioms NLA.Proofs.TR26.numeratorCoefficientMap_surjective
+#assert_proof_constant NLA.Proofs.TR26.affineNumerator_natDegree_le
+#assert_trust kernel NLA.Proofs.TR26.affineNumerator_natDegree_le
+#print axioms NLA.Proofs.TR26.affineNumerator_natDegree_le
+#assert_proof_constant NLA.Proofs.TR26.affineNumerator_surjective_degreeLE
+#assert_trust kernel NLA.Proofs.TR26.affineNumerator_surjective_degreeLE
+#print axioms NLA.Proofs.TR26.affineNumerator_surjective_degreeLE
+#assert_proof_constant NLA.Proofs.TR26.finrank_add_two_le_of_annihilates_independent
+#assert_trust kernel NLA.Proofs.TR26.finrank_add_two_le_of_annihilates_independent
+#print axioms NLA.Proofs.TR26.finrank_add_two_le_of_annihilates_independent
+#assert_proof_constant NLA.Proofs.TR26.affineChart_tangents_independent
+#assert_trust kernel NLA.Proofs.TR26.affineChart_tangents_independent
+#print axioms NLA.Proofs.TR26.affineChart_tangents_independent
+#assert_proof_constant NLA.Proofs.TR26.reverseChart_tangents_independent
+#assert_trust kernel NLA.Proofs.TR26.reverseChart_tangents_independent
+#print axioms NLA.Proofs.TR26.reverseChart_tangents_independent
+#assert_proof_constant NLA.Proofs.TR26.hasDerivAt_affineChartVector
+#assert_trust kernel NLA.Proofs.TR26.hasDerivAt_affineChartVector
+#print axioms NLA.Proofs.TR26.hasDerivAt_affineChartVector
+#assert_proof_constant NLA.Proofs.TR26.hasDerivAt_reverseChartVector
+#assert_trust kernel NLA.Proofs.TR26.hasDerivAt_reverseChartVector
+#print axioms NLA.Proofs.TR26.hasDerivAt_reverseChartVector
+#assert_proof_constant NLA.Proofs.TR26.affineChartVector_onCurve
+#assert_trust kernel NLA.Proofs.TR26.affineChartVector_onCurve
+#print axioms NLA.Proofs.TR26.affineChartVector_onCurve
+#assert_proof_constant NLA.Proofs.TR26.reverseChartVector_onCurve
+#assert_trust kernel NLA.Proofs.TR26.reverseChartVector_onCurve
+#print axioms NLA.Proofs.TR26.reverseChartVector_onCurve
+#assert_proof_constant NLA.Proofs.TR26.binaryVeroneseOver_homogeneous
+#assert_trust kernel NLA.Proofs.TR26.binaryVeroneseOver_homogeneous
+#print axioms NLA.Proofs.TR26.binaryVeroneseOver_homogeneous
+#assert_proof_constant NLA.Proofs.TR26.binaryDenominatorOver_homogeneous
+#assert_trust kernel NLA.Proofs.TR26.binaryDenominatorOver_homogeneous
+#print axioms NLA.Proofs.TR26.binaryDenominatorOver_homogeneous
+#assert_proof_constant NLA.Proofs.TR26.binaryNumeratorOver_homogeneous
+#assert_trust kernel NLA.Proofs.TR26.binaryNumeratorOver_homogeneous
+#print axioms NLA.Proofs.TR26.binaryNumeratorOver_homogeneous
+#assert_proof_constant NLA.Proofs.TR26.binaryWronskianOver_homogeneous
+#assert_trust kernel NLA.Proofs.TR26.binaryWronskianOver_homogeneous
+#print axioms NLA.Proofs.TR26.binaryWronskianOver_homogeneous
+#assert_proof_constant NLA.Proofs.TR26.binary_homogeneous_reconstruct
+#assert_trust kernel NLA.Proofs.TR26.binary_homogeneous_reconstruct
+#print axioms NLA.Proofs.TR26.binary_homogeneous_reconstruct
+#assert_proof_constant NLA.Proofs.TR26.binaryWronskianOver_reconstruct
+#assert_trust kernel NLA.Proofs.TR26.binaryWronskianOver_reconstruct
+#print axioms NLA.Proofs.TR26.binaryWronskianOver_reconstruct
+#assert_proof_constant NLA.Proofs.TR26.binaryVeroneseDa_eval
+#assert_trust kernel NLA.Proofs.TR26.binaryVeroneseDa_eval
+#print axioms NLA.Proofs.TR26.binaryVeroneseDa_eval
+#assert_proof_constant NLA.Proofs.TR26.binaryVeroneseDb_eval
+#assert_trust kernel NLA.Proofs.TR26.binaryVeroneseDb_eval
+#print axioms NLA.Proofs.TR26.binaryVeroneseDb_eval
+#assert_proof_constant NLA.Proofs.TR26.binaryDenominatorDa_eval
+#assert_trust kernel NLA.Proofs.TR26.binaryDenominatorDa_eval
+#print axioms NLA.Proofs.TR26.binaryDenominatorDa_eval
+#assert_proof_constant NLA.Proofs.TR26.binaryDenominatorDb_eval
+#assert_trust kernel NLA.Proofs.TR26.binaryDenominatorDb_eval
+#print axioms NLA.Proofs.TR26.binaryDenominatorDb_eval
+#assert_proof_constant NLA.Proofs.TR26.binaryNumeratorDa_eval
+#assert_trust kernel NLA.Proofs.TR26.binaryNumeratorDa_eval
+#print axioms NLA.Proofs.TR26.binaryNumeratorDa_eval
+#assert_proof_constant NLA.Proofs.TR26.binaryNumeratorDb_eval
+#assert_trust kernel NLA.Proofs.TR26.binaryNumeratorDb_eval
+#print axioms NLA.Proofs.TR26.binaryNumeratorDb_eval
+#assert_proof_constant NLA.Proofs.TR26.binary_euler_eval
+#assert_trust kernel NLA.Proofs.TR26.binary_euler_eval
+#print axioms NLA.Proofs.TR26.binary_euler_eval
+#assert_proof_constant NLA.Proofs.TR26.binaryWronskian_eval
+#assert_trust kernel NLA.Proofs.TR26.binaryWronskian_eval
+#print axioms NLA.Proofs.TR26.binaryWronskian_eval
+#assert_proof_constant NLA.Proofs.TR26.quotientDerivativeNumerator_Da
+#assert_trust kernel NLA.Proofs.TR26.quotientDerivativeNumerator_Da
+#print axioms NLA.Proofs.TR26.quotientDerivativeNumerator_Da
+#assert_proof_constant NLA.Proofs.TR26.quotientDerivativeNumerator_Db
+#assert_trust kernel NLA.Proofs.TR26.quotientDerivativeNumerator_Db
+#print axioms NLA.Proofs.TR26.quotientDerivativeNumerator_Db
+#assert_proof_constant NLA.Proofs.TR26.parameterCritical_iff
+#assert_trust kernel NLA.Proofs.TR26.parameterCritical_iff
+#print axioms NLA.Proofs.TR26.parameterCritical_iff
+#assert_proof_constant NLA.Proofs.TR26.binaryDehomogenize_pderiv_b
+#assert_trust kernel NLA.Proofs.TR26.binaryDehomogenize_pderiv_b
+#print axioms NLA.Proofs.TR26.binaryDehomogenize_pderiv_b
+#assert_proof_constant NLA.Proofs.TR26.binaryDehomogenize_denominator
+#assert_trust kernel NLA.Proofs.TR26.binaryDehomogenize_denominator
+#print axioms NLA.Proofs.TR26.binaryDehomogenize_denominator
+#assert_proof_constant NLA.Proofs.TR26.binaryDehomogenize_numerator
+#assert_trust kernel NLA.Proofs.TR26.binaryDehomogenize_numerator
+#print axioms NLA.Proofs.TR26.binaryDehomogenize_numerator
+#assert_proof_constant NLA.Proofs.TR26.binaryDehomogenize_eval
+#assert_trust kernel NLA.Proofs.TR26.binaryDehomogenize_eval
+#print axioms NLA.Proofs.TR26.binaryDehomogenize_eval
+#assert_proof_constant NLA.Proofs.TR26.binaryDehomogenize_pderiv_a
+#assert_trust kernel NLA.Proofs.TR26.binaryDehomogenize_pderiv_a
+#print axioms NLA.Proofs.TR26.binaryDehomogenize_pderiv_a
+#assert_proof_constant NLA.Proofs.TR26.binaryDehomogenize_wronskian
+#assert_trust kernel NLA.Proofs.TR26.binaryDehomogenize_wronskian
+#print axioms NLA.Proofs.TR26.binaryDehomogenize_wronskian
+#assert_proof_constant NLA.Proofs.TR26.binaryWronskian_affine_eval
+#assert_trust kernel NLA.Proofs.TR26.binaryWronskian_affine_eval
+#print axioms NLA.Proofs.TR26.binaryWronskian_affine_eval
+#assert_proof_constant NLA.Proofs.TR26.binaryWronskian_affine_derivative_eval
+#assert_trust kernel NLA.Proofs.TR26.binaryWronskian_affine_derivative_eval
+#print axioms NLA.Proofs.TR26.binaryWronskian_affine_derivative_eval
+#assert_proof_constant NLA.Proofs.TR26.affineWronskianLinear_apply
+#assert_trust kernel NLA.Proofs.TR26.affineWronskianLinear_apply
+#print axioms NLA.Proofs.TR26.affineWronskianLinear_apply
+#assert_proof_constant NLA.Proofs.TR26.affineCriticalLinear_apply
+#assert_trust kernel NLA.Proofs.TR26.affineCriticalLinear_apply
+#print axioms NLA.Proofs.TR26.affineCriticalLinear_apply
+#assert_proof_constant NLA.Proofs.TR26.affineWronskian_eq_zero_iff
+#assert_trust kernel NLA.Proofs.TR26.affineWronskian_eq_zero_iff
+#print axioms NLA.Proofs.TR26.affineWronskian_eq_zero_iff
+#assert_proof_constant NLA.Proofs.TR26.exists_affineWronskian_ne_zero
+#assert_trust kernel NLA.Proofs.TR26.exists_affineWronskian_ne_zero
+#print axioms NLA.Proofs.TR26.exists_affineWronskian_ne_zero
+#assert_proof_constant NLA.Proofs.TR26.exists_affineCritical_pivot
+#assert_trust kernel NLA.Proofs.TR26.exists_affineCritical_pivot
+#print axioms NLA.Proofs.TR26.exists_affineCritical_pivot
+#assert_proof_constant NLA.Proofs.TR26.linearCriticalPolynomial_affine
+#assert_trust kernel NLA.Proofs.TR26.linearCriticalPolynomial_affine
+#print axioms NLA.Proofs.TR26.linearCriticalPolynomial_affine
+#assert_proof_constant NLA.Proofs.TR26.linearCriticalValue_affine
+#assert_trust kernel NLA.Proofs.TR26.linearCriticalValue_affine
+#print axioms NLA.Proofs.TR26.linearCriticalValue_affine
+#assert_proof_constant NLA.Proofs.TR26.exists_affineCriticalCoefficients_pivot
+#assert_trust kernel NLA.Proofs.TR26.exists_affineCriticalCoefficients_pivot
+#print axioms NLA.Proofs.TR26.exists_affineCriticalCoefficients_pivot
+#assert_proof_constant NLA.Proofs.TR26.affineDenominator_eval_eq_source
+#assert_trust kernel NLA.Proofs.TR26.affineDenominator_eval_eq_source
+#print axioms NLA.Proofs.TR26.affineDenominator_eval_eq_source
+#assert_proof_constant NLA.Proofs.TR26.affineChart_openCritical_of_root
+#assert_trust kernel NLA.Proofs.TR26.affineChart_openCritical_of_root
+#print axioms NLA.Proofs.TR26.affineChart_openCritical_of_root
+#assert_proof_constant NLA.Proofs.TR26.affineChart_incidence_of_root
+#assert_trust kernel NLA.Proofs.TR26.affineChart_incidence_of_root
+#print axioms NLA.Proofs.TR26.affineChart_incidence_of_root
+#assert_proof_constant NLA.Proofs.TR26.affineChart_ramification_of_double_root
+#assert_trust kernel NLA.Proofs.TR26.affineChart_ramification_of_double_root
+#print axioms NLA.Proofs.TR26.affineChart_ramification_of_double_root
+#assert_proof_constant NLA.Proofs.TR26.eval_binaryParameterIncidence
+#assert_trust kernel NLA.Proofs.TR26.eval_binaryParameterIncidence
+#print axioms NLA.Proofs.TR26.eval_binaryParameterIncidence
+#assert_proof_constant NLA.Proofs.TR26.affineCriticalEquation_eval
+#assert_trust kernel NLA.Proofs.TR26.affineCriticalEquation_eval
+#print axioms NLA.Proofs.TR26.affineCriticalEquation_eval
+#assert_proof_constant NLA.Proofs.TR26.reverseCriticalEquation_eval
+#assert_trust kernel NLA.Proofs.TR26.reverseCriticalEquation_eval
+#print axioms NLA.Proofs.TR26.reverseCriticalEquation_eval
+#assert_proof_constant NLA.Proofs.TR26.affineCriticalEquation_mem_openVanishingIdeal
+#assert_trust kernel NLA.Proofs.TR26.affineCriticalEquation_mem_openVanishingIdeal
+#print axioms NLA.Proofs.TR26.affineCriticalEquation_mem_openVanishingIdeal
+#assert_proof_constant NLA.Proofs.TR26.reverseCriticalEquation_mem_openVanishingIdeal
+#assert_trust kernel NLA.Proofs.TR26.reverseCriticalEquation_mem_openVanishingIdeal
+#print axioms NLA.Proofs.TR26.reverseCriticalEquation_mem_openVanishingIdeal
+#assert_proof_constant NLA.Proofs.TR26.affineCriticalEquation_affine_eval
+#assert_trust kernel NLA.Proofs.TR26.affineCriticalEquation_affine_eval
+#print axioms NLA.Proofs.TR26.affineCriticalEquation_affine_eval
+#assert_proof_constant NLA.Proofs.TR26.incidence_affine_wrRoot
+#assert_trust kernel NLA.Proofs.TR26.incidence_affine_wrRoot
+#print axioms NLA.Proofs.TR26.incidence_affine_wrRoot
+#assert_proof_constant NLA.Proofs.TR26.denominator_smul
+#assert_trust kernel NLA.Proofs.TR26.denominator_smul
+#print axioms NLA.Proofs.TR26.denominator_smul
+#assert_proof_constant NLA.Proofs.TR26.denominator_affineChartVector
+#assert_trust kernel NLA.Proofs.TR26.denominator_affineChartVector
+#print axioms NLA.Proofs.TR26.denominator_affineChartVector
+#assert_proof_constant NLA.Proofs.TR26.isotropic_onCurve_affine_cover
+#assert_trust kernel NLA.Proofs.TR26.isotropic_onCurve_affine_cover
+#print axioms NLA.Proofs.TR26.isotropic_onCurve_affine_cover
+#assert_proof_constant NLA.Proofs.TR26.isotropicImage_has_numerator_root
+#assert_trust kernel NLA.Proofs.TR26.isotropicImage_has_numerator_root
+#print axioms NLA.Proofs.TR26.isotropicImage_has_numerator_root
+#assert_proof_constant NLA.Proofs.TR26.isotropicImage_evaluationFactor_zero
+#assert_trust kernel NLA.Proofs.TR26.isotropicImage_evaluationFactor_zero
+#print axioms NLA.Proofs.TR26.isotropicImage_evaluationFactor_zero
+#assert_proof_constant NLA.Proofs.TR26.numerator_root_mem_isotropicImage
+#assert_trust kernel NLA.Proofs.TR26.numerator_root_mem_isotropicImage
+#print axioms NLA.Proofs.TR26.numerator_root_mem_isotropicImage
+#assert_proof_constant NLA.Proofs.TR26.isotropicImage_iff_evaluationFactor_zero
+#assert_trust kernel NLA.Proofs.TR26.isotropicImage_iff_evaluationFactor_zero
+#print axioms NLA.Proofs.TR26.isotropicImage_iff_evaluationFactor_zero
+#assert_proof_constant NLA.Proofs.TR26.isotropic_degree
+#assert_trust kernel NLA.Proofs.TR26.isotropic_degree
+#print axioms NLA.Proofs.TR26.isotropic_degree
+example (d : ℕ) (hd : 2 ≤ d) :
+    NLA.Statements.TR26.HasReducedDegree d (2*d) (NLA.Statements.TR26.IsotropicImage d) :=
+  NLA.Proofs.TR26.isotropic_degree d hd
+example : NLA.Statements.TR26.Target = NLA.ReviewedStatements.TR26.Target := rfl
