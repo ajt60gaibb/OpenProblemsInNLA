@@ -1383,9 +1383,11 @@ to the existing mathematical resolution. See the
 
 ### IE-22 - Affirmative sharp-constant resolution
 
-[Original statement](linear-systems-and-elimination/IE-22/README.md). **Solved.** Theorem 2 and Sections 6-7 prove the sharp constant $c_\theta=\sqrt{h_\theta}$. The upper bound is uniform over all unit-row matrices and even all $m\ge1$ for sufficiently large $n$, with squared normalized error $O_\theta(n^{-1/6})$. Theorem 1 supplies matching spherical realizations along every high-aspect-ratio sequence, proving the exact eventual-uniform optimality quantifiers.
+[Original statement](linear-systems-and-elimination/IE-22/README.md). **Lean verified.** Theorem 2 and Sections 6-7 prove the sharp constant $c_\theta=\sqrt{h_\theta}$. The upper bound is uniform over all unit-row matrices and even all $m\ge1$ for sufficiently large $n$, with squared normalized error $O_\theta(n^{-1/6})$. Theorem 1 supplies matching spherical realizations along every high-aspect-ratio sequence, proving the exact eventual-uniform optimality quantifiers.
 
 [Complete manuscript](references/colbrook-recovered-2026-09-11/manuscripts/IE-21-22.pdf); [independent review](references/colbrook-recovered-2026-09-11/verification/reviews/IE-21-22-review.md).
+
+The complete target passed independent formal source review and isolated Linux Comparator and kernel checks. [Immutable Lean proof](https://github.com/ajt60gaibb/OpenProblemsInNLA/tree/ccc7864f5034cf7c4602f7577ceaf083ebf63d52/linear-systems-and-elimination/IE-22/lean) · [Reviews and verification evidence](docs/lean/proofs/IE-22/main-promotion/README.md).
 
 ### IE-23 - Negative resolution
 
