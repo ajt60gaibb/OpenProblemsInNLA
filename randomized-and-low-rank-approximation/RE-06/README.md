@@ -7,15 +7,24 @@
 **Difficulty:** challenging  
 **Importance:** interesting to the community  
 **Rating rationale:** Challenging because all query choices must precede information about the target; community impact is parallel and pass-efficient structured matrix learning.  
-**Status:** Solved
+**Status:** Lean verified
 **Area:** nonadaptive matrix sketching  
-**Last checked:** 2026-09-13
+**Last checked:** 2026-11-10
 
 ## Resolution — affirmative, 13 September 2026
 
 Sidney Holden (Center for Computational Biology, Flatiron Institute, Simons Foundation) gives a complete affirmative answer in [Theorem 1.1 and Sections 2–6](solution.pdf) ([TeX source](solution.tex)). The algorithm fixes all query vectors and query sides before any answers, succeeds with probability at least 0.99 for every fixed input, and uses at most $`4{,}000{,}000\sqrt{\log(2M)}\,\varepsilon^{-2}`$ queries. Thus the original target holds with $`C=4{,}000{,}000`$ and $`b=0`$, including zero optimal residual and rank-deficient cases, in precisely the stated exact-real, query-only model.
 
-The complete proof passed a separate [independent Codex AI-agent informal audit](../../references/holden-re06-2026-09-13/independent-review.md), satisfying the repository's `Solved` policy. This is not external human peer review or formal verification. No Lean verification was performed. [Authorship, verified affiliation, original submission and checks](../../references/holden-re06-2026-09-13/README.md). The original target and historical evidence below are retained; the stronger nonadaptive relative-error question is not claimed settled.
+The complete proof passed a separate [independent Codex AI-agent informal audit](../../references/holden-re06-2026-09-13/independent-review.md), satisfying the repository's `Solved` policy. That audit was the evidence for the September 2026 status. [Authorship, verified affiliation, original submission and checks](../../references/holden-re06-2026-09-13/README.md). The original target and historical evidence below are retained; the stronger nonadaptive relative-error question is not claimed settled.
+
+## Lean proof and verification evidence
+
+**Lean verified.** The formalization proves the original nonadaptive matrix-query guarantee with $`C=4{,}000{,}000`$ and $`b=0`$. The fixed query program has a $`3+\varepsilon`$ error factor with probability at least $`99/100`$ under the Gaussian stream law. The proof covers zero optimal residual and rank-deficient matrices.
+
+The independent reviews and isolated Linux checks cover the full original
+target in Lean 4.33.1. The proof uses the standard three axioms.
+[Immutable proof and dependency pins](https://github.com/ajt60gaibb/OpenProblemsInNLA/tree/5fefb820e4e7b72e45a18808d507e9b6dddc6088/randomized-and-low-rank-approximation/RE-06/lean)
+· [Reviews, reproduction, and verification logs](../../docs/lean/proofs/RE-06/main-promotion/README.md).
 
 ## Context and notation
 

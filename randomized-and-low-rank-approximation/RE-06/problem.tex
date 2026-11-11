@@ -34,7 +34,7 @@ approximation},pdfauthor={Open Problems in Numerical Linear Algebra}}
 \fancyhf{}
 \fancyhead[L]{\sffamily\footnotesize\color{muted}OPEN PROBLEMS IN NUMERICAL LINEAR ALGEBRA}
 \fancyhead[R]{\sffamily\bfseries\footnotesize\color{accent}RE-06}
-\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-09-13}}
+\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Verification check: 2026-11-10}}
 \fancyfoot[R]{\sffamily\footnotesize\color{muted}\thepage}
 \renewcommand{\headrulewidth}{0.3pt}
 \renewcommand{\headrule}{\hbox to\headwidth{\color{accent}\leaders\hrule height \headrulewidth\hfill}}
@@ -51,7 +51,7 @@ queries for finite-family matrix approximation\par}
 \vspace{7pt}
 {\sffamily\small\textbf{Difficulty:} challenging\quad\textbf{Importance:} interesting
 to the community\par}
-{\sffamily\small\bfseries\color{accent}Status: Solved\par}
+{\sffamily\small\bfseries\color{accent}Status: Lean verified\par}
 \vspace{4pt}
 {\color{accent}\hrule height 0.8pt}
 \vspace{6pt}
@@ -80,12 +80,31 @@ exact-real, query-only model.
 The complete proof passed a separate
 \href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/references/holden-re06-2026-09-13/independent-review.md}{independent
 Codex AI-agent informal audit}, satisfying the repository's
-\textit{Solved} policy. This is not external human peer review or formal
-verification. No Lean verification was performed.
+\textit{Solved} policy. That audit was the evidence for the September
+2026 status.
 \href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/references/holden-re06-2026-09-13/README.md}{Authorship,
 verified affiliation, original submission and checks}. The original
 target and historical evidence below are retained; the stronger
 nonadaptive relative-error question is not claimed settled.
+
+\subsection{Lean proof and verification
+evidence}\label{lean-proof-and-verification-evidence}
+
+\textbf{Lean verified.} The formalization proves the original
+nonadaptive matrix-query guarantee with \(C=4{,}000{,}000\) and \(b=0\).
+The fixed query program has a \(3+\varepsilon\) error factor with
+probability at least \(99/100\) under the Gaussian stream law. The proof
+covers zero optimal residual and rank-deficient matrices.
+
+The independent reviews and isolated Linux checks cover the full
+original target in Lean 4.33.1. The proof uses the standard three
+axioms.
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/tree/5fefb820e4e7b72e45a18808d507e9b6dddc6088/randomized-and-low-rank-approximation/RE-06/lean}{Immutable
+proof and dependency pins} ·
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/docs/lean/proofs/RE-06/main-promotion/README.md}{Reviews,
+reproduction, and verification logs}.
+
+\newpage
 
 \subsection{Context and notation}\label{context-and-notation}
 
@@ -124,7 +143,6 @@ Query choices may depend on \(\mathcal F,\varepsilon\) and randomness.
 Only oracle calls are charged; candidate processing and processing of
 the answers are unrestricted.
 
-\newpage
 \subsection{References}\label{references}
 
 Amsel et al., \href{https://arxiv.org/html/2507.19290v2}{\emph{Query

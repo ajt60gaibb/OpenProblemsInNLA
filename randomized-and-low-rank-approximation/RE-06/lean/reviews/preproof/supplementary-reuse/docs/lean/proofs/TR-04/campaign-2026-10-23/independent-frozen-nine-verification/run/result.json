@@ -1,0 +1,2330 @@
+{
+  "scope": "Independent fresh local kernel audit of exactly nine frozen TR04 support modules; no Target proof, solver, approximation guarantee, termination or polynomial complexity claim",
+  "reviewer": "/root/recover_verification",
+  "self_authored_proof_sources": [],
+  "frozen_support_modules": 9,
+  "actual_local_sources": 14,
+  "exact_type_examples": 9,
+  "source_lock_sha256": "d00f0b17760a7478021c4b19a0ab85346397b30c330785bd2728e17959acf73f",
+  "driver_sha256": "fb30b2265946fa67f75bf529bf1ec940705d50144cd30139da23e66ce7a297ab",
+  "source_sha256": {
+    "NLA/Computation/SVDMachine.lean": "8ec5866326b5a311b334651600db5d7f3065f2059175823626319afef7cf7581",
+    "NLA/Computation/TensorTrainApproximation.lean": "05038abcc6cf85d422cf580b3cc527e7aa7dad146802da5621911b6331494d2d",
+    "NLA/Proofs/TR04/Reshape.lean": "a922313a71216e603814f128bb3cd7d9feb2a87cf796bd33230ca7d1c8bef3b8",
+    "NLA/Proofs/TR04/Feasible.lean": "d620f52e1f1e9fc740144e032fb748ca7626c1c835d7ad37ee0d502c5f1bd1cf",
+    "NLA/Statements/Infrastructure.lean": "8e019f11ea18ec66b50563648c39af76e41881912a3fb5f56002adf1850fcc37",
+    "NLA/Statements/TR04.lean": "6f595cd3fa4c5d317bc757628a3e7858ab4576c90cbe967ac5289c8b3fbd780c",
+    "NLA/Proofs/TR04/MachineExecution.lean": "cd65bd181a6f47e4d33ea26d90e53502cabf81e1ff7928bca4227c56075509fd",
+    "NLA/Proofs/TR04/SVDCore.lean": "c58e34f14e7530a3537390c795d9276ba21026a94c0599890c015683d23397d9",
+    "NLA/Proofs/TR04/SVDTotal.lean": "2730cd593ae9500a1e089bc71241f49f52f395e1ef4db159b8651648f03c0b4f",
+    "NLA/Proofs/TR04/MachineTotality.lean": "649b83b93f4ff97be7a19a51346d18c922af62b4a8a54a78b2197b50186d6905",
+    "NLA/Proofs/TR04/MachineTraceBounds.lean": "329a2b93f3eb6a44bdd5af3e27274b44d4aa13f04fd7c34dc9c17220b3e5e924",
+    "NLA/Proofs/TR04/Optimum.lean": "068928c507deba4f36acaede7b8c518e4c86701c6f91c46d10c6397e4663f020",
+    "NLA/Proofs/TR04/ReshapeFrobenius.lean": "f97838196119fb9c013bb02194e62cdd4055ba09e3f4530496117962fafcb019",
+    "Reviewed/TR04.lean": "5b2260e25e8ce7dda5455a3cf11a5c16fc2493ce3d0cf1ab84a447d2fb1f54cd",
+    "IndependentSupportConsumer.lean": "d1c4bb3e1e08feef60b61f49139b50ccb834fef114aa5f523e5d1efc19d34f10"
+  },
+  "declarations": [
+    {
+      "name": "NLA.Computation.SVDMachine.Instruction",
+      "kind": "inductive",
+      "source": "NLA/Computation/SVDMachine.lean",
+      "line": 17,
+      "visibility": "public"
+    },
+    {
+      "name": "NLA.Computation.SVDMachine.Program",
+      "kind": "structure",
+      "source": "NLA/Computation/SVDMachine.lean",
+      "line": 44,
+      "visibility": "public"
+    },
+    {
+      "name": "NLA.Computation.SVDMachine.Status",
+      "kind": "inductive",
+      "source": "NLA/Computation/SVDMachine.lean",
+      "line": 54,
+      "visibility": "public"
+    },
+    {
+      "name": "NLA.Computation.SVDMachine.State",
+      "kind": "structure",
+      "source": "NLA/Computation/SVDMachine.lean",
+      "line": 60,
+      "visibility": "public"
+    },
+    {
+      "name": "NLA.Computation.SVDMachine.initial",
+      "kind": "def",
+      "source": "NLA/Computation/SVDMachine.lean",
+      "line": 68,
+      "visibility": "public"
+    },
+    {
+      "name": "NLA.Computation.SVDMachine.ordinaryStep",
+      "kind": "def",
+      "source": "NLA/Computation/SVDMachine.lean",
+      "line": 77,
+      "visibility": "public"
+    },
+    {
+      "name": "NLA.Computation.SVDMachine.ValidSVD",
+      "kind": "def",
+      "source": "NLA/Computation/SVDMachine.lean",
+      "line": 131,
+      "visibility": "public"
+    },
+    {
+      "name": "NLA.Computation.SVDMachine.DisjointBlocks",
+      "kind": "def",
+      "source": "NLA/Computation/SVDMachine.lean",
+      "line": 143,
+      "visibility": "public"
+    },
+    {
+      "name": "NLA.Computation.SVDMachine.OutputBlocksDisjoint",
+      "kind": "def",
+      "source": "NLA/Computation/SVDMachine.lean",
+      "line": 146,
+      "visibility": "public"
+    },
+    {
+      "name": "NLA.Computation.SVDMachine.matrixCell",
+      "kind": "def",
+      "source": "NLA/Computation/SVDMachine.lean",
+      "line": 153,
+      "visibility": "public"
+    },
+    {
+      "name": "NLA.Computation.SVDMachine.readMatrix",
+      "kind": "def",
+      "source": "NLA/Computation/SVDMachine.lean",
+      "line": 164,
+      "visibility": "public"
+    },
+    {
+      "name": "NLA.Computation.SVDMachine.writeSVD",
+      "kind": "def",
+      "source": "NLA/Computation/SVDMachine.lean",
+      "line": 168,
+      "visibility": "public"
+    },
+    {
+      "name": "NLA.Computation.SVDMachine.charge",
+      "kind": "def",
+      "source": "NLA/Computation/SVDMachine.lean",
+      "line": 180,
+      "visibility": "public"
+    },
+    {
+      "name": "NLA.Computation.SVDMachine.Step",
+      "kind": "def",
+      "source": "NLA/Computation/SVDMachine.lean",
+      "line": 190,
+      "visibility": "public"
+    },
+    {
+      "name": "NLA.Computation.SVDMachine.Trace",
+      "kind": "structure",
+      "source": "NLA/Computation/SVDMachine.lean",
+      "line": 212,
+      "visibility": "public"
+    },
+    {
+      "name": "NLA.Computation.SVDMachine.LegalTrace",
+      "kind": "def",
+      "source": "NLA/Computation/SVDMachine.lean",
+      "line": 216,
+      "visibility": "public"
+    },
+    {
+      "name": "NLA.Computation.SVDMachine.CostThrough",
+      "kind": "def",
+      "source": "NLA/Computation/SVDMachine.lean",
+      "line": 219,
+      "visibility": "public"
+    },
+    {
+      "name": "NLA.Computation.TensorTrainApproximation.Shape",
+      "kind": "structure",
+      "source": "NLA/Computation/TensorTrainApproximation.lean",
+      "line": 14,
+      "visibility": "public"
+    },
+    {
+      "name": "NLA.Computation.TensorTrainApproximation.Index",
+      "kind": "abbrev",
+      "source": "NLA/Computation/TensorTrainApproximation.lean",
+      "line": 20,
+      "visibility": "public"
+    },
+    {
+      "name": "NLA.Computation.TensorTrainApproximation.Tensor",
+      "kind": "abbrev",
+      "source": "NLA/Computation/TensorTrainApproximation.lean",
+      "line": 21,
+      "visibility": "public"
+    },
+    {
+      "name": "NLA.Computation.TensorTrainApproximation.Cut",
+      "kind": "abbrev",
+      "source": "NLA/Computation/TensorTrainApproximation.lean",
+      "line": 22,
+      "visibility": "public"
+    },
+    {
+      "name": "NLA.Computation.TensorTrainApproximation.Ranks",
+      "kind": "abbrev",
+      "source": "NLA/Computation/TensorTrainApproximation.lean",
+      "line": 23,
+      "visibility": "public"
+    },
+    {
+      "name": "NLA.Computation.TensorTrainApproximation.RowIndex",
+      "kind": "abbrev",
+      "source": "NLA/Computation/TensorTrainApproximation.lean",
+      "line": 25,
+      "visibility": "public"
+    },
+    {
+      "name": "NLA.Computation.TensorTrainApproximation.ColIndex",
+      "kind": "abbrev",
+      "source": "NLA/Computation/TensorTrainApproximation.lean",
+      "line": 27,
+      "visibility": "public"
+    },
+    {
+      "name": "NLA.Computation.TensorTrainApproximation.join",
+      "kind": "def",
+      "source": "NLA/Computation/TensorTrainApproximation.lean",
+      "line": 31,
+      "visibility": "public"
+    },
+    {
+      "name": "NLA.Computation.TensorTrainApproximation.Unfold",
+      "kind": "def",
+      "source": "NLA/Computation/TensorTrainApproximation.lean",
+      "line": 34,
+      "visibility": "public"
+    },
+    {
+      "name": "NLA.Computation.TensorTrainApproximation.Feasible",
+      "kind": "def",
+      "source": "NLA/Computation/TensorTrainApproximation.lean",
+      "line": 39,
+      "visibility": "public"
+    },
+    {
+      "name": "NLA.Computation.TensorTrainApproximation.FrobeniusSq",
+      "kind": "def",
+      "source": "NLA/Computation/TensorTrainApproximation.lean",
+      "line": 42,
+      "visibility": "public"
+    },
+    {
+      "name": "NLA.Computation.TensorTrainApproximation.Optimum",
+      "kind": "def",
+      "source": "NLA/Computation/TensorTrainApproximation.lean",
+      "line": 47,
+      "visibility": "public"
+    },
+    {
+      "name": "NLA.Computation.TensorTrainApproximation.DenseSize",
+      "kind": "def",
+      "source": "NLA/Computation/TensorTrainApproximation.lean",
+      "line": 50,
+      "visibility": "public"
+    },
+    {
+      "name": "NLA.Computation.TensorTrainApproximation.SuffixSize",
+      "kind": "def",
+      "source": "NLA/Computation/TensorTrainApproximation.lean",
+      "line": 53,
+      "visibility": "public"
+    },
+    {
+      "name": "NLA.Computation.TensorTrainApproximation.Offset",
+      "kind": "def",
+      "source": "NLA/Computation/TensorTrainApproximation.lean",
+      "line": 56,
+      "visibility": "public"
+    },
+    {
+      "name": "NLA.Computation.TensorTrainApproximation.Decode",
+      "kind": "def",
+      "source": "NLA/Computation/TensorTrainApproximation.lean",
+      "line": 60,
+      "visibility": "public"
+    },
+    {
+      "name": "NLA.Computation.TensorTrainApproximation.InputMemory",
+      "kind": "def",
+      "source": "NLA/Computation/TensorTrainApproximation.lean",
+      "line": 66,
+      "visibility": "public"
+    },
+    {
+      "name": "NLA.Computation.TensorTrainApproximation.Start",
+      "kind": "def",
+      "source": "NLA/Computation/TensorTrainApproximation.lean",
+      "line": 74,
+      "visibility": "public"
+    },
+    {
+      "name": "NLA.Computation.TensorTrainApproximation.Returns",
+      "kind": "def",
+      "source": "NLA/Computation/TensorTrainApproximation.lean",
+      "line": 79,
+      "visibility": "public"
+    },
+    {
+      "name": "NLA.Computation.TensorTrainApproximation.Size",
+      "kind": "def",
+      "source": "NLA/Computation/TensorTrainApproximation.lean",
+      "line": 83,
+      "visibility": "public"
+    },
+    {
+      "name": "NLA.Proofs.TR04.splitIndex",
+      "kind": "def",
+      "source": "NLA/Proofs/TR04/Reshape.lean",
+      "line": 12,
+      "visibility": "public"
+    },
+    {
+      "name": "NLA.Proofs.TR04.splitIndex_join",
+      "kind": "theorem",
+      "source": "NLA/Proofs/TR04/Reshape.lean",
+      "line": 16,
+      "visibility": "public"
+    },
+    {
+      "name": "NLA.Proofs.TR04.join_splitIndex",
+      "kind": "theorem",
+      "source": "NLA/Proofs/TR04/Reshape.lean",
+      "line": 25,
+      "visibility": "public"
+    },
+    {
+      "name": "NLA.Proofs.TR04.joinEquiv",
+      "kind": "def",
+      "source": "NLA/Proofs/TR04/Reshape.lean",
+      "line": 31,
+      "visibility": "public"
+    },
+    {
+      "name": "NLA.Proofs.TR04.unfoldLinearEquiv",
+      "kind": "def",
+      "source": "NLA/Proofs/TR04/Reshape.lean",
+      "line": 39,
+      "visibility": "public"
+    },
+    {
+      "name": "NLA.Proofs.TR04.unfoldContinuousLinearEquiv",
+      "kind": "def",
+      "source": "NLA/Proofs/TR04/Reshape.lean",
+      "line": 48,
+      "visibility": "public"
+    },
+    {
+      "name": "NLA.Proofs.TR04.unfoldLinearEquiv_apply",
+      "kind": "theorem",
+      "source": "NLA/Proofs/TR04/Reshape.lean",
+      "line": 52,
+      "visibility": "public"
+    },
+    {
+      "name": "NLA.Proofs.TR04.unfoldContinuousLinearEquiv_apply",
+      "kind": "theorem",
+      "source": "NLA/Proofs/TR04/Reshape.lean",
+      "line": 55,
+      "visibility": "public"
+    },
+    {
+      "name": "NLA.Proofs.TR04.continuous_unfold",
+      "kind": "theorem",
+      "source": "NLA/Proofs/TR04/Reshape.lean",
+      "line": 58,
+      "visibility": "public"
+    },
+    {
+      "name": "NLA.Proofs.TR04.unfold_zero",
+      "kind": "theorem",
+      "source": "NLA/Proofs/TR04/Reshape.lean",
+      "line": 62,
+      "visibility": "public"
+    },
+    {
+      "name": "NLA.Proofs.TR04.unfold_add",
+      "kind": "theorem",
+      "source": "NLA/Proofs/TR04/Reshape.lean",
+      "line": 65,
+      "visibility": "public"
+    },
+    {
+      "name": "NLA.Proofs.TR04.unfold_smul",
+      "kind": "theorem",
+      "source": "NLA/Proofs/TR04/Reshape.lean",
+      "line": 68,
+      "visibility": "public"
+    },
+    {
+      "name": "NLA.Proofs.TR04.unfold_injective",
+      "kind": "theorem",
+      "source": "NLA/Proofs/TR04/Reshape.lean",
+      "line": 71,
+      "visibility": "public"
+    },
+    {
+      "name": "NLA.Proofs.TR04.feasible_zero",
+      "kind": "theorem",
+      "source": "NLA/Proofs/TR04/Feasible.lean",
+      "line": 12,
+      "visibility": "public"
+    },
+    {
+      "name": "NLA.Proofs.TR04.feasible_nonempty",
+      "kind": "theorem",
+      "source": "NLA/Proofs/TR04/Feasible.lean",
+      "line": 16,
+      "visibility": "public"
+    },
+    {
+      "name": "NLA.Proofs.TR04.isClosed_matrix_rank_le",
+      "kind": "theorem",
+      "source": "NLA/Proofs/TR04/Feasible.lean",
+      "line": 20,
+      "visibility": "public"
+    },
+    {
+      "name": "NLA.Proofs.TR04.isClosed_feasible",
+      "kind": "theorem",
+      "source": "NLA/Proofs/TR04/Feasible.lean",
+      "line": 40,
+      "visibility": "public"
+    },
+    {
+      "name": "NLA.Statements.TR04.Target",
+      "kind": "def",
+      "source": "NLA/Statements/TR04.lean",
+      "line": 19,
+      "visibility": "public"
+    },
+    {
+      "name": "NLA.Proofs.TR04.step_cost_eq",
+      "kind": "theorem",
+      "source": "NLA/Proofs/TR04/MachineExecution.lean",
+      "line": 12,
+      "visibility": "public"
+    },
+    {
+      "name": "NLA.Proofs.TR04.step_of_halted",
+      "kind": "theorem",
+      "source": "NLA/Proofs/TR04/MachineExecution.lean",
+      "line": 15,
+      "visibility": "public"
+    },
+    {
+      "name": "NLA.Proofs.TR04.step_of_failed",
+      "kind": "theorem",
+      "source": "NLA/Proofs/TR04/MachineExecution.lean",
+      "line": 20,
+      "visibility": "public"
+    },
+    {
+      "name": "NLA.Proofs.TR04.exists_legalTrace_of_step_total",
+      "kind": "theorem",
+      "source": "NLA/Proofs/TR04/MachineExecution.lean",
+      "line": 27,
+      "visibility": "public"
+    },
+    {
+      "name": "NLA.Proofs.TR04.step_total_of_svd_total",
+      "kind": "theorem",
+      "source": "NLA/Proofs/TR04/MachineExecution.lean",
+      "line": 42,
+      "visibility": "public"
+    },
+    {
+      "name": "NLA.Proofs.TR04.exists_legalTrace_of_svd_total",
+      "kind": "theorem",
+      "source": "NLA/Proofs/TR04/MachineExecution.lean",
+      "line": 69,
+      "visibility": "public"
+    },
+    {
+      "name": "NLA.Proofs.TR04.SVD.Space",
+      "kind": "abbrev",
+      "source": "NLA/Proofs/TR04/SVDCore.lean",
+      "line": 17,
+      "visibility": "public"
+    },
+    {
+      "name": "NLA.Proofs.TR04.SVD.rightBasis",
+      "kind": "def",
+      "source": "NLA/Proofs/TR04/SVDCore.lean",
+      "line": 19,
+      "visibility": "public"
+    },
+    {
+      "name": "NLA.Proofs.TR04.SVD.norm_image_rightBasis",
+      "kind": "theorem",
+      "source": "NLA/Proofs/TR04/SVDCore.lean",
+      "line": 23,
+      "visibility": "public"
+    },
+    {
+      "name": "NLA.Proofs.TR04.SVD.inner_image_rightBasis",
+      "kind": "theorem",
+      "source": "NLA/Proofs/TR04/SVDCore.lean",
+      "line": 48,
+      "visibility": "public"
+    },
+    {
+      "name": "NLA.Proofs.TR04.SVD.image_rightBasis_eq_zero",
+      "kind": "theorem",
+      "source": "NLA/Proofs/TR04/SVDCore.lean",
+      "line": 61,
+      "visibility": "public"
+    },
+    {
+      "name": "NLA.Proofs.TR04.SVD.range_finrank_le_domain",
+      "kind": "theorem",
+      "source": "NLA/Proofs/TR04/SVDCore.lean",
+      "line": 67,
+      "visibility": "public"
+    },
+    {
+      "name": "NLA.Proofs.TR04.SVD.range_finrank_le_codomain",
+      "kind": "theorem",
+      "source": "NLA/Proofs/TR04/SVDCore.lean",
+      "line": 73,
+      "visibility": "public"
+    },
+    {
+      "name": "NLA.Proofs.TR04.SVD.leftVector",
+      "kind": "def",
+      "source": "NLA/Proofs/TR04/SVDCore.lean",
+      "line": 77,
+      "visibility": "public"
+    },
+    {
+      "name": "NLA.Proofs.TR04.SVD.orthonormal_leftVector_positive",
+      "kind": "theorem",
+      "source": "NLA/Proofs/TR04/SVDCore.lean",
+      "line": 82,
+      "visibility": "public"
+    },
+    {
+      "name": "NLA.Proofs.TR04.SVD.exists_leftBasis",
+      "kind": "theorem",
+      "source": "NLA/Proofs/TR04/SVDCore.lean",
+      "line": 106,
+      "visibility": "public"
+    },
+    {
+      "name": "NLA.Proofs.TR04.SVD.image_rightBasis_eq_smul",
+      "kind": "theorem",
+      "source": "NLA/Proofs/TR04/SVDTotal.lean",
+      "line": 10,
+      "visibility": "public"
+    },
+    {
+      "name": "NLA.Proofs.TR04.SVD.sum_fin_truncate",
+      "kind": "theorem",
+      "source": "NLA/Proofs/TR04/SVDTotal.lean",
+      "line": 27,
+      "visibility": "public"
+    },
+    {
+      "name": "NLA.Proofs.TR04.SVD.exists_validSVD",
+      "kind": "theorem",
+      "source": "NLA/Proofs/TR04/SVDTotal.lean",
+      "line": 50,
+      "visibility": "public"
+    },
+    {
+      "name": "NLA.Proofs.TR04.step_total",
+      "kind": "theorem",
+      "source": "NLA/Proofs/TR04/MachineTotality.lean",
+      "line": 14,
+      "visibility": "public"
+    },
+    {
+      "name": "NLA.Proofs.TR04.exists_legalTrace",
+      "kind": "theorem",
+      "source": "NLA/Proofs/TR04/MachineTotality.lean",
+      "line": 20,
+      "visibility": "public"
+    },
+    {
+      "name": "NLA.Proofs.TR04.legalTrace_cost_eq",
+      "kind": "theorem",
+      "source": "NLA/Proofs/TR04/MachineTraceBounds.lean",
+      "line": 11,
+      "visibility": "public"
+    },
+    {
+      "name": "NLA.Proofs.TR04.costThrough_zero",
+      "kind": "theorem",
+      "source": "NLA/Proofs/TR04/MachineTraceBounds.lean",
+      "line": 16,
+      "visibility": "public"
+    },
+    {
+      "name": "NLA.Proofs.TR04.costThrough_succ",
+      "kind": "theorem",
+      "source": "NLA/Proofs/TR04/MachineTraceBounds.lean",
+      "line": 19,
+      "visibility": "public"
+    },
+    {
+      "name": "NLA.Proofs.TR04.charge_pos_of_running",
+      "kind": "theorem",
+      "source": "NLA/Proofs/TR04/MachineTraceBounds.lean",
+      "line": 23,
+      "visibility": "public"
+    },
+    {
+      "name": "NLA.Proofs.TR04.legalTrace_halted_state_add",
+      "kind": "theorem",
+      "source": "NLA/Proofs/TR04/MachineTraceBounds.lean",
+      "line": 28,
+      "visibility": "public"
+    },
+    {
+      "name": "NLA.Proofs.TR04.costThrough_add_of_halted",
+      "kind": "theorem",
+      "source": "NLA/Proofs/TR04/MachineTraceBounds.lean",
+      "line": 40,
+      "visibility": "public"
+    },
+    {
+      "name": "NLA.Proofs.TR04.continuous_frobeniusSq",
+      "kind": "theorem",
+      "source": "NLA/Proofs/TR04/Optimum.lean",
+      "line": 15,
+      "visibility": "public"
+    },
+    {
+      "name": "NLA.Proofs.TR04.frobeniusSq_nonneg",
+      "kind": "theorem",
+      "source": "NLA/Proofs/TR04/Optimum.lean",
+      "line": 21,
+      "visibility": "public"
+    },
+    {
+      "name": "NLA.Proofs.TR04.frobeniusSq_coordinate_le",
+      "kind": "theorem",
+      "source": "NLA/Proofs/TR04/Optimum.lean",
+      "line": 25,
+      "visibility": "public"
+    },
+    {
+      "name": "NLA.Proofs.TR04.frobeniusSq_self",
+      "kind": "theorem",
+      "source": "NLA/Proofs/TR04/Optimum.lean",
+      "line": 29,
+      "visibility": "public"
+    },
+    {
+      "name": "NLA.Proofs.TR04.frobeniusSq_eq_zero_iff",
+      "kind": "theorem",
+      "source": "NLA/Proofs/TR04/Optimum.lean",
+      "line": 32,
+      "visibility": "public"
+    },
+    {
+      "name": "NLA.Proofs.TR04.frobeniusSq_sublevel_subset_box",
+      "kind": "theorem",
+      "source": "NLA/Proofs/TR04/Optimum.lean",
+      "line": 45,
+      "visibility": "public"
+    },
+    {
+      "name": "NLA.Proofs.TR04.exists_feasible_minimizer",
+      "kind": "theorem",
+      "source": "NLA/Proofs/TR04/Optimum.lean",
+      "line": 57,
+      "visibility": "public"
+    },
+    {
+      "name": "NLA.Proofs.TR04.exists_optimum",
+      "kind": "theorem",
+      "source": "NLA/Proofs/TR04/Optimum.lean",
+      "line": 77,
+      "visibility": "public"
+    },
+    {
+      "name": "NLA.Proofs.TR04.optimum_nonneg",
+      "kind": "theorem",
+      "source": "NLA/Proofs/TR04/Optimum.lean",
+      "line": 85,
+      "visibility": "public"
+    },
+    {
+      "name": "NLA.Proofs.TR04.optimum_le_of_feasible",
+      "kind": "theorem",
+      "source": "NLA/Proofs/TR04/Optimum.lean",
+      "line": 91,
+      "visibility": "public"
+    },
+    {
+      "name": "NLA.Proofs.TR04.optimum_eq_zero_iff_feasible",
+      "kind": "theorem",
+      "source": "NLA/Proofs/TR04/Optimum.lean",
+      "line": 97,
+      "visibility": "public"
+    },
+    {
+      "name": "NLA.Proofs.TR04.sum_unfold_indices",
+      "kind": "theorem",
+      "source": "NLA/Proofs/TR04/ReshapeFrobenius.lean",
+      "line": 12,
+      "visibility": "public"
+    },
+    {
+      "name": "NLA.Proofs.TR04.frobeniusSq_eq_unfold_sum",
+      "kind": "theorem",
+      "source": "NLA/Proofs/TR04/ReshapeFrobenius.lean",
+      "line": 20,
+      "visibility": "public"
+    },
+    {
+      "name": "NLA.ReviewedStatements.TR04.Target",
+      "kind": "def",
+      "source": "Reviewed/TR04.lean",
+      "line": 20,
+      "visibility": "public"
+    }
+  ],
+  "support_declarations": [
+    {
+      "name": "NLA.Proofs.TR04.splitIndex",
+      "kind": "def",
+      "source": "NLA/Proofs/TR04/Reshape.lean",
+      "line": 12,
+      "visibility": "public"
+    },
+    {
+      "name": "NLA.Proofs.TR04.splitIndex_join",
+      "kind": "theorem",
+      "source": "NLA/Proofs/TR04/Reshape.lean",
+      "line": 16,
+      "visibility": "public"
+    },
+    {
+      "name": "NLA.Proofs.TR04.join_splitIndex",
+      "kind": "theorem",
+      "source": "NLA/Proofs/TR04/Reshape.lean",
+      "line": 25,
+      "visibility": "public"
+    },
+    {
+      "name": "NLA.Proofs.TR04.joinEquiv",
+      "kind": "def",
+      "source": "NLA/Proofs/TR04/Reshape.lean",
+      "line": 31,
+      "visibility": "public"
+    },
+    {
+      "name": "NLA.Proofs.TR04.unfoldLinearEquiv",
+      "kind": "def",
+      "source": "NLA/Proofs/TR04/Reshape.lean",
+      "line": 39,
+      "visibility": "public"
+    },
+    {
+      "name": "NLA.Proofs.TR04.unfoldContinuousLinearEquiv",
+      "kind": "def",
+      "source": "NLA/Proofs/TR04/Reshape.lean",
+      "line": 48,
+      "visibility": "public"
+    },
+    {
+      "name": "NLA.Proofs.TR04.unfoldLinearEquiv_apply",
+      "kind": "theorem",
+      "source": "NLA/Proofs/TR04/Reshape.lean",
+      "line": 52,
+      "visibility": "public"
+    },
+    {
+      "name": "NLA.Proofs.TR04.unfoldContinuousLinearEquiv_apply",
+      "kind": "theorem",
+      "source": "NLA/Proofs/TR04/Reshape.lean",
+      "line": 55,
+      "visibility": "public"
+    },
+    {
+      "name": "NLA.Proofs.TR04.continuous_unfold",
+      "kind": "theorem",
+      "source": "NLA/Proofs/TR04/Reshape.lean",
+      "line": 58,
+      "visibility": "public"
+    },
+    {
+      "name": "NLA.Proofs.TR04.unfold_zero",
+      "kind": "theorem",
+      "source": "NLA/Proofs/TR04/Reshape.lean",
+      "line": 62,
+      "visibility": "public"
+    },
+    {
+      "name": "NLA.Proofs.TR04.unfold_add",
+      "kind": "theorem",
+      "source": "NLA/Proofs/TR04/Reshape.lean",
+      "line": 65,
+      "visibility": "public"
+    },
+    {
+      "name": "NLA.Proofs.TR04.unfold_smul",
+      "kind": "theorem",
+      "source": "NLA/Proofs/TR04/Reshape.lean",
+      "line": 68,
+      "visibility": "public"
+    },
+    {
+      "name": "NLA.Proofs.TR04.unfold_injective",
+      "kind": "theorem",
+      "source": "NLA/Proofs/TR04/Reshape.lean",
+      "line": 71,
+      "visibility": "public"
+    },
+    {
+      "name": "NLA.Proofs.TR04.feasible_zero",
+      "kind": "theorem",
+      "source": "NLA/Proofs/TR04/Feasible.lean",
+      "line": 12,
+      "visibility": "public"
+    },
+    {
+      "name": "NLA.Proofs.TR04.feasible_nonempty",
+      "kind": "theorem",
+      "source": "NLA/Proofs/TR04/Feasible.lean",
+      "line": 16,
+      "visibility": "public"
+    },
+    {
+      "name": "NLA.Proofs.TR04.isClosed_matrix_rank_le",
+      "kind": "theorem",
+      "source": "NLA/Proofs/TR04/Feasible.lean",
+      "line": 20,
+      "visibility": "public"
+    },
+    {
+      "name": "NLA.Proofs.TR04.isClosed_feasible",
+      "kind": "theorem",
+      "source": "NLA/Proofs/TR04/Feasible.lean",
+      "line": 40,
+      "visibility": "public"
+    },
+    {
+      "name": "NLA.Proofs.TR04.step_cost_eq",
+      "kind": "theorem",
+      "source": "NLA/Proofs/TR04/MachineExecution.lean",
+      "line": 12,
+      "visibility": "public"
+    },
+    {
+      "name": "NLA.Proofs.TR04.step_of_halted",
+      "kind": "theorem",
+      "source": "NLA/Proofs/TR04/MachineExecution.lean",
+      "line": 15,
+      "visibility": "public"
+    },
+    {
+      "name": "NLA.Proofs.TR04.step_of_failed",
+      "kind": "theorem",
+      "source": "NLA/Proofs/TR04/MachineExecution.lean",
+      "line": 20,
+      "visibility": "public"
+    },
+    {
+      "name": "NLA.Proofs.TR04.exists_legalTrace_of_step_total",
+      "kind": "theorem",
+      "source": "NLA/Proofs/TR04/MachineExecution.lean",
+      "line": 27,
+      "visibility": "public"
+    },
+    {
+      "name": "NLA.Proofs.TR04.step_total_of_svd_total",
+      "kind": "theorem",
+      "source": "NLA/Proofs/TR04/MachineExecution.lean",
+      "line": 42,
+      "visibility": "public"
+    },
+    {
+      "name": "NLA.Proofs.TR04.exists_legalTrace_of_svd_total",
+      "kind": "theorem",
+      "source": "NLA/Proofs/TR04/MachineExecution.lean",
+      "line": 69,
+      "visibility": "public"
+    },
+    {
+      "name": "NLA.Proofs.TR04.SVD.Space",
+      "kind": "abbrev",
+      "source": "NLA/Proofs/TR04/SVDCore.lean",
+      "line": 17,
+      "visibility": "public"
+    },
+    {
+      "name": "NLA.Proofs.TR04.SVD.rightBasis",
+      "kind": "def",
+      "source": "NLA/Proofs/TR04/SVDCore.lean",
+      "line": 19,
+      "visibility": "public"
+    },
+    {
+      "name": "NLA.Proofs.TR04.SVD.norm_image_rightBasis",
+      "kind": "theorem",
+      "source": "NLA/Proofs/TR04/SVDCore.lean",
+      "line": 23,
+      "visibility": "public"
+    },
+    {
+      "name": "NLA.Proofs.TR04.SVD.inner_image_rightBasis",
+      "kind": "theorem",
+      "source": "NLA/Proofs/TR04/SVDCore.lean",
+      "line": 48,
+      "visibility": "public"
+    },
+    {
+      "name": "NLA.Proofs.TR04.SVD.image_rightBasis_eq_zero",
+      "kind": "theorem",
+      "source": "NLA/Proofs/TR04/SVDCore.lean",
+      "line": 61,
+      "visibility": "public"
+    },
+    {
+      "name": "NLA.Proofs.TR04.SVD.range_finrank_le_domain",
+      "kind": "theorem",
+      "source": "NLA/Proofs/TR04/SVDCore.lean",
+      "line": 67,
+      "visibility": "public"
+    },
+    {
+      "name": "NLA.Proofs.TR04.SVD.range_finrank_le_codomain",
+      "kind": "theorem",
+      "source": "NLA/Proofs/TR04/SVDCore.lean",
+      "line": 73,
+      "visibility": "public"
+    },
+    {
+      "name": "NLA.Proofs.TR04.SVD.leftVector",
+      "kind": "def",
+      "source": "NLA/Proofs/TR04/SVDCore.lean",
+      "line": 77,
+      "visibility": "public"
+    },
+    {
+      "name": "NLA.Proofs.TR04.SVD.orthonormal_leftVector_positive",
+      "kind": "theorem",
+      "source": "NLA/Proofs/TR04/SVDCore.lean",
+      "line": 82,
+      "visibility": "public"
+    },
+    {
+      "name": "NLA.Proofs.TR04.SVD.exists_leftBasis",
+      "kind": "theorem",
+      "source": "NLA/Proofs/TR04/SVDCore.lean",
+      "line": 106,
+      "visibility": "public"
+    },
+    {
+      "name": "NLA.Proofs.TR04.SVD.image_rightBasis_eq_smul",
+      "kind": "theorem",
+      "source": "NLA/Proofs/TR04/SVDTotal.lean",
+      "line": 10,
+      "visibility": "public"
+    },
+    {
+      "name": "NLA.Proofs.TR04.SVD.sum_fin_truncate",
+      "kind": "theorem",
+      "source": "NLA/Proofs/TR04/SVDTotal.lean",
+      "line": 27,
+      "visibility": "public"
+    },
+    {
+      "name": "NLA.Proofs.TR04.SVD.exists_validSVD",
+      "kind": "theorem",
+      "source": "NLA/Proofs/TR04/SVDTotal.lean",
+      "line": 50,
+      "visibility": "public"
+    },
+    {
+      "name": "NLA.Proofs.TR04.step_total",
+      "kind": "theorem",
+      "source": "NLA/Proofs/TR04/MachineTotality.lean",
+      "line": 14,
+      "visibility": "public"
+    },
+    {
+      "name": "NLA.Proofs.TR04.exists_legalTrace",
+      "kind": "theorem",
+      "source": "NLA/Proofs/TR04/MachineTotality.lean",
+      "line": 20,
+      "visibility": "public"
+    },
+    {
+      "name": "NLA.Proofs.TR04.legalTrace_cost_eq",
+      "kind": "theorem",
+      "source": "NLA/Proofs/TR04/MachineTraceBounds.lean",
+      "line": 11,
+      "visibility": "public"
+    },
+    {
+      "name": "NLA.Proofs.TR04.costThrough_zero",
+      "kind": "theorem",
+      "source": "NLA/Proofs/TR04/MachineTraceBounds.lean",
+      "line": 16,
+      "visibility": "public"
+    },
+    {
+      "name": "NLA.Proofs.TR04.costThrough_succ",
+      "kind": "theorem",
+      "source": "NLA/Proofs/TR04/MachineTraceBounds.lean",
+      "line": 19,
+      "visibility": "public"
+    },
+    {
+      "name": "NLA.Proofs.TR04.charge_pos_of_running",
+      "kind": "theorem",
+      "source": "NLA/Proofs/TR04/MachineTraceBounds.lean",
+      "line": 23,
+      "visibility": "public"
+    },
+    {
+      "name": "NLA.Proofs.TR04.legalTrace_halted_state_add",
+      "kind": "theorem",
+      "source": "NLA/Proofs/TR04/MachineTraceBounds.lean",
+      "line": 28,
+      "visibility": "public"
+    },
+    {
+      "name": "NLA.Proofs.TR04.costThrough_add_of_halted",
+      "kind": "theorem",
+      "source": "NLA/Proofs/TR04/MachineTraceBounds.lean",
+      "line": 40,
+      "visibility": "public"
+    },
+    {
+      "name": "NLA.Proofs.TR04.continuous_frobeniusSq",
+      "kind": "theorem",
+      "source": "NLA/Proofs/TR04/Optimum.lean",
+      "line": 15,
+      "visibility": "public"
+    },
+    {
+      "name": "NLA.Proofs.TR04.frobeniusSq_nonneg",
+      "kind": "theorem",
+      "source": "NLA/Proofs/TR04/Optimum.lean",
+      "line": 21,
+      "visibility": "public"
+    },
+    {
+      "name": "NLA.Proofs.TR04.frobeniusSq_coordinate_le",
+      "kind": "theorem",
+      "source": "NLA/Proofs/TR04/Optimum.lean",
+      "line": 25,
+      "visibility": "public"
+    },
+    {
+      "name": "NLA.Proofs.TR04.frobeniusSq_self",
+      "kind": "theorem",
+      "source": "NLA/Proofs/TR04/Optimum.lean",
+      "line": 29,
+      "visibility": "public"
+    },
+    {
+      "name": "NLA.Proofs.TR04.frobeniusSq_eq_zero_iff",
+      "kind": "theorem",
+      "source": "NLA/Proofs/TR04/Optimum.lean",
+      "line": 32,
+      "visibility": "public"
+    },
+    {
+      "name": "NLA.Proofs.TR04.frobeniusSq_sublevel_subset_box",
+      "kind": "theorem",
+      "source": "NLA/Proofs/TR04/Optimum.lean",
+      "line": 45,
+      "visibility": "public"
+    },
+    {
+      "name": "NLA.Proofs.TR04.exists_feasible_minimizer",
+      "kind": "theorem",
+      "source": "NLA/Proofs/TR04/Optimum.lean",
+      "line": 57,
+      "visibility": "public"
+    },
+    {
+      "name": "NLA.Proofs.TR04.exists_optimum",
+      "kind": "theorem",
+      "source": "NLA/Proofs/TR04/Optimum.lean",
+      "line": 77,
+      "visibility": "public"
+    },
+    {
+      "name": "NLA.Proofs.TR04.optimum_nonneg",
+      "kind": "theorem",
+      "source": "NLA/Proofs/TR04/Optimum.lean",
+      "line": 85,
+      "visibility": "public"
+    },
+    {
+      "name": "NLA.Proofs.TR04.optimum_le_of_feasible",
+      "kind": "theorem",
+      "source": "NLA/Proofs/TR04/Optimum.lean",
+      "line": 91,
+      "visibility": "public"
+    },
+    {
+      "name": "NLA.Proofs.TR04.optimum_eq_zero_iff_feasible",
+      "kind": "theorem",
+      "source": "NLA/Proofs/TR04/Optimum.lean",
+      "line": 97,
+      "visibility": "public"
+    },
+    {
+      "name": "NLA.Proofs.TR04.sum_unfold_indices",
+      "kind": "theorem",
+      "source": "NLA/Proofs/TR04/ReshapeFrobenius.lean",
+      "line": 12,
+      "visibility": "public"
+    },
+    {
+      "name": "NLA.Proofs.TR04.frobeniusSq_eq_unfold_sum",
+      "kind": "theorem",
+      "source": "NLA/Proofs/TR04/ReshapeFrobenius.lean",
+      "line": 20,
+      "visibility": "public"
+    }
+  ],
+  "lean_version": {
+    "argv": [
+      "/Users/ajt253/Documents/OpenProblemsInNLA/campaign-workspaces/tooling/lean-4.33.1-darwin_aarch64/bin/lean",
+      "--version"
+    ],
+    "exit_code": 0,
+    "stdout": "Lean (version 4.33.1, arm64-apple-darwin24.6.0, commit 819816b2e0a3bf405af45ae5c7af2491d8f5bee6, Release)\n",
+    "stderr": ""
+  },
+  "lean_sha256": "1b370cfcbf44e80d1b004ab1b1ab9a4c73951f9f7c242140bcff9bc577576554",
+  "dependencies_before": [
+    {
+      "name": "leancert",
+      "expected_revision": "621a43d7cf21f87872392a01e874f2f1dbddc926",
+      "directory": "/Users/ajt253/.codex/worktrees/pf05-lean-proof/OpenProblemsInNLA/nonnegative-and-positive-factorizations/PF-05/lean/.lake/packages/leancert",
+      "head": {
+        "argv": [
+          "git",
+          "-C",
+          "/Users/ajt253/.codex/worktrees/pf05-lean-proof/OpenProblemsInNLA/nonnegative-and-positive-factorizations/PF-05/lean/.lake/packages/leancert",
+          "rev-parse",
+          "HEAD"
+        ],
+        "exit_code": 0,
+        "stdout": "621a43d7cf21f87872392a01e874f2f1dbddc926\n",
+        "stderr": ""
+      },
+      "status": {
+        "argv": [
+          "git",
+          "-C",
+          "/Users/ajt253/.codex/worktrees/pf05-lean-proof/OpenProblemsInNLA/nonnegative-and-positive-factorizations/PF-05/lean/.lake/packages/leancert",
+          "status",
+          "--porcelain",
+          "--untracked-files=no"
+        ],
+        "exit_code": 0,
+        "stdout": "",
+        "stderr": ""
+      },
+      "passed": true
+    },
+    {
+      "name": "mathlib",
+      "expected_revision": "0df444a360eaa60ab8c11dca51a86af692955474",
+      "directory": "/Users/ajt253/.codex/worktrees/pf05-lean-proof/OpenProblemsInNLA/nonnegative-and-positive-factorizations/PF-05/lean/.lake/packages/mathlib",
+      "head": {
+        "argv": [
+          "git",
+          "-C",
+          "/Users/ajt253/.codex/worktrees/pf05-lean-proof/OpenProblemsInNLA/nonnegative-and-positive-factorizations/PF-05/lean/.lake/packages/mathlib",
+          "rev-parse",
+          "HEAD"
+        ],
+        "exit_code": 0,
+        "stdout": "0df444a360eaa60ab8c11dca51a86af692955474\n",
+        "stderr": ""
+      },
+      "status": {
+        "argv": [
+          "git",
+          "-C",
+          "/Users/ajt253/.codex/worktrees/pf05-lean-proof/OpenProblemsInNLA/nonnegative-and-positive-factorizations/PF-05/lean/.lake/packages/mathlib",
+          "status",
+          "--porcelain",
+          "--untracked-files=no"
+        ],
+        "exit_code": 0,
+        "stdout": "",
+        "stderr": ""
+      },
+      "passed": true
+    },
+    {
+      "name": "plausible",
+      "expected_revision": "b7eb3304aeae834b12dda98993a37f6a41f6f0bb",
+      "directory": "/Users/ajt253/.codex/worktrees/pf05-lean-proof/OpenProblemsInNLA/nonnegative-and-positive-factorizations/PF-05/lean/.lake/packages/plausible",
+      "head": {
+        "argv": [
+          "git",
+          "-C",
+          "/Users/ajt253/.codex/worktrees/pf05-lean-proof/OpenProblemsInNLA/nonnegative-and-positive-factorizations/PF-05/lean/.lake/packages/plausible",
+          "rev-parse",
+          "HEAD"
+        ],
+        "exit_code": 0,
+        "stdout": "b7eb3304aeae834b12dda98993a37f6a41f6f0bb\n",
+        "stderr": ""
+      },
+      "status": {
+        "argv": [
+          "git",
+          "-C",
+          "/Users/ajt253/.codex/worktrees/pf05-lean-proof/OpenProblemsInNLA/nonnegative-and-positive-factorizations/PF-05/lean/.lake/packages/plausible",
+          "status",
+          "--porcelain",
+          "--untracked-files=no"
+        ],
+        "exit_code": 0,
+        "stdout": "",
+        "stderr": ""
+      },
+      "passed": true
+    },
+    {
+      "name": "LeanSearchClient",
+      "expected_revision": "5f4d51b81cbd3f6b32b156bfad9056621a040404",
+      "directory": "/Users/ajt253/.codex/worktrees/pf05-lean-proof/OpenProblemsInNLA/nonnegative-and-positive-factorizations/PF-05/lean/.lake/packages/LeanSearchClient",
+      "head": {
+        "argv": [
+          "git",
+          "-C",
+          "/Users/ajt253/.codex/worktrees/pf05-lean-proof/OpenProblemsInNLA/nonnegative-and-positive-factorizations/PF-05/lean/.lake/packages/LeanSearchClient",
+          "rev-parse",
+          "HEAD"
+        ],
+        "exit_code": 0,
+        "stdout": "5f4d51b81cbd3f6b32b156bfad9056621a040404\n",
+        "stderr": ""
+      },
+      "status": {
+        "argv": [
+          "git",
+          "-C",
+          "/Users/ajt253/.codex/worktrees/pf05-lean-proof/OpenProblemsInNLA/nonnegative-and-positive-factorizations/PF-05/lean/.lake/packages/LeanSearchClient",
+          "status",
+          "--porcelain",
+          "--untracked-files=no"
+        ],
+        "exit_code": 0,
+        "stdout": "",
+        "stderr": ""
+      },
+      "passed": true
+    },
+    {
+      "name": "importGraph",
+      "expected_revision": "16f02aa7642864af59f1ff0e384a015994db9118",
+      "directory": "/Users/ajt253/.codex/worktrees/pf05-lean-proof/OpenProblemsInNLA/nonnegative-and-positive-factorizations/PF-05/lean/.lake/packages/importGraph",
+      "head": {
+        "argv": [
+          "git",
+          "-C",
+          "/Users/ajt253/.codex/worktrees/pf05-lean-proof/OpenProblemsInNLA/nonnegative-and-positive-factorizations/PF-05/lean/.lake/packages/importGraph",
+          "rev-parse",
+          "HEAD"
+        ],
+        "exit_code": 0,
+        "stdout": "16f02aa7642864af59f1ff0e384a015994db9118\n",
+        "stderr": ""
+      },
+      "status": {
+        "argv": [
+          "git",
+          "-C",
+          "/Users/ajt253/.codex/worktrees/pf05-lean-proof/OpenProblemsInNLA/nonnegative-and-positive-factorizations/PF-05/lean/.lake/packages/importGraph",
+          "status",
+          "--porcelain",
+          "--untracked-files=no"
+        ],
+        "exit_code": 0,
+        "stdout": "",
+        "stderr": ""
+      },
+      "passed": true
+    },
+    {
+      "name": "proofwidgets",
+      "expected_revision": "4be2e3d5087eeb272cf5a8853b8f9dd025ef5957",
+      "directory": "/Users/ajt253/.codex/worktrees/pf05-lean-proof/OpenProblemsInNLA/nonnegative-and-positive-factorizations/PF-05/lean/.lake/packages/proofwidgets",
+      "head": {
+        "argv": [
+          "git",
+          "-C",
+          "/Users/ajt253/.codex/worktrees/pf05-lean-proof/OpenProblemsInNLA/nonnegative-and-positive-factorizations/PF-05/lean/.lake/packages/proofwidgets",
+          "rev-parse",
+          "HEAD"
+        ],
+        "exit_code": 0,
+        "stdout": "4be2e3d5087eeb272cf5a8853b8f9dd025ef5957\n",
+        "stderr": ""
+      },
+      "status": {
+        "argv": [
+          "git",
+          "-C",
+          "/Users/ajt253/.codex/worktrees/pf05-lean-proof/OpenProblemsInNLA/nonnegative-and-positive-factorizations/PF-05/lean/.lake/packages/proofwidgets",
+          "status",
+          "--porcelain",
+          "--untracked-files=no"
+        ],
+        "exit_code": 0,
+        "stdout": "",
+        "stderr": ""
+      },
+      "passed": true
+    },
+    {
+      "name": "aesop",
+      "expected_revision": "3448c0bcc5ce01b2d1546e483ec3620e32df3d0e",
+      "directory": "/Users/ajt253/.codex/worktrees/pf05-lean-proof/OpenProblemsInNLA/nonnegative-and-positive-factorizations/PF-05/lean/.lake/packages/aesop",
+      "head": {
+        "argv": [
+          "git",
+          "-C",
+          "/Users/ajt253/.codex/worktrees/pf05-lean-proof/OpenProblemsInNLA/nonnegative-and-positive-factorizations/PF-05/lean/.lake/packages/aesop",
+          "rev-parse",
+          "HEAD"
+        ],
+        "exit_code": 0,
+        "stdout": "3448c0bcc5ce01b2d1546e483ec3620e32df3d0e\n",
+        "stderr": ""
+      },
+      "status": {
+        "argv": [
+          "git",
+          "-C",
+          "/Users/ajt253/.codex/worktrees/pf05-lean-proof/OpenProblemsInNLA/nonnegative-and-positive-factorizations/PF-05/lean/.lake/packages/aesop",
+          "status",
+          "--porcelain",
+          "--untracked-files=no"
+        ],
+        "exit_code": 0,
+        "stdout": "",
+        "stderr": ""
+      },
+      "passed": true
+    },
+    {
+      "name": "Qq",
+      "expected_revision": "92c15be17b7caf78c2ad767ec40f89052d908d81",
+      "directory": "/Users/ajt253/.codex/worktrees/pf05-lean-proof/OpenProblemsInNLA/nonnegative-and-positive-factorizations/PF-05/lean/.lake/packages/Qq",
+      "head": {
+        "argv": [
+          "git",
+          "-C",
+          "/Users/ajt253/.codex/worktrees/pf05-lean-proof/OpenProblemsInNLA/nonnegative-and-positive-factorizations/PF-05/lean/.lake/packages/Qq",
+          "rev-parse",
+          "HEAD"
+        ],
+        "exit_code": 0,
+        "stdout": "92c15be17b7caf78c2ad767ec40f89052d908d81\n",
+        "stderr": ""
+      },
+      "status": {
+        "argv": [
+          "git",
+          "-C",
+          "/Users/ajt253/.codex/worktrees/pf05-lean-proof/OpenProblemsInNLA/nonnegative-and-positive-factorizations/PF-05/lean/.lake/packages/Qq",
+          "status",
+          "--porcelain",
+          "--untracked-files=no"
+        ],
+        "exit_code": 0,
+        "stdout": "",
+        "stderr": ""
+      },
+      "passed": true
+    },
+    {
+      "name": "batteries",
+      "expected_revision": "4488d40d070b9700d4d5a6aa342f0d40c31b2a2d",
+      "directory": "/Users/ajt253/.codex/worktrees/pf05-lean-proof/OpenProblemsInNLA/nonnegative-and-positive-factorizations/PF-05/lean/.lake/packages/batteries",
+      "head": {
+        "argv": [
+          "git",
+          "-C",
+          "/Users/ajt253/.codex/worktrees/pf05-lean-proof/OpenProblemsInNLA/nonnegative-and-positive-factorizations/PF-05/lean/.lake/packages/batteries",
+          "rev-parse",
+          "HEAD"
+        ],
+        "exit_code": 0,
+        "stdout": "4488d40d070b9700d4d5a6aa342f0d40c31b2a2d\n",
+        "stderr": ""
+      },
+      "status": {
+        "argv": [
+          "git",
+          "-C",
+          "/Users/ajt253/.codex/worktrees/pf05-lean-proof/OpenProblemsInNLA/nonnegative-and-positive-factorizations/PF-05/lean/.lake/packages/batteries",
+          "status",
+          "--porcelain",
+          "--untracked-files=no"
+        ],
+        "exit_code": 0,
+        "stdout": "",
+        "stderr": ""
+      },
+      "passed": true
+    },
+    {
+      "name": "Cli",
+      "expected_revision": "6130a47896ce867c6a4a55373441e59e565bad0f",
+      "directory": "/Users/ajt253/.codex/worktrees/pf05-lean-proof/OpenProblemsInNLA/nonnegative-and-positive-factorizations/PF-05/lean/.lake/packages/Cli",
+      "head": {
+        "argv": [
+          "git",
+          "-C",
+          "/Users/ajt253/.codex/worktrees/pf05-lean-proof/OpenProblemsInNLA/nonnegative-and-positive-factorizations/PF-05/lean/.lake/packages/Cli",
+          "rev-parse",
+          "HEAD"
+        ],
+        "exit_code": 0,
+        "stdout": "6130a47896ce867c6a4a55373441e59e565bad0f\n",
+        "stderr": ""
+      },
+      "status": {
+        "argv": [
+          "git",
+          "-C",
+          "/Users/ajt253/.codex/worktrees/pf05-lean-proof/OpenProblemsInNLA/nonnegative-and-positive-factorizations/PF-05/lean/.lake/packages/Cli",
+          "status",
+          "--porcelain",
+          "--untracked-files=no"
+        ],
+        "exit_code": 0,
+        "stdout": "",
+        "stderr": ""
+      },
+      "passed": true
+    }
+  ],
+  "original25_before": [
+    {
+      "path": "problem_ids.json",
+      "sha256": "d7f9925a483d40030ef266917bc8e413dac6d45530ad5515da506ffe9583e763",
+      "passed": true
+    },
+    {
+      "path": "tensor-computations/TR-04/README.md",
+      "sha256": "614dfc1189a99b0c2de54a04b948c01d35301d468e0b723c7fcb34b9918957cf",
+      "passed": true
+    },
+    {
+      "path": "tensor-computations/TR-04/problem.tex",
+      "sha256": "5b07e197470623eb5b26cca49d4a78a6bfba580c36442c8ee456abacb536ef36",
+      "passed": true
+    },
+    {
+      "path": "tensor-computations/TR-04/problem.pdf",
+      "sha256": "3228867152976425346f22aacadc9585043a1470cf6fadc62246bbb70b47f49b",
+      "passed": true
+    },
+    {
+      "path": "tensor-computations/TR-04/lean/Challenge.lean",
+      "sha256": "e2593ab837691309d993bc46c77c5d37e8c12e9c975254324adbebace2246f32",
+      "passed": true
+    },
+    {
+      "path": "tensor-computations/TR-04/lean/Solution.lean",
+      "sha256": "dd02b5ba519b14e19aeebd005a72c85aba30084347bc3e82d5d8f61d4a94aa75",
+      "passed": true
+    },
+    {
+      "path": "tensor-computations/TR-04/lean/SPEC.md",
+      "sha256": "9a67b4545286ff189a6c12c880862df4ca1767e1da3107c4509569d8a3600902",
+      "passed": true
+    },
+    {
+      "path": "tensor-computations/TR-04/lean/README.md",
+      "sha256": "04e3c9948ae24b055f9e84b8cb9e47a924dbfb8aa0d678dbc869db792e2c6275",
+      "passed": true
+    },
+    {
+      "path": "references/colbrook-recovered-tensors-2026-09-11/manuscripts/TR-04.tex",
+      "sha256": "e7770aa08ee91fbda82e0bfe3e087f1a9c8ee2a076218144bf0040e4d282bf73",
+      "passed": true
+    },
+    {
+      "path": "references/colbrook-recovered-tensors-2026-09-11/verification/reviews/TR-04-review.md",
+      "sha256": "0189cecc988d1d1f93c93e5dca159265641efc598105b2729049b570524b19f2",
+      "passed": true
+    },
+    {
+      "path": "lean-statements/NLA/Statements/TR04.lean",
+      "sha256": "6f595cd3fa4c5d317bc757628a3e7858ab4576c90cbe967ac5289c8b3fbd780c",
+      "passed": true
+    },
+    {
+      "path": "lean-statements/Reviewed/TR04.lean",
+      "sha256": "5b2260e25e8ce7dda5455a3cf11a5c16fc2493ce3d0cf1ab84a447d2fb1f54cd",
+      "passed": true
+    },
+    {
+      "path": "lean-statements/NLA/Computation/SVDMachine.lean",
+      "sha256": "8ec5866326b5a311b334651600db5d7f3065f2059175823626319afef7cf7581",
+      "passed": true
+    },
+    {
+      "path": "lean-statements/NLA/Computation/SVDControls.lean",
+      "sha256": "340bed2b81f7a74853d06847f8af4562600548801254a770de1a97e7fd6fac54",
+      "passed": true
+    },
+    {
+      "path": "lean-statements/NLA/Computation/TensorTrainApproximation.lean",
+      "sha256": "05038abcc6cf85d422cf580b3cc527e7aa7dad146802da5621911b6331494d2d",
+      "passed": true
+    },
+    {
+      "path": "lean-statements/NLA/Computation/NonadaptiveMatrixQuery.lean",
+      "sha256": "66345a3ed3274e6dd351ffaa7e1b75a0aa95afa63c3ece937d37f1efaad29b21",
+      "passed": true
+    },
+    {
+      "path": "docs/lean/statements/TR-04/NUMERICAL_TARGETS.md",
+      "sha256": "f1bfd6d4a73a326a5dec79c052dba4f5ae38cc2f4c9e40622492a7694c5074f4",
+      "passed": true
+    },
+    {
+      "path": "docs/lean/statements/TR-04/IMPLEMENTATION_NOTES.md",
+      "sha256": "a661d83390918eef7ceb893f9e035bb569eb955f361b4f1df2f670e8e09f2390",
+      "passed": true
+    },
+    {
+      "path": "docs/lean/statements/TR-04/source-lock.json",
+      "sha256": "1203a4fc275f4c0624db2673ec1535e4b5a71a810c5a10c599548066f6660b72",
+      "passed": true
+    },
+    {
+      "path": "docs/lean/statements/TR-04/reviews/lean-boundary-root.md",
+      "sha256": "07123fa7869bd3a59ed2a17aeae0cc7611d928c4a0c1a7a50c492548d5d1275f",
+      "passed": true
+    },
+    {
+      "path": "docs/lean/statements/TR-04/reviews/lean-boundary-root.json",
+      "sha256": "cd986da8d2f3b8d46251430c0833ca5fe11d7f97bee186a9b88aa6b7590108da",
+      "passed": true
+    },
+    {
+      "path": "docs/lean/statements/TR-04/reviews/lean-boundary-statement_design.md",
+      "sha256": "4dae400258e650a6cd27a700997345737a96bd8087e40c0676e17e190e332480",
+      "passed": true
+    },
+    {
+      "path": "docs/lean/statements/TR-04/reviews/lean-boundary-statement_design.json",
+      "sha256": "a18cdcafd249ed96e03dc712d04a24a61277240dc842f006f06c93517965e5b5",
+      "passed": true
+    },
+    {
+      "path": "lean-statements/lean-toolchain",
+      "sha256": "3aac669c7a910ec2389f4e4f921b605adf6ebf2d1e0c9b9cd0be4d33f3f5db71",
+      "passed": true
+    },
+    {
+      "path": "lean-statements/lake-manifest.json",
+      "sha256": "a19377882192a9dbfc01c4d4e73edd887a8de91f735edabaeff2dfa38a4b4ec8",
+      "passed": true
+    }
+  ],
+  "project_objects_reused": false,
+  "pinned_external_dependency_objects_reused": true,
+  "commands": [
+    {
+      "argv": [
+        "/Users/ajt253/Documents/OpenProblemsInNLA/campaign-workspaces/tooling/lean-4.33.1-darwin_aarch64/bin/lean",
+        "-R",
+        "/Users/ajt253/Documents/OpenProblemsInNLA/campaign-workspaces/tr04/docs/lean/proofs/TR-04/campaign-2026-10-23/independent-frozen-nine-verification/objects-vrz2trkj/source",
+        "-o",
+        "/Users/ajt253/Documents/OpenProblemsInNLA/campaign-workspaces/tr04/docs/lean/proofs/TR-04/campaign-2026-10-23/independent-frozen-nine-verification/objects-vrz2trkj/output/NLA/Computation/SVDMachine.olean",
+        "/Users/ajt253/Documents/OpenProblemsInNLA/campaign-workspaces/tr04/docs/lean/proofs/TR-04/campaign-2026-10-23/independent-frozen-nine-verification/objects-vrz2trkj/source/NLA/Computation/SVDMachine.lean"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": "",
+      "source": "NLA/Computation/SVDMachine.lean"
+    },
+    {
+      "argv": [
+        "/Users/ajt253/Documents/OpenProblemsInNLA/campaign-workspaces/tooling/lean-4.33.1-darwin_aarch64/bin/lean",
+        "-R",
+        "/Users/ajt253/Documents/OpenProblemsInNLA/campaign-workspaces/tr04/docs/lean/proofs/TR-04/campaign-2026-10-23/independent-frozen-nine-verification/objects-vrz2trkj/source",
+        "-o",
+        "/Users/ajt253/Documents/OpenProblemsInNLA/campaign-workspaces/tr04/docs/lean/proofs/TR-04/campaign-2026-10-23/independent-frozen-nine-verification/objects-vrz2trkj/output/NLA/Computation/TensorTrainApproximation.olean",
+        "/Users/ajt253/Documents/OpenProblemsInNLA/campaign-workspaces/tr04/docs/lean/proofs/TR-04/campaign-2026-10-23/independent-frozen-nine-verification/objects-vrz2trkj/source/NLA/Computation/TensorTrainApproximation.lean"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": "",
+      "source": "NLA/Computation/TensorTrainApproximation.lean"
+    },
+    {
+      "argv": [
+        "/Users/ajt253/Documents/OpenProblemsInNLA/campaign-workspaces/tooling/lean-4.33.1-darwin_aarch64/bin/lean",
+        "-R",
+        "/Users/ajt253/Documents/OpenProblemsInNLA/campaign-workspaces/tr04/docs/lean/proofs/TR-04/campaign-2026-10-23/independent-frozen-nine-verification/objects-vrz2trkj/source",
+        "-o",
+        "/Users/ajt253/Documents/OpenProblemsInNLA/campaign-workspaces/tr04/docs/lean/proofs/TR-04/campaign-2026-10-23/independent-frozen-nine-verification/objects-vrz2trkj/output/NLA/Proofs/TR04/Reshape.olean",
+        "/Users/ajt253/Documents/OpenProblemsInNLA/campaign-workspaces/tr04/docs/lean/proofs/TR-04/campaign-2026-10-23/independent-frozen-nine-verification/objects-vrz2trkj/source/NLA/Proofs/TR04/Reshape.lean"
+      ],
+      "exit_code": 0,
+      "stdout": "'NLA.Proofs.TR04.continuous_unfold' depends on axioms: [propext, Classical.choice, Quot.sound]\n'NLA.Proofs.TR04.unfold_injective' depends on axioms: [propext, Classical.choice, Quot.sound]\n",
+      "stderr": "",
+      "source": "NLA/Proofs/TR04/Reshape.lean"
+    },
+    {
+      "argv": [
+        "/Users/ajt253/Documents/OpenProblemsInNLA/campaign-workspaces/tooling/lean-4.33.1-darwin_aarch64/bin/lean",
+        "-R",
+        "/Users/ajt253/Documents/OpenProblemsInNLA/campaign-workspaces/tr04/docs/lean/proofs/TR-04/campaign-2026-10-23/independent-frozen-nine-verification/objects-vrz2trkj/source",
+        "-o",
+        "/Users/ajt253/Documents/OpenProblemsInNLA/campaign-workspaces/tr04/docs/lean/proofs/TR-04/campaign-2026-10-23/independent-frozen-nine-verification/objects-vrz2trkj/output/NLA/Proofs/TR04/Feasible.olean",
+        "/Users/ajt253/Documents/OpenProblemsInNLA/campaign-workspaces/tr04/docs/lean/proofs/TR-04/campaign-2026-10-23/independent-frozen-nine-verification/objects-vrz2trkj/source/NLA/Proofs/TR04/Feasible.lean"
+      ],
+      "exit_code": 0,
+      "stdout": "'NLA.Proofs.TR04.isClosed_feasible' depends on axioms: [propext, Classical.choice, Quot.sound]\n",
+      "stderr": "",
+      "source": "NLA/Proofs/TR04/Feasible.lean"
+    },
+    {
+      "argv": [
+        "/Users/ajt253/Documents/OpenProblemsInNLA/campaign-workspaces/tooling/lean-4.33.1-darwin_aarch64/bin/lean",
+        "-R",
+        "/Users/ajt253/Documents/OpenProblemsInNLA/campaign-workspaces/tr04/docs/lean/proofs/TR-04/campaign-2026-10-23/independent-frozen-nine-verification/objects-vrz2trkj/source",
+        "-o",
+        "/Users/ajt253/Documents/OpenProblemsInNLA/campaign-workspaces/tr04/docs/lean/proofs/TR-04/campaign-2026-10-23/independent-frozen-nine-verification/objects-vrz2trkj/output/NLA/Statements/Infrastructure.olean",
+        "/Users/ajt253/Documents/OpenProblemsInNLA/campaign-workspaces/tr04/docs/lean/proofs/TR-04/campaign-2026-10-23/independent-frozen-nine-verification/objects-vrz2trkj/source/NLA/Statements/Infrastructure.lean"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": "",
+      "source": "NLA/Statements/Infrastructure.lean"
+    },
+    {
+      "argv": [
+        "/Users/ajt253/Documents/OpenProblemsInNLA/campaign-workspaces/tooling/lean-4.33.1-darwin_aarch64/bin/lean",
+        "-R",
+        "/Users/ajt253/Documents/OpenProblemsInNLA/campaign-workspaces/tr04/docs/lean/proofs/TR-04/campaign-2026-10-23/independent-frozen-nine-verification/objects-vrz2trkj/source",
+        "-o",
+        "/Users/ajt253/Documents/OpenProblemsInNLA/campaign-workspaces/tr04/docs/lean/proofs/TR-04/campaign-2026-10-23/independent-frozen-nine-verification/objects-vrz2trkj/output/NLA/Statements/TR04.olean",
+        "/Users/ajt253/Documents/OpenProblemsInNLA/campaign-workspaces/tr04/docs/lean/proofs/TR-04/campaign-2026-10-23/independent-frozen-nine-verification/objects-vrz2trkj/source/NLA/Statements/TR04.lean"
+      ],
+      "exit_code": 0,
+      "stdout": "'NLA.Statements.TR04.Target' depends on axioms: [propext, Classical.choice, Quot.sound]\n",
+      "stderr": "",
+      "source": "NLA/Statements/TR04.lean"
+    },
+    {
+      "argv": [
+        "/Users/ajt253/Documents/OpenProblemsInNLA/campaign-workspaces/tooling/lean-4.33.1-darwin_aarch64/bin/lean",
+        "-R",
+        "/Users/ajt253/Documents/OpenProblemsInNLA/campaign-workspaces/tr04/docs/lean/proofs/TR-04/campaign-2026-10-23/independent-frozen-nine-verification/objects-vrz2trkj/source",
+        "-o",
+        "/Users/ajt253/Documents/OpenProblemsInNLA/campaign-workspaces/tr04/docs/lean/proofs/TR-04/campaign-2026-10-23/independent-frozen-nine-verification/objects-vrz2trkj/output/NLA/Proofs/TR04/MachineExecution.olean",
+        "/Users/ajt253/Documents/OpenProblemsInNLA/campaign-workspaces/tr04/docs/lean/proofs/TR-04/campaign-2026-10-23/independent-frozen-nine-verification/objects-vrz2trkj/source/NLA/Proofs/TR04/MachineExecution.lean"
+      ],
+      "exit_code": 0,
+      "stdout": "'NLA.Proofs.TR04.exists_legalTrace_of_svd_total' depends on axioms: [propext, Classical.choice, Quot.sound]\n",
+      "stderr": "",
+      "source": "NLA/Proofs/TR04/MachineExecution.lean"
+    },
+    {
+      "argv": [
+        "/Users/ajt253/Documents/OpenProblemsInNLA/campaign-workspaces/tooling/lean-4.33.1-darwin_aarch64/bin/lean",
+        "-R",
+        "/Users/ajt253/Documents/OpenProblemsInNLA/campaign-workspaces/tr04/docs/lean/proofs/TR-04/campaign-2026-10-23/independent-frozen-nine-verification/objects-vrz2trkj/source",
+        "-o",
+        "/Users/ajt253/Documents/OpenProblemsInNLA/campaign-workspaces/tr04/docs/lean/proofs/TR-04/campaign-2026-10-23/independent-frozen-nine-verification/objects-vrz2trkj/output/NLA/Proofs/TR04/SVDCore.olean",
+        "/Users/ajt253/Documents/OpenProblemsInNLA/campaign-workspaces/tr04/docs/lean/proofs/TR-04/campaign-2026-10-23/independent-frozen-nine-verification/objects-vrz2trkj/source/NLA/Proofs/TR04/SVDCore.lean"
+      ],
+      "exit_code": 0,
+      "stdout": "'NLA.Proofs.TR04.SVD.exists_leftBasis' depends on axioms: [propext, Classical.choice, Quot.sound]\n",
+      "stderr": "",
+      "source": "NLA/Proofs/TR04/SVDCore.lean"
+    },
+    {
+      "argv": [
+        "/Users/ajt253/Documents/OpenProblemsInNLA/campaign-workspaces/tooling/lean-4.33.1-darwin_aarch64/bin/lean",
+        "-R",
+        "/Users/ajt253/Documents/OpenProblemsInNLA/campaign-workspaces/tr04/docs/lean/proofs/TR-04/campaign-2026-10-23/independent-frozen-nine-verification/objects-vrz2trkj/source",
+        "-o",
+        "/Users/ajt253/Documents/OpenProblemsInNLA/campaign-workspaces/tr04/docs/lean/proofs/TR-04/campaign-2026-10-23/independent-frozen-nine-verification/objects-vrz2trkj/output/NLA/Proofs/TR04/SVDTotal.olean",
+        "/Users/ajt253/Documents/OpenProblemsInNLA/campaign-workspaces/tr04/docs/lean/proofs/TR-04/campaign-2026-10-23/independent-frozen-nine-verification/objects-vrz2trkj/source/NLA/Proofs/TR04/SVDTotal.lean"
+      ],
+      "exit_code": 0,
+      "stdout": "'NLA.Proofs.TR04.SVD.exists_validSVD' depends on axioms: [propext, Classical.choice, Quot.sound]\n",
+      "stderr": "",
+      "source": "NLA/Proofs/TR04/SVDTotal.lean"
+    },
+    {
+      "argv": [
+        "/Users/ajt253/Documents/OpenProblemsInNLA/campaign-workspaces/tooling/lean-4.33.1-darwin_aarch64/bin/lean",
+        "-R",
+        "/Users/ajt253/Documents/OpenProblemsInNLA/campaign-workspaces/tr04/docs/lean/proofs/TR-04/campaign-2026-10-23/independent-frozen-nine-verification/objects-vrz2trkj/source",
+        "-o",
+        "/Users/ajt253/Documents/OpenProblemsInNLA/campaign-workspaces/tr04/docs/lean/proofs/TR-04/campaign-2026-10-23/independent-frozen-nine-verification/objects-vrz2trkj/output/NLA/Proofs/TR04/MachineTotality.olean",
+        "/Users/ajt253/Documents/OpenProblemsInNLA/campaign-workspaces/tr04/docs/lean/proofs/TR-04/campaign-2026-10-23/independent-frozen-nine-verification/objects-vrz2trkj/source/NLA/Proofs/TR04/MachineTotality.lean"
+      ],
+      "exit_code": 0,
+      "stdout": "'NLA.Proofs.TR04.step_total' depends on axioms: [propext, Classical.choice, Quot.sound]\n'NLA.Proofs.TR04.exists_legalTrace' depends on axioms: [propext, Classical.choice, Quot.sound]\n",
+      "stderr": "",
+      "source": "NLA/Proofs/TR04/MachineTotality.lean"
+    },
+    {
+      "argv": [
+        "/Users/ajt253/Documents/OpenProblemsInNLA/campaign-workspaces/tooling/lean-4.33.1-darwin_aarch64/bin/lean",
+        "-R",
+        "/Users/ajt253/Documents/OpenProblemsInNLA/campaign-workspaces/tr04/docs/lean/proofs/TR-04/campaign-2026-10-23/independent-frozen-nine-verification/objects-vrz2trkj/source",
+        "-o",
+        "/Users/ajt253/Documents/OpenProblemsInNLA/campaign-workspaces/tr04/docs/lean/proofs/TR-04/campaign-2026-10-23/independent-frozen-nine-verification/objects-vrz2trkj/output/NLA/Proofs/TR04/MachineTraceBounds.olean",
+        "/Users/ajt253/Documents/OpenProblemsInNLA/campaign-workspaces/tr04/docs/lean/proofs/TR-04/campaign-2026-10-23/independent-frozen-nine-verification/objects-vrz2trkj/source/NLA/Proofs/TR04/MachineTraceBounds.lean"
+      ],
+      "exit_code": 0,
+      "stdout": "'NLA.Proofs.TR04.costThrough_add_of_halted' depends on axioms: [propext, Classical.choice, Quot.sound]\n",
+      "stderr": "",
+      "source": "NLA/Proofs/TR04/MachineTraceBounds.lean"
+    },
+    {
+      "argv": [
+        "/Users/ajt253/Documents/OpenProblemsInNLA/campaign-workspaces/tooling/lean-4.33.1-darwin_aarch64/bin/lean",
+        "-R",
+        "/Users/ajt253/Documents/OpenProblemsInNLA/campaign-workspaces/tr04/docs/lean/proofs/TR-04/campaign-2026-10-23/independent-frozen-nine-verification/objects-vrz2trkj/source",
+        "-o",
+        "/Users/ajt253/Documents/OpenProblemsInNLA/campaign-workspaces/tr04/docs/lean/proofs/TR-04/campaign-2026-10-23/independent-frozen-nine-verification/objects-vrz2trkj/output/NLA/Proofs/TR04/Optimum.olean",
+        "/Users/ajt253/Documents/OpenProblemsInNLA/campaign-workspaces/tr04/docs/lean/proofs/TR-04/campaign-2026-10-23/independent-frozen-nine-verification/objects-vrz2trkj/source/NLA/Proofs/TR04/Optimum.lean"
+      ],
+      "exit_code": 0,
+      "stdout": "'NLA.Proofs.TR04.exists_optimum' depends on axioms: [propext, Classical.choice, Quot.sound]\n'NLA.Proofs.TR04.optimum_eq_zero_iff_feasible' depends on axioms: [propext, Classical.choice, Quot.sound]\n",
+      "stderr": "",
+      "source": "NLA/Proofs/TR04/Optimum.lean"
+    },
+    {
+      "argv": [
+        "/Users/ajt253/Documents/OpenProblemsInNLA/campaign-workspaces/tooling/lean-4.33.1-darwin_aarch64/bin/lean",
+        "-R",
+        "/Users/ajt253/Documents/OpenProblemsInNLA/campaign-workspaces/tr04/docs/lean/proofs/TR-04/campaign-2026-10-23/independent-frozen-nine-verification/objects-vrz2trkj/source",
+        "-o",
+        "/Users/ajt253/Documents/OpenProblemsInNLA/campaign-workspaces/tr04/docs/lean/proofs/TR-04/campaign-2026-10-23/independent-frozen-nine-verification/objects-vrz2trkj/output/NLA/Proofs/TR04/ReshapeFrobenius.olean",
+        "/Users/ajt253/Documents/OpenProblemsInNLA/campaign-workspaces/tr04/docs/lean/proofs/TR-04/campaign-2026-10-23/independent-frozen-nine-verification/objects-vrz2trkj/source/NLA/Proofs/TR04/ReshapeFrobenius.lean"
+      ],
+      "exit_code": 0,
+      "stdout": "'NLA.Proofs.TR04.frobeniusSq_eq_unfold_sum' depends on axioms: [propext, Classical.choice, Quot.sound]\n",
+      "stderr": "",
+      "source": "NLA/Proofs/TR04/ReshapeFrobenius.lean"
+    },
+    {
+      "argv": [
+        "/Users/ajt253/Documents/OpenProblemsInNLA/campaign-workspaces/tooling/lean-4.33.1-darwin_aarch64/bin/lean",
+        "-R",
+        "/Users/ajt253/Documents/OpenProblemsInNLA/campaign-workspaces/tr04/docs/lean/proofs/TR-04/campaign-2026-10-23/independent-frozen-nine-verification/objects-vrz2trkj/source",
+        "-o",
+        "/Users/ajt253/Documents/OpenProblemsInNLA/campaign-workspaces/tr04/docs/lean/proofs/TR-04/campaign-2026-10-23/independent-frozen-nine-verification/objects-vrz2trkj/output/Reviewed/TR04.olean",
+        "/Users/ajt253/Documents/OpenProblemsInNLA/campaign-workspaces/tr04/docs/lean/proofs/TR-04/campaign-2026-10-23/independent-frozen-nine-verification/objects-vrz2trkj/source/Reviewed/TR04.lean"
+      ],
+      "exit_code": 0,
+      "stdout": "'NLA.ReviewedStatements.TR04.Target' depends on axioms: [propext, Classical.choice, Quot.sound]\n",
+      "stderr": "",
+      "source": "Reviewed/TR04.lean"
+    },
+    {
+      "argv": [
+        "/Users/ajt253/Documents/OpenProblemsInNLA/campaign-workspaces/tooling/lean-4.33.1-darwin_aarch64/bin/lean",
+        "-R",
+        "/Users/ajt253/Documents/OpenProblemsInNLA/campaign-workspaces/tr04/docs/lean/proofs/TR-04/campaign-2026-10-23/independent-frozen-nine-verification/objects-vrz2trkj/source",
+        "-o",
+        "/Users/ajt253/Documents/OpenProblemsInNLA/campaign-workspaces/tr04/docs/lean/proofs/TR-04/campaign-2026-10-23/independent-frozen-nine-verification/objects-vrz2trkj/output/IndependentSupportConsumer.olean",
+        "/Users/ajt253/Documents/OpenProblemsInNLA/campaign-workspaces/tr04/docs/lean/proofs/TR-04/campaign-2026-10-23/independent-frozen-nine-verification/objects-vrz2trkj/source/IndependentSupportConsumer.lean"
+      ],
+      "exit_code": 0,
+      "stdout": "AUDITED_KIND NLA.Computation.SVDMachine.Instruction inductive\n'NLA.Computation.SVDMachine.Instruction' does not depend on any axioms\nAUDITED_KIND NLA.Computation.SVDMachine.Program inductive\n'NLA.Computation.SVDMachine.Program' depends on axioms: [propext, Classical.choice, Quot.sound]\nAUDITED_KIND NLA.Computation.SVDMachine.Status inductive\n'NLA.Computation.SVDMachine.Status' does not depend on any axioms\nAUDITED_KIND NLA.Computation.SVDMachine.State inductive\n'NLA.Computation.SVDMachine.State' depends on axioms: [propext, Classical.choice, Quot.sound]\nAUDITED_KIND NLA.Computation.SVDMachine.initial definition\n'NLA.Computation.SVDMachine.initial' depends on axioms: [propext, Classical.choice, Quot.sound]\nAUDITED_KIND NLA.Computation.SVDMachine.ordinaryStep definition\n'NLA.Computation.SVDMachine.ordinaryStep' depends on axioms: [propext, Classical.choice, Quot.sound]\nAUDITED_KIND NLA.Computation.SVDMachine.ValidSVD definition\n'NLA.Computation.SVDMachine.ValidSVD' depends on axioms: [propext, Classical.choice, Quot.sound]\nAUDITED_KIND NLA.Computation.SVDMachine.DisjointBlocks definition\n'NLA.Computation.SVDMachine.DisjointBlocks' does not depend on any axioms\nAUDITED_KIND NLA.Computation.SVDMachine.OutputBlocksDisjoint definition\n'NLA.Computation.SVDMachine.OutputBlocksDisjoint' does not depend on any axioms\nAUDITED_KIND NLA.Computation.SVDMachine.matrixCell definition\n'NLA.Computation.SVDMachine.matrixCell' depends on axioms: [propext, Classical.choice, Quot.sound]\nAUDITED_KIND NLA.Computation.SVDMachine.readMatrix definition\n'NLA.Computation.SVDMachine.readMatrix' depends on axioms: [propext, Classical.choice, Quot.sound]\nAUDITED_KIND NLA.Computation.SVDMachine.writeSVD definition\n'NLA.Computation.SVDMachine.writeSVD' depends on axioms: [propext, Classical.choice, Quot.sound]\nAUDITED_KIND NLA.Computation.SVDMachine.charge definition\n'NLA.Computation.SVDMachine.charge' depends on axioms: [propext, Classical.choice, Quot.sound]\nAUDITED_KIND NLA.Computation.SVDMachine.Step definition\n'NLA.Computation.SVDMachine.Step' depends on axioms: [propext, Classical.choice, Quot.sound]\nAUDITED_KIND NLA.Computation.SVDMachine.Trace inductive\n'NLA.Computation.SVDMachine.Trace' depends on axioms: [propext, Classical.choice, Quot.sound]\nAUDITED_KIND NLA.Computation.SVDMachine.LegalTrace definition\n'NLA.Computation.SVDMachine.LegalTrace' depends on axioms: [propext, Classical.choice, Quot.sound]\nAUDITED_KIND NLA.Computation.SVDMachine.CostThrough definition\n'NLA.Computation.SVDMachine.CostThrough' depends on axioms: [propext, Classical.choice, Quot.sound]\nAUDITED_KIND NLA.Computation.TensorTrainApproximation.Shape inductive\n'NLA.Computation.TensorTrainApproximation.Shape' does not depend on any axioms\nAUDITED_KIND NLA.Computation.TensorTrainApproximation.Index definition\n'NLA.Computation.TensorTrainApproximation.Index' does not depend on any axioms\nAUDITED_KIND NLA.Computation.TensorTrainApproximation.Tensor definition\n'NLA.Computation.TensorTrainApproximation.Tensor' depends on axioms: [propext, Classical.choice, Quot.sound]\nAUDITED_KIND NLA.Computation.TensorTrainApproximation.Cut definition\n'NLA.Computation.TensorTrainApproximation.Cut' does not depend on any axioms\nAUDITED_KIND NLA.Computation.TensorTrainApproximation.Ranks definition\n'NLA.Computation.TensorTrainApproximation.Ranks' does not depend on any axioms\nAUDITED_KIND NLA.Computation.TensorTrainApproximation.RowIndex definition\n'NLA.Computation.TensorTrainApproximation.RowIndex' does not depend on any axioms\nAUDITED_KIND NLA.Computation.TensorTrainApproximation.ColIndex definition\n'NLA.Computation.TensorTrainApproximation.ColIndex' does not depend on any axioms\nAUDITED_KIND NLA.Computation.TensorTrainApproximation.join definition\n'NLA.Computation.TensorTrainApproximation.join' does not depend on any axioms\nAUDITED_KIND NLA.Computation.TensorTrainApproximation.Unfold definition\n'NLA.Computation.TensorTrainApproximation.Unfold' depends on axioms: [propext, Classical.choice, Quot.sound]\nAUDITED_KIND NLA.Computation.TensorTrainApproximation.Feasible definition\n'NLA.Computation.TensorTrainApproximation.Feasible' depends on axioms: [propext, Classical.choice, Quot.sound]\nAUDITED_KIND NLA.Computation.TensorTrainApproximation.FrobeniusSq definition\n'NLA.Computation.TensorTrainApproximation.FrobeniusSq' depends on axioms: [propext, Classical.choice, Quot.sound]\nAUDITED_KIND NLA.Computation.TensorTrainApproximation.Optimum definition\n'NLA.Computation.TensorTrainApproximation.Optimum' depends on axioms: [propext, Classical.choice, Quot.sound]\nAUDITED_KIND NLA.Computation.TensorTrainApproximation.DenseSize definition\n'NLA.Computation.TensorTrainApproximation.DenseSize' depends on axioms: [propext, Classical.choice, Quot.sound]\nAUDITED_KIND NLA.Computation.TensorTrainApproximation.SuffixSize definition\n'NLA.Computation.TensorTrainApproximation.SuffixSize' depends on axioms: [propext, Classical.choice, Quot.sound]\nAUDITED_KIND NLA.Computation.TensorTrainApproximation.Offset definition\n'NLA.Computation.TensorTrainApproximation.Offset' depends on axioms: [propext, Classical.choice, Quot.sound]\nAUDITED_KIND NLA.Computation.TensorTrainApproximation.Decode definition\n'NLA.Computation.TensorTrainApproximation.Decode' depends on axioms: [propext, Classical.choice, Quot.sound]\nAUDITED_KIND NLA.Computation.TensorTrainApproximation.InputMemory definition\n'NLA.Computation.TensorTrainApproximation.InputMemory' depends on axioms: [propext, Classical.choice, Quot.sound]\nAUDITED_KIND NLA.Computation.TensorTrainApproximation.Start definition\n'NLA.Computation.TensorTrainApproximation.Start' depends on axioms: [propext, Classical.choice, Quot.sound]\nAUDITED_KIND NLA.Computation.TensorTrainApproximation.Returns definition\n'NLA.Computation.TensorTrainApproximation.Returns' depends on axioms: [propext, Classical.choice, Quot.sound]\nAUDITED_KIND NLA.Computation.TensorTrainApproximation.Size definition\n'NLA.Computation.TensorTrainApproximation.Size' depends on axioms: [propext, Classical.choice, Quot.sound]\nAUDITED_KIND NLA.Proofs.TR04.splitIndex definition\n'NLA.Proofs.TR04.splitIndex' does not depend on any axioms\nAUDITED_KIND NLA.Proofs.TR04.splitIndex_join theorem\n'NLA.Proofs.TR04.splitIndex_join' depends on axioms: [propext, Quot.sound]\nAUDITED_KIND NLA.Proofs.TR04.join_splitIndex theorem\n'NLA.Proofs.TR04.join_splitIndex' depends on axioms: [propext, Quot.sound]\nAUDITED_KIND NLA.Proofs.TR04.joinEquiv definition\n'NLA.Proofs.TR04.joinEquiv' depends on axioms: [propext, Quot.sound]\nAUDITED_KIND NLA.Proofs.TR04.unfoldLinearEquiv definition\n'NLA.Proofs.TR04.unfoldLinearEquiv' depends on axioms: [propext, Classical.choice, Quot.sound]\nAUDITED_KIND NLA.Proofs.TR04.unfoldContinuousLinearEquiv definition\n'NLA.Proofs.TR04.unfoldContinuousLinearEquiv' depends on axioms: [propext, Classical.choice, Quot.sound]\nAUDITED_KIND NLA.Proofs.TR04.unfoldLinearEquiv_apply theorem\n'NLA.Proofs.TR04.unfoldLinearEquiv_apply' depends on axioms: [propext, Classical.choice, Quot.sound]\nAUDITED_KIND NLA.Proofs.TR04.unfoldContinuousLinearEquiv_apply theorem\n'NLA.Proofs.TR04.unfoldContinuousLinearEquiv_apply' depends on axioms: [propext, Classical.choice, Quot.sound]\nAUDITED_KIND NLA.Proofs.TR04.continuous_unfold theorem\n'NLA.Proofs.TR04.continuous_unfold' depends on axioms: [propext, Classical.choice, Quot.sound]\nAUDITED_KIND NLA.Proofs.TR04.unfold_zero theorem\n'NLA.Proofs.TR04.unfold_zero' depends on axioms: [propext, Classical.choice, Quot.sound]\nAUDITED_KIND NLA.Proofs.TR04.unfold_add theorem\n'NLA.Proofs.TR04.unfold_add' depends on axioms: [propext, Classical.choice, Quot.sound]\nAUDITED_KIND NLA.Proofs.TR04.unfold_smul theorem\n'NLA.Proofs.TR04.unfold_smul' depends on axioms: [propext, Classical.choice, Quot.sound]\nAUDITED_KIND NLA.Proofs.TR04.unfold_injective theorem\n'NLA.Proofs.TR04.unfold_injective' depends on axioms: [propext, Classical.choice, Quot.sound]\nAUDITED_KIND NLA.Proofs.TR04.feasible_zero theorem\n'NLA.Proofs.TR04.feasible_zero' depends on axioms: [propext, Classical.choice, Quot.sound]\nAUDITED_KIND NLA.Proofs.TR04.feasible_nonempty theorem\n'NLA.Proofs.TR04.feasible_nonempty' depends on axioms: [propext, Classical.choice, Quot.sound]\nAUDITED_KIND NLA.Proofs.TR04.isClosed_matrix_rank_le theorem\n'NLA.Proofs.TR04.isClosed_matrix_rank_le' depends on axioms: [propext, Classical.choice, Quot.sound]\nAUDITED_KIND NLA.Proofs.TR04.isClosed_feasible theorem\n'NLA.Proofs.TR04.isClosed_feasible' depends on axioms: [propext, Classical.choice, Quot.sound]\nAUDITED_KIND NLA.Statements.TR04.Target definition\n'NLA.Statements.TR04.Target' depends on axioms: [propext, Classical.choice, Quot.sound]\nAUDITED_KIND NLA.Proofs.TR04.step_cost_eq theorem\n'NLA.Proofs.TR04.step_cost_eq' depends on axioms: [propext, Classical.choice, Quot.sound]\nAUDITED_KIND NLA.Proofs.TR04.step_of_halted theorem\n'NLA.Proofs.TR04.step_of_halted' depends on axioms: [propext, Classical.choice, Quot.sound]\nAUDITED_KIND NLA.Proofs.TR04.step_of_failed theorem\n'NLA.Proofs.TR04.step_of_failed' depends on axioms: [propext, Classical.choice, Quot.sound]\nAUDITED_KIND NLA.Proofs.TR04.exists_legalTrace_of_step_total theorem\n'NLA.Proofs.TR04.exists_legalTrace_of_step_total' depends on axioms: [propext, Classical.choice, Quot.sound]\nAUDITED_KIND NLA.Proofs.TR04.step_total_of_svd_total theorem\n'NLA.Proofs.TR04.step_total_of_svd_total' depends on axioms: [propext, Classical.choice, Quot.sound]\nAUDITED_KIND NLA.Proofs.TR04.exists_legalTrace_of_svd_total theorem\n'NLA.Proofs.TR04.exists_legalTrace_of_svd_total' depends on axioms: [propext, Classical.choice, Quot.sound]\nAUDITED_KIND NLA.Proofs.TR04.SVD.Space definition\n'NLA.Proofs.TR04.SVD.Space' depends on axioms: [propext, Classical.choice, Quot.sound]\nAUDITED_KIND NLA.Proofs.TR04.SVD.rightBasis definition\n'NLA.Proofs.TR04.SVD.rightBasis' depends on axioms: [propext, Classical.choice, Quot.sound]\nAUDITED_KIND NLA.Proofs.TR04.SVD.norm_image_rightBasis theorem\n'NLA.Proofs.TR04.SVD.norm_image_rightBasis' depends on axioms: [propext, Classical.choice, Quot.sound]\nAUDITED_KIND NLA.Proofs.TR04.SVD.inner_image_rightBasis theorem\n'NLA.Proofs.TR04.SVD.inner_image_rightBasis' depends on axioms: [propext, Classical.choice, Quot.sound]\nAUDITED_KIND NLA.Proofs.TR04.SVD.image_rightBasis_eq_zero theorem\n'NLA.Proofs.TR04.SVD.image_rightBasis_eq_zero' depends on axioms: [propext, Classical.choice, Quot.sound]\nAUDITED_KIND NLA.Proofs.TR04.SVD.range_finrank_le_domain theorem\n'NLA.Proofs.TR04.SVD.range_finrank_le_domain' depends on axioms: [propext, Classical.choice, Quot.sound]\nAUDITED_KIND NLA.Proofs.TR04.SVD.range_finrank_le_codomain theorem\n'NLA.Proofs.TR04.SVD.range_finrank_le_codomain' depends on axioms: [propext, Classical.choice, Quot.sound]\nAUDITED_KIND NLA.Proofs.TR04.SVD.leftVector definition\n'NLA.Proofs.TR04.SVD.leftVector' depends on axioms: [propext, Classical.choice, Quot.sound]\nAUDITED_KIND NLA.Proofs.TR04.SVD.orthonormal_leftVector_positive theorem\n'NLA.Proofs.TR04.SVD.orthonormal_leftVector_positive' depends on axioms: [propext, Classical.choice, Quot.sound]\nAUDITED_KIND NLA.Proofs.TR04.SVD.exists_leftBasis theorem\n'NLA.Proofs.TR04.SVD.exists_leftBasis' depends on axioms: [propext, Classical.choice, Quot.sound]\nAUDITED_KIND NLA.Proofs.TR04.SVD.image_rightBasis_eq_smul theorem\n'NLA.Proofs.TR04.SVD.image_rightBasis_eq_smul' depends on axioms: [propext, Classical.choice, Quot.sound]\nAUDITED_KIND NLA.Proofs.TR04.SVD.sum_fin_truncate theorem\n'NLA.Proofs.TR04.SVD.sum_fin_truncate' depends on axioms: [propext, Classical.choice, Quot.sound]\nAUDITED_KIND NLA.Proofs.TR04.SVD.exists_validSVD theorem\n'NLA.Proofs.TR04.SVD.exists_validSVD' depends on axioms: [propext, Classical.choice, Quot.sound]\nAUDITED_KIND NLA.Proofs.TR04.step_total theorem\n'NLA.Proofs.TR04.step_total' depends on axioms: [propext, Classical.choice, Quot.sound]\nAUDITED_KIND NLA.Proofs.TR04.exists_legalTrace theorem\n'NLA.Proofs.TR04.exists_legalTrace' depends on axioms: [propext, Classical.choice, Quot.sound]\nAUDITED_KIND NLA.Proofs.TR04.legalTrace_cost_eq theorem\n'NLA.Proofs.TR04.legalTrace_cost_eq' depends on axioms: [propext, Classical.choice, Quot.sound]\nAUDITED_KIND NLA.Proofs.TR04.costThrough_zero theorem\n'NLA.Proofs.TR04.costThrough_zero' depends on axioms: [propext, Classical.choice, Quot.sound]\nAUDITED_KIND NLA.Proofs.TR04.costThrough_succ theorem\n'NLA.Proofs.TR04.costThrough_succ' depends on axioms: [propext, Classical.choice, Quot.sound]\nAUDITED_KIND NLA.Proofs.TR04.charge_pos_of_running theorem\n'NLA.Proofs.TR04.charge_pos_of_running' depends on axioms: [propext, Classical.choice, Quot.sound]\nAUDITED_KIND NLA.Proofs.TR04.legalTrace_halted_state_add theorem\n'NLA.Proofs.TR04.legalTrace_halted_state_add' depends on axioms: [propext, Classical.choice, Quot.sound]\nAUDITED_KIND NLA.Proofs.TR04.costThrough_add_of_halted theorem\n'NLA.Proofs.TR04.costThrough_add_of_halted' depends on axioms: [propext, Classical.choice, Quot.sound]\nAUDITED_KIND NLA.Proofs.TR04.continuous_frobeniusSq theorem\n'NLA.Proofs.TR04.continuous_frobeniusSq' depends on axioms: [propext, Classical.choice, Quot.sound]\nAUDITED_KIND NLA.Proofs.TR04.frobeniusSq_nonneg theorem\n'NLA.Proofs.TR04.frobeniusSq_nonneg' depends on axioms: [propext, Classical.choice, Quot.sound]\nAUDITED_KIND NLA.Proofs.TR04.frobeniusSq_coordinate_le theorem\n'NLA.Proofs.TR04.frobeniusSq_coordinate_le' depends on axioms: [propext, Classical.choice, Quot.sound]\nAUDITED_KIND NLA.Proofs.TR04.frobeniusSq_self theorem\n'NLA.Proofs.TR04.frobeniusSq_self' depends on axioms: [propext, Classical.choice, Quot.sound]\nAUDITED_KIND NLA.Proofs.TR04.frobeniusSq_eq_zero_iff theorem\n'NLA.Proofs.TR04.frobeniusSq_eq_zero_iff' depends on axioms: [propext, Classical.choice, Quot.sound]\nAUDITED_KIND NLA.Proofs.TR04.frobeniusSq_sublevel_subset_box theorem\n'NLA.Proofs.TR04.frobeniusSq_sublevel_subset_box' depends on axioms: [propext, Classical.choice, Quot.sound]\nAUDITED_KIND NLA.Proofs.TR04.exists_feasible_minimizer theorem\n'NLA.Proofs.TR04.exists_feasible_minimizer' depends on axioms: [propext, Classical.choice, Quot.sound]\nAUDITED_KIND NLA.Proofs.TR04.exists_optimum theorem\n'NLA.Proofs.TR04.exists_optimum' depends on axioms: [propext, Classical.choice, Quot.sound]\nAUDITED_KIND NLA.Proofs.TR04.optimum_nonneg theorem\n'NLA.Proofs.TR04.optimum_nonneg' depends on axioms: [propext, Classical.choice, Quot.sound]\nAUDITED_KIND NLA.Proofs.TR04.optimum_le_of_feasible theorem\n'NLA.Proofs.TR04.optimum_le_of_feasible' depends on axioms: [propext, Classical.choice, Quot.sound]\nAUDITED_KIND NLA.Proofs.TR04.optimum_eq_zero_iff_feasible theorem\n'NLA.Proofs.TR04.optimum_eq_zero_iff_feasible' depends on axioms: [propext, Classical.choice, Quot.sound]\nAUDITED_KIND NLA.Proofs.TR04.sum_unfold_indices theorem\n'NLA.Proofs.TR04.sum_unfold_indices' depends on axioms: [propext, Classical.choice, Quot.sound]\nAUDITED_KIND NLA.Proofs.TR04.frobeniusSq_eq_unfold_sum theorem\n'NLA.Proofs.TR04.frobeniusSq_eq_unfold_sum' depends on axioms: [propext, Classical.choice, Quot.sound]\nAUDITED_KIND NLA.ReviewedStatements.TR04.Target definition\n'NLA.ReviewedStatements.TR04.Target' depends on axioms: [propext, Classical.choice, Quot.sound]\n",
+      "stderr": "",
+      "source": "IndependentSupportConsumer.lean"
+    }
+  ],
+  "full_TR04_Target_proved": false,
+  "authoritative_Linux_Comparator": false,
+  "LEAN_PATH": "/Users/ajt253/Documents/OpenProblemsInNLA/campaign-workspaces/tr04/docs/lean/proofs/TR-04/campaign-2026-10-23/independent-frozen-nine-verification/objects-vrz2trkj/output:/Users/ajt253/.codex/worktrees/pf05-lean-proof/OpenProblemsInNLA/nonnegative-and-positive-factorizations/PF-05/lean/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/Users/ajt253/.codex/worktrees/pf05-lean-proof/OpenProblemsInNLA/nonnegative-and-positive-factorizations/PF-05/lean/.lake/packages/Qq/.lake/build/lib/lean:/Users/ajt253/.codex/worktrees/pf05-lean-proof/OpenProblemsInNLA/nonnegative-and-positive-factorizations/PF-05/lean/.lake/packages/aesop/.lake/build/lib/lean:/Users/ajt253/.codex/worktrees/pf05-lean-proof/OpenProblemsInNLA/nonnegative-and-positive-factorizations/PF-05/lean/.lake/packages/batteries/.lake/build/lib/lean:/Users/ajt253/.codex/worktrees/pf05-lean-proof/OpenProblemsInNLA/nonnegative-and-positive-factorizations/PF-05/lean/.lake/packages/importGraph/.lake/build/lib/lean:/Users/ajt253/.codex/worktrees/pf05-lean-proof/OpenProblemsInNLA/nonnegative-and-positive-factorizations/PF-05/lean/.lake/packages/leancert/.lake/build/lib/lean:/Users/ajt253/.codex/worktrees/pf05-lean-proof/OpenProblemsInNLA/nonnegative-and-positive-factorizations/PF-05/lean/.lake/packages/mathlib/.lake/build/lib/lean:/Users/ajt253/.codex/worktrees/pf05-lean-proof/OpenProblemsInNLA/nonnegative-and-positive-factorizations/PF-05/lean/.lake/packages/plausible/.lake/build/lib/lean:/Users/ajt253/.codex/worktrees/pf05-lean-proof/OpenProblemsInNLA/nonnegative-and-positive-factorizations/PF-05/lean/.lake/packages/proofwidgets/.lake/build/lib/lean:/Users/ajt253/Documents/OpenProblemsInNLA/campaign-workspaces/tooling/lean-4.33.1-darwin_aarch64/lib/lean",
+  "dependencies_after": [
+    {
+      "name": "leancert",
+      "expected_revision": "621a43d7cf21f87872392a01e874f2f1dbddc926",
+      "directory": "/Users/ajt253/.codex/worktrees/pf05-lean-proof/OpenProblemsInNLA/nonnegative-and-positive-factorizations/PF-05/lean/.lake/packages/leancert",
+      "head": {
+        "argv": [
+          "git",
+          "-C",
+          "/Users/ajt253/.codex/worktrees/pf05-lean-proof/OpenProblemsInNLA/nonnegative-and-positive-factorizations/PF-05/lean/.lake/packages/leancert",
+          "rev-parse",
+          "HEAD"
+        ],
+        "exit_code": 0,
+        "stdout": "621a43d7cf21f87872392a01e874f2f1dbddc926\n",
+        "stderr": ""
+      },
+      "status": {
+        "argv": [
+          "git",
+          "-C",
+          "/Users/ajt253/.codex/worktrees/pf05-lean-proof/OpenProblemsInNLA/nonnegative-and-positive-factorizations/PF-05/lean/.lake/packages/leancert",
+          "status",
+          "--porcelain",
+          "--untracked-files=no"
+        ],
+        "exit_code": 0,
+        "stdout": "",
+        "stderr": ""
+      },
+      "passed": true
+    },
+    {
+      "name": "mathlib",
+      "expected_revision": "0df444a360eaa60ab8c11dca51a86af692955474",
+      "directory": "/Users/ajt253/.codex/worktrees/pf05-lean-proof/OpenProblemsInNLA/nonnegative-and-positive-factorizations/PF-05/lean/.lake/packages/mathlib",
+      "head": {
+        "argv": [
+          "git",
+          "-C",
+          "/Users/ajt253/.codex/worktrees/pf05-lean-proof/OpenProblemsInNLA/nonnegative-and-positive-factorizations/PF-05/lean/.lake/packages/mathlib",
+          "rev-parse",
+          "HEAD"
+        ],
+        "exit_code": 0,
+        "stdout": "0df444a360eaa60ab8c11dca51a86af692955474\n",
+        "stderr": ""
+      },
+      "status": {
+        "argv": [
+          "git",
+          "-C",
+          "/Users/ajt253/.codex/worktrees/pf05-lean-proof/OpenProblemsInNLA/nonnegative-and-positive-factorizations/PF-05/lean/.lake/packages/mathlib",
+          "status",
+          "--porcelain",
+          "--untracked-files=no"
+        ],
+        "exit_code": 0,
+        "stdout": "",
+        "stderr": ""
+      },
+      "passed": true
+    },
+    {
+      "name": "plausible",
+      "expected_revision": "b7eb3304aeae834b12dda98993a37f6a41f6f0bb",
+      "directory": "/Users/ajt253/.codex/worktrees/pf05-lean-proof/OpenProblemsInNLA/nonnegative-and-positive-factorizations/PF-05/lean/.lake/packages/plausible",
+      "head": {
+        "argv": [
+          "git",
+          "-C",
+          "/Users/ajt253/.codex/worktrees/pf05-lean-proof/OpenProblemsInNLA/nonnegative-and-positive-factorizations/PF-05/lean/.lake/packages/plausible",
+          "rev-parse",
+          "HEAD"
+        ],
+        "exit_code": 0,
+        "stdout": "b7eb3304aeae834b12dda98993a37f6a41f6f0bb\n",
+        "stderr": ""
+      },
+      "status": {
+        "argv": [
+          "git",
+          "-C",
+          "/Users/ajt253/.codex/worktrees/pf05-lean-proof/OpenProblemsInNLA/nonnegative-and-positive-factorizations/PF-05/lean/.lake/packages/plausible",
+          "status",
+          "--porcelain",
+          "--untracked-files=no"
+        ],
+        "exit_code": 0,
+        "stdout": "",
+        "stderr": ""
+      },
+      "passed": true
+    },
+    {
+      "name": "LeanSearchClient",
+      "expected_revision": "5f4d51b81cbd3f6b32b156bfad9056621a040404",
+      "directory": "/Users/ajt253/.codex/worktrees/pf05-lean-proof/OpenProblemsInNLA/nonnegative-and-positive-factorizations/PF-05/lean/.lake/packages/LeanSearchClient",
+      "head": {
+        "argv": [
+          "git",
+          "-C",
+          "/Users/ajt253/.codex/worktrees/pf05-lean-proof/OpenProblemsInNLA/nonnegative-and-positive-factorizations/PF-05/lean/.lake/packages/LeanSearchClient",
+          "rev-parse",
+          "HEAD"
+        ],
+        "exit_code": 0,
+        "stdout": "5f4d51b81cbd3f6b32b156bfad9056621a040404\n",
+        "stderr": ""
+      },
+      "status": {
+        "argv": [
+          "git",
+          "-C",
+          "/Users/ajt253/.codex/worktrees/pf05-lean-proof/OpenProblemsInNLA/nonnegative-and-positive-factorizations/PF-05/lean/.lake/packages/LeanSearchClient",
+          "status",
+          "--porcelain",
+          "--untracked-files=no"
+        ],
+        "exit_code": 0,
+        "stdout": "",
+        "stderr": ""
+      },
+      "passed": true
+    },
+    {
+      "name": "importGraph",
+      "expected_revision": "16f02aa7642864af59f1ff0e384a015994db9118",
+      "directory": "/Users/ajt253/.codex/worktrees/pf05-lean-proof/OpenProblemsInNLA/nonnegative-and-positive-factorizations/PF-05/lean/.lake/packages/importGraph",
+      "head": {
+        "argv": [
+          "git",
+          "-C",
+          "/Users/ajt253/.codex/worktrees/pf05-lean-proof/OpenProblemsInNLA/nonnegative-and-positive-factorizations/PF-05/lean/.lake/packages/importGraph",
+          "rev-parse",
+          "HEAD"
+        ],
+        "exit_code": 0,
+        "stdout": "16f02aa7642864af59f1ff0e384a015994db9118\n",
+        "stderr": ""
+      },
+      "status": {
+        "argv": [
+          "git",
+          "-C",
+          "/Users/ajt253/.codex/worktrees/pf05-lean-proof/OpenProblemsInNLA/nonnegative-and-positive-factorizations/PF-05/lean/.lake/packages/importGraph",
+          "status",
+          "--porcelain",
+          "--untracked-files=no"
+        ],
+        "exit_code": 0,
+        "stdout": "",
+        "stderr": ""
+      },
+      "passed": true
+    },
+    {
+      "name": "proofwidgets",
+      "expected_revision": "4be2e3d5087eeb272cf5a8853b8f9dd025ef5957",
+      "directory": "/Users/ajt253/.codex/worktrees/pf05-lean-proof/OpenProblemsInNLA/nonnegative-and-positive-factorizations/PF-05/lean/.lake/packages/proofwidgets",
+      "head": {
+        "argv": [
+          "git",
+          "-C",
+          "/Users/ajt253/.codex/worktrees/pf05-lean-proof/OpenProblemsInNLA/nonnegative-and-positive-factorizations/PF-05/lean/.lake/packages/proofwidgets",
+          "rev-parse",
+          "HEAD"
+        ],
+        "exit_code": 0,
+        "stdout": "4be2e3d5087eeb272cf5a8853b8f9dd025ef5957\n",
+        "stderr": ""
+      },
+      "status": {
+        "argv": [
+          "git",
+          "-C",
+          "/Users/ajt253/.codex/worktrees/pf05-lean-proof/OpenProblemsInNLA/nonnegative-and-positive-factorizations/PF-05/lean/.lake/packages/proofwidgets",
+          "status",
+          "--porcelain",
+          "--untracked-files=no"
+        ],
+        "exit_code": 0,
+        "stdout": "",
+        "stderr": ""
+      },
+      "passed": true
+    },
+    {
+      "name": "aesop",
+      "expected_revision": "3448c0bcc5ce01b2d1546e483ec3620e32df3d0e",
+      "directory": "/Users/ajt253/.codex/worktrees/pf05-lean-proof/OpenProblemsInNLA/nonnegative-and-positive-factorizations/PF-05/lean/.lake/packages/aesop",
+      "head": {
+        "argv": [
+          "git",
+          "-C",
+          "/Users/ajt253/.codex/worktrees/pf05-lean-proof/OpenProblemsInNLA/nonnegative-and-positive-factorizations/PF-05/lean/.lake/packages/aesop",
+          "rev-parse",
+          "HEAD"
+        ],
+        "exit_code": 0,
+        "stdout": "3448c0bcc5ce01b2d1546e483ec3620e32df3d0e\n",
+        "stderr": ""
+      },
+      "status": {
+        "argv": [
+          "git",
+          "-C",
+          "/Users/ajt253/.codex/worktrees/pf05-lean-proof/OpenProblemsInNLA/nonnegative-and-positive-factorizations/PF-05/lean/.lake/packages/aesop",
+          "status",
+          "--porcelain",
+          "--untracked-files=no"
+        ],
+        "exit_code": 0,
+        "stdout": "",
+        "stderr": ""
+      },
+      "passed": true
+    },
+    {
+      "name": "Qq",
+      "expected_revision": "92c15be17b7caf78c2ad767ec40f89052d908d81",
+      "directory": "/Users/ajt253/.codex/worktrees/pf05-lean-proof/OpenProblemsInNLA/nonnegative-and-positive-factorizations/PF-05/lean/.lake/packages/Qq",
+      "head": {
+        "argv": [
+          "git",
+          "-C",
+          "/Users/ajt253/.codex/worktrees/pf05-lean-proof/OpenProblemsInNLA/nonnegative-and-positive-factorizations/PF-05/lean/.lake/packages/Qq",
+          "rev-parse",
+          "HEAD"
+        ],
+        "exit_code": 0,
+        "stdout": "92c15be17b7caf78c2ad767ec40f89052d908d81\n",
+        "stderr": ""
+      },
+      "status": {
+        "argv": [
+          "git",
+          "-C",
+          "/Users/ajt253/.codex/worktrees/pf05-lean-proof/OpenProblemsInNLA/nonnegative-and-positive-factorizations/PF-05/lean/.lake/packages/Qq",
+          "status",
+          "--porcelain",
+          "--untracked-files=no"
+        ],
+        "exit_code": 0,
+        "stdout": "",
+        "stderr": ""
+      },
+      "passed": true
+    },
+    {
+      "name": "batteries",
+      "expected_revision": "4488d40d070b9700d4d5a6aa342f0d40c31b2a2d",
+      "directory": "/Users/ajt253/.codex/worktrees/pf05-lean-proof/OpenProblemsInNLA/nonnegative-and-positive-factorizations/PF-05/lean/.lake/packages/batteries",
+      "head": {
+        "argv": [
+          "git",
+          "-C",
+          "/Users/ajt253/.codex/worktrees/pf05-lean-proof/OpenProblemsInNLA/nonnegative-and-positive-factorizations/PF-05/lean/.lake/packages/batteries",
+          "rev-parse",
+          "HEAD"
+        ],
+        "exit_code": 0,
+        "stdout": "4488d40d070b9700d4d5a6aa342f0d40c31b2a2d\n",
+        "stderr": ""
+      },
+      "status": {
+        "argv": [
+          "git",
+          "-C",
+          "/Users/ajt253/.codex/worktrees/pf05-lean-proof/OpenProblemsInNLA/nonnegative-and-positive-factorizations/PF-05/lean/.lake/packages/batteries",
+          "status",
+          "--porcelain",
+          "--untracked-files=no"
+        ],
+        "exit_code": 0,
+        "stdout": "",
+        "stderr": ""
+      },
+      "passed": true
+    },
+    {
+      "name": "Cli",
+      "expected_revision": "6130a47896ce867c6a4a55373441e59e565bad0f",
+      "directory": "/Users/ajt253/.codex/worktrees/pf05-lean-proof/OpenProblemsInNLA/nonnegative-and-positive-factorizations/PF-05/lean/.lake/packages/Cli",
+      "head": {
+        "argv": [
+          "git",
+          "-C",
+          "/Users/ajt253/.codex/worktrees/pf05-lean-proof/OpenProblemsInNLA/nonnegative-and-positive-factorizations/PF-05/lean/.lake/packages/Cli",
+          "rev-parse",
+          "HEAD"
+        ],
+        "exit_code": 0,
+        "stdout": "6130a47896ce867c6a4a55373441e59e565bad0f\n",
+        "stderr": ""
+      },
+      "status": {
+        "argv": [
+          "git",
+          "-C",
+          "/Users/ajt253/.codex/worktrees/pf05-lean-proof/OpenProblemsInNLA/nonnegative-and-positive-factorizations/PF-05/lean/.lake/packages/Cli",
+          "status",
+          "--porcelain",
+          "--untracked-files=no"
+        ],
+        "exit_code": 0,
+        "stdout": "",
+        "stderr": ""
+      },
+      "passed": true
+    }
+  ],
+  "original25_after": [
+    {
+      "path": "problem_ids.json",
+      "sha256": "d7f9925a483d40030ef266917bc8e413dac6d45530ad5515da506ffe9583e763",
+      "passed": true
+    },
+    {
+      "path": "tensor-computations/TR-04/README.md",
+      "sha256": "614dfc1189a99b0c2de54a04b948c01d35301d468e0b723c7fcb34b9918957cf",
+      "passed": true
+    },
+    {
+      "path": "tensor-computations/TR-04/problem.tex",
+      "sha256": "5b07e197470623eb5b26cca49d4a78a6bfba580c36442c8ee456abacb536ef36",
+      "passed": true
+    },
+    {
+      "path": "tensor-computations/TR-04/problem.pdf",
+      "sha256": "3228867152976425346f22aacadc9585043a1470cf6fadc62246bbb70b47f49b",
+      "passed": true
+    },
+    {
+      "path": "tensor-computations/TR-04/lean/Challenge.lean",
+      "sha256": "e2593ab837691309d993bc46c77c5d37e8c12e9c975254324adbebace2246f32",
+      "passed": true
+    },
+    {
+      "path": "tensor-computations/TR-04/lean/Solution.lean",
+      "sha256": "dd02b5ba519b14e19aeebd005a72c85aba30084347bc3e82d5d8f61d4a94aa75",
+      "passed": true
+    },
+    {
+      "path": "tensor-computations/TR-04/lean/SPEC.md",
+      "sha256": "9a67b4545286ff189a6c12c880862df4ca1767e1da3107c4509569d8a3600902",
+      "passed": true
+    },
+    {
+      "path": "tensor-computations/TR-04/lean/README.md",
+      "sha256": "04e3c9948ae24b055f9e84b8cb9e47a924dbfb8aa0d678dbc869db792e2c6275",
+      "passed": true
+    },
+    {
+      "path": "references/colbrook-recovered-tensors-2026-09-11/manuscripts/TR-04.tex",
+      "sha256": "e7770aa08ee91fbda82e0bfe3e087f1a9c8ee2a076218144bf0040e4d282bf73",
+      "passed": true
+    },
+    {
+      "path": "references/colbrook-recovered-tensors-2026-09-11/verification/reviews/TR-04-review.md",
+      "sha256": "0189cecc988d1d1f93c93e5dca159265641efc598105b2729049b570524b19f2",
+      "passed": true
+    },
+    {
+      "path": "lean-statements/NLA/Statements/TR04.lean",
+      "sha256": "6f595cd3fa4c5d317bc757628a3e7858ab4576c90cbe967ac5289c8b3fbd780c",
+      "passed": true
+    },
+    {
+      "path": "lean-statements/Reviewed/TR04.lean",
+      "sha256": "5b2260e25e8ce7dda5455a3cf11a5c16fc2493ce3d0cf1ab84a447d2fb1f54cd",
+      "passed": true
+    },
+    {
+      "path": "lean-statements/NLA/Computation/SVDMachine.lean",
+      "sha256": "8ec5866326b5a311b334651600db5d7f3065f2059175823626319afef7cf7581",
+      "passed": true
+    },
+    {
+      "path": "lean-statements/NLA/Computation/SVDControls.lean",
+      "sha256": "340bed2b81f7a74853d06847f8af4562600548801254a770de1a97e7fd6fac54",
+      "passed": true
+    },
+    {
+      "path": "lean-statements/NLA/Computation/TensorTrainApproximation.lean",
+      "sha256": "05038abcc6cf85d422cf580b3cc527e7aa7dad146802da5621911b6331494d2d",
+      "passed": true
+    },
+    {
+      "path": "lean-statements/NLA/Computation/NonadaptiveMatrixQuery.lean",
+      "sha256": "66345a3ed3274e6dd351ffaa7e1b75a0aa95afa63c3ece937d37f1efaad29b21",
+      "passed": true
+    },
+    {
+      "path": "docs/lean/statements/TR-04/NUMERICAL_TARGETS.md",
+      "sha256": "f1bfd6d4a73a326a5dec79c052dba4f5ae38cc2f4c9e40622492a7694c5074f4",
+      "passed": true
+    },
+    {
+      "path": "docs/lean/statements/TR-04/IMPLEMENTATION_NOTES.md",
+      "sha256": "a661d83390918eef7ceb893f9e035bb569eb955f361b4f1df2f670e8e09f2390",
+      "passed": true
+    },
+    {
+      "path": "docs/lean/statements/TR-04/source-lock.json",
+      "sha256": "1203a4fc275f4c0624db2673ec1535e4b5a71a810c5a10c599548066f6660b72",
+      "passed": true
+    },
+    {
+      "path": "docs/lean/statements/TR-04/reviews/lean-boundary-root.md",
+      "sha256": "07123fa7869bd3a59ed2a17aeae0cc7611d928c4a0c1a7a50c492548d5d1275f",
+      "passed": true
+    },
+    {
+      "path": "docs/lean/statements/TR-04/reviews/lean-boundary-root.json",
+      "sha256": "cd986da8d2f3b8d46251430c0833ca5fe11d7f97bee186a9b88aa6b7590108da",
+      "passed": true
+    },
+    {
+      "path": "docs/lean/statements/TR-04/reviews/lean-boundary-statement_design.md",
+      "sha256": "4dae400258e650a6cd27a700997345737a96bd8087e40c0676e17e190e332480",
+      "passed": true
+    },
+    {
+      "path": "docs/lean/statements/TR-04/reviews/lean-boundary-statement_design.json",
+      "sha256": "a18cdcafd249ed96e03dc712d04a24a61277240dc842f006f06c93517965e5b5",
+      "passed": true
+    },
+    {
+      "path": "lean-statements/lean-toolchain",
+      "sha256": "3aac669c7a910ec2389f4e4f921b605adf6ebf2d1e0c9b9cd0be4d33f3f5db71",
+      "passed": true
+    },
+    {
+      "path": "lean-statements/lake-manifest.json",
+      "sha256": "a19377882192a9dbfc01c4d4e73edd887a8de91f735edabaeff2dfa38a4b4ec8",
+      "passed": true
+    }
+  ],
+  "source_unchanged_after": {
+    "NLA/Computation/SVDMachine.lean": true,
+    "NLA/Computation/TensorTrainApproximation.lean": true,
+    "NLA/Proofs/TR04/Reshape.lean": true,
+    "NLA/Proofs/TR04/Feasible.lean": true,
+    "NLA/Statements/Infrastructure.lean": true,
+    "NLA/Statements/TR04.lean": true,
+    "NLA/Proofs/TR04/MachineExecution.lean": true,
+    "NLA/Proofs/TR04/SVDCore.lean": true,
+    "NLA/Proofs/TR04/SVDTotal.lean": true,
+    "NLA/Proofs/TR04/MachineTotality.lean": true,
+    "NLA/Proofs/TR04/MachineTraceBounds.lean": true,
+    "NLA/Proofs/TR04/Optimum.lean": true,
+    "NLA/Proofs/TR04/ReshapeFrobenius.lean": true,
+    "Reviewed/TR04.lean": true
+  },
+  "kind_check_count": 96,
+  "observed_axioms": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+  ],
+  "axiom_report_count": 96,
+  "all_declaration_names_reported": [
+    "NLA.Computation.SVDMachine.CostThrough",
+    "NLA.Computation.SVDMachine.LegalTrace",
+    "NLA.Computation.SVDMachine.Program",
+    "NLA.Computation.SVDMachine.State",
+    "NLA.Computation.SVDMachine.Step",
+    "NLA.Computation.SVDMachine.Trace",
+    "NLA.Computation.SVDMachine.ValidSVD",
+    "NLA.Computation.SVDMachine.charge",
+    "NLA.Computation.SVDMachine.initial",
+    "NLA.Computation.SVDMachine.matrixCell",
+    "NLA.Computation.SVDMachine.ordinaryStep",
+    "NLA.Computation.SVDMachine.readMatrix",
+    "NLA.Computation.SVDMachine.writeSVD",
+    "NLA.Computation.TensorTrainApproximation.Decode",
+    "NLA.Computation.TensorTrainApproximation.DenseSize",
+    "NLA.Computation.TensorTrainApproximation.Feasible",
+    "NLA.Computation.TensorTrainApproximation.FrobeniusSq",
+    "NLA.Computation.TensorTrainApproximation.InputMemory",
+    "NLA.Computation.TensorTrainApproximation.Offset",
+    "NLA.Computation.TensorTrainApproximation.Optimum",
+    "NLA.Computation.TensorTrainApproximation.Returns",
+    "NLA.Computation.TensorTrainApproximation.Size",
+    "NLA.Computation.TensorTrainApproximation.Start",
+    "NLA.Computation.TensorTrainApproximation.SuffixSize",
+    "NLA.Computation.TensorTrainApproximation.Tensor",
+    "NLA.Computation.TensorTrainApproximation.Unfold",
+    "NLA.Proofs.TR04.SVD.Space",
+    "NLA.Proofs.TR04.SVD.exists_leftBasis",
+    "NLA.Proofs.TR04.SVD.exists_validSVD",
+    "NLA.Proofs.TR04.SVD.image_rightBasis_eq_smul",
+    "NLA.Proofs.TR04.SVD.image_rightBasis_eq_zero",
+    "NLA.Proofs.TR04.SVD.inner_image_rightBasis",
+    "NLA.Proofs.TR04.SVD.leftVector",
+    "NLA.Proofs.TR04.SVD.norm_image_rightBasis",
+    "NLA.Proofs.TR04.SVD.orthonormal_leftVector_positive",
+    "NLA.Proofs.TR04.SVD.range_finrank_le_codomain",
+    "NLA.Proofs.TR04.SVD.range_finrank_le_domain",
+    "NLA.Proofs.TR04.SVD.rightBasis",
+    "NLA.Proofs.TR04.SVD.sum_fin_truncate",
+    "NLA.Proofs.TR04.charge_pos_of_running",
+    "NLA.Proofs.TR04.continuous_frobeniusSq",
+    "NLA.Proofs.TR04.continuous_unfold",
+    "NLA.Proofs.TR04.costThrough_add_of_halted",
+    "NLA.Proofs.TR04.costThrough_succ",
+    "NLA.Proofs.TR04.costThrough_zero",
+    "NLA.Proofs.TR04.exists_feasible_minimizer",
+    "NLA.Proofs.TR04.exists_legalTrace",
+    "NLA.Proofs.TR04.exists_legalTrace_of_step_total",
+    "NLA.Proofs.TR04.exists_legalTrace_of_svd_total",
+    "NLA.Proofs.TR04.exists_optimum",
+    "NLA.Proofs.TR04.feasible_nonempty",
+    "NLA.Proofs.TR04.feasible_zero",
+    "NLA.Proofs.TR04.frobeniusSq_coordinate_le",
+    "NLA.Proofs.TR04.frobeniusSq_eq_unfold_sum",
+    "NLA.Proofs.TR04.frobeniusSq_eq_zero_iff",
+    "NLA.Proofs.TR04.frobeniusSq_nonneg",
+    "NLA.Proofs.TR04.frobeniusSq_self",
+    "NLA.Proofs.TR04.frobeniusSq_sublevel_subset_box",
+    "NLA.Proofs.TR04.isClosed_feasible",
+    "NLA.Proofs.TR04.isClosed_matrix_rank_le",
+    "NLA.Proofs.TR04.joinEquiv",
+    "NLA.Proofs.TR04.join_splitIndex",
+    "NLA.Proofs.TR04.legalTrace_cost_eq",
+    "NLA.Proofs.TR04.legalTrace_halted_state_add",
+    "NLA.Proofs.TR04.optimum_eq_zero_iff_feasible",
+    "NLA.Proofs.TR04.optimum_le_of_feasible",
+    "NLA.Proofs.TR04.optimum_nonneg",
+    "NLA.Proofs.TR04.splitIndex_join",
+    "NLA.Proofs.TR04.step_cost_eq",
+    "NLA.Proofs.TR04.step_of_failed",
+    "NLA.Proofs.TR04.step_of_halted",
+    "NLA.Proofs.TR04.step_total",
+    "NLA.Proofs.TR04.step_total_of_svd_total",
+    "NLA.Proofs.TR04.sum_unfold_indices",
+    "NLA.Proofs.TR04.unfoldContinuousLinearEquiv",
+    "NLA.Proofs.TR04.unfoldContinuousLinearEquiv_apply",
+    "NLA.Proofs.TR04.unfoldLinearEquiv",
+    "NLA.Proofs.TR04.unfoldLinearEquiv_apply",
+    "NLA.Proofs.TR04.unfold_add",
+    "NLA.Proofs.TR04.unfold_injective",
+    "NLA.Proofs.TR04.unfold_smul",
+    "NLA.Proofs.TR04.unfold_zero",
+    "NLA.ReviewedStatements.TR04.Target",
+    "NLA.Statements.TR04.Target",
+    "NLA.Computation.SVDMachine.DisjointBlocks",
+    "NLA.Computation.SVDMachine.Instruction",
+    "NLA.Computation.SVDMachine.OutputBlocksDisjoint",
+    "NLA.Computation.SVDMachine.Status",
+    "NLA.Computation.TensorTrainApproximation.ColIndex",
+    "NLA.Computation.TensorTrainApproximation.Cut",
+    "NLA.Computation.TensorTrainApproximation.Index",
+    "NLA.Computation.TensorTrainApproximation.Ranks",
+    "NLA.Computation.TensorTrainApproximation.RowIndex",
+    "NLA.Computation.TensorTrainApproximation.Shape",
+    "NLA.Computation.TensorTrainApproximation.join",
+    "NLA.Proofs.TR04.splitIndex"
+  ],
+  "all_named_declaration_checks_passed": true,
+  "passed": true
+}
