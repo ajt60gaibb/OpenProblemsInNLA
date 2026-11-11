@@ -2,7 +2,7 @@
 
 **92 problems with open targets:** 34 open and 58 partially resolved. **125 other retained entries**, excluded from the open count.
 
-**Resolution evidence:** 39 solved (published or independently audited); 84 solved with Lean verification.
+**Resolution evidence:** 38 solved (published or independently audited); 85 solved with Lean verification.
 
 Each entry records its own literature-check date. Literature checks are bounded; ratings are editorial. “Impact” uses the canonical `Importance` field.
 
@@ -190,7 +190,7 @@ Retained entries outside the open count:
 | [TR-21](tensor-computations/TR-21/README.md) | A Seginer theorem for arbitrary independent identically distributed tensor entries | **✅ SOLVED** | challenging | interesting to the community | [PDF](tensor-computations/TR-21/problem.pdf) · [TeX](tensor-computations/TR-21/problem.tex) |
 | [TR-23](tensor-computations/TR-23/README.md) | Irreducibility of asymptotic tensor-rank sublevel varieties | **✅ SOLVED** | extreme | interesting to specialist | [PDF](tensor-computations/TR-23/problem.pdf) · [TeX](tensor-computations/TR-23/problem.tex) |
 | [TR-25](tensor-computations/TR-25/README.md) | Cohen–Macaulay coordinate rings for every tensor border-rank variety | **✅ SOLVED** | extreme | interesting to specialist | [PDF](tensor-computations/TR-25/problem.pdf) · [TeX](tensor-computations/TR-25/problem.tex) |
-| [TR-26](tensor-computations/TR-26/README.md) | Degrees of the two Rayleigh–Ritz discriminant parts for rational normal curves | **✅ SOLVED** | challenging | interesting to specialist | [PDF](tensor-computations/TR-26/problem.pdf) · [TeX](tensor-computations/TR-26/problem.tex) |
+| [TR-26](tensor-computations/TR-26/README.md) | Degrees of the two Rayleigh–Ritz discriminant parts for rational normal curves | **🏆 LEAN VERIFIED** | challenging | interesting to specialist | [PDF](tensor-computations/TR-26/problem.pdf) · [TeX](tensor-computations/TR-26/problem.tex) |
 | [TR-27](tensor-computations/TR-27/README.md) | Border-rank deficiency forcing strict submultiplicativity at the tensor square | **🏆 LEAN VERIFIED** | extreme | interesting to the community | [PDF](tensor-computations/TR-27/problem.pdf) · [TeX](tensor-computations/TR-27/problem.tex) |
 | [TR-28](tensor-computations/TR-28/README.md) | Entropy formula for the asymptotic subrank of Dicke tensors | **✅ SOLVED** | challenging | interesting to the community | [PDF](tensor-computations/TR-28/problem.pdf) · [TeX](tensor-computations/TR-28/problem.tex) |
 | [TR-29](tensor-computations/TR-29/README.md) | Exact partially symmetric rank of products of generalized W tensors | **✅ SOLVED** | challenging | interesting to specialist | [PDF](tensor-computations/TR-29/problem.pdf) · [TeX](tensor-computations/TR-29/problem.tex) |

@@ -1,0 +1,95 @@
+import NLA.Proofs.TR26.AnalyticConormal
+import NLA.Proofs.TR26.BinaryDefinitions
+import NLA.Proofs.TR26.BinaryScaling
+import NLA.Proofs.TR26.ChartIncidence
+import NLA.Proofs.TR26.ClearedJetGraph
+import NLA.Proofs.TR26.CommonFactorWronskian
+import NLA.Proofs.TR26.CommonRootWronskian
+import NLA.Proofs.TR26.ComplementaryFactor
+import NLA.Proofs.TR26.ComplementaryIrreducible
+import NLA.Proofs.TR26.ConormalLemmas
+import NLA.Proofs.TR26.CriticalEquation
+import NLA.Proofs.TR26.CriticalEquationDerivative
+import NLA.Proofs.TR26.CurveChartCover
+import NLA.Proofs.TR26.CurveDifferentiation
+import NLA.Proofs.TR26.CurveEquations
+import NLA.Proofs.TR26.CurveNormalRank
+import NLA.Proofs.TR26.Denominator
+import NLA.Proofs.TR26.DiscriminantImageBounds
+import NLA.Proofs.TR26.DiscriminantProduct
+import NLA.Proofs.TR26.DoubleRootSplitVariation
+import NLA.Proofs.TR26.FamilyDiscriminant
+import NLA.Proofs.TR26.FamilyDiscriminantEvaluation
+import NLA.Proofs.TR26.FamilyDiscriminantNonzero
+import NLA.Proofs.TR26.FiniteJetFactorLemmas
+import NLA.Proofs.TR26.FiniteJetPrimeImage
+import NLA.Proofs.TR26.FiniteProjectiveCharts
+import NLA.Proofs.TR26.FiniteProjectiveDensity
+import NLA.Proofs.TR26.FixedDiscriminant
+import NLA.Proofs.TR26.FixedDiscriminantAffine
+import NLA.Proofs.TR26.FixedDiscriminantBinary
+import NLA.Proofs.TR26.FixedDiscriminantNonzero
+import NLA.Proofs.TR26.FixedDiscriminantResultant
+import NLA.Proofs.TR26.FixedDiscriminantRoots
+import NLA.Proofs.TR26.FixedDiscriminantSpecialization
+import NLA.Proofs.TR26.FixedDiscriminantVariation
+import NLA.Proofs.TR26.HomogeneousQuotient
+import NLA.Proofs.TR26.IncidenceIdeal
+import NLA.Proofs.TR26.IncidenceScaling
+import NLA.Proofs.TR26.IsotropicChartCover
+import NLA.Proofs.TR26.IsotropicDegree
+import NLA.Proofs.TR26.IsotropicDivisibility
+import NLA.Proofs.TR26.IsotropicFactor
+import NLA.Proofs.TR26.IsotropicFamilyFactor
+import NLA.Proofs.TR26.IsotropicImageContainment
+import NLA.Proofs.TR26.IsotropicMultiplicity
+import NLA.Proofs.TR26.IsotropicTransverseWitness
+import NLA.Proofs.TR26.IsotropicWronskianWitness
+import NLA.Proofs.TR26.LinearCriticalGraph
+import NLA.Proofs.TR26.LocalConormal
+import NLA.Proofs.TR26.MainTarget
+import NLA.Proofs.TR26.MatrixJetImage
+import NLA.Proofs.TR26.MatrixReversal
+import NLA.Proofs.TR26.NonisotropicAssembly
+import NLA.Proofs.TR26.NonisotropicDegree
+import NLA.Proofs.TR26.NonisotropicDoubleWitness
+import NLA.Proofs.TR26.NonisotropicMultiplicity
+import NLA.Proofs.TR26.NonisotropicTransverseWitness
+import NLA.Proofs.TR26.Numerator
+import NLA.Proofs.TR26.OrdinaryDoubleRootVariation
+import NLA.Proofs.TR26.PolynomialImageIdeal
+import NLA.Proofs.TR26.PrimeHypersurfaceFactor
+import NLA.Proofs.TR26.ProjectiveHypersurfaceClosure
+import NLA.Proofs.TR26.ProjectiveRamification
+import NLA.Proofs.TR26.RamificationCharts
+import NLA.Proofs.TR26.ReverseCurveNormalRank
+import NLA.Proofs.TR26.ReverseWronskianCharts
+import NLA.Proofs.TR26.SeparablePencil
+import NLA.Proofs.TR26.SeparablePencilAvoid
+import NLA.Proofs.TR26.TangentRank
+import NLA.Proofs.TR26.Wronskian
+import NLA.Proofs.TR26.WronskianBinaryLinear
+import NLA.Proofs.TR26.WronskianCharts
+import NLA.Proofs.TR26.WronskianJetParameterization
+import NLA.Proofs.TR26.WronskianJets
+import NLA.Proofs.TR26.WronskianLinear
+import NLA.Proofs.TR26.WronskianPencil
+import NLA.Proofs.TR26.WronskianPencilDegree
+import NLA.Statements.Infrastructure
+import NLA.Statements.TR26
+import Reviewed.TR26
+set_option autoImplicit false
+set_option leancert.trust "kernel"
+open Lean Elab Command in
+elab "#assert_proof_constant " n:ident : command => do
+  let decl ← liftCoreM <| realizeGlobalConstNoOverloadWithInfo n
+  match (← getEnv).find? decl with
+  | some (.thmInfo _) => pure ()
+  | _ => throwErrorAt n "expected a proved theorem constant"
+
+def inventoryDefinitionAliasNonisotropic (d : ℕ) (hd : 2 ≤ d) : NLA.Statements.TR26.HasReducedDegree d (6*(d-1)) (NLA.Statements.TR26.NonisotropicClosure d) := NLA.Proofs.TR26.nonisotropic_degree d hd
+#assert_proof_constant inventoryDefinitionAliasNonisotropic
+def inventoryDefinitionAliasIsotropic (d : ℕ) (hd : 2 ≤ d) : NLA.Statements.TR26.HasReducedDegree d (2*d) (NLA.Statements.TR26.IsotropicImage d) := NLA.Proofs.TR26.isotropic_degree d hd
+#assert_proof_constant inventoryDefinitionAliasIsotropic
+def inventoryDefinitionAliasTarget  : NLA.Statements.TR26.Target := NLA.Proofs.TR26.target
+#assert_proof_constant inventoryDefinitionAliasTarget

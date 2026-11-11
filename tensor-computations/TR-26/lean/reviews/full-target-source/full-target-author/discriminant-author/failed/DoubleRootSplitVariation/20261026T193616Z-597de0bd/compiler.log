@@ -1,0 +1,112 @@
+/private/tmp/nla-tr26-dev-oct26/source/NLA/Proofs/TR26/DoubleRootSplitVariation.lean:26:12: error: unexpected token ')'; expected ']'
+/private/tmp/nla-tr26-dev-oct26/source/NLA/Proofs/TR26/DoubleRootSplitVariation.lean:21:41: error: unsolved goals
+r ε : ℂ
+⊢ ↑(quadraticSplit r ε).natDegree = 2
+/private/tmp/nla-tr26-dev-oct26/source/NLA/Proofs/TR26/DoubleRootSplitVariation.lean:20:78: error: unsolved goals
+r ε : ℂ
+⊢ (quadraticSplit r ε).coeff 1 ^ 2 - 4 * (quadraticSplit r ε).coeff 0 * (quadraticSplit r ε).coeff 2 = -4 * ε
+/private/tmp/nla-tr26-dev-oct26/source/NLA/Proofs/TR26/DoubleRootSplitVariation.lean:45:4: error: `simp` made no progress
+/private/tmp/nla-tr26-dev-oct26/source/NLA/Proofs/TR26/DoubleRootSplitVariation.lean:103:4: error: Type mismatch
+  resultant_X_sub_C_pow_left r S 2 S.natDegree le_rfl
+has type
+  ((X - C r) ^ 2).resultant S 2 S.natDegree = eval r S ^ 2
+but is expected to have type
+  ((X - C r) ^ 2 + C 0).resultant S 2 S.natDegree = eval r S ^ 2
+/private/tmp/nla-tr26-dev-oct26/source/NLA/Proofs/TR26/DoubleRootSplitVariation.lean:107:4: error: Type mismatch
+  fixedDiscriminant_quadraticSplit_product r ε S hS
+has type
+  (MvPolynomial.eval ((toFn (2 + S.natDegree + 1)) (quadraticSplit r ε * S))) (fixedDiscriminant (2 + S.natDegree)) =
+    doubleRootSplitScale S * ε * eval ε (quadraticResultantPolynomial r S) ^ 2
+but is expected to have type
+  ε + x✝ = ε + x✝
+/private/tmp/nla-tr26-dev-oct26/source/NLA/Proofs/TR26/DoubleRootSplitVariation.lean:108:8: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  eval 0 (quadraticResultantPolynomial r S)
+in the target expression
+  Semiring.toModule = (NormedAlgebra.toNormedSpace ℂ).toModule
+
+case e'_5
+r : ℂ
+S : ℂ[X]
+hS : 0 < S.natDegree
+hR :
+  HasDerivAt (fun x => eval x (quadraticResultantPolynomial r S))
+    (eval 0 (derivative (quadraticResultantPolynomial r S))) 0
+hval : eval 0 (quadraticResultantPolynomial r S) = eval r S ^ 2
+hh :
+  HasDerivAt (fun y => doubleRootSplitScale S * (id * (fun x => eval x (quadraticResultantPolynomial r S)) ^ 2) y)
+    (doubleRootSplitScale S *
+      (1 * ((fun x => eval x (quadraticResultantPolynomial r S)) ^ 2) 0 +
+        id 0 *
+          (↑2 * eval 0 (quadraticResultantPolynomial r S) ^ (2 - 1) *
+            eval 0 (derivative (quadraticResultantPolynomial r S)))))
+    0
+e_4✝ : Complex.addCommGroup = instCommCStarAlgebraComplex.toCStarAlgebra.toAddCommGroup
+⊢ Semiring.toModule = (NormedAlgebra.toNormedSpace ℂ).toModule
+/private/tmp/nla-tr26-dev-oct26/source/NLA/Proofs/TR26/DoubleRootSplitVariation.lean:98:51: error: unsolved goals
+case e'_8
+r : ℂ
+S : ℂ[X]
+hS : 0 < S.natDegree
+hR :
+  HasDerivAt (fun x => eval x (quadraticResultantPolynomial r S))
+    (eval 0 (derivative (quadraticResultantPolynomial r S))) 0
+hval : eval 0 (quadraticResultantPolynomial r S) = eval r S ^ 2
+hh :
+  HasDerivAt (fun y => doubleRootSplitScale S * (id * (fun x => eval x (quadraticResultantPolynomial r S)) ^ 2) y)
+    (doubleRootSplitScale S *
+      (1 * ((fun x => eval x (quadraticResultantPolynomial r S)) ^ 2) 0 +
+        id 0 *
+          (↑2 * eval 0 (quadraticResultantPolynomial r S) ^ (2 - 1) *
+            eval 0 (derivative (quadraticResultantPolynomial r S)))))
+    0
+⊢ (fun ε =>
+      (MvPolynomial.eval ((toFn (2 + S.natDegree + 1)) (quadraticSplit r ε * S)))
+        (fixedDiscriminant (2 + S.natDegree))) =
+    fun y => doubleRootSplitScale S * (id * (fun x => eval x (quadraticResultantPolynomial r S)) ^ 2) y
+
+case e'_9
+r : ℂ
+S : ℂ[X]
+hS : 0 < S.natDegree
+hR :
+  HasDerivAt (fun x => eval x (quadraticResultantPolynomial r S))
+    (eval 0 (derivative (quadraticResultantPolynomial r S))) 0
+hval : eval 0 (quadraticResultantPolynomial r S) = eval r S ^ 2
+hh :
+  HasDerivAt (fun y => doubleRootSplitScale S * (id * (fun x => eval x (quadraticResultantPolynomial r S)) ^ 2) y)
+    (doubleRootSplitScale S *
+      (1 * ((fun x => eval x (quadraticResultantPolynomial r S)) ^ 2) 0 +
+        id 0 *
+          (↑2 * eval 0 (quadraticResultantPolynomial r S) ^ (2 - 1) *
+            eval 0 (derivative (quadraticResultantPolynomial r S)))))
+    0
+⊢ doubleRootSplitScale S * eval r S ^ 4 =
+    doubleRootSplitScale S *
+      (1 * ((fun x => eval x (quadraticResultantPolynomial r S)) ^ 2) 0 +
+        id 0 *
+          (↑2 * eval 0 (quadraticResultantPolynomial r S) ^ (2 - 1) *
+            eval 0 (derivative (quadraticResultantPolynomial r S))))
+/private/tmp/nla-tr26-dev-oct26/source/NLA/Proofs/TR26/DoubleRootSplitVariation.lean:102:30: warning: This simp argument is unused:
+  C_0
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [quadraticSplit, add_zero]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+/private/tmp/nla-tr26-dev-oct26/source/NLA/Proofs/TR26/DoubleRootSplitVariation.lean:102:34: warning: This simp argument is unused:
+  add_zero
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [quadraticSplit, C_0]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+/private/tmp/nla-tr26-dev-oct26/source/NLA/Proofs/TR26/DoubleRootSplitVariation.lean:120:21: error: #assert_trust: 'NLA.Proofs.TR26.BinaryDiscriminant.fixedDiscriminant_quadraticSplit_product' depends on sorry or unrecognized axioms
+  foundational: propext, Classical.choice, Quot.sound
+  sorryAx: sorryAx
+/private/tmp/nla-tr26-dev-oct26/source/NLA/Proofs/TR26/DoubleRootSplitVariation.lean:121:21: error: #assert_trust: 'NLA.Proofs.TR26.BinaryDiscriminant.hasDerivAt_fixedDiscriminant_double_root_split' depends on sorry or unrecognized axioms
+  foundational: propext, Classical.choice, Quot.sound
+  sorryAx: sorryAx
+'NLA.Proofs.TR26.BinaryDiscriminant.hasDerivAt_fixedDiscriminant_double_root_split' depends on axioms: [propext,
+ sorryAx,
+ Classical.choice,
+ Quot.sound]

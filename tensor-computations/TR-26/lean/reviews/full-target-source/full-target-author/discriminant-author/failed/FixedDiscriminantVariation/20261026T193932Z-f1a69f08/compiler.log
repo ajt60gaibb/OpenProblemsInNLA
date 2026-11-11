@@ -1,0 +1,69 @@
+Try this:
+  [apply] ring_nf
+  
+  The `ring` tactic failed to close the goal. Use `ring_nf` to obtain a normal form.
+    
+  Note that `ring` works primarily in *commutative* rings. If you have a noncommutative ring, abelian group or module, consider using `noncomm_ring`, `abel` or `module` instead.
+/private/tmp/nla-tr26-dev-oct26/source/NLA/Proofs/TR26/FixedDiscriminantVariation.lean:21:19: error: unsolved goals
+k : ℕ
+F : ℂ[X]
+c : ℂ
+V : ℂ[X]
+i : Fin (k + 1)
+a✝ : i ∈ Finset.univ
+⊢ (MvPolynomial.eval ((toFn (k + 1)) F)) ((MvPolynomial.pderiv i) (fixedDiscriminant k)) * c * V.coeff ↑i =
+    (MvPolynomial.eval ((toFn (k + 1)) F)) ((MvPolynomial.pderiv i) (fixedDiscriminant k)) * V.coeff ↑i *
+      (RingHom.id ℂ) c
+/private/tmp/nla-tr26-dev-oct26/source/NLA/Proofs/TR26/FixedDiscriminantVariation.lean:43:4: error: Type mismatch: After simplification, term
+  HasDerivAt.add (hasDerivAt_const 0 (F.coeff ↑i)) (HasDerivAt.mul_const (hasDerivAt_id 0) (V.coeff ↑i))
+ has type
+  @HasDerivAt ℂ DenselyNormedField.toNontriviallyNormedField ℂ Complex.instNormedAddCommGroup.toAddCommGroup
+    (CommCStarAlgebra.toNonUnitalCommCStarAlgebra ℂ).toNonUnitalCStarAlgebra.toModule
+    PseudoMetricSpace.toUniformSpace.toTopologicalSpace ⋯ ((fun x => F.coeff ↑i) + fun y => id y * V.coeff ↑i)
+    (V.coeff ↑i) 0
+but is expected to have type
+  @HasDerivAt ℂ DenselyNormedField.toNontriviallyNormedField ℂ Complex.addCommGroup Semiring.toModule
+    PseudoMetricSpace.toUniformSpace.toTopologicalSpace ⋯ (fun ε => F.coeff ↑i + ε * V.coeff ↑i) (V.coeff ↑i) 0
+Try this:
+  [apply] ring_nf
+  
+  The `ring` tactic failed to close the goal. Use `ring_nf` to obtain a normal form.
+    
+  Note that `ring` works primarily in *commutative* rings. If you have a noncommutative ring, abelian group or module, consider using `noncomm_ring`, `abel` or `module` instead.
+/private/tmp/nla-tr26-dev-oct26/source/NLA/Proofs/TR26/FixedDiscriminantVariation.lean:74:67: error: unsolved goals
+r α : ℂ
+S U : ℂ[X]
+ε : ℂ
+⊢ -(X * C r * C ε * U * 2) - X * C r * S * 2 - X * C ε * C α * S * 2 - X * C ε ^ 2 * C α * U * 2 + X ^ 2 * C ε * U +
+                  X ^ 2 * S +
+                C r * C ε * C α * S * 2 +
+              C r * C ε ^ 2 * C α * U * 2 +
+            C r ^ 2 * C ε * U +
+          C r ^ 2 * S +
+        C ε ^ 2 * C α ^ 2 * S +
+      C ε ^ 3 * C α ^ 2 * U =
+    -(X * C r * C ε * U * 2) - X * C r * S * 2 - X * C ε * C α * S * C 2 - X * C ε ^ 2 * C α * U * C 2 +
+                    X ^ 2 * C ε * U +
+                  X ^ 2 * S +
+                C r * C ε * C α * S * C 2 +
+              C r * C ε ^ 2 * C α * U * C 2 +
+            C r ^ 2 * C ε * U +
+          C r ^ 2 * S +
+        C ε ^ 2 * C α ^ 2 * S +
+      C ε ^ 3 * C α ^ 2 * U
+/private/tmp/nla-tr26-dev-oct26/source/NLA/Proofs/TR26/FixedDiscriminantVariation.lean:103:4: error: Type mismatch: After simplification, term
+  natDegree_mul_le
+ has type
+  ((X - C (r + ε * α)) ^ 2 * (S + C ε * U)).natDegree ≤ ((X - C (r + ε * α)) ^ 2).natDegree + (S + C ε * U).natDegree
+but is expected to have type
+  ((X - C (r + ε * α)) ^ 2 * (S + C ε * U)).natDegree ≤ 2 + (S + C ε * U).natDegree
+/private/tmp/nla-tr26-dev-oct26/source/NLA/Proofs/TR26/FixedDiscriminantVariation.lean:124:21: error: #assert_trust: 'NLA.Proofs.TR26.BinaryDiscriminant.hasDerivAt_fixedDiscriminant_line' depends on sorry or unrecognized axioms
+  foundational: propext, Classical.choice, Quot.sound
+  sorryAx: sorryAx
+/private/tmp/nla-tr26-dev-oct26/source/NLA/Proofs/TR26/FixedDiscriminantVariation.lean:126:21: error: #assert_trust: 'NLA.Proofs.TR26.BinaryDiscriminant.fixedDiscriminantDifferential_moving_root_zero' depends on sorry or unrecognized axioms
+  foundational: propext, Classical.choice, Quot.sound
+  sorryAx: sorryAx
+'NLA.Proofs.TR26.BinaryDiscriminant.fixedDiscriminantDifferential_moving_root_zero' depends on axioms: [propext,
+ sorryAx,
+ Classical.choice,
+ Quot.sound]
