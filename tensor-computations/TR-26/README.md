@@ -6,8 +6,8 @@
 
 **Difficulty:** challenging  
 **Importance:** interesting to specialist  
-**Status:** Solved  
-**Last checked:** 2026-09-11
+**Status:** Lean verified  
+**Last checked:** 2026-11-10
 
 **Rating rationale:** Separating the isotropic and nonisotropic degree contributions requires substantial algebraic analysis beyond the known total. The result mainly interests specialists in conditioning of constrained eigenvalue problems.
 
@@ -20,6 +20,15 @@
 
 This AI-assisted proof passed independent agent review; this is not external human peer review or formal verification. The difficulty, importance and rating rationale below are historical. The original target and dated status audit are retained. No priority claim is made.
 <!-- /colbrook-unclaimed -->
+
+## Lean proof and verification evidence
+
+**Lean verified.** The formalization proves the reduced nonisotropic degree $`6(d-1)`$ and the reduced isotropic degree $`2d`$ for every $`d\ge2`$. It uses the fixed unweighted embedding and bilinear form, with the full incidence ideal, both projective charts, and matrix-kernel directions.
+
+The independent reviews and isolated Linux checks cover the full original
+target in Lean 4.33.1. The proof uses the standard three axioms.
+[Immutable proof and dependency pins](https://github.com/ajt60gaibb/OpenProblemsInNLA/tree/01141f415715a27473cabc1f35ef898e86aafae2/tensor-computations/TR-26/lean)
+· [Reviews, reproduction, and verification logs](../../docs/lean/proofs/TR-26/main-promotion/README.md).
 
 ## Problem statement
 

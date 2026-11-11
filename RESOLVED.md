@@ -942,6 +942,8 @@ controls were verified. No external human peer review is claimed.
 
 [Canonical target](tensor-computations/TR-26/README.md) · [Complete proof](references/colbrook-unclaimed-2026-09-11/manuscripts/TR-26.md) · [PDF](references/colbrook-unclaimed-2026-09-11/manuscripts/TR-26.pdf) · [Independent review](references/colbrook-unclaimed-2026-09-11/verification/reviews/TR-26-review.md). **Theorem 1 and Sections 2–7.** For every $d\ge2$ in the exact standard unweighted embedding, the reduced isotropic and nonisotropic Rayleigh–Ritz discriminants have degrees $2d$ and $6(d-1)$. The proof establishes distinct isotropic hyperplanes, irreducibility of the other part and generic discriminant multiplicity one, including $d=2$ and matrix-map degeneracies.
 
+**Lean verified.** The complete target passed independent formal source review and isolated Linux Comparator and kernel checks. [Immutable Lean proof](https://github.com/ajt60gaibb/OpenProblemsInNLA/tree/01141f415715a27473cabc1f35ef898e86aafae2/tensor-computations/TR-26/lean) · [Reviews and verification evidence](docs/lean/proofs/TR-26/main-promotion/README.md).
+
 ### ✅ Three further tensor resolutions by Matthew J. Colbrook — 2026-09-11
 
 **Author:** Matthew J. Colbrook, Department of Applied Mathematics and Theoretical Physics, University of Cambridge. Three separate agents reviewed the complete recovered AI-assisted manuscripts and returned PASS for their exact canonical targets. Original IDs, targets, historical ratings and provenance remain intact. Verification is independent agent review, not external human peer review or formal certification. [Submission record](references/colbrook-recovered-tensors-2026-09-11/README.md). The already-pushed TR-06, TR-15 and TR-26 submissions are excluded from this batch.
@@ -1383,9 +1385,11 @@ to the existing mathematical resolution. See the
 
 ### IE-22 - Affirmative sharp-constant resolution
 
-[Original statement](linear-systems-and-elimination/IE-22/README.md). **Solved.** Theorem 2 and Sections 6-7 prove the sharp constant $c_\theta=\sqrt{h_\theta}$. The upper bound is uniform over all unit-row matrices and even all $m\ge1$ for sufficiently large $n$, with squared normalized error $O_\theta(n^{-1/6})$. Theorem 1 supplies matching spherical realizations along every high-aspect-ratio sequence, proving the exact eventual-uniform optimality quantifiers.
+[Original statement](linear-systems-and-elimination/IE-22/README.md). **Lean verified.** Theorem 2 and Sections 6-7 prove the sharp constant $c_\theta=\sqrt{h_\theta}$. The upper bound is uniform over all unit-row matrices and even all $m\ge1$ for sufficiently large $n$, with squared normalized error $O_\theta(n^{-1/6})$. Theorem 1 supplies matching spherical realizations along every high-aspect-ratio sequence, proving the exact eventual-uniform optimality quantifiers.
 
 [Complete manuscript](references/colbrook-recovered-2026-09-11/manuscripts/IE-21-22.pdf); [independent review](references/colbrook-recovered-2026-09-11/verification/reviews/IE-21-22-review.md).
+
+The complete target passed independent formal source review and isolated Linux Comparator and kernel checks. [Immutable Lean proof](https://github.com/ajt60gaibb/OpenProblemsInNLA/tree/ccc7864f5034cf7c4602f7577ceaf083ebf63d52/linear-systems-and-elimination/IE-22/lean) · [Reviews and verification evidence](docs/lean/proofs/IE-22/main-promotion/README.md).
 
 ### IE-23 - Negative resolution
 

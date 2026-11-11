@@ -1,25 +1,38 @@
-import Definitions
+import NLA.Statements.IE22
 
+/-! Exact pre-proof endpoints. These three reference placeholders establish
+no theorem. A final Solution must import only actual implementation proofs. -/
 set_option autoImplicit false
+set_option leancert.trust "kernel"
+noncomputable section
+namespace NLA.Proofs.IE22
+open NLA.Statements.RowDeletion
 
-namespace IE22
+/-- A squared universal upper bound, uniform in every positive row count.
+Only the ambient dimension threshold depends on the requested error. -/
+theorem uniform_squared_upper (θ a : ℝ)
+    (hθ0 : 0 < θ) (hθ1 : θ < 1) (ha : 0 < a)
+    (hquantile : GaussianQuantile θ a) :
+    ∀ ε : ℝ, 0 < ε → ∃ N : ℕ,
+      ∀ n m : ℕ, 0 < n → 0 < m → N ≤ n →
+        ∀ A : Matrix (Fin m) (Fin n) ℝ, UnitRows A →
+          (n : ℝ) / (m : ℝ) * SubsingularSquared θ A ≤ TrimmedMoment a + ε := by
+  sorry
 
-/- Complete approved target: eventual uniform upper bound, optimality, and
-   convergence of the extremal supremum along every high-aspect-ratio regime. -/
-axiom full_result
-    (theta : ℝ) (hθ : 0 < theta ∧ theta < 1)
-    (a : ℝ) (ha : GaussianQuantile theta a) :
-    EventualUniformUpper theta (cTheta theta a) ∧
-    NoSmallerUniformConstant theta (cTheta theta a) ∧
-    SupremumConverges theta (cTheta theta a)
+/-- Actual unit-row matrices approach the sharp squared constant beyond
+every prescribed ambient dimension and aspect-ratio threshold. -/
+theorem near_sharp_unit_row_witness (θ a : ℝ)
+    (hθ0 : 0 < θ) (hθ1 : θ < 1) (ha : 0 < a)
+    (hquantile : GaussianQuantile θ a) :
+    ∀ ε : ℝ, 0 < ε → ∀ N R : ℕ,
+      ∃ n m : ℕ, ∃ A : Matrix (Fin m) (Fin n) ℝ,
+        0 < n ∧ 0 < m ∧ N ≤ n ∧ R * n ≤ m ∧ UnitRows A ∧
+          TrimmedMoment a - ε ≤ (n : ℝ) / (m : ℝ) * SubsingularSquared θ A := by
+  sorry
 
-theorem l2Sq_zero (n : ℕ) : l2Sq (fun _ : Fin n => (0 : ℝ)) = 0 := by
-  simp [l2Sq]
+/-- The literal unchanged published sharp eventual uniform constant and
+no-smaller-constant assertion, with every original quantifier. -/
+theorem target : NLA.Statements.IE22.Target := by
+  sorry
 
-theorem rowEnergy_empty {m n : ℕ} (A : Matrix m n) (x : Fin n → ℝ) :
-    rowEnergy A ∅ x = 0 := by
-  simp [rowEnergy]
-
-#print axioms full_result
-
-end IE22
+end NLA.Proofs.IE22

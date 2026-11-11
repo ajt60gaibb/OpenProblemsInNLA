@@ -34,7 +34,7 @@ constant},pdfauthor={Open Problems in Numerical Linear Algebra}}
 \fancyhf{}
 \fancyhead[L]{\sffamily\footnotesize\color{muted}OPEN PROBLEMS IN NUMERICAL LINEAR ALGEBRA}
 \fancyhead[R]{\sffamily\bfseries\footnotesize\color{accent}IE-22}
-\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-09-11}}
+\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Verification check: 2026-11-10}}
 \fancyfoot[R]{\sffamily\footnotesize\color{muted}\thepage}
 \renewcommand{\headrulewidth}{0.3pt}
 \renewcommand{\headrule}{\hbox to\headwidth{\color{accent}\leaders\hrule height \headrulewidth\hfill}}
@@ -51,7 +51,7 @@ uniform row-deletion singular-value constant\par}
 \vspace{7pt}
 {\sffamily\small\textbf{Difficulty:} challenging\quad\textbf{Importance:} interesting
 to the community\par}
-{\sffamily\small\bfseries\color{accent}Status: Solved\par}
+{\sffamily\small\bfseries\color{accent}Status: Lean verified\par}
 \vspace{4pt}
 {\color{accent}\hrule height 0.8pt}
 \vspace{6pt}
@@ -86,17 +86,32 @@ and dated audits are preserved.
 extremum over matrices and deleted row sets; community impact is a sharp
 robustness limit for row-sampling methods.
 
+\subsection{Lean proof and verification
+evidence}\label{lean-proof-and-verification-evidence}
+
+\textbf{Lean verified.} The formalization proves the optimal eventual
+uniform row-deletion constant and shows that every smaller real constant
+fails. It also gives the squared upper bound for every positive row
+count and near-sharp unit-row matrix witnesses beyond every dimension
+and aspect-ratio threshold.
+
+The independent reviews and isolated Linux checks cover the full
+original target in Lean 4.33.1. The proof uses the standard three
+axioms.
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/tree/ccc7864f5034cf7c4602f7577ceaf083ebf63d52/linear-systems-and-elimination/IE-22/lean}{Immutable
+proof and dependency pins} ·
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/docs/lean/proofs/IE-22/main-promotion/README.md}{Reviews,
+reproduction, and verification logs}.
+
 \subsection{Problem statement}\label{problem-statement}
 
 Fix \(0<\theta<1\). For a real \(m\times n\) matrix \(A\) with every row
 of Euclidean norm one, put
 
-\[
-s_\theta(A)=\min_{S\subseteq\{1,\ldots,m\},\ |S|=\lfloor\theta m\rfloor}
+\[s_\theta(A)=\min_{S\subseteq\{1,\ldots,m\},\ |S|=\lfloor\theta m\rfloor}
 \min_{\|x\|_2=1}\|A_Sx\|_2,
 \qquad
-M_{m,n}(\theta)=\sup_{\|a_i\|_2=1}\sqrt{\frac nm}\,s_\theta(A).
-\]
+M_{m,n}(\theta)=\sup_{\|a_i\|_2=1}\sqrt{\frac nm}\,s_\theta(A).\]
 
 Here \(a_i\) is row \(i\) of \(A\), and \(A_S\) contains exactly the
 rows indexed by \(S\).
@@ -104,19 +119,15 @@ rows indexed by \(S\).
 Determine the sharp asymptotic upper constant for \(M_{m,n}(\theta)\) as
 \(n\to\infty\) and \(m/n\to\infty\). In particular, is it
 
-\[
-c_\theta=\left(\frac1{\sqrt{2\pi}}\int_{-a_\theta}^{a_\theta}t^2e^{-t^2/2}\,dt\right)^{1/2},
+\[c_\theta=\left(\frac1{\sqrt{2\pi}}\int_{-a_\theta}^{a_\theta}t^2e^{-t^2/2}\,dt\right)^{1/2},
 \qquad
-\mathbb P(|G|\le a_\theta)=\theta,\quad G\sim N(0,1)?
-\]
+\mathbb P(|G|\le a_\theta)=\theta,\quad G\sim N(0,1)?\]
 
 Precisely, the proposed uniform inequality asks whether, for every
 \(\varepsilon>0\), there exist integers \(N\) and \(R\) such that
 
-\[
-M_{m,n}(\theta)\le c_\theta+\varepsilon
-\quad\text{whenever }n\ge N\text{ and }m/n\ge R,
-\]
+\[M_{m,n}(\theta)\le c_\theta+\varepsilon
+\quad\text{whenever }n\ge N\text{ and }m/n\ge R,\]
 
 and whether no smaller constant has this property. The supremum and
 quantifiers specify the source's uniform \(1+o(1)\) bound; the floor
@@ -129,7 +140,6 @@ This asks how well any unit-row linear system can retain its smallest
 singular value under worst-case row removal, a geometric constraint on
 robust iterative solvers.
 
-\newpage
 \subsection{References}\label{references}
 
 \begin{enumerate}
