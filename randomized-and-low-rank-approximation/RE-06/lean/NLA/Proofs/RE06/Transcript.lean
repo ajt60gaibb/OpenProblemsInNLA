@@ -1,0 +1,212 @@
+import Mathlib
+import NLA.Computation.NonadaptiveMatrixQuery
+import LeanCert.Tactic.Verification
+
+set_option autoImplicit false
+set_option leancert.trust "kernel"
+open scoped BigOperators
+open Classical MeasureTheory ProbabilityTheory
+namespace NLA.Proofs.RE06
+open NLA.Computation.NonadaptiveMatrixQuery
+
+theorem scan_le_initial {ι : Type*} (score : ι → ℝ) (xs : List ι) (b : ι) :
+    score (xs.foldl (fun best j => if score j < score best then j else best) b) ≤
+      score b := by
+  induction xs generalizing b with
+  | nil => exact le_refl _
+  | cons x xs ih =>
+    rw [List.foldl_cons]
+    apply (ih _).trans
+    split_ifs with h
+    · exact h.le
+    · exact le_refl _
+
+theorem scan_le_member {ι : Type*} (score : ι → ℝ) (xs : List ι) (b j : ι)
+    (hj : j ∈ xs) :
+    score (xs.foldl (fun best j => if score j < score best then j else best) b) ≤
+      score j := by
+  induction xs generalizing b with
+  | nil => simp at hj
+  | cons x xs ih =>
+    rw [List.foldl_cons]
+    rcases List.mem_cons.mp hj with rfl | hj
+    · apply (scan_le_initial score xs _).trans
+      split_ifs with h
+      · exact le_refl _
+      · exact le_of_not_gt h
+    · exact ih _ hj
+
+theorem minimumIndex_score_le {m : ℕ} (score : Fin (m+2) → ℝ) (j : Fin (m+2)) :
+    score (minimumIndex score) ≤ score j := by
+  exact scan_le_member score (List.finRange (m+2)) 0 j (List.mem_finRange j)
+
+theorem storedVector_finRange {n a : ℕ} (f : Fin a → (Fin n → ℝ)) (j : Fin a) :
+    storedVector ((List.finRange a).map f) j.val = f j := by
+  simp [storedVector]
+
+theorem answer_standardBasis {n : ℕ} (A : Matrix (Fin n) (Fin n) ℝ) (j : Fin n) :
+    answer A ⟨.right, standardBasis j⟩ = fun i => A i j := by
+  funext i
+  simp [answer, standardBasis]
+
+theorem oracleAnswers_full {n : ℕ} (A : Matrix (Fin n) (Fin n) ℝ)
+    (P : Plan n) (hP : P.full = true) :
+    oracleAnswers A P = (List.finRange n).map (fun j i => A i j) := by
+  simp [oracleAnswers, queryList, hP, List.map_map, Function.comp_def,
+    answer_standardBasis]
+
+theorem storedVector_full {n : ℕ} (A : Matrix (Fin n) (Fin n) ℝ)
+    (P : Plan n) (hP : P.full = true) (i j : Fin n) :
+    storedVector (oracleAnswers A P) j.val i = A i j := by
+  rw [oracleAnswers_full A P hP, storedVector_finRange]
+
+theorem postprocess_full {n m : ℕ} (F : Family n m)
+    (A : Matrix (Fin n) (Fin n) ℝ) (P : Plan n) (hP : P.full = true) :
+    postprocess F P (oracleAnswers A P) =
+      minimumIndex (fun b => squaredFrobenius A (F b)) := by
+  have hr : (fun i j => storedVector (oracleAnswers A P) j.val i) = A := by
+    funext i j
+    exact storedVector_full A P hP i j
+  simp [postprocess, hP, hr]
+
+theorem run_full_error {n m : ℕ} (F : Family n m)
+    (A : Matrix (Fin n) (Fin n) ℝ) (ε : ℝ) (ω : ℕ → ℝ)
+    (hP : (makePlan n m ε ω).full = true) :
+    frobenius A (run F A ε ω) = optimum A F := by
+  change frobenius A (F (postprocess F (makePlan n m ε ω) (oracleAnswers A (makePlan n m ε ω)))) = _
+  rw [postprocess_full F A (makePlan n m ε ω) hP]
+  rfl
+
+theorem frobenius_nonnegative {a b : ℕ} (X Y : Matrix (Fin a) (Fin b) ℝ) :
+    0 ≤ frobenius X Y := Real.sqrt_nonneg _
+
+theorem successful_full_branch {n m : ℕ} (F : Family n m)
+    (A : Matrix (Fin n) (Fin n) ℝ) (ε : ℝ) (hε : 0 ≤ ε)
+    (hfull : n ≤ firstWidth m ε + secondWidth m ε + thirdWidth m ε) :
+    Successful F A ε := by
+  have hP (ω : ℕ → ℝ) : (makePlan n m ε ω).full = true := by
+    simp [makePlan, hfull]
+  have hev : {ω | frobenius A (run F A ε ω) ≤ (3 + ε) * optimum A F} = Set.univ := by
+    apply Set.eq_univ_of_forall
+    intro ω
+    change frobenius A (run F A ε ω) ≤ (3+ε) * optimum A F
+    rw [run_full_error F A ε ω (hP ω)]
+    have ho : 0 ≤ optimum A F := frobenius_nonnegative _ _
+    nlinarith
+  unfold Successful
+  rw [hev, measure_univ]
+  norm_num [ENNReal.div_le_iff]
+
+theorem storedVector_append_left {n : ℕ} (xs ys : List (Fin n → ℝ))
+    (j : ℕ) (hj : j < xs.length) :
+    storedVector (xs ++ ys) j = storedVector xs j := by
+  unfold storedVector
+  rw [List.getElem?_append_left hj]
+
+theorem storedVector_append_right {n : ℕ} (xs ys : List (Fin n → ℝ)) (j : ℕ) :
+    storedVector (xs ++ ys) (xs.length+j) = storedVector ys j := by
+  unfold storedVector
+  rw [List.getElem?_append_right (by omega), Nat.add_sub_cancel_left]
+
+theorem oracleAnswers_sketch {n : ℕ} (A : Matrix (Fin n) (Fin n) ℝ)
+    (P : Plan n) (hP : P.full = false) :
+    oracleAnswers A P =
+      (List.finRange P.s).map (fun j i => (A * P.G0) i j) ++
+      (List.finRange P.k).map (fun j i => (A * P.G1) i j) ++
+      (List.finRange P.ell).map (fun j i => (A.transpose * P.H) i j) := by
+  simp [oracleAnswers, queryList, hP, List.map_append, List.map_map,
+    Function.comp_def, answer, Matrix.mul_apply]
+
+theorem storedVector_sketch0 {n : ℕ} (A : Matrix (Fin n) (Fin n) ℝ)
+    (P : Plan n) (hP : P.full = false) (j : Fin P.s) :
+    storedVector (oracleAnswers A P) j.val = fun i => (A * P.G0) i j := by
+  rw [oracleAnswers_sketch A P hP, List.append_assoc]
+  rw [storedVector_append_left _ _ _ (by simp)]
+  exact storedVector_finRange _ j
+
+theorem storedVector_sketch1 {n : ℕ} (A : Matrix (Fin n) (Fin n) ℝ)
+    (P : Plan n) (hP : P.full = false) (j : Fin P.k) :
+    storedVector (oracleAnswers A P) (P.s+j.val) = fun i => (A * P.G1) i j := by
+  rw [oracleAnswers_sketch A P hP, List.append_assoc]
+  have heq := storedVector_append_right
+    ((List.finRange P.s).map (fun j i => (A * P.G0) i j))
+    (((List.finRange P.k).map (fun j i => (A * P.G1) i j)) ++
+      (List.finRange P.ell).map (fun j i => (A.transpose * P.H) i j)) j.val
+  simp only [List.length_map, List.length_finRange] at heq
+  rw [heq]
+  rw [storedVector_append_left _ _ _ (by simp)]
+  exact storedVector_finRange _ j
+
+theorem storedVector_sketchH {n : ℕ} (A : Matrix (Fin n) (Fin n) ℝ)
+    (P : Plan n) (hP : P.full = false) (j : Fin P.ell) :
+    storedVector (oracleAnswers A P) (P.s+P.k+j.val) = fun i => (A.transpose * P.H) i j := by
+  rw [oracleAnswers_sketch A P hP, List.append_assoc]
+  have heq := storedVector_append_right
+    ((List.finRange P.s).map (fun j i => (A * P.G0) i j))
+    (((List.finRange P.k).map (fun j i => (A * P.G1) i j)) ++
+      (List.finRange P.ell).map (fun j i => (A.transpose * P.H) i j)) (P.k+j.val)
+  have heq' := storedVector_append_right
+    ((List.finRange P.k).map (fun j i => (A * P.G1) i j))
+    ((List.finRange P.ell).map (fun j i => (A.transpose * P.H) i j)) j.val
+  simp only [List.length_map, List.length_finRange] at heq heq'
+  rw [Nat.add_assoc, heq, heq']
+  exact storedVector_finRange _ j
+
+noncomputable def sketchWarmIndex {n m : ℕ} (F : Family n m)
+    (A : Matrix (Fin n) (Fin n) ℝ) (P : Plan n) : Fin (m+2) :=
+  minimumIndex (fun b => squaredFrobenius (A * P.G0) (F b * P.G0))
+
+noncomputable def sketchRepair {n m : ℕ} (F : Family n m)
+    (A : Matrix (Fin n) (Fin n) ℝ) (P : Plan n) : Matrix (Fin n) (Fin n) ℝ :=
+  let b0 := sketchWarmIndex F A P
+  let Y := (A-F b0) * P.G1
+  F b0 + Y * pseudoInverse (P.H.transpose * Y) * (P.H.transpose * (A-F b0))
+
+theorem postprocess_sketch {n m : ℕ} (F : Family n m)
+    (A : Matrix (Fin n) (Fin n) ℝ) (P : Plan n) (hP : P.full = false) :
+    postprocess F P (oracleAnswers A P) =
+      minimumIndex (fun b => squaredFrobenius (sketchRepair F A P) (F b)) := by
+  have hZ0 : (fun i j => storedVector (oracleAnswers A P) j.val i) = A * P.G0 := by
+    funext i j
+    exact congrFun (storedVector_sketch0 A P hP j) i
+  have hZ1 : (fun i j => storedVector (oracleAnswers A P) (P.s+j.val) i) = A * P.G1 := by
+    funext i j
+    exact congrFun (storedVector_sketch1 A P hP j) i
+  have hZH : (fun i j => storedVector (oracleAnswers A P) (P.s+P.k+j.val) i) =
+      A.transpose * P.H := by
+    funext i j
+    exact congrFun (storedVector_sketchH A P hP j) i
+  simp only [postprocess, hP, Bool.false_eq_true, ite_false, hZ0, hZ1, hZH]
+  simp only [sketchRepair, sketchWarmIndex, Matrix.sub_mul, Matrix.mul_sub,
+    Matrix.transpose_mul, Matrix.transpose_transpose]
+
+ theorem sketchWarmIndex_score_le {n m : ℕ} (F : Family n m)
+    (A : Matrix (Fin n) (Fin n) ℝ) (P : Plan n) (b : Fin (m+2)) :
+    squaredFrobenius (A * P.G0) (F (sketchWarmIndex F A P) * P.G0) ≤
+      squaredFrobenius (A * P.G0) (F b * P.G0) :=
+  minimumIndex_score_le (fun j => squaredFrobenius (A * P.G0) (F j * P.G0)) b
+
+#assert_trust kernel scan_le_initial
+#assert_trust kernel scan_le_member
+#assert_trust kernel minimumIndex_score_le
+#print axioms minimumIndex_score_le
+#assert_trust kernel storedVector_finRange
+#assert_trust kernel answer_standardBasis
+#assert_trust kernel oracleAnswers_full
+#assert_trust kernel storedVector_full
+#print axioms storedVector_full
+#assert_trust kernel postprocess_full
+#assert_trust kernel run_full_error
+#assert_trust kernel successful_full_branch
+#print axioms successful_full_branch
+#assert_trust kernel storedVector_append_left
+#assert_trust kernel storedVector_append_right
+#assert_trust kernel oracleAnswers_sketch
+#assert_trust kernel storedVector_sketch0
+#assert_trust kernel storedVector_sketch1
+#assert_trust kernel storedVector_sketchH
+#print axioms storedVector_sketchH
+#assert_trust kernel postprocess_sketch
+#assert_trust kernel sketchWarmIndex_score_le
+#print axioms postprocess_sketch
+end NLA.Proofs.RE06

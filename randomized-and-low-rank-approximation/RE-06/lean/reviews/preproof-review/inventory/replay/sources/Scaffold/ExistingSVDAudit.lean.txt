@@ -1,0 +1,13 @@
+import NLA.Proofs.TR04.SVDTotal
+import NLA.Computation.NonadaptiveMatrixQuery
+set_option leancert.trust "kernel"
+open Lean Elab Command in
+elab "#existing_theorem " n:ident : command => do
+ let d ← liftCoreM <| realizeGlobalConstNoOverloadWithInfo n
+ match (← getEnv).find? d with
+ | some (.thmInfo _) => pure ()
+ | _ => throwErrorAt n "expected actual existing theorem"
+#existing_theorem NLA.Proofs.TR04.SVD.exists_validSVD
+#assert_trust kernel NLA.Proofs.TR04.SVD.exists_validSVD
+#print axioms NLA.Proofs.TR04.SVD.exists_validSVD
+#check @NLA.Proofs.TR04.SVD.exists_validSVD

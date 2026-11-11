@@ -101,7 +101,7 @@ def render(source):
         body = body[:match.start()] + body[match.end():]
     body = re.sub(r"<!-- navigation -->.*?<!-- /navigation -->", "", body, flags=re.S)
     body = restore_pdf_layout(identifier, body)
-    if identifier in {"IE-03", "IE-04", "IE-05", "IE-11", "SP-15", "MF-02", "MF-12", "RE-03", "RA-01", "MF-24", "PF-03", "PF-05"}:
+    if identifier in {"IE-03", "IE-04", "IE-05", "IE-11", "SP-15", "MF-02", "MF-12", "RE-03", "RE-06", "RA-01", "MF-24", "PF-03", "PF-05"}:
         # Keep the unchanged original target together after its resolution notice.
         # This PDF-only layout instruction should not appear on the GitHub page.
         body = body.replace("## Context and notation\n", "\\newpage\n\n## Context and notation\n", 1)
@@ -130,7 +130,7 @@ def render(source):
             tex = tex.replace(r"\subsection{Resolution", "\\newpage\n" + r"\subsection{Resolution", 1)
         if identifier == "TR-27":
             tex = tex.replace("headheight=15pt", "headheight=20pt")
-        if identifier in {"IE-02", "IE-03", "IE-04", "IE-06", "IE-14", "IV-01", "IV-03", "KE-05", "MF-05", "MF-12", "MF-18", "MF-21", "MF-22", "MI-15", "MI-18", "MI-24", "MI-27", "MI-28", "NM-04", "NR-04", "PF-03", "PF-05", "SP-04", "SP-05", "SP-11", "SP-12", "SP-15", "TR-07", "TR-14", "TR-27"}:
+        if identifier in {"IE-02", "IE-03", "IE-04", "IE-06", "IE-14", "IV-01", "IV-03", "KE-05", "MF-05", "MF-12", "MF-18", "MF-21", "MF-22", "MI-15", "MI-18", "MI-24", "MI-27", "MI-28", "NM-04", "NR-04", "PF-03", "PF-05", "SP-04", "SP-05", "SP-11", "SP-12", "SP-15", "TR-07", "TR-14", "TR-27", "RE-06"}:
             # These publication dates record formal verification, not a literature search.
             tex = tex.replace("Literature check:", "Verification check:")
         # The code spans in this catalog are literal search phrases. Set them
@@ -148,7 +148,7 @@ def render(source):
             'MF-16', 'MF-17', 'MI-03', 'MI-04', 'MI-06', 'MI-07', 'MI-08',
             'MI-09', 'MI-15', 'MI-19', 'MI-23', 'MI-29', 'NM-03', 'NM-04', 'PF-05',
             'RA-02', 'RA-06', 'RA-08', 'RA-09', 'RA-10', 'RA-12',
-            'RE-01', 'RE-02', 'RE-06', 'SP-04',
+            'RE-01', 'RE-02', 'SP-04',
             'SP-05', 'SP-06', 'SP-09', 'SP-12', 'TR-11', 'TR-20', 'TR-21',
             'TR-24', 'TR-26', 'TR-30',
             'IE-27', 'MI-30', 'MI-31',

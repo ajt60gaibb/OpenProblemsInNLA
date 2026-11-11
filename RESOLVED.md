@@ -490,11 +490,13 @@ A separate [independent Codex AI-agent audit](references/holden-ra05-2026-09-13/
 
 **Solved, 12 September 2026.** Sidney Holden, Center for Computational Biology, Flatiron Institute, Simons Foundation. [Verified affiliation and submission](references/holden-mi16-2026-09-12/README.md). [Theorem 2.1, Sections 3–5](matrix-inequalities-and-norms/MI-16/solution.pdf) give a finite exact algebraic prescription for the maximum permanent for all nonnegative spectra and every order, using critical-value elimination and an explicit finite spectral-moment selector. This settles the retained [MI-16 exact-value target](matrix-inequalities-and-norms/MI-16/README.md), without claiming a compact structural formula, an efficient general implementation, or general optimizer classification. Theorem 8.1 and Sections 9–10 also sharpen the earlier one-exceptional-eigenvalue partial result to two candidates with thresholds and complete equality cases. Prior partial findings from [PR #186](https://github.com/ajt60gaibb/OpenProblemsInNLA/pull/186) retain credit. [Independent Codex AI-agent audit: PASS](references/holden-mi16-2026-09-12/independent-review.md). Informal automated review only; no Lean verification, external human peer review, or historical novelty claim.
 
-### ✅ RE-06 — fully nonadaptive finite-family approximation — Sidney Holden
+### 🏆 RE-06 — fully nonadaptive finite-family approximation — Sidney Holden
 
 **Solved affirmatively, 13 September 2026.** Sidney Holden (Center for Computational Biology, Flatiron Institute, Simons Foundation), [Theorem 1.1 and Sections 2–6](randomized-and-low-rank-approximation/RE-06/solution.pdf), proves the original exact-real, query-only target with $`C=4{,}000{,}000`$ and $`b=0`$: all queries are fixed before answers and the $`3+\varepsilon`$ approximation succeeds with probability at least 0.99. [Retained target](randomized-and-low-rank-approximation/RE-06/README.md) · [Proof source](randomized-and-low-rank-approximation/RE-06/solution.tex).
 
-The full argument passed a separate [independent informal Codex AI-agent audit](references/holden-re06-2026-09-13/independent-review.md). No external human peer review or formal verification is asserted; no Lean verification was performed. [Submission, verified affiliation and checks](references/holden-re06-2026-09-13/README.md).
+The full argument passed a separate [independent informal Codex AI-agent audit](references/holden-re06-2026-09-13/independent-review.md). This was the evidence for the September 2026 status. [Submission, verified affiliation and checks](references/holden-re06-2026-09-13/README.md).
+
+**Lean verified.** The complete target passed independent formal source review and isolated Linux Comparator and kernel checks. [Immutable Lean proof](https://github.com/ajt60gaibb/OpenProblemsInNLA/tree/5fefb820e4e7b72e45a18808d507e9b6dddc6088/randomized-and-low-rank-approximation/RE-06/lean) · [Reviews and verification evidence](docs/lean/proofs/RE-06/main-promotion/README.md).
 
 ### ✅ TR-08 — exact square-root-logarithmic sparsity threshold — Sidney Holden
 

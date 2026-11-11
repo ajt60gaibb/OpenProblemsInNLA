@@ -1,0 +1,702 @@
+                    An affirmative solution to RE-06
+                     Fully nonadaptive finite-family
+                                         √           matrix approximation
+                                 with O( log M ε−2 ) queries
+
+                                            Sidney Holden
+                          Center for Computational Biology, Flatiron Institute
+                                         Simons Foundation
+
+                                         September 12, 2026
+
+
+                                               Abstract
+        For an explicitly given finite family F ⊂ Rn×n of size M ≥ 2, and a fixed unknown matrix
+     A accessible through products Av and AT v, we give a fully nonadaptive algorithm returning
+     b ∈ F with
+     B                                                          
+                             P A − B ≤ (3 + ε) min ∥A − B∥F ≥ 0.99.
+                                       b
+                                        F           B∈F
+
+     Every vector and every query side
+                                    p are fixed before any oracle answer is received. The number
+     of queries is at most 4,000,000 log(2M ) ε−2 , for 0 < ε < 1/2. Thus the logarithmic-overhead
+     exponent in RE-06 can be taken to be b = 0. The key step is a lower-tail estimate that
+     controls the energy remaining after the largest r singular values have been removed, rather than
+     estimating every candidate’s full residual norm. An independent, prequeried two-sided sketch
+     then reconstructs the low-rank part of the selected residual. All probability estimates and the
+     reconstruction argument are proved here, including the dependence and rank-deficiency details.
+
+
+Scope and verification. The theorem is in the exact-real-arithmetic model of RE-06. The
+constants are deliberately conservative, not recommended practical sketch sizes. This is a complete
+mathematical argument, independently audited by a separate Codex AI agent (13 September 2026).
+This informal audit is not a formal proof-assistant certificate or external human peer review. The
+accompanying floating-point implementation and numerical audits are supplementary checks, not a
+substitute for the proof.
+
+Reading guide. Section 2 gives the complete query schedule and algorithm. Sections 3–4 establish
+the probabilistic ingredients. Section 5 proves the guarantee and counts every query. Sections 6–7
+audit the model and describe the reproducible checks.
+RE-06: nonadaptive finite-family approximation                                                 Research note
+
+
+1    Problem, result, and proof structure
+RE-06 asks whether the square-root dependence on log M can be attained without adapting any
+oracle queries to previous answers [1]. Amsel et al. obtain the corresponding adaptive finite-family
+guarantee and explicitly raise the nonadaptive question in Section 5 of their paper [2]. We address
+the precise finite-family, 3 + ε, query-only formulation in the repository.
+The input consists of n ≥ 1, a finite explicitly represented set F = {B1 , . . . , BM } ⊂ Rn×n , M ≥ 2,
+and ε ∈ (0, 1/2). A query returns either Av or AT v for one chosen v ∈ Rn ; each counts as
+one query. Both A and F are fixed before the algorithm’s randomness. Candidate processing
+and all computations on returned data are unrestricted. The real-arithmetic, Gaussian-sampling,
+comparison, and exact-SVD primitives are those stipulated by the problem. Fix the displayed
+ordering of F to break every tie deterministically.
+Write
+              OPT = min ∥A − B∥F ,          B⋆ ∈ arg min ∥A − B∥F ,            t = log(2M ),
+                      B∈F                               B∈F
+where unadorned logarithms are natural. For a matrix C, define
+                                                     X
+                                         τr (C)2 =           σj (C)2 .                                 (1.1)
+                                                     j>r
+
+The tail starts after the rth singular value; this indexing convention is important.
+Theorem 1.1 (Affirmative answer to RE-06). There is a uniform randomized algorithm which, on
+every input above, chooses its entire query schedule before receiving any answers, makes at most
+                                                    q
+                                        4,000,000 log(2M ) ε−2                                         (1.2)
+                     b ∈ F such that
+queries, and returns B
+                         h                               i
+                        P A−B
+                            b          ≤ (3 + ε) OPT ≥ 1 − 0.008151 > 0.99.                            (1.3)
+                                   F
+
+The query vectors do not need to depend on the entries of F: their distribution depends only on
+n, M, ε. In particular, RE-06 holds with C = 4,000,000 and b = 0.
+
+Why a weak initial choice is enough. Set η = ε/4. A short right sketch selects a candidate
+B0 for which, with high probability,
+                                                         1+η
+                                    τr (A − B0 )2 ≤          OPT2 .                                    (1.4)
+                                                         1−η
+This does not assert that ∥A − B0 ∥F is small. The error can contain a large low-rank component.
+Independent right and left sketches, already queried before B0 was selected, produce a correction Cb
+satisfying
+                                                2
+                               (A − B0 ) − Cb       ≤ (1 + η)τr (A − B0 )2 .                           (1.5)
+                                                F
+
+Hence Ae = B0 + Cb approximates A within (1 + ε/2) OPT. Projecting Ae onto the finite set F gives
+the factor 3 + ε by two triangle inequalities.
+The reconstruction formula used below is the standard independent two-sided sketch reconstruction
+of Tropp, Yurtsever, Udell, and Cevher [3]. The range argument is closely related to the Gaussian
+range-finder analysis of Halko, Martinsson, and Tropp [4]. We include the needed proofs, rather
+than treating a high-probability repair guarantee as a black box.
+
+                                                     2
+RE-06: nonadaptive finite-family approximation                                                                    Research note
+
+
+2     Complete nonadaptive algorithm
+
+2.1    Integer parameters and an exact-recovery branch
+
+Choose
+                                                                   l√ m
+              L = ⌈log2 (2M )⌉ ,                             r=            L ,                         η = ε/4,           (2.1)
+                  32L 64
+                                
+              s=      + 2 ,                                                                                               (2.2)
+                   rη   η
+                         256r
+                             
+              k =r+1+           ,                                                                                         (2.3)
+                          η
+                         256k
+                             
+              ℓ=k+1+             ,                          N = s + k + ℓ.                                                (2.4)
+                           η
+These are uniform parameter rules: L is obtained by integer doubling and r by integer comparisons,
+so neither a logarithm nor a square-root evaluation is needed to compute these two integers. Ceilings
+of the other positive real expressions can also be implemented by comparisons.
+If n ≤ N , choose all n standard basis vectors for right queries before receiving any answers. These
+products reveal every column of A. Return the nearest candidate in F. This branch is exact and
+uses n queries.
+For the rest of the algorithm assume n > N . In particular, r < k < ℓ < n.
+
+
+2.2    One precommitted batch of oracle calls
+
+Draw three mutually independent Gaussian matrices:
+
+                   G0 ∈ Rn×s ,        (G0 )ij ∼ N (0, 1/s);            G1 ∈ Rn×k ,         H ∈ Rn×ℓ ,                     (2.5)
+
+where G1 and H have independent standard normal entries. All entries within each block are
+independent. Commit, at this point, to the complete list of queries
+
+                       Ag0,1 , . . . , Ag0,s ,   Ag1,1 , . . . , Ag1,k ,     AT h1 , . . . , AT hℓ .                      (2.6)
+                       |         {z          }   |         {z          }     |        {z          }
+                           s right queries           k right queries             ℓ left queries
+
+
+Then receive and store the three answer blocks AG0 , AG1 , AT H. There are no further oracle calls.
+The normalization of G0 is optional: querying an unscaled standard Gaussian block and dividing
+its squared scores by s gives exactly the same minimizer and analysis. This also avoids needing a
+square-root primitive for normalization.
+
+
+2.3    Postprocessing using stored answers only
+
+1. Select an initial candidate using only the first sketch:
+
+                                             B0 ∈ arg min ∥AG0 − BG0 ∥F .                                                 (2.7)
+                                                     B∈F
+
+    In particular, this selection must not inspect AG1 or AT H.
+
+
+
+                                                            3
+RE-06: nonadaptive finite-family approximation                                                        Research note
+
+
+2. Form the selected residual’s sketches. Write C = A − B0 symbolically, and compute
+
+                      Y = AG1 − B0 G1 = CG1 ,                    W = (AT H)T − H T B0 = H T C.                (2.8)
+
+    This requires no access to C or A beyond the stored answers.
+
+3. Reconstruct the low-rank component. Compute an orthonormal basis Q ∈ Rn×d of range(Y )
+   by exact SVD, where d = rank(Y ) ≤ k. If d = 0, set Cb = 0. Otherwise set
+
+                                                       Cb = Q(H T Q)† W.                                      (2.9)
+
+    Here † denotes the Moore–Penrose pseudoinverse, computed by exact SVD.
+
+4. Return to the finite family:
+
+                                     Ae = B0 + C,
+                                               b            b ∈ arg min A
+                                                            B           e−B             .                    (2.10)
+                                                                    B∈F             F
+
+
+All minimizations are finite scans. The large intermediate matrix Ae can be formed explicitly because
+processing is unrestricted. In particular, computing Q does not trigger any query of the form AT Q.
+
+
+3    Gaussian sketches control a trimmed residual
+Lemma 3.1 (Lower tail after discarding r singular values). Let C ∈ Rn×n be fixed, let 1 ≤ r < n,
+and let G ∈ Rn×s have independent N (0, 1/s) entries. For 0 < η < 1,
+                                 h                                 i
+                                P ∥CG∥2F < (1 − η)τr (C)2 ≤ exp(−srη/4).                                      (3.1)
+
+Proof. Let λi = σi (C)2 in decreasing order and T = i>r λi . If T = 0, the event is empty; the
+                                                                       P
+
+strict inequality in the event matters here. Otherwise a = λr+1 > 0. By rotational invariance of a
+standard Gaussian matrix,
+                                          n
+                                      d
+                       s ∥CG∥2F =
+                                          X
+                                                λ i Zi ,    Zi independent with Zi ∼ χ2s .
+                                          i=1
+
+For any θ > 0, the exponential Markov inequality and the Gaussian Laplace transform give
+                                                                          n
+                                                                                                  !
+                  h                             i                      sX
+                 P ∥CG∥2F < (1 − η)T                ≤ exp sθ(1 − η)T −       log(1 + 2θλi ) .                 (3.2)
+                                                                       2 i=1
+
+The identity Ee−θλZ = (1 + 2θλ)−s/2 follows by multiplying s one-dimensional Gaussian integrals.
+Choose θ = η/(2a). For the head i ≤ r, we have λi ≥ a, giving log(1 + 2θλi ) ≥ log(1 + η). For the
+tail, use log(1 + x) ≥ x − x2 /2 for x ≥ 0 and λi ≤ a to obtain
+                          n
+                          X                                                         X
+                                log(1 + 2θλi ) ≥ r log(1 + η) + 2θT − 2θ2                   λ2i
+                          i=1                                                       i>r
+                                                                                2
+                                                     ≥ r log(1 + η) + 2θT − 2θ aT.
+
+
+
+                                                             4
+RE-06: nonadaptive finite-family approximation                                                      Research note
+
+
+Substituting in (3.2) bounds its logarithm by
+
+                                              sr                sη 2 T   sr
+                      −sθηT + sθ2 aT −           log(1 + η) = −        −    log(1 + η)
+                                              2                  4a      2
+                                                            ≤ −srη/4,
+
+since log(1 + η) ≥ η/2 for 0 < η < 1. This proves the claim.
+
+Lemma 3.2 (Upper tail for one fixed matrix). For any fixed E ∈ Rn×n , with G distributed as above
+and 0 < η < 1,                h                       i       2
+                            P ∥EG∥2F > (1 + η) ∥E∥2F ≤ e−sη /8 .                             (3.3)
+
+Proof. For E = 0 the event is empty. Otherwise set ai = σi (E)2 / ∥E∥2F , so ai ≥ 0 and i ai = 1.
+                                                                                                       P
+
+The random variable s ∥EG∥2F / ∥E∥2F has distribution i ai Zi , with independent χ2s variables Zi .
+                                                       P
+
+For 0 < θ < 1/2, expansion of − log(1 − x) into its nonnegative power series shows
+                    X                        X (2θ)j X j               X (2θ)j
+                −         log(1 − 2θai ) =                      ai ≤             = − log(1 − 2θ).
+                      i                      j≥1
+                                                       j   i           j≥1
+                                                                             j
+
+Consequently the moment generating function is at most (1 − 2θ)−s/2 . Choose θ = η/[2(1 + η)] in
+the upper-tail Chernoff bound to get
+                                                              s
+                  h                                i                               
+                                                                                      2
+                P ∥EG∥2F > (1 + η) ∥E∥2F               ≤ exp − [η − log(1 + η)] ≤ e−sη /8 .
+                                                              2
+                                                               Rη                2
+The last inequality follows from η − log(1 + η) =              0 u/(1 + u) du ≥ η /4 for 0 < η < 1.
+
+Proposition 3.3 (The selected residual has a small rank-r tail). With B0 selected by (2.7), except
+on an event of probability at most
+                                                      2
+                                     M e−srη/4 + e−sη /8 ,                                   (3.4)
+one has
+                                                               1+η
+                                        τr (A − B0 )2 ≤            OPT2 .                                   (3.5)
+                                                               1−η
+
+Proof. For each fixed B ∈ F, apply Lemma 3.1 to A − B, and take a union bound over the M
+candidates. Except with probability M e−srη/4 , simultaneously for every candidate,
+
+                                    (1 − η)τr (A − B)2 ≤ ∥(A − B)G0 ∥2F .
+
+Only one upper-tail estimate is needed: Lemma 3.2 for the fixed optimal residual A − B⋆ gives
+
+                                      ∥(A − B⋆ )G0 ∥2F ≤ (1 + η) OPT2
+                                2
+except with probability e−sη /8 . On these two events, the definition of B0 yields
+
+            (1 − η)τr (A − B0 )2 ≤ ∥(A − B0 )G0 ∥2F ≤ ∥(A − B⋆ )G0 ∥2F ≤ (1 + η) OPT2 .
+
+No independence between the candidate scores was used or needed.
+
+
+
+
+                                                           5
+RE-06: nonadaptive finite-family approximation                                          Research note
+
+
+4     A self-contained nonadaptive repair bound
+
+4.1   Two elementary Gaussian identities
+
+We first record the inverse moment required for both parts of the reconstruction.
+
+Lemma 4.1 (Gaussian pseudoinverse moment). If X ∈ Rd×p has independent standard normal
+entries and p > d + 1, then X has full row rank almost surely and
+                                                2         d
+                                        E X†        =         .                                  (4.1)
+                                                F       p−d−1
+The same formula applies to the transpose of such a matrix.
+
+Proof. A Gaussian matrix has full row rank almost surely because a nonzero polynomial minor
+                                                                           2
+vanishes only on a set of Lebesgue measure zero. On this event, X † = tr((XX T )−1 ). For a fixed
+                                                                   F
+row index i, condition on all other d − 1 rows. The Schur-complement formula gives
+                                                              1
+                                       [(XX T )−1 ]ii =              ,
+                                                          ∥xi Pi ∥2F
+
+where xi is row i and Pi is the orthogonal projector onto the complement of the span of the other
+rows in Rp . This projector has rank p − d + 1 almost surely. Conditional on those rows, ∥xi Pi ∥2F is
+χ2p−d+1 . For Z ∼ χ2ν , ν > 2, integration of its density gives
+
+                                              Γ(ν/2 − 1)    1
+                                   EZ −1 =               =     .
+                                               2Γ(ν/2)     ν−2
+
+Thus each diagonal entry has expectation 1/(p − d − 1); sum the d entries. The transpose statement
+follows because a matrix and its transpose have the same singular values.
+
+We also use the elementary identity
+
+                                       E ∥U ZV ∥2F = ∥U ∥2F ∥V ∥2F                               (4.2)
+
+when U, V are fixed matrices of compatible dimensions and Z has independent standard normal
+entries. Indeed, E[ZV V T Z T ] = tr(V V T )I, after which taking the trace proves the identity.
+
+
+4.2   The excess-error majorant
+
+Lemma 4.2 (Repair from independently prechosen sketches). Fix C ∈ Rn×n and integers 1 ≤
+r < k < n and ℓ > k + 1, with k > r + 1. Let Ω ∈ Rn×k and H ∈ Rn×ℓ be independent standard
+Gaussian matrices. Let Q ∈ Rn×d be an orthonormal basis for range(CΩ), with d ≤ k, and define
+
+                                         Cb = Q(H T Q)† H T C
+
+with Cb = 0 when d = 0. Put
+                                         r                         k
+                                a0 =         ,            b0 =         .                         (4.3)
+                                       k−r−1                     ℓ−k−1
+
+
+                                                    6
+RE-06: nonadaptive finite-family approximation                                                               Research note
+
+
+There is a nonnegative random variable Z satisfying, almost surely,
+                                 2
+                                     ≤ τr (C)2 + Z,         EZ ≤ a0 + b0 (1 + a0 ) τr (C)2 .
+                                                                                             
+                     C − Cb                                                                                          (4.4)
+                                 F
+
+Consequently, for every η > 0,
+                                                                                a0 + b0 + a0 b0
+                                                                      
+                                             2
+                                                                   2
+                         P       C − Cb          > (1 + η)τr (C)           ≤                    .                    (4.5)
+                                             F                                        η
+
+If τr (C) = 0, then Cb = C almost surely.
+
+Proof. Part 1: a deterministic range-error majorant. Take a full SVD partitioned after the
+first r singular values:
+
+                          C = U1 Σ1 V1T + U2 Σ2 V2T ,                      ∥Σ2 ∥2F = τr (C)2 .
+
+Set Ω1 = V1T Ω ∈ Rr×k and Ω2 = V2T Ω ∈ R(n−r)×k . The two blocks are independent standard
+Gaussian matrices, and Ω1 has full row rank almost surely. Therefore
+
+                                     CΩΩ†1 V1T = U1 Σ1 V1T + U2 Σ2 Ω2 Ω†1 V1T .
+
+This matrix has all its columns in range(CΩ). Since the row spaces spanned by V1T and V2T are
+orthogonal,
+                                             2                                                    2
+                     C − CΩΩ†1 V1T               = τr (C)2 + X,                X = Σ2 Ω2 Ω†1          ≥ 0.           (4.6)
+                                             F                                                    F
+
+Let P = QQT and R = (I − P )C. Orthogonal projection minimizes the error over matrices with
+columns in range(CΩ), so
+                                  ∥R∥2F ≤ τr (C)2 + X.                                 (4.7)
+                                                                                     2
+Conditioning on Ω1 , equation (4.2) yields EΩ2 X = τr (C)2 Ω†1                           . By Lemma 4.1,
+                                                                                     F
+
+                          EX = a0 τr (C)2 ,               E ∥R∥2F ≤ (1 + a0 )τr (C)2 .                               (4.8)
+
+No inverse of Σ1 was used. Thus this argument also covers matrices of rank less than r.
+Part 2: regression using the left sketch. Condition on Ω, so that Q, d, and R are fixed. For
+d > 0, the matrix H T Q ∈ Rℓ×d is standard Gaussian and has full column rank almost surely. Using
+C = QQT C + R, we get
+                                  Cb = QQT C + Q(H T Q)† H T R.
+The columns of R are orthogonal to those of Q. Consequently,
+                                      2                                                       2
+                       C − Cb             = ∥R∥2F + V,         V = (H T Q)† H T R                 ≥ 0.               (4.9)
+                                      F                                                       F
+
+For d = 0, take V = 0; the same identity holds.
+For d > 0, complete Q to an orthogonal basis [Q Q⊥ ]. The matrices H T Q and H T Q⊥ are independent
+standard Gaussian blocks. Since R = Q⊥ QT   ⊥ R, equation (4.2), followed by Lemma 4.1, gives
+
+                                                                           2
+                                     EH [V | Ω] = EH (H T Q)†                  ∥R∥2F
+                                                                           F
+                                                        d
+                                                  =         ∥R∥2F ≤ b0 ∥R∥2F .                                      (4.10)
+                                                      ℓ−d−1
+
+                                                           7
+RE-06: nonadaptive finite-family approximation                                           Research note
+
+
+The last inequality follows from d ≤ k and the increasing function x 7→ x/(ℓ − x − 1) on 0 ≤ x < ℓ − 1.
+For d = 0, the same inequality is trivial.
+Part 3: apply Markov to a nonnegative variable. Define Z = X + V . Equations (4.7) and
+                    2
+(4.9) give C − Cb       ≤ τr (C)2 + Z. Equations (4.8) and (4.10) imply
+                    F
+
+                                    EZ ≤ a0 τr (C)2 + b0 (1 + a0 )τr (C)2 .
+
+When τr (C) > 0, Markov’s inequality for Z proves (4.5). When τr (C) = 0, nonnegativity and
+EZ = 0 imply Z = 0 almost surely, and hence exact reconstruction.
+
+Remark 4.3 (Why the explicit nonnegative majorant matters). The correction Cb is allowed to have
+                                               2
+rank greater than r. Therefore C − Cb − τr (C)2 need not be nonnegative. Applying Markov’s
+                                          F
+inequality directly to that difference would be invalid. The proof instead constructs the genuinely
+nonnegative variable Z = X + V which bounds it from above. This preserves a 1 + η error factor at
+constant failure probability.
+
+
+5     Proof of the main theorem
+
+5.1   Failure probabilities and the conditioning step
+
+The exact-recovery branch succeeds deterministically, so consider n > N . From the choice of s,
+
+                                        srη/4 ≥ 8L,        sη 2 /8 ≥ 8.
+
+Since M ≤ 2L−1 and L ≥ 2,
+                                                      2
+                                    M e−srη/4 + e−sη /8 ≤ 2e−16 + e−8 .                           (5.1)
+
+For the first term, (1/2)e(log 2−8)L is decreasing in L, so its largest value for L ≥ 2 is 2e−16 . Thus
+Proposition 3.3 gives the event
+                                              1+η
+                                  τr (C)2 ≤       OPT2 ,          C = A − B0 ,                    (5.2)
+                                              1−η
+with the stated probability.
+
+Conditioning is not query adaptation. Condition on G0 and its answers AG0 . The choice B0
+uses only these data and the fixed family, so C = A − B0 is now fixed. The Gaussian matrices G1
+and H remain mutually independent, with their original distributions. This is true even though all
+their oracle answers have already been collected. The algorithm did not use those answers to select
+B0 . Therefore Lemma 4.2 applies conditionally with Ω = G1 . There is only one repair estimate for
+the selected residual; no union bound over M repairs is needed.
+Our parameter choices give
+                                    r      η                        k      η
+                           a0 =         ≤     ,            b0 =         ≤     .
+                                  k−r−1   256                     ℓ−k−1   256
+For every realization of the first sketch, the conditional probability that repair fails is at most
+                            a0 + b0 + a0 b0    1    η      1     1
+                                            ≤    +      <    +       ,                            (5.3)
+                                  η           128 65536   128 524288
+
+                                                      8
+RE-06: nonadaptive finite-family approximation                                           Research note
+
+
+because η = ε/4 < 1/8. Taking expectations preserves this unconditional bound.
+Combining (5.1) and (5.3), both (5.2) and the successful repair inequality hold except on an event
+of probability at most
+                                     1    1
+                    e−8 + 2e−16 +      +       = 0.00815009504688 . . . < 0.01.                  (5.4)
+                                    128 524288
+No independence of the two success events is asserted; a union bound suffices.
+
+
+5.2   From a repaired surrogate to a family member
+
+On the joint success event,
+                                       2                2
+                              A − Ae       = C − Cb
+                                       F                F
+                                                                       (1 + η)2
+                                           ≤ (1 + η)τr (C)2 ≤                   OPT2 .           (5.5)
+                                                                        1−η
+For 0 < η ≤ 1/8,
+                                                  1+η
+                                                 √     ≤ 1 + 2η.                                 (5.6)
+                                                   1−η
+Indeed, all quantities are positive and
+
+                          (1 + 2η)2 (1 − η) − (1 + η)2 = η(1 − η − 4η 2 ) ≥ 0.
+
+Hence A − Ae       ≤ (1 + 2η) OPT. The final minimization gives
+               F
+
+                               A−B
+                                 b             ≤ A − Ae         + Ae − B
+                                                                       b
+                                           F                F               F
+                                               ≤ A − Ae         + Ae − B⋆
+                                                            F                F
+                                               ≤ 2 A − Ae           + ∥A − B⋆ ∥F
+                                                                F
+                                               ≤ (3 + 4η) OPT = (3 + ε) OPT .
+
+This proves the approximation and success-probability assertions.
+
+
+5.3   Counting all queries, including the integer rounding
+
+Since r ≥ 1, L ≤ r2 , and 0 < η < 1/8, the ceilings in (2.2)–(2.4) obey
+                                    32r 64       97r
+                                 s≤    + 2 +1≤ 2 ,
+                                     η  η         η
+                                         256r    257r
+                                 k ≤r+2+       ≤      ,
+                                           η      η
+                                          256k   257k     2572 r
+                                 ℓ≤k+2+        ≤        ≤        .
+                                            η      η       η2
+The middle inequalities use r + 2 ≤ r/η and k + 2 ≤ k/η, valid here. Therefore
+                                                            r         r
+                         N = s + k + ℓ ≤ (97 + 257 + 2572 ) 2 = 66403 2 .                        (5.7)
+                                                           η         η
+
+                                                          9
+RE-06: nonadaptive finite-family approximation                                           Research note
+
+
+As t = log(2M ) ≥ log 4 > 1 and log 2 > 1/2,
+                            t                       √             √      √     √
+                     L≤         + 1 ≤ 3t,      r≤        L + 1 ≤ ( 3 + 1) t < 3 t.
+                          log 2
+
+Since η −2 = 16ε−2 , we conclude
+                                           √                 √
+                              N ≤ 3,187,344 t ε−2 < 4,000,000 t ε−2 .                             (5.8)
+
+The actual number of queries is min{n, N }: n in the predetermined exact-recovery branch, and N
+otherwise. All vectors and sides were fixed before answers, completing the proof of Theorem 1.1.
+
+
+6    Model and edge-case audit
+All quantifiers are instance-wise. The proof fixes A and the entire finite family before sampling.
+It guarantees success for every such fixed input, with probability over the Gaussian blocks. It does
+not claim that one random sketch succeeds simultaneously for matrices chosen adversarially after
+seeing that sketch.
+
+
+No hidden oracle access. Only the products in (2.6) are queried. Multiplications by explicit
+candidates, H T Q, and Cb are ordinary postprocessing. The residual C is an analysis variable; its
+sketches come from subtraction in (2.8). In particular, AT Q, AQ, and AC T are never requested.
+
+
+Adaptive computation is permitted; adaptive queries are not used. The value of B0 , the
+basis Q, and the final candidate depend on answers. No later oracle vector or side depends on them.
+These are postprocessing stages, not rounds of oracle interaction.
+
+
+Rank deficiency and zero sketches. Use d = rank(CG1 ), not an assumed full k columns for
+Q. If d = 0, the correction is zero. Otherwise H T Q has full column rank almost surely conditional
+on the first two Gaussian blocks. The pseudoinverse formula defines the algorithm even on the
+exceptional null-probability rank events. Lemma 4.2 never divides by a singular value of C.
+
+
+The case OPT = 0. When A ∈ F, its first-sketch score is exactly zero. Each other fixed candidate
+B ̸= A has (A − B)G0 ̸= 0 almost surely, because a nonzero linear map applied to a continuous
+Gaussian vector is not identically zero. The family is finite, so B0 = A almost surely, giving exact
+return. Independently, the zero-tail case of Lemma 4.2 shows the proof never needs to divide by
+OPT.
+
+
+Small dimension. The exact branch handles n = 1 and every other case where the theoretical
+sketch widths exceed the ambient dimension. It is selected using n, M, ε only, before any oracle
+answer.
+
+
+Unbounded norms, finite precision, and runtime. The argument makes no bound on ∥A∥F ,
+candidate norms, or conditioning. This is appropriate in exact arithmetic, but cancellation in residual
+sketches and ill-conditioned least-squares systems can matter in floating point. The numerical
+
+
+                                                    10
+RE-06: nonadaptive finite-family approximation                                        Research note
+
+
+code is not a bit-complexity or numerical-stability theorem. Candidate scans and full matrix
+formation can be expensive; the problem charges only oracle calls. No polynomial-time-in-log M or
+streaming-memory claim is made.
+
+What has and has not been resolved. The theorem gives exactly the nonadaptive 3 + ε
+guarantee asked in RE-06, without extra logarithmic factors. It does not assert a nonadaptive 1 + ε
+finite-family guarantee, nor optimal dependence on ε or an optimized leading constant.
+
+
+7     Reproducible verification and implementation
+The accompanying implementation separates query planning, oracle access, and answer processing
+into distinct functions. The only function issuing oracle calls is collect_answers; postprocess
+receives stored arrays and has no oracle argument. Query blocks are precomputed and stored as
+read-only NumPy arrays. This separation makes the nonadaptivity condition inspectable in code.
+
+7.1   Files and reproduction
+
+The archive contains the LaTeX source and this PDF, a README with usage instructions, the
+reference implementation, unit tests, verification scripts, and machine-readable results. From the
+archive’s root, run
+
+python -m pip install -r requirements.txt
+cd code
+OPENBLAS_NUM_THREADS=1 python -m unittest -v test_re06
+OPENBLAS_NUM_THREADS=1 python verify.py
+
+The scripts were executed in the supplied environment using Python 3.13.5, NumPy 2.3.5, and SciPy
+1.17.0. Small numerical differences across library versions or linear-algebra backends are possible.
+The theorem widths are intentionally very large and commonly activate the exact branch for
+ordinary numerical matrix sizes. The end-to-end experiments below use smaller, explicitly labeled
+experimental widths. Their observed success must not be interpreted as a proof of the theorem’s
+0.99 guarantee at those smaller widths.
+
+7.2   Checks performed
+
+All 11 unit tests passed. They cover the rounded query bound, exact and scalar cases, the
+precommitted query transcript, noiseless and low-rank reconstruction, a deliberately bad initial
+candidate corrected by reconstruction, the range-error majorant, the orthogonal regression-error
+identity, the final triangle inequality, probability constants, and input validation.
+The additional audit checks 846 flat-spectrum cases against numerically evaluated chi-square
+lower-tail probabilities. All satisfy Lemma 3.1; the largest observed probability-to-bound ratio is
+approximately 0.437805. It also checks the Chernoff exponent algebra for 3,000 nonflat spectra,
+with no negative slack. Four Gaussian pseudoinverse moment experiments use 5,000 trials each;
+these are distributional sanity checks, not exact integrations or proof certificates.
+The end-to-end runs use four fixed input families, 160 independent seeds per family, and n = 64.
+Here ε = 0.25; a failure in the table means a returned error above 3.25 OPT.
+
+                                                11
+RE-06: nonadaptive finite-family approximation                                              Research note
+
+
+
+           Family                       M     (s, k, ℓ) Queries Initial failures Final failures
+           Rank-one distractors       129 (1, 8, 18)        27         148/160           0/160
+           Translated rank-one         32 (3, 10, 22)       35           0/160           0/160
+           Dense full-rank             32 (3, 8, 18)        29           0/160           0/160
+           Mixed-rank, low-rank noise 48 (2, 10, 22)        34           0/160           0/160
+
+Table 1: Floating-point experiments with widths smaller than the theorem’s sufficient parameters.
+These are illustrative, not universal probability guarantees.
+
+
+Every recorded query transcript matched its precomputed schedule. In the rank-one-distractor
+experiment, the initial candidate exceeded the target factor in 148 of 160 runs, while the final result
+selected an optimal candidate in all 160 runs. This illustrates the logical distinction behind the
+proof: the initial selection need only leave a small spectral tail, not have a small full residual.
+
+
+Conclusion
+An independent small sketch can choose a residual with a controlled tail; a separate, already collected
+two-sided sketch can repair that residual. The resulting surrogate is close enough to the target that
+nearest-candidate postprocessing
+                      √           yields 3 + ε. The complete procedure uses a single precommitted
+batch and at most O( log M ε−2 ) matvecs. This supplies the affirmative construction requested by
+RE-06.
+
+
+References
+[1] Open Problems in Numerical Linear Algebra. RE-06: Nonadaptive queries for finite-family matrix
+    approximation. Repository formulation, last checked September 10, 2026; accessed September 12,
+    2026. Public RE-06 problem page.
+
+[2] N. Amsel, P. Avi, T. Chen, F. Duman Keles, C. Hegde, C. Musco, C. Musco, and D. Persson.
+    Query Efficient Structured Matrix Learning. Proceedings of the 39th Conference on Learning
+    Theory, PMLR 336:158–194, 2026. arXiv:2507.19290v2, August 21, 2026, especially Section 5.
+    PMLR record.
+
+[3] J. A. Tropp, A. Yurtsever, M. Udell, and V. Cevher. Practical Sketching Algorithms for Low-Rank
+    Matrix Approximation. SIAM Journal on Matrix Analysis and Applications 38(4):1454–1485,
+    2017. arXiv:1609.00048v2, especially Section 4 and Appendix A.
+
+[4] N. Halko, P. G. Martinsson, and J. A. Tropp. Finding Structure with Randomness: Probabilistic
+    Algorithms for Constructing Approximate Matrix Decompositions. SIAM Review 53(2):217–288,
+    2011. arXiv:0909.4061.
+
+
+
+
+                                                  12
+

@@ -1,0 +1,48 @@
+import NLA.Statements.RE06
+
+set_option autoImplicit false
+set_option leancert.trust "kernel"
+
+namespace NLA.Preproof.RE06
+
+def svd_total_type : Prop :=
+    NLA.Computation.NonadaptiveMatrixQuery.SVDTotal
+
+#assert_statement svd_total_type
+#assert_trust kernel svd_total_type
+
+def query_bound_type : Prop :=
+    ∀ (n m : ℕ) (hn : 0 < n) (ε : ℝ) (hε0 : 0 < ε) (hεh : ε < 1 / 2),
+    NLA.Computation.NonadaptiveMatrixQuery.QueryBound n m ε 4000000 0
+
+#assert_statement query_bound_type
+#assert_trust kernel query_bound_type
+
+def successful_type : Prop :=
+    ∀ (n m : ℕ) (hn : 0 < n)
+    (F : NLA.Computation.NonadaptiveMatrixQuery.Family n m) (hF : Function.Injective F)
+    (A : Matrix (Fin n) (Fin n) ℝ) (ε : ℝ) (hε0 : 0 < ε) (hεh : ε < 1 / 2),
+    NLA.Computation.NonadaptiveMatrixQuery.Successful F A ε
+
+#assert_statement successful_type
+#assert_trust kernel successful_type
+
+def original_claim_type : Prop :=
+    NLA.Statements.RE06.OriginalClaim
+
+#assert_statement original_claim_type
+#assert_trust kernel original_claim_type
+
+def explicit_claim_type : Prop :=
+    NLA.Statements.RE06.ExplicitClaim
+
+#assert_statement explicit_claim_type
+#assert_trust kernel explicit_claim_type
+
+def target_type : Prop :=
+    NLA.Statements.RE06.Target
+
+#assert_statement target_type
+#assert_trust kernel target_type
+
+end NLA.Preproof.RE06
