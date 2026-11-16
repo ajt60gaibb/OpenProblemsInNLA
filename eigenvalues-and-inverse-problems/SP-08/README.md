@@ -7,9 +7,18 @@
 **Difficulty:** challenging  
 **Importance:** interesting to the community  
 **Status:** Partially resolved  
-**Last checked:** 2026-09-13
+**Last checked:** 2026-11-16
 
 **Rating rationale:** Challenging reflects an all-dimensions rank structure for global spread maximizers; community impact is an extremal spectral problem for entry-bounded symmetric matrices.
+
+## Reviewed continuation — 16 November 2026
+
+Nima Sahraneshinsamani supplies a complete, certified resolution of the Fallat–Xing conjecture in dimension eight ($`n=8`$) across the entire parameter continuum $`-1\le a< 1`$, establishing that the two-block rank-two family $`B_{8, k}(a)`$ attains the maximal spectral spread. The [resolution package](https://github.com/snima/sp08-dimension-eight) and [manuscript](https://github.com/snima/sp08-dimension-eight/blob/main/paper.pdf) combine an unconditional Stiefel-manifold density proof of the signed-threshold reduction, an elementary self-contained eigenvalue analysis on $`[-1, -0.97]`$, an exact convexity chord-tangent enclosure over 15 contiguous rational subintervals on $`[-0.97, 499/500]`$, and a certified near-one quadratic gap analysis on $`[499/500, 1)`$. All non-two-block candidates are independently eliminated across the rational nodes by both integer shifted characteristic-polynomial positivity and fraction-free Bareiss positive-definiteness.
+
+In addition, general-dimension results include the sharp all-runs spectral deficit theorem bounding candidates with $`r \ge 2`$ sign runs by $`s(S)^2 \le 2n^2 - \Delta_r`$ with $`\Delta_r := 2r^2 - 4\csc^2(\pi/(2r))`$, a signed-chain telescoping decomposition $`K_\varepsilon = H \mathop{\mathrm{diag}}\nolimits(\beta) H^T`$ determining the inertia of threshold kernels, and an analytical widening of the unrestricted left boundary strip to $`-1 \le a \le -1 + (7\sqrt{2}-1)/n^2`$.
+
+Status remains **Partially resolved**: arbitrary dimensions $`n \ge 9`$ remain open outside the boundary strips.
+
 
 ## Reviewed continuation — 13 September 2026
 
