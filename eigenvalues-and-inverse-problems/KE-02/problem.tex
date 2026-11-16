@@ -34,7 +34,7 @@ time},pdfauthor={Open Problems in Numerical Linear Algebra}}
 \fancyhf{}
 \fancyhead[L]{\sffamily\footnotesize\color{muted}OPEN PROBLEMS IN NUMERICAL LINEAR ALGEBRA}
 \fancyhead[R]{\sffamily\bfseries\footnotesize\color{accent}KE-02}
-\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-09-12}}
+\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-11-16}}
 \fancyfoot[R]{\sffamily\footnotesize\color{muted}\thepage}
 \renewcommand{\headrulewidth}{0.3pt}
 \renewcommand{\headrule}{\hbox to\headwidth{\color{accent}\leaders\hrule height \headrulewidth\hfill}}
@@ -51,7 +51,7 @@ a separating diagonal perturbation in nearly linear time\par}
 \vspace{7pt}
 {\sffamily\small\textbf{Difficulty:} challenging\quad\textbf{Importance:} interesting
 to the community\par}
-{\sffamily\small\bfseries\color{accent}Status: Partially resolved\par}
+{\sffamily\small\bfseries\color{accent}Status: Solved\par}
 \vspace{4pt}
 {\color{accent}\hrule height 0.8pt}
 \vspace{6pt}
@@ -59,7 +59,142 @@ to the community\par}
 
 \textbf{Rating rationale:} Challenging reflects derandomizing eigenvalue
 separation within a nearly linear cost; community impact is
-deterministic preprocessing for Hermitian eigensolvers.
+deterministic preprocessing for Hermitian eigensolvers. These ratings
+are historical and refer to the original question, which is resolved
+below.
+
+\subsection{Resolution --- 16 November
+2026}\label{resolution-16-november-2026}
+
+\textbf{Resolved affirmatively.} Wenqi Zhu (University of Oxford) and
+Ping Nie (University of Waterloo).
+
+For every \(n\geq2\), every \(\delta\in(0,1/2)\) and every Hermitian
+tridiagonal \(T\in\mathbb C^{n\times n}\) with \(\|T\|_2\leq1\), a
+deterministic algorithm computes \(t\in[0,\delta/n]\) and returns the
+real diagonal matrix \(D=tX\), where \(X=\mathrm{diag}(1,\ldots,n)\),
+with
+
+\[\|D\|_2\leq\delta,
+\qquad
+\mathop{\mathrm{gap}}\nolimits(T+D)>2^{-34}\frac{\delta^2}{n^{12}}
+\geq2^{-34}(\delta/n)^{12},\]
+
+using \(O(n[1+\log(n/\delta)]^3)\) arithmetic operations, comparisons
+and square roots. The model of computation is exact real arithmetic and
+comparisons, with unit-cost square roots of nonnegative real numbers and
+complex numbers represented as pairs of real numbers; no logarithm,
+floor or bit extraction is used as a primitive operation, and the
+integers the algorithm needs are computed by doubling and comparisons,
+at counted cost. This is Theorem 1.1, stated on p.~2 of the 28-page
+paper
+\href{https://github.com/erenup/tridiagonal-spectral-separation/blob/660debbcdb3bb81a1965e2c1ade82db80889abb7/paper/main.pdf}{\emph{A
+Deterministic Algorithm for Eigenvalue Separation in Tridiagonal
+Matrices}} at the immutable
+\href{https://github.com/erenup/tridiagonal-spectral-separation/tree/660debbcdb3bb81a1965e2c1ade82db80889abb7}{revision
+\textit{660debb}}, made public on 16 November 2026. It answers the
+question with \(a=12\), \(c_0=2^{-34}\) and \(q=3\). The algorithm is
+Algorithm 2 (p.~17), which evaluates the spectral function
+\(F(t)=\sum_{j=1}^nj\lambda_j(T+tX)\) through the oracle of Lemma 4.3
+(p.~19); the proof of Theorem 1.1 is completed in Section 4.3 (p.~20).
+
+\textbf{Comparison with the target.} Theorem 1.1 assumes exactly
+\(n\geq2\), \(0<\delta<1/2\) and a Hermitian tridiagonal
+\(T\in\mathbb C^{n\times n}\) with \(\|T\|_2\leq1\), the quantifiers of
+the problem statement below, with no further condition on the entries.
+The algorithm is deterministic: each of its choices is a comparison of
+computed numbers. It reads only the three diagonals; the oracle uses the
+diagonal entries and the squared moduli of the off-diagonal entries,
+computed from their real and imaginary parts (Appendix A, p.~27). The
+output \(D=tX\) is a real diagonal matrix with \(\|D\|_2=nt\leq\delta\),
+formed with \(n\) further multiplications. The paper's gap (2) (p.~2) is
+the least difference of consecutive ordered eigenvalues listed with
+multiplicity, which equals \(\min_{i\ne j}|\lambda_i-\lambda_j|\) in the
+problem statement. Since \(\delta<1\), the bound
+\(2^{-34}\delta^2n^{-12}\) is at least
+\(2^{-34}(\delta/n)^{12}=c_0(\delta/n)^a\) with \(a=12\) and
+\(c_0=2^{-34}\), the second inequality of (5). The operation bound holds
+uniformly in \(n\), \(\delta\) and \(T\), so its implied constant serves
+as \(C\), with \(q=3\). It counts exact arithmetic operations,
+comparisons and unit-cost square roots of nonnegative reals, and no bits
+are extracted from the inputs, as the question requires. The bound is
+for this unit-cost exact-arithmetic model, in which the numbers grow:
+the Graeffe coefficients of Appendix A can be exponentially large, and
+their bit lengths are not charged. As the paper states (pp.~20 and 28),
+no bit-complexity or finite-precision bound is claimed; the target asks
+for none.
+
+\textbf{Relation to the partial result.} Theorem 1.1 covers every input
+of the target, including the subclasses of the retained partial result
+below. On those subclasses the partial result gives larger gap bounds:
+at least \(\delta/(n-1)\), in \(O(n\log n)\) operations, under the
+weak-coupling condition of its Theorem A, and at least
+\(\delta/n^3\ge(\delta/n)^3\), in \(O(n)\) operations, for the
+constant-diagonal, equal-magnitude inputs of its Theorem B. The paper
+cites these special classes (p.~2) and notes that they do not give the
+requested construction for the unrestricted tridiagonal case.
+
+\textbf{Proof and verification scope.} Theorem 1.1 is proved in the
+written paper: the convex spectral function in Section 2 (pp.~5--8); the
+local gap certificate in Section 3 (pp.~8--13), where Proposition 3.1
+(p.~8) shows that a centered slope variation \(\mathcal S_h(t)<1/2\)
+with \(0< h\leq1\) implies
+\(\mathop{\mathrm{gap}}\nolimits(T+tX)>h^2/(2^{20}n^4)\); the selectors
+and their iteration bounds in Section 4 (pp.~13--20), with Theorem 4.2
+(p.~18) for Algorithm 2; and the oracle in Lemma 4.3 (p.~19) and
+Appendix A (pp.~27--28). A Lean formalization at the same revision
+proves only the finite and scalar core of the argument, as the single
+theorem \textit{KE02.coreCertificate}, which depends only on the
+standard axioms \textit{propext}, \textit{Classical.choice} and
+\textit{Quot.sound}. Its
+\href{https://github.com/erenup/tridiagonal-spectral-separation/blob/660debbcdb3bb81a1965e2c1ade82db80889abb7/lean/README.md}{Lean
+guide} and
+\href{https://github.com/erenup/tridiagonal-spectral-separation/blob/660debbcdb3bb81a1965e2c1ade82db80889abb7/lean/SCOPE.md}{formal
+scope} list its nine components: inequality (34) and Lemma 4.2; the
+constants of Theorem 4.2 and the run of Algorithm 2 on every reply
+function meeting the requested accuracies; Lemma 4.1, one refinement of
+Algorithm 1 and the constants of Theorem 4.1 and Remark 4.1; the algebra
+of Appendix A, namely the continuant recurrence for real tridiagonal
+matrices, the Graeffe iterates, the coefficient and ratio bounds, root
+extraction by square roots and the index-wise matching; and the scalar
+inequalities of Section 3 with the discrete Wronskian identity (22).
+There \(F\) is an arbitrary real function, and its convexity and secant
+bounds (9) are premises. Spectral theory, including Lemma 2.1, the
+localization of Section 3 as matrix statements (Lemmas 3.1 and 3.2 and
+Proposition 3.1), the gap conclusions, the matrix statement
+\(\|D\|_2=nt\leq\delta\), the oracle of Lemma 4.3 and Appendix A as an
+algorithm, the model of computation and every operation count are proved
+in the text only. Theorem 1.1 as a whole is not a Lean theorem, so this
+is not a Lean verification of the target. The
+\href{https://github.com/erenup/tridiagonal-spectral-separation/blob/660debbcdb3bb81a1965e2c1ade82db80889abb7/VERIFICATION.md}{verification
+record} also describes standard-library exact checks in
+\href{https://github.com/erenup/tridiagonal-spectral-separation/blob/660debbcdb3bb81a1965e2c1ade82db80889abb7/verification/core/README.md}{verification/core},
+which recompute the constants and inequality chains of Sections 2--4 and
+the algebra of Appendix A on finite ranges and fixed instances and do
+not establish the theorem. The numerical illustrations of Section 5,
+with code and data in
+\href{https://github.com/erenup/tridiagonal-spectral-separation/blob/660debbcdb3bb81a1965e2c1ade82db80889abb7/verification/numerics/README.md}{verification/numerics},
+are not part of the proof.
+
+\textbf{Review.} Solved by independent informal AI-agent audits by six
+different auditors: two of an earlier 27-page draft and two of the
+28-page text, including a check of the corrections made since that
+draft, all four accepting the gap theorem and the full target, some with
+corrections; one of the Lean statements and their scope; and one of the
+Lean proofs and the audit tooling. No report found a mathematical error
+or gap, and none requested a mathematical correction. The requested
+corrections, of statements, exposition, wording and references in the
+paper and of wording and audit tooling in the Lean project, are
+incorporated; after the two reports on the 28-page text, only changes
+they requested or noted were made, and no mathematical claim changed.
+The
+\href{https://github.com/erenup/tridiagonal-spectral-separation/blob/660debbcdb3bb81a1965e2c1ade82db80889abb7/verification/reviews/README.md}{review
+record} contains the audit reports and records their scope and
+independence. The paper discloses its use of AI tools. The catalogue did
+not rerun the Lean or exact checks.
+
+The retained partial result and status records below predate this
+resolution.
 
 \subsection{Partial result --- 12 September
 2026}\label{partial-result-12-september-2026}
