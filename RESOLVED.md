@@ -223,7 +223,12 @@ Behr's two-factor partial result are retained.
 ### 🏆 IV-01 — two-vertex certification of nonsingular sign regularity
 
 **Lean verified, affirmative, 15 October 2026.** Wenqi Zhu (University of
-Oxford), Kai Zou (King's College London), and Ping Nie (University of Waterloo).
+Oxford), Jürgen Garloff (HTWG Konstanz – University of Applied Sciences),
+Mohammad Adm (Palestine Polytechnic University), Kai Zou (King's College
+London), and Ping Nie (University of Waterloo); the first version of the paper
+at the pinned revision lists Wenqi Zhu, Kai Zou and Ping Nie, and the
+[revised version](https://github.com/erenup/two-vertex-sign-regularity/blob/7e2cd7e898c12bca789e766dd80f2f1056a4635c/paper-v2/main.pdf)
+lists all five.
 For every positive integer dimension, two nonsingular sign-regular checker
 vertices with one common signature certify the same property throughout the
 closed real matrix interval. This includes the original $`n\ge5`$ target,

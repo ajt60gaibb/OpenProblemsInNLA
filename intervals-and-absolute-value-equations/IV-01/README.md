@@ -15,8 +15,13 @@
 
 ## Resolution — 15 October 2026
 
-**Resolved affirmatively.** Wenqi Zhu (University of Oxford), Kai Zou
-(King's College London), and Ping Nie (University of Waterloo).
+**Resolved affirmatively.** Wenqi Zhu (University of Oxford), Jürgen Garloff
+(HTWG Konstanz – University of Applied Sciences), Mohammad Adm (Palestine
+Polytechnic University), Kai Zou (King's College London), and Ping Nie
+(University of Waterloo). The first version of the paper at the pinned
+revision lists Wenqi Zhu, Kai Zou and Ping Nie; the
+[revised version](https://github.com/erenup/two-vertex-sign-regularity/blob/7e2cd7e898c12bca789e766dd80f2f1056a4635c/paper-v2/main.pdf)
+in the same repository lists all five authors.
 
 The answer is **yes**. For every positive integer dimension, arbitrary real
 entrywise bounds, and every common signature, nonsingular sign regularity at
