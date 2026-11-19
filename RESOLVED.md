@@ -38,6 +38,44 @@ The passing scopes include AC-01's small-CW upper bound (also relevant to AC-04)
 
 ## Resolved catalog entries
 
+### ✅ KE-02 — deterministic nearly linear eigenvalue separation for tridiagonal matrices
+
+**Solved affirmatively, 16 November 2026.** Wenqi Zhu (University of Oxford)
+and Ping Nie (University of Waterloo). Theorem 1.1 (p. 2) of
+[*A Deterministic Algorithm for Eigenvalue Separation in Tridiagonal Matrices*](https://github.com/erenup/tridiagonal-spectral-separation/blob/660debbcdb3bb81a1965e2c1ade82db80889abb7/paper/main.pdf),
+at immutable revision `660debbcdb3bb81a1965e2c1ade82db80889abb7`, gives a
+deterministic algorithm that, for every $`n\geq2`$, $`0<\delta<1/2`$ and
+Hermitian tridiagonal $`T\in\mathbb C^{n\times n}`$ with $`\|T\|_2\leq1`$,
+reads the three diagonals and returns $`D=tX`$, with
+$`X=\mathrm{diag}(1,\ldots,n)`$ and $`t\in[0,\delta/n]`$, such that
+$`\|D\|_2\leq\delta`$ and
+$`\mathop{\mathrm{gap}}\nolimits(T+D)>2^{-34}\delta^2n^{-12}\geq2^{-34}(\delta/n)^{12}`$,
+using $`O(n[1+\log(n/\delta)]^3)`$ exact arithmetic operations, comparisons
+and unit-cost square roots of nonnegative reals, with no bit extraction. This
+answers the [retained KE-02 target](eigenvalues-and-inverse-problems/KE-02/README.md)
+with $`a=12`$, $`c_0=2^{-34}`$ and $`q=3`$, over its full range. The cost
+bound is for the unit-cost exact-arithmetic model, in which the numbers grow;
+the paper claims no bit-complexity bound. The proof is in Sections 2–4 and
+Appendix A. On the subclasses of Sidney Holden's earlier partial result, that
+result gives larger gap bounds.
+
+Solved by independent informal AI-agent audits by six different auditors: two
+of an earlier draft and two of the 28-page text, all four accepting the gap
+theorem and the full target, and one each of the Lean statements and of the
+Lean proofs; none requested a mathematical correction. The
+[review record](https://github.com/erenup/tridiagonal-spectral-separation/blob/660debbcdb3bb81a1965e2c1ade82db80889abb7/verification/reviews/README.md)
+contains the audit reports and records their independence. A Lean
+formalization at the same revision proves only the finite and scalar core of
+the argument, as `KE02.coreCertificate`
+([formal scope](https://github.com/erenup/tridiagonal-spectral-separation/blob/660debbcdb3bb81a1965e2c1ade82db80889abb7/lean/SCOPE.md));
+spectral theory, the matrix statements of Section 3, the gap conclusions and
+$`\|D\|_2\leq\delta`$, the oracle of Lemma 4.3
+and Appendix A as an algorithm, the model of computation and the operation
+counts are proved in the written text, so the status is Solved, not Lean
+verified. The paper discloses its use of AI tools. The catalogue did not rerun
+the Lean or exact checks. The original ID, statement, historical ratings and
+Sidney Holden's partial result are retained.
+
 ### ✅ TR-25 — tensor border-rank varieties that are not Cohen–Macaulay
 
 **Solved negatively, 4 November 2026.** Wenqi Zhu (University of Oxford)
@@ -587,11 +625,11 @@ A separate [independent Codex AI-agent informal audit](references/holden-re03-20
 
 **Partially resolved, 12 September 2026.** Author: Sidney Holden, Center for Computational Biology, Flatiron Institute, Simons Foundation. [Submission and verified affiliation](references/holden-spectral-2026-09-12/README.md).
 
-- [KE-02](eigenvalues-and-inverse-problems/KE-02/README.md): [Theorems A and B and Section 5](references/holden-spectral-2026-09-12/KE-02/proof.md) give deterministic diagonal separation for weak coupling, constant-diagonal/equal-magnitude tridiagonal matrices at every coupling strength, and every order-two input. General tridiagonal inputs remain open. [Independent review](references/holden-spectral-2026-09-12/verification/KE-02-review.md).
+- [KE-02](eigenvalues-and-inverse-problems/KE-02/README.md): [Theorems A and B and Section 5](references/holden-spectral-2026-09-12/KE-02/proof.md) give deterministic diagonal separation for weak coupling, constant-diagonal/equal-magnitude tridiagonal matrices at every coupling strength, and every order-two input. This preceded the [complete affirmative resolution](eigenvalues-and-inverse-problems/KE-02/README.md#resolution--16-november-2026), which covers every normalized Hermitian tridiagonal input. [Independent review](references/holden-spectral-2026-09-12/verification/KE-02-review.md).
 - [SP-08](eigenvalues-and-inverse-problems/SP-08/README.md): [exact finite spread results](references/holden-spectral-2026-09-12/SP-08/proof.md) cover (n,a) = (8,1/2), (10,0), (11,0), with rank-two endpoint maximizers. The all-dimensions/all-parameters target remains open. [Independent review](references/holden-spectral-2026-09-12/verification/SP-08-review.md).
 - [SP-09](eigenvalues-and-inverse-problems/SP-09/README.md): [Theorem 1 and its corollary](references/holden-spectral-2026-09-12/SP-09/proof.md) prove finite-amplification invariance when at least one normal spectrum has at most two points. Both spectra having at least three distinct values remains open. [Independent review](references/holden-spectral-2026-09-12/verification/SP-09-SP-07-SP-03-review.md).
 
-Separate informal Codex AI-agent audits passed these partial scopes. None is Solved; no Lean verification, external human peer review or novelty claim is asserted. The same submission records an audited SP-03 reduction and SP-07 subclass lemma, with both statuses retained as Open. Original targets, IDs, paths and prior-source credit are preserved; the open count does not decrease.
+Separate informal Codex AI-agent audits passed these partial scopes. None of these partial results is a full resolution ([KE-02 was subsequently solved](eigenvalues-and-inverse-problems/KE-02/README.md#resolution--16-november-2026)); no Lean verification, external human peer review or novelty claim is asserted. The same submission records an audited SP-03 reduction and SP-07 subclass lemma, with both statuses retained as Open. Original targets, IDs, paths and prior-source credit are preserved; this partial submission alone did not reduce the open count.
 
 ### ✅ IE-12 — quadratic-cost backward-error solution — Sidney Holden
 
