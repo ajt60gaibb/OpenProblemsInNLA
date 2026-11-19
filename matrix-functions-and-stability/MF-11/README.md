@@ -6,9 +6,64 @@
 
 **Difficulty:** challenging  
 **Importance:** interesting to specialist  
-**Rating rationale:** Challenging because cancellations across coupled blocks resist general growth regularity; its immediate impact is on specialists in marginally stable matrix products.  
-**Status:** Open  
-**Last checked:** 2026-09-10  
+**Rating rationale:** Challenging because cancellations across coupled blocks resist general growth regularity; its immediate impact is on specialists in marginally stable matrix products. These ratings are historical assessments of the original target.
+
+**Status:** Solution claimed
+
+**Last checked:** 2026-11-19
+
+## Negative resolution claimed - 19 November 2026
+
+Pedro Martins, [*Marginal Growth Rates of Matrix Products Need Not Be Weakly
+Increasing or Regularly Varying*](https://doi.org/10.5281/zenodo.24237543),
+published as a preprint on **15 November 2026**, reports a negative answer to
+both questions. **Theorem 1.3** (p. 2; construction and proof in Sections 2-5,
+pp. 4-13) gives a pair of real $`20\times20`$ matrices
+$`\mathcal M_{\theta_\star}=\{F_0(\theta_\star),F_1(\theta_\star)\}`$.
+Writing $`g=g_{\mathcal M_{\theta_\star}}`$, the theorem asserts
+
+```math
+n\le g(n)\le6n^3\qquad(n\ge1),
+```
+
+which implies $`\widehat\rho(\mathcal M_{\theta_\star})=1`$. For
+$`p_1=4`$, $`p_{j+1}=4^{p_j}`$,
+$`\theta_\star=\sum_{j\ge1}p_j^{-1}`$ and $`N_j=16^{p_j}`$, it also asserts,
+for every $`j\ge2`$ and every integer $`\ell\ge2`$,
+
+```math
+\frac{g(N_j/2)}{g(N_j)}\ge\frac{2^{p_j}}{4\cdot10^5p_j^4},
+\qquad
+\frac{g(\ell N_j)}{g(N_j)}\ge
+\frac{(\ell-1)2^{p_j}}{4\cdot10^5p_j^4}.
+```
+
+The factors on the right tend to infinity. The first ratio contradicts a
+fixed weak-increase constant by taking $`k=N_j/2`$ and the time increment
+$`N_j/2`$ in the original statement. The second contradicts weak upper
+regular variation already for the fixed multiplier $`\ell=2`$. A pair of
+real matrices is compact and nonempty, and the theorem uses the same
+Euclidean operator norm and maximum over all words as this entry. Thus the
+reported result covers both complete universal targets, rather than only
+growth along a selected switching word. The original definitions, questions
+and earlier literature checks are retained below.
+
+**Evidence and review scope.** The [retained submission](../../references/martins-mf11-2026-11-19/README.md)
+contains the 35-page manuscript, the three supplied Python scripts, the Lean
+attachment and their file identities. The [assessment and reproduction record](../../references/martins-mf11-2026-11-19/verification/README.md)
+checks the target correspondence and main construction and records fresh
+finite computations. These checks do not constitute an independent
+full-result proof audit, external human peer review or formal verification;
+the status is **Solution claimed**, as requested in
+[issue #385](https://github.com/ajt60gaibb/OpenProblemsInNLA/issues/385).
+
+The attached Lean source includes declarations named
+`MF11.MF11_negative_answer_spectral` and `MF11.MF11_answer_is_no`, but the
+attachment supplies no pinned toolchain/dependency project or reproducible
+kernel-checking record. The catalog has not compiled or kernel-checked it.
+No **Lean verified** status is asserted. The manuscript discloses Claude
+assistance with drafting, editing and verification scripts, with the author
+taking responsibility for the content.
 
 ## Context and notation
 

@@ -2,7 +2,7 @@
 
 [← All categories](../README.md) · [Full catalog](../CATALOG.md) · [Solved and claimed solutions](../RESOLVED.md)
 
-**9 problems with open targets.** 16 retained entries are excluded from the open count.
+**8 problems with open targets.** 17 retained entries are excluded from the open count.
 
 | ID | Problem | Status | Difficulty | Impact | Read / source |
 | --- | --- | --- | --- | --- | --- |
@@ -10,7 +10,6 @@
 | [MF-04](MF-04/README.md) | Finiteness for nonnegative rational matrix families | **🟡 PARTIAL** | extreme | broadly interesting | [PDF](MF-04/problem.pdf) · [TeX](MF-04/problem.tex) |
 | [MF-09](MF-09/README.md) | Decidability of strict stability for rational matrix families | **🔵 OPEN** | extreme | broadly interesting | [PDF](MF-09/problem.pdf) · [TeX](MF-09/problem.tex) |
 | [MF-10](MF-10/README.md) | Algebraicity of joint spectral radii from rational input | **🔵 OPEN** | extreme | interesting to the community | [PDF](MF-10/problem.pdf) · [TeX](MF-10/problem.tex) |
-| [MF-11](MF-11/README.md) | Temporal regularity of marginal matrix-product growth | **🔵 OPEN** | challenging | interesting to specialist | [PDF](MF-11/problem.pdf) · [TeX](MF-11/problem.tex) |
 | [MF-13](MF-13/README.md) | Symmetric maximizers for Lyapunov operators of order six | **🔵 OPEN** | challenging | interesting to specialist | [PDF](MF-13/problem.pdf) · [TeX](MF-13/problem.tex) |
 | [MF-15](MF-15/README.md) | Critical exponent for generalized doubly nonnegative matrices | **🟡 PARTIAL** | challenging | interesting to the community | [PDF](MF-15/problem.pdf) · [TeX](MF-15/problem.tex) |
 | [MF-19](MF-19/README.md) | Decidability of zero hitting by rational matrix powers | **🟡 PARTIAL** | extreme | broadly interesting | [PDF](MF-19/problem.pdf) · [TeX](MF-19/problem.tex) |
@@ -26,6 +25,7 @@
 | [MF-06](MF-06/README.md) | A pointwise Lipschitz lower bound for the joint spectral radius | **🏆 LEAN VERIFIED** | challenging | interesting to the community | [PDF](MF-06/problem.pdf) · [TeX](MF-06/problem.tex) |
 | [MF-07](MF-07/README.md) | Uniform polynomial bounds for products at joint spectral radius one | **🏆 LEAN VERIFIED** | challenging | interesting to the community | [PDF](MF-07/problem.pdf) · [TeX](MF-07/problem.tex) |
 | [MF-08](MF-08/README.md) | NP-hardness of unrestricted static output-feedback stabilization | **✅ SOLVED** | extreme | broadly interesting | [PDF](MF-08/problem.pdf) · [TeX](MF-08/problem.tex) |
+| [MF-11](MF-11/README.md) | Temporal regularity of marginal matrix-product growth | **🟠 SOLUTION CLAIMED** | challenging | interesting to specialist | [PDF](MF-11/problem.pdf) · [TeX](MF-11/problem.tex) |
 | [MF-12](MF-12/README.md) | Realizing arbitrary polynomial growth exponents by finite matrix families | **🏆 LEAN VERIFIED** | challenging | interesting to the community | [PDF](MF-12/problem.pdf) · [TeX](MF-12/problem.tex) |
 | [MF-14](MF-14/README.md) | Degree coverage with seven matrix multiplications | **🏆 LEAN VERIFIED** | challenging | interesting to the community | [PDF](MF-14/problem.pdf) · [TeX](MF-14/problem.tex) |
 | [MF-16](MF-16/README.md) | Uniqueness of positive definite solutions of two-letter word equations in order two | **🏆 LEAN VERIFIED** | challenging | interesting to specialist | [PDF](MF-16/problem.pdf) · [TeX](MF-16/problem.tex) |
