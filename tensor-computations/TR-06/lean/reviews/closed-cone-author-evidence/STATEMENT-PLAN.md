@@ -1,0 +1,49 @@
+# Closed rank-one cone: exact next boundary
+
+Author: George Stepaniants, Department of Computing and Mathematical Sciences, California Institute of Technology. Original TR-06 proof remains attributed to Matthew J. Colbrook.
+
+This is a pre-proof proposal. The exact maps and seven quantified propositions in `NLA/TR06/ClosedCone.lean` typecheck under pinned Lean 4.33.1. No theorem proofs or extra axioms are present. Current source SHA-256: `71bc676c914fb629951248172196f8cb2c3c1ae4e34ed33cee50e4953e02576c`.
+
+For any RCLike scalar field, d>0, and arbitrary mode sizes n, define the actual finite family of tensor-coordinate polynomials indexed by p,q : TensorIndex d n:
+
+```
+P[p,q] = X[q] * X[p]^(d-1) - product_j X[update p j (q j)].
+```
+
+The family is finite because the full tensor coordinate type is finite. Its expressions are homogeneous of degree d (possibly zero, so total degree is at most d). No polynomial coefficient approximation is used.
+
+## Exact intended signatures
+
+1. `pureTensor_pivot_identity`: every actual pure tensor satisfies `A(q)*A(p)^(d-1)=product_j A(update p j (q j))`, for **every** pivot p and coordinate q, even when A(p)=0.
+2. `rankAtMostOne_iff_pivot_equations`: the frozen-supporting predicate `A=0 ∨ RankOne A` is equivalent to all those scalar identities.
+3. `rankAtMostOne_iff_eval_pivotPolynomial_eq_zero`: that same actual predicate is equivalent to `MvPolynomial.eval (fun v => A v) (rankOnePivotPolynomial k p q)=0` for all p,q.
+4. `range_pureTensor_eq_rankAtMostOne`: the range of the actual raw-factor map is exactly the zero-inclusive rank-one set. This records the parametrization needed for later character/coordinate-ring arguments.
+5. `isClosed_rankAtMostOne`: the zero-inclusive cone candidate is topologically closed in the actual tensor norm topology.
+6. `isClosed_closedRankOneProduct`: the full length-r tensor product, including zero summands, is closed, for all r including zero.
+7. `isClosed_closedAdditionFiber`: the full addition fiber over any actual tensor A is closed, again for all r.
+
+The full exact Lean signatures are the checked propositions in the draft file. Every one retains d>0 explicitly. No positivity of any n(j), dimension of the ambient tensor space, rank r, tensor norm, or pivot entry is an external premise.
+
+## Proof route
+
+For a pure tensor, expand the right-hand side as a finite double product. Each factor's q-coordinate occurs once, and each factor's p-coordinate occurs exactly d-1 times; commuting/reindexing finite products yields the left-hand side without division. The natural supporting finite-product identity can be proved over a commutative monoid, so it can also be reused directly in the raw factor polynomial ring for coordinate-ring relations. This avoids an invalid nonzero-pivot assumption in the forward implication.
+
+For the converse, zero is handled separately. A nonzero actual tensor has some nonzero coordinate pivot p. Define normalized factor coordinates by `u(j,k)=A(update p j k)/A(p)`. The assumed equations imply `A=A(p) • pureTensor u` coordinatewise by dividing only by this proved nonzero pivot and using d=(d-1)+1. Absorb A(p) into mode zero, whose index exists because d>0, to obtain an actual pure-factor witness. The predicate's nonzero conjunct is retained. At zero, choosing all zero factors and using d>0 shows zero lies in the pureTensor range.
+
+Polynomial evaluation reduces exactly to the scalar identities. Each evaluation is continuous in tensor coordinates, and the cone is their common zero locus, hence closed. The full product is a finite intersection of inverse images of this cone under coordinate evaluation. Its addition fiber further intersects the closed inverse image of a singleton under the continuous finite sum.
+
+For d=1 the equations are tautologies and every nonzero order-one tensor is rank one. If any mode size is zero, the tensor-coordinate type is empty, the tensor space contains only zero, and both sides hold vacuously/uniquely as appropriate. These cases are included without special premises. d=0 is intentionally excluded: the frozen pureTensor map there yields the scalar one, and the proposed homogeneous equations would not describe its zero-inclusive image.
+
+## Quadratic alternative and coordinate-ring limitation
+
+Quadratic flattening swap equations are also possible:
+
+```
+A(p)*A(q) = A(update p j (q j))*A(update q j (p j))
+```
+
+for every p,q,j. Their forward identity is elementary. Reconstructing factors from them requires a finite induction that replaces the modes of q one at a time using a fixed nonzero pivot. They avoid the degree-d presentation's nonreduced ideal issue but add an unnecessary converse proof layer for the immediate point-set/closedness target. No optimal generator count or polynomial degree is needed for this bounded task, so the proposed primary boundary uses the direct degree-d criterion.
+
+Crucially, this proposal does **not** assert that the ideal generated by the degree-d equations is prime, radical, or equal to the Segre ideal. For d≥3 and formats with nontrivial quadratic flattening relations, the degree-d generated ideal cannot contain those nonzero degree-two relations, even though they vanish on the same actual cone. The point-set zero locus is sufficient here.
+
+Root has separately stated that the future coordinate ring will be the actual subalgebra of the raw factor polynomial domain generated by summand coordinates, inheriting its domain property, rather than a quotient by the raw degree-d equation ideal. The proposed polynomial identity and exact factor parametrization support character-to-cone and cone-to-character constructions for that genuine subalgebra. This module alone will not prove the character bijection, irreducibility, finite type, genericity, smoothness, regular full measure, or any integrability result.

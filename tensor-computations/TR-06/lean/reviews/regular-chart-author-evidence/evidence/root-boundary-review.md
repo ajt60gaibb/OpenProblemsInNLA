@@ -1,0 +1,11 @@
+# Independent proper-immersion chart pre-proof approval
+
+Reviewer: root, nonauthor of implementation. APPROVE the three exact proposition definitions at SHA256 `c26acc35698f1178aafc068b9da7c8d25f28fba50eabd2d51714267ee4ad93b7` after reading the full boundary and proof plan.
+
+Complete compact preimages in the zero-inclusive product are the correct properness premise. For the no-escape assertion, extend the subtype-open V to an ambient open W and take a compact full preimage of a closed ball contained in U. Its closed complement of W has compact sum image avoiding A: exact rank forces all summands of every fiber limit nonzero, so the entire closed fiber lies in W. A small ball avoiding that image controls every nearby ordered rank-one tuple. This avoids hidden selected-branch compactness or subsequence assumptions.
+
+For a selected pivot immersion, finite-dimensional injectivity supplies a continuous linear left inverse. The C-infinity inverse theorem applied to its composition gives a local embedded patch; derivative injectivity persists after shrinking. Full-fiber uniqueness and finite permutation translates of the decoded open patch combine with no escape to prove that its image is open in the whole identifiable locus. This relative openness is a conclusion, not an assumed chart property. The frozen chart must include actual smooth summands and normalized output, the correct Euclidean dimension, and the prescribed ordered tuple at the chosen point. Transport from ordinary pivot-product norm to Euclidean coordinates need only be a smooth linear equivalence, not an asserted isometry.
+
+The stated d>0 requirement suffices for actual decoder rank-one status; arbitrary r including zero and degenerate modes remain covered by the existing hypotheses. IdentifiableAdditionOn only applies to points admitting an actual decomposition, not every ambient point of U. No hidden ambient openness of the rank-r manifold is asserted.
+
+These are intermediate conditional analytic lemmas. The full properness, identifiability and derivative premises must be derived from the original genericity hypothesis later; they may not be substituted into the frozen final target. No full-measure, positive-volume, finite-mean or complete verification claim follows from this approval alone.

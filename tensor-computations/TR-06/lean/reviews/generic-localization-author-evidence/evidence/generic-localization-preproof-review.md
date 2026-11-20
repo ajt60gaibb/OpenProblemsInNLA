@@ -1,0 +1,7 @@
+# Independent pre-proof generic localization approval
+
+Reviewer: root, nonauthor of implementation. APPROVE exact GenericFiniteLocalizationBoundary.lean SHA256 `5378e0471acee8034e93d21b56482d093eb0de2c0f470781ee6c5c102a6c59be` after reading its complete typechecked proposition and proof plan.
+
+The domain/injective finite-type map is quasi-finite at the actual source zero prime. Zariski Main supplies a finite envelope after inverting a nonzero source element. Integrality and the source domain allow a nonzero base element divisible by that envelope element; inverting the base element thus also inverts the original one. Localizing the finite envelope and transferring through the surjective localized map proves module finiteness over the actual base localization. The conclusion correctly quantifies a nonzero element of R, not merely S, and explicitly uses the canonical R[1/r] scalar action on S localized at its image. It does not assert unchanged principal opens.
+
+No additional separability, Noetherian or field assumption is mathematically needed. Keep the approved domain and injectivity assumptions even if some are unused by the eventual proof. The source generic-point quasi-finiteness premise is explicit; obtaining it from finite complex-point fibers remains a separate obligation. This does not establish the tensor regularity certificate, analytic properness, or any complete-target theorem.

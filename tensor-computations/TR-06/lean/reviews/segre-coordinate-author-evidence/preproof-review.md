@@ -1,0 +1,9 @@
+# Independent exact-dimensional Segre pre-proof review
+
+Reviewer: root, distinct from implementation author. APPROVE the six proposition definitions and actual maps at SegreBoundary.lean SHA256 `792666bb6115b2353738ec54b3a6577e580639945dcb28e4f3ee12443eadefe7`, after reading the complete source and plan.
+
+Coordinate uses one amplitude plus the non-anchor entries of each mode per summand; the required cardinal and both scalar finrank equalities retain exactly the source dimension k. Polynomial substitution is along actual normalized pure-tensor coordinates. The decomposition direction correctly requires d>0 to absorb amplitudes; representation of already rank-one tensors requires no such new premise. Nonzero pullback is required for every prescribed pivot pattern, even when the given decomposition has a zero at that pattern. Its proposed proof may use raw factor polynomials solely for an existence argument: multiplying by all prescribed factor coordinates does not kill a nonzero polynomial, and a nonzero complex evaluation permits normalization. It yields no raw-factor-dimension volume assertion.
+
+The real-witness conclusion is an actual decoded real decomposition with all amplitudes nonzero and the original complex-coefficient polynomial nonvanishing after coordinatewise complexification. It neither claims real/complex rank equality nor identifiable/exact rank for the new point. The proposed nonzero-polynomial-on-real-coordinates argument is valid including an empty coordinate type. No positive-amplitude restriction is imposed. All signatures handle r=0, d=0 where permitted, and degenerate formats consistently.
+
+These are supporting algebraic/parameterization statements only. Generic proper localization, smooth full-measure regularity, graph volume and finite mean remain separate obligations. This is pre-proof statement approval, not a completed proof review.

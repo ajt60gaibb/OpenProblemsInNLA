@@ -1,0 +1,29 @@
+LinearMap.normDet_sq.{u_1, u_2, u_3} {𝕜 : Type u_1} {U : Type u_2} {V : Type u_3} [RCLike 𝕜] [NormedAddCommGroup U]
+  [InnerProductSpace 𝕜 U] [FiniteDimensional 𝕜 U] [NormedAddCommGroup V] [InnerProductSpace 𝕜 V] [FiniteDimensional 𝕜 V]
+  (f : U →ₗ[𝕜] V) : ↑(f.normDet ^ 2) = LinearMap.det (LinearMap.adjoint f ∘ₗ f)
+LinearMap.normDet_eq_prod_singularValues.{u_1, u_2, u_3} {𝕜 : Type u_1} {U : Type u_2} {V : Type u_3} [RCLike 𝕜]
+  [NormedAddCommGroup U] [InnerProductSpace 𝕜 U] [FiniteDimensional 𝕜 U] [NormedAddCommGroup V] [InnerProductSpace 𝕜 V]
+  [FiniteDimensional 𝕜 V] (f : U →ₗ[𝕜] V) : f.normDet = ∏ i ∈ Finset.range (Module.finrank 𝕜 U), f.singularValues i
+LinearMap.euclideanHausdorffMeasure_image_eq_normDet_mul_volume.{u_5, u_6} {U : Type u_5} {V : Type u_6}
+  [NormedAddCommGroup U] [InnerProductSpace ℝ U] [FiniteDimensional ℝ U] [NormedAddCommGroup V] [InnerProductSpace ℝ V]
+  [MeasurableSpace U] [BorelSpace U] [MeasurableSpace V] [BorelSpace V] (f : U →ₗ[ℝ] V) (s : Set U) :
+  (MeasureTheory.Measure.euclideanHausdorffMeasure (Module.finrank ℝ U)) (⇑f '' s) =
+    ENNReal.ofReal f.normDet * MeasureTheory.volume s
+MeasureTheory.Measure.euclideanHausdorffMeasure.{u_1} {X : Type u_1} [EMetricSpace X] [MeasurableSpace X] [BorelSpace X]
+  (d : ℕ) : MeasureTheory.Measure X
+MeasureTheory.lintegral_abs_det_fderiv_eq_addHaar_image.{u_1} {E : Type u_1} [NormedAddCommGroup E] [NormedSpace ℝ E]
+  [FiniteDimensional ℝ E] {s : Set E} {f : E → E} {f' : E → E →L[ℝ] E} [MeasurableSpace E] [BorelSpace E]
+  (μ : MeasureTheory.Measure E) [μ.IsAddHaarMeasure] (hs : MeasurableSet s)
+  (hf' : ∀ x ∈ s, HasFDerivWithinAt f (f' x) s x) (hf : Set.InjOn f s) :
+  ∫⁻ (x : E) in s, ENNReal.ofReal |(f' x).det| ∂μ = μ (f '' s)
+MeasureTheory.lintegral_image_eq_lintegral_abs_det_fderiv_mul.{u_1} {E : Type u_1} [NormedAddCommGroup E]
+  [NormedSpace ℝ E] [FiniteDimensional ℝ E] {s : Set E} {f : E → E} {f' : E → E →L[ℝ] E} [MeasurableSpace E]
+  [BorelSpace E] (μ : MeasureTheory.Measure E) [μ.IsAddHaarMeasure] (hs : MeasurableSet s)
+  (hf' : ∀ x ∈ s, HasFDerivWithinAt f (f' x) s x) (hf : Set.InjOn f s) (g : E → ENNReal) :
+  ∫⁻ (x : E) in f '' s, g x ∂μ = ∫⁻ (x : E) in s, ENNReal.ofReal |(f' x).det| * g (f x) ∂μ
+integrableOn_rpow_mul_exp_neg_mul_sq {b : ℝ} (hb : 0 < b) {s : ℝ} (hs : -1 < s) :
+  MeasureTheory.IntegrableOn (fun x => x ^ s * Real.exp (-b * x ^ 2)) (Set.Ioi 0) MeasureTheory.volume
+'LinearMap.euclideanHausdorffMeasure_image_eq_normDet_mul_volume' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'integrableOn_rpow_mul_exp_neg_mul_sq' depends on axioms: [propext, Classical.choice, Quot.sound]
