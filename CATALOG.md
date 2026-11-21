@@ -1,6 +1,6 @@
 # All problems and their status
 
-**90 problems with open targets:** 33 open and 57 partially resolved. **127 other retained entries**, excluded from the open count.
+**89 problems with open targets:** 32 open and 57 partially resolved. **128 other retained entries**, excluded from the open count.
 
 **Resolution evidence:** 37 solved (published or independently audited); 87 solved with Lean verification.
 
@@ -90,7 +90,6 @@ Retained entries outside the open count:
 | [MF-04](matrix-functions-and-stability/MF-04/README.md) | Finiteness for nonnegative rational matrix families | **🟡 PARTIAL** | extreme | broadly interesting | [PDF](matrix-functions-and-stability/MF-04/problem.pdf) · [TeX](matrix-functions-and-stability/MF-04/problem.tex) |
 | [MF-09](matrix-functions-and-stability/MF-09/README.md) | Decidability of strict stability for rational matrix families | **🔵 OPEN** | extreme | broadly interesting | [PDF](matrix-functions-and-stability/MF-09/problem.pdf) · [TeX](matrix-functions-and-stability/MF-09/problem.tex) |
 | [MF-10](matrix-functions-and-stability/MF-10/README.md) | Algebraicity of joint spectral radii from rational input | **🔵 OPEN** | extreme | interesting to the community | [PDF](matrix-functions-and-stability/MF-10/problem.pdf) · [TeX](matrix-functions-and-stability/MF-10/problem.tex) |
-| [MF-11](matrix-functions-and-stability/MF-11/README.md) | Temporal regularity of marginal matrix-product growth | **🔵 OPEN** | challenging | interesting to specialist | [PDF](matrix-functions-and-stability/MF-11/problem.pdf) · [TeX](matrix-functions-and-stability/MF-11/problem.tex) |
 | [MF-15](matrix-functions-and-stability/MF-15/README.md) | Critical exponent for generalized doubly nonnegative matrices | **🟡 PARTIAL** | challenging | interesting to the community | [PDF](matrix-functions-and-stability/MF-15/problem.pdf) · [TeX](matrix-functions-and-stability/MF-15/problem.tex) |
 | [MF-19](matrix-functions-and-stability/MF-19/README.md) | Decidability of zero hitting by rational matrix powers | **🟡 PARTIAL** | extreme | broadly interesting | [PDF](matrix-functions-and-stability/MF-19/problem.pdf) · [TeX](matrix-functions-and-stability/MF-19/problem.tex) |
 | [MF-20](matrix-functions-and-stability/MF-20/README.md) | Decidability of zero hitting by a matrix exponential | **🟡 PARTIAL** | extreme | broadly interesting | [PDF](matrix-functions-and-stability/MF-20/problem.pdf) · [TeX](matrix-functions-and-stability/MF-20/problem.tex) |
@@ -105,6 +104,7 @@ Retained entries outside the open count:
 | [MF-06](matrix-functions-and-stability/MF-06/README.md) | A pointwise Lipschitz lower bound for the joint spectral radius | **🏆 LEAN VERIFIED** | challenging | interesting to the community | [PDF](matrix-functions-and-stability/MF-06/problem.pdf) · [TeX](matrix-functions-and-stability/MF-06/problem.tex) |
 | [MF-07](matrix-functions-and-stability/MF-07/README.md) | Uniform polynomial bounds for products at joint spectral radius one | **🏆 LEAN VERIFIED** | challenging | interesting to the community | [PDF](matrix-functions-and-stability/MF-07/problem.pdf) · [TeX](matrix-functions-and-stability/MF-07/problem.tex) |
 | [MF-08](matrix-functions-and-stability/MF-08/README.md) | NP-hardness of unrestricted static output-feedback stabilization | **✅ SOLVED** | extreme | broadly interesting | [PDF](matrix-functions-and-stability/MF-08/problem.pdf) · [TeX](matrix-functions-and-stability/MF-08/problem.tex) |
+| [MF-11](matrix-functions-and-stability/MF-11/README.md) | Temporal regularity of marginal matrix-product growth | **🟠 SOLUTION CLAIMED** | challenging | interesting to specialist | [PDF](matrix-functions-and-stability/MF-11/problem.pdf) · [TeX](matrix-functions-and-stability/MF-11/problem.tex) |
 | [MF-12](matrix-functions-and-stability/MF-12/README.md) | Realizing arbitrary polynomial growth exponents by finite matrix families | **🏆 LEAN VERIFIED** | challenging | interesting to the community | [PDF](matrix-functions-and-stability/MF-12/problem.pdf) · [TeX](matrix-functions-and-stability/MF-12/problem.tex) |
 | [MF-13](matrix-functions-and-stability/MF-13/README.md) | Symmetric maximizers for Lyapunov operators of order six | **🟠 SOLUTION CLAIMED** | challenging | interesting to specialist | [PDF](matrix-functions-and-stability/MF-13/problem.pdf) · [TeX](matrix-functions-and-stability/MF-13/problem.tex) |
 | [MF-14](matrix-functions-and-stability/MF-14/README.md) | Degree coverage with seven matrix multiplications | **🏆 LEAN VERIFIED** | challenging | interesting to the community | [PDF](matrix-functions-and-stability/MF-14/problem.pdf) · [TeX](matrix-functions-and-stability/MF-14/problem.tex) |

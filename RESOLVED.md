@@ -55,6 +55,34 @@ are available for review. The submitter reran the pinned Lean proof and
 verified attainment and equality of both maxima. Independent catalog review
 is pending.
 
+### 🟠 MF-11 - temporal regularity of marginal matrix-product growth - Pedro Martins
+
+**Negative solution claimed; preprint published 15 November 2026; recorded
+19 November 2026.** Pedro Martins,
+[*Marginal Growth Rates of Matrix Products Need Not Be Weakly Increasing or
+Regularly Varying*](https://doi.org/10.5281/zenodo.24237543), **Theorem 1.3**
+(p. 2; Sections 2-5, pp. 4-13), reports a pair of real $`20\times20`$
+matrices with joint spectral radius one whose maximum length-$`n`$ product
+norm is neither weakly increasing nor weakly upper regularly varying. Along
+$`N_j=16^{p_j}`$, where $`p_1=4`$ and $`p_{j+1}=4^{p_j}`$, the ratios
+$`g(N_j/2)/g(N_j)`$ and $`g(\ell N_j)/g(N_j)`$ tend to infinity for every
+fixed integer $`\ell\ge2`$. The claimed polynomial bounds
+$`n\le g(n)\le6n^3`$ ensure joint spectral radius one. These are the
+Euclidean operator norm and all-word maxima of the
+[retained MF-11 target](matrix-functions-and-stability/MF-11/README.md), so
+the claim answers both questions in their original compact-real-family
+setting.
+
+The [submission and provenance record](references/martins-mf11-2026-11-19/README.md)
+retains the manuscript, scripts and Lean attachment. The
+[assessment and computational reproduction](references/martins-mf11-2026-11-19/verification/README.md)
+do not claim an independent full-result proof audit or external human peer
+review. The Lean source has not been compiled or kernel-checked here, and
+the attachment lacks a pinned project and reproducible verification record.
+No Lean-verified status is asserted. AI assistance is disclosed in the
+manuscript. The original ID, target and historical ratings are retained;
+the entry leaves the open count under the **Solution claimed** policy.
+
 ### ✅ KE-02 — deterministic nearly linear eigenvalue separation for tridiagonal matrices
 
 **Solved affirmatively, 16 November 2026.** Wenqi Zhu (University of Oxford)
