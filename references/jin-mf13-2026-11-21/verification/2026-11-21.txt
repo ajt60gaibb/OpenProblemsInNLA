@@ -1,0 +1,73 @@
+MF-13 external Lean verification on 2026-11-21
+Fresh checkout of the published sources. Dependency caches came from the pinned revisions.
+
+$ uname -sm
+Linux x86_64
+
+$ git rev-parse HEAD
+9a1cedcf3bec473a322b45d770bedeac7050dbb9
+
+$ lake env lean --version
+Lean (version 4.36.0, x86_64-unknown-linux-gnu, commit 611c117bfaf7b7ae1cfcf246ce6fba31e8f509e9, Release)
+
+$ git -C .lake/packages/mathlib rev-parse HEAD
+fc4f59e577feb1a4956671bc04ac18aaaf8cd842
+
+$ sha256sum MF13Check.lean
+7f3d1d5585beb7bf332b87bc1390401c4dffa24f9dd620b8b60b4a37b0e379ec  MF13Check.lean
+
+$ lake build --wfail
+✔ [7448/7526] Built SymmetricMaximizer.Elimination (2.4s)
+✔ [7450/7526] Built SymmetricMaximizer.AlternatingEigenspaces (2.7s)
+✔ [7452/7526] Built SymmetricMaximizer.SingularBases (2.6s)
+✔ [7454/7526] Built SymmetricMaximizer.Basic (3.2s)
+✔ [7456/7526] Built SymmetricMaximizer.Selection (2.0s)
+✔ [7458/7526] Built SymmetricMaximizer.ChernCalculation (3.3s)
+✔ [7460/7526] Built SymmetricMaximizer.ExteriorCalculus (3.8s)
+✔ [7462/7526] Built SymmetricMaximizer.Unitary (2.4s)
+✔ [7464/7526] Built SymmetricMaximizer.MovingProjection (2.6s)
+✔ [7466/7526] Built SymmetricMaximizer.Complexification (2.7s)
+✔ [7468/7526] Built SymmetricMaximizer.EvenForms (2.1s)
+✔ [7470/7526] Built SymmetricMaximizer.Cubic (3.4s)
+✔ [7472/7526] Built SymmetricMaximizer.AlternatingHyperplane (3.3s)
+✔ [7474/7526] Built SymmetricMaximizer.Maximizers (3.3s)
+✔ [7476/7526] Built SymmetricMaximizer.Contraction (3.3s)
+✔ [7478/7526] Built SymmetricMaximizer.Padding (4.1s)
+✔ [7480/7526] Built SymmetricMaximizer.SelectionProjectivization (4.7s)
+✔ [7482/7526] Built SymmetricMaximizer.BoxStokes (2.8s)
+✔ [7484/7526] Built SymmetricMaximizer.BlockComparison (5.3s)
+✔ [7486/7526] Built SymmetricMaximizer.Boundary (3.2s)
+✔ [7488/7526] Built SymmetricMaximizer.ChernTransgression (2.6s)
+✔ [7490/7526] Built SymmetricMaximizer.Phase (3.1s)
+✔ [7492/7526] Built SymmetricMaximizer.OrderSix (5.8s)
+✔ [7494/7526] Built SymmetricMaximizer.ChernObstruction (2.9s)
+✔ [7496/7526] Built SymmetricMaximizer.SelectedSubspace (6.5s)
+✔ [7498/7526] Built SymmetricMaximizer.ProjectiveBox (13s)
+✔ [7500/7526] Built SymmetricMaximizer.ProjectiveFrame (2.7s)
+✔ [7502/7526] Built SymmetricMaximizer.ProjectiveConnections (7.6s)
+✔ [7504/7526] Built SymmetricMaximizer.SelectionCoordinates (2.6s)
+✔ [7506/7526] Built SymmetricMaximizer.VolumeCoefficient (2.9s)
+✔ [7508/7526] Built SymmetricMaximizer.PolarIntegration (3.6s)
+✔ [7510/7526] Built SymmetricMaximizer.SelectionChernNumber (2.7s)
+✔ [7512/7526] Built SymmetricMaximizer.AdaptedBasisClosure (24s)
+✔ [7514/7526] Built SymmetricMaximizer.GenericPairs (2.6s)
+✔ [7516/7526] Built SymmetricMaximizer.SelectionTheorem (3.5s)
+✔ [7518/7526] Built SymmetricMaximizer.Example (175s)
+✔ [7520/7526] Built SymmetricMaximizer.Sharpness (2.8s)
+✔ [7522/7526] Built SymmetricMaximizer.SelectionReduction (3.0s)
+✔ [7524/7526] Built SymmetricMaximizer (1.6s)
+Build completed successfully (7526 jobs).
+
+$ lake lint --wfail
+-- No environment linters were run for SymmetricMaximizer.
+Running linter on specified modules: [SymmetricMaximizer]
+-- Linting passed for SymmetricMaximizer.
+
+$ lake env lean -DwarningAsError=true /path/to/MF13Check.lean
+Checked the transitive axioms of 6 declarations.
+'MF13Verification.frobenius_norm_eq_sqrt_trace' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MF13Verification.common_maximum' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MF13Verification.equal_maxima' depends on axioms: [propext, Classical.choice, Quot.sound]
+'SymmetricMaximizer.all_orders' depends on axioms: [propext, Classical.choice, Quot.sound]
+'SymmetricMaximizer.symmetric_maximizers_all_orders' depends on axioms: [propext, Classical.choice, Quot.sound]
+'SymmetricMaximizer.exists_integer_counterexample' depends on axioms: [propext, Classical.choice, Quot.sound]

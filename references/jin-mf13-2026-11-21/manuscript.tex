@@ -1,0 +1,425 @@
+\documentclass[11pt,letterpaper]{article}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[margin=28mm]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{microtype}
+\usepackage[hidelinks]{hyperref}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+
+\newcommand{\R}{\mathbb R}
+\newcommand{\C}{\mathbb C}
+\newcommand{\Sym}{\mathcal S}
+\newcommand{\Skew}{\mathcal K}
+\newcommand{\ip}[2]{\langle #1,#2\rangle_F}
+\newcommand{\diag}{\operatorname{diag}}
+\newcommand{\rank}{\operatorname{rank}}
+\newcommand{\doi}[1]{\mbox{doi \href{https://doi.org/#1}{\nolinkurl{#1}}}}
+
+\title{Symmetric maximizers of Lyapunov operators}
+\author{Shanmu Jin\thanks{Department of Neurosurgery, Peking Union Medical College
+  Hospital, No.~1 Shuaifuyuan, Dongcheng District, Beijing
+  100730, China.
+  \href{mailto:jinshanmu1129@pku.edu.cn}{\nolinkurl{jinshanmu1129@pku.edu.cn}}.}}
+\date{}
+\hypersetup{pdftitle={Symmetric maximizers of Lyapunov operators},
+  pdfauthor={Shanmu Jin}}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+The Frobenius-induced norm of \(X\mapsto AX+XA^T\) is attained at a
+symmetric matrix for every real \(n\times n\) matrix \(A\) exactly
+when \(n\le 6\). The proof in order six uses a Chern number to choose
+a three-dimensional subspace adapted to a leading skew-symmetric
+singular pair. In the resulting block form, a symmetric pair gives
+the required norm bound. An exact order-seven example and zero
+padding yield counterexamples in every order \(n\ge7\), including
+integer examples with every entry nonzero.
+\end{abstract}
+
+\section{Introduction}
+
+For \(A\in\R^{n\times n}\), let \(L_A(X)=AX+XA^T\). Write
+\(\|\cdot\|_F\) for the norm from the Frobenius inner product
+\(\ip{X}{Y}=\operatorname{tr}(X^*Y)\) and \(\|L_A\|\) for the
+induced operator norm. The symmetric
+and skew-symmetric subspaces \(\Sym_n\) and \(\Skew_n\) are
+orthogonal and invariant under \(L_A\). Set
+\[
+s(A)=\|L_A|_{\Sym_n}\|,\qquad k(A)=\|L_A|_{\Skew_n}\|,
+\]
+where \(k(A)=0\) if \(n=1\). Thus \(\|L_A\|=\max\{s(A),k(A)\}\),
+and a symmetric matrix attains \(\|L_A\|\) exactly when \(k(A)\le s(A)\).
+
+The question goes back to Byers and Nash~\cite{byers-nash}. Chen and
+Tian formulated the inequality as a conjecture and proved it
+through order five~\cite{chen-tian}. Kressner and Vandereycken gave
+counterexamples in all orders from seven onward, leaving order six
+open~\cite{kressner-vandereycken}.
+
+\begin{theorem}\label{thm:main}
+For a positive integer \(n\), the inequality \(k(A)\le s(A)\)
+holds for every \(A\in\R^{n\times n}\) if and only if \(n\le6\).
+For each \(n\ge7\), there is a counterexample whose entries are
+all nonzero integers.
+\end{theorem}
+
+\section{Selecting a three-dimensional subspace}\label{sec:selection}
+
+\begin{lemma}\label{lem:selection}
+Let \(W\) be a Hermitian space with an algebraic direct sum
+decomposition \(W=E_1\oplus E_2\oplus E_3\), where
+\(\dim_{\C}E_i=2\). Let \(B:W\to W\) be complex linear and
+let \(\alpha,\beta\) be alternating complex bilinear forms on \(W\).
+For some choice of lines \(\ell_i\subset E_i\), their sum
+\(L=\bigoplus_i\ell_i\) satisfies
+\[
+\rank g_L\le2,\qquad
+\alpha|_{L\cap(\ker g_L)^\perp}=0,\qquad
+\beta|_{\operatorname{im}g_L}=0,
+\]
+where \(g_L=P_{L^\perp}B|_L\) and \(P_{L^\perp}\) denotes orthogonal
+projection.
+\end{lemma}
+
+\begin{proof}
+On \(M=\prod_{i=1}^3\mathbb P(E_i)\), let \(\mathcal L_i\) be the
+tautological line bundles, with fibers \(\ell_i\). The bundle
+\(\mathcal L=\bigoplus_i\mathcal L_i\) has fiber \(L\), and
+\(\mathcal Q=(M\times W)/\mathcal L\) has fiber \(W/L\), which we
+identify with \(L^\perp\) by orthogonal projection.
+
+Consider \(\pi:Z=\mathbb P(\mathcal L)\to M\), the bundle of lines
+in the fibers of \(\mathcal L\). Write \(\mathcal T\) for its
+tautological line bundle and \(\mathcal H=\mathcal T^\perp\) for its
+orthogonal complement in \(\pi^*\mathcal L\). We use the same notation
+for \(\mathcal L\) and \(\mathcal Q\) pulled back to \(Z\).
+The manifold \(Z\) is compact of complex dimension five, and
+\[
+\mathcal F=(\mathcal T^*\otimes\mathcal Q)
+    \oplus (\det\mathcal H)^* \oplus (\det\mathcal H)^*
+\]
+is a rank-five complex bundle. It has a smooth section whose value
+at \((L,\ell)\), with \(H=L\cap\ell^\perp\), is
+\[
+\bigl(g_L|_\ell,\ \alpha|_H,\ (g_L|_H)^*\beta\bigr).
+\]
+Here the last component is the form
+\((x,y)\mapsto\beta(g_Lx,g_Ly)\) on \(H\).
+At a zero, \(\ell\subseteq\ker g_L\), so \(g_L\) has rank at most two,
+\(L\cap(\ker g_L)^\perp\subseteq H\), and
+\(\operatorname{im}g_L=g_L(H)\). The last two components give the
+required restrictions of the forms.
+
+It suffices to show \(c_5(\mathcal F)\ne0\). A nowhere vanishing
+section would split off a trivial line, and the Whitney product
+formula~\cite{grothendieck} would give \(c_5(\mathcal F)=0\). Put
+\[
+h_i=c_1(\mathcal L_i^*),\qquad
+h=h_1+h_2+h_3,\qquad e_2=\sum_{i<j}h_i h_j,\qquad e_3=h_1h_2h_3.
+\]
+The classes satisfy \(h_i^2=0\), \(h^2=2e_2\) and \(he_2=3e_3\),
+and \(\int_M e_3=1\) in the complex orientation.
+The bundle \(\mathcal Q\) splits into the quotient lines
+\(E_i/\ell_i\), whose first Chern classes are \(h_i\) because
+the \(E_i\)-bundles are trivial. Put \(t=c_1(\mathcal T^*)\).
+The splitting \(\mathcal L=\mathcal T\oplus\mathcal H\)
+gives \(c_1((\det\mathcal H)^*)=h-t\) and hence
+\[
+c_5(\mathcal F)=(h-t)^2\prod_{i=1}^3(t+h_i).
+\]
+
+The tautological inclusion is a nowhere vanishing section of
+\(\mathcal T^*\otimes\mathcal L\), so its top Chern class is zero.
+Hence \(\prod_i(t-h_i)=0\), or \(t^3-ht^2+e_2t-e_3=0\).
+Fiber integration \(\pi_*\) over \(\mathbb P^2\) sends
+\(1,t,t^2\) to \(0,0,1\), respectively, because \(t\) restricts to
+the hyperplane class. By the projection formula, the relation gives
+\(\pi_*t^3=h\) and \(\pi_*t^4=h^2-e_2=e_2\). Using
+\(\prod_i(t+h_i)=2(ht^2+e_3)\), we obtain
+\[
+\pi_*c_5(\mathcal F)
+ =2h(h^2-2h^2+e_2)+2e_3
+ =-4e_3.
+\]
+Hence \(\int_Z c_5(\mathcal F)=-4\), and the section has a zero.
+\end{proof}
+
+\section{The comparison in order six}\label{sec:order-six}
+
+\begin{lemma}\label{lem:unitary}
+Let \(U,V\in\Skew_6\) and \(B\in\R^{6\times6}\). There exists
+a unitary \(E\in\C^{6\times6}\) such that
+\begin{equation}\label{eq:unitary-blocks}
+E^*U\bar E=\begin{pmatrix}0&X\\-X^T&U_{22}\end{pmatrix},\quad
+E^*V\bar E=\begin{pmatrix}V_{11}&Y\\-Y^T&0\end{pmatrix},\quad
+E^*BE=\begin{pmatrix}B_{11}&B_{12}\\G&B_{22}\end{pmatrix},
+\end{equation}
+with blocks of order three and \(G=\diag(g_1,g_2,0)\),
+\(g_1\ge g_2\ge0\). The leading \(r\times r\) blocks of
+\(U_{22}\) and \(V_{11}\) vanish, where \(r=\rank G\).
+\end{lemma}
+
+\begin{proof}
+For invertible \(U\), the matrix \(C=VU\) is self-adjoint for the
+nondegenerate alternating form \(\omega_U(x,y)=x^TUy\), since
+\(C^TU=UC\). Its distinct generalized eigenspaces are orthogonal
+for \(\omega_U\). Indeed, a power of \(C-\lambda I\) annihilates
+the space for \(\lambda\), is invertible on any other such space,
+and can be moved from one argument of \(\omega_U\) to the other.
+The restriction of \(\omega_U\) to each generalized eigenspace
+is therefore nondegenerate, so each has even dimension. Thus the
+characteristic polynomial of \(C\) is the square of a monic cubic.
+
+Comparing coefficients in descending order expresses the cubic
+coefficients as polynomials in the first three coefficients below
+the leading term of the square. The cubic discriminant therefore
+extends to a polynomial in the entries of \(U,V\). To see that
+its product with \(\det U\det V\) is nonzero, take
+\[
+U=\diag(J,2J,3J),\qquad V=\diag(J,J,J),\qquad
+J=\begin{pmatrix}0&1\\-1&0\end{pmatrix},
+\]
+where the cubic has roots \(-1,-2,-3\). Consequently the pairs
+with \(U,V\) invertible and three distinct cubic roots are dense.
+
+For such a pair, the three generalized eigenspaces have dimension
+two. On a two-dimensional space a self-adjoint map for a
+nondegenerate alternating form is scalar, since
+\(M^TJ=JM\) forces a \(2\times2\) matrix \(M\) to be scalar.
+Apply Lemma~\ref{lem:selection} to the three eigenspaces of \(C\)
+with \(\alpha(x,y)=x^TVy\) and \(\beta(x,y)=x^TUy\).
+The resulting \(L=\bigoplus_i\ell_i\) is isotropic for \(\omega_U\)
+and satisfies \(CL=L\).
+Because \(U\) is real and invertible, \(U\bar L=L^\perp\).
+Indeed \(x^*U\bar y=\overline{x^TUy}=0\) for \(x,y\in L\),
+and both spaces have dimension three. Taking conjugates gives
+\(\overline{L^\perp}=UL\), so \(V\overline{L^\perp}=CL=L\).
+These two identities give the zero diagonal blocks in
+\eqref{eq:unitary-blocks} in any unitary basis adapted to \(L\).
+
+Choose orthonormal bases of \(L\) and \(L^\perp\) using a singular
+value decomposition of \(g_L\). Then \(G\) has the required diagonal
+form. The first \(r\) vectors in these bases span
+\(L\cap(\ker g_L)^\perp\) and \(\operatorname{im}g_L\), respectively.
+The forms vanish on these spaces, and reality of \(U,V\) gives the
+same zeros in the congruence blocks \(V_{11}\) and \(U_{22}\).
+
+For arbitrary \(U,V\), approximate them by pairs from the dense set
+with \(B\) fixed. Compactness of the unitary group gives a convergent
+subsequence of the bases. The displayed block form passes to the
+limit. Every positive singular value of the limiting \(G\) is
+positive along that subsequence eventually, so the leading
+\(r\times r\) zeros also pass to the limit.
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{thm:main} in order six]
+The case \(k(A)=0\) is immediate. For \(k(A)>0\), set \(B=A/k(A)\)
+and choose unit skew-symmetric matrices \(U,V\) with
+\[
+L_B(V)=U,\qquad L_{B^T}(U)=V.
+\]
+Such a pair comes from a largest singular value of \(L_B|_{\Skew_6}\),
+whose adjoint is \(L_{B^T}|_{\Skew_6}\).
+
+Complexification preserves the restricted norms, since the squared
+Frobenius norms of the real and imaginary parts add.
+Unitary congruence \(Z\mapsto E^*Z\bar E\) preserves the norm
+and both transpose symmetry classes. It sends \(L_B\) and its
+adjoint to \(L_{\widehat B}\) and \(L_{\widehat B^*}\), with
+\(\widehat B=E^*BE\). Thus the skew pair \(\widehat U,\widehat V\)
+in \eqref{eq:unitary-blocks} satisfies
+\(L_{\widehat B}(\widehat V)=\widehat U\) and
+\(L_{\widehat B^*}(\widehat U)=\widehat V\).
+
+For \(\varepsilon\in\{1,-1\}\), define
+\[
+\begin{aligned}
+S_\varepsilon&=XG+\varepsilon(XG)^T,&
+T_\varepsilon&=GY+\varepsilon(GY)^T,\\
+U_\varepsilon&=\begin{pmatrix}0&X\\\varepsilon X^T&T_\varepsilon\end{pmatrix},&
+V_\varepsilon&=\begin{pmatrix}S_\varepsilon&Y\\\varepsilon Y^T&0\end{pmatrix}.
+\end{aligned}
+\]
+The bottom-right block of \(L_{\widehat B}(\widehat V)=\widehat U\)
+and the top-left block of \(L_{\widehat B^*}(\widehat U)=\widehat V\)
+give \(U_{22}=T_{-1}\) and \(V_{11}=S_{-1}\), since \(G\) is real
+diagonal. Thus \(U_{-1}=\widehat U\) and \(V_{-1}=\widehat V\),
+with at least one of \(X,Y\) nonzero. Write
+\[
+\Delta_\varepsilon
+ =\|U_\varepsilon\|_F^2+\|V_\varepsilon\|_F^2
+  -2\operatorname{Re}\ip{U_\varepsilon}{L_{\widehat B}(V_\varepsilon)}.
+\]
+The singular equations give \(\Delta_{-1}=0\).
+The upper-right block of \(L_{\widehat B}(V_\varepsilon)\) is
+\(B_{11}Y+YB_{22}^T+S_\varepsilon G^T\), and its bottom-right
+block is \(T_\varepsilon\). Transpose preserves the Frobenius
+inner product, so the two off-diagonal blocks contribute equally.
+Since \(Z\mapsto(Z+\varepsilon Z^T)/2\) is the orthogonal
+projection onto \(Z^T=\varepsilon Z\), we have
+\(\ip{X}{S_\varepsilon G^T}=\ip{XG}{S_\varepsilon}
+=\|S_\varepsilon\|_F^2/2\). It follows that
+\[
+\Delta_\varepsilon
+ =2\bigl(\|X\|_F^2+\|Y\|_F^2\bigr)
+  -4\operatorname{Re}\ip{X}{B_{11}Y+YB_{22}^T}
+  -\|S_\varepsilon\|_F^2-\|T_\varepsilon\|_F^2 .
+\]
+Subtracting the two cases gives
+\[
+\Delta_1-\Delta_{-1}
+  =-4\bigl(\ip{XG}{(XG)^T}+\ip{GY}{(GY)^T}\bigr).
+\]
+If \(r=\rank G\), the entries of \(XG\) beyond the first \(r\)
+columns and those of \(GY\) beyond the first \(r\) rows are zero.
+In both matrices the leading \(r\times r\) block is symmetric,
+because the corresponding blocks of \(S_{-1}\) and \(T_{-1}\)
+vanish by Lemma~\ref{lem:unitary}. Each inner product is therefore
+the squared Frobenius norm of that leading block, and
+\(\Delta_1\le0\).
+
+The matrices \(U_1,V_1\) are symmetric. By Cauchy--Schwarz and the
+arithmetic--geometric mean inequality,
+\[
+\Delta_1\ \ge\
+(1-s(B))\bigl(\|U_1\|_F^2+\|V_1\|_F^2\bigr).
+\]
+The sum of squared norms is positive, so \(s(B)\ge1\).
+Scaling back gives \(s(A)\ge k(A)\).
+\end{proof}
+
+\section{Zero padding and sharpness}\label{sec:sharpness}
+
+For any real \(A\) and \(m\ge1\), let \(0_m\) denote the square
+zero matrix of order \(m\). In either transpose symmetry class, the
+two diagonal blocks and the off-diagonal pair form orthogonal
+subspaces for the splitting of \(A\oplus0_m\)~\cite{kressner-vandereycken}.
+The Lyapunov
+operator acts on these as \(L_A\), zero and \(Y\mapsto AY\),
+respectively. The two off-diagonal blocks have the same Frobenius
+norm, so this last map contributes \(\|A\|_2\), the spectral norm.
+For any real unit vector \(x\),
+\[
+\|L_A(xx^T)\|_F^2=2\|Ax\|_2^2+2(x^TAx)^2 .
+\]
+Taking a leading right singular vector of \(A\) gives
+\(s(A)\ge\sqrt{2}\|A\|_2\). Hence
+\begin{equation}\label{eq:padding}
+s(A\oplus0_m)=s(A),\qquad
+k(A\oplus0_m)=\max\{k(A),\|A\|_2\}.
+\end{equation}
+For \(n<6\), applying the order-six inequality to \(A\oplus0_{6-n}\)
+gives \(k(A)\le k(A\oplus0_{6-n})\le s(A)\).
+If \(k(A)>s(A)\), both norms are preserved
+under zero padding.
+
+An order-seven matrix with a strict gap is
+\begin{equation}\label{eq:example}
+A_7=\begin{pmatrix}
+   0 &  80 &   0 &  -1 &   0 &   0 &   7\\
+ -80 & -20 & -60 &   5 &   1 &   0 &   8\\
+   0 & -60 &  20 &   4 &   0 &   1 &   1\\
+   0 &   7 &   4 & -80 &  20 &   0 &  10\\
+   0 &  -1 &   0 & -20 & -40 &  80 & -10\\
+   0 &   0 &   1 &   0 & -80 &  40 &   0\\
+   7 &  -6 &   0 &  -5 &  -5 &   0 & -80
+\end{pmatrix}.
+\end{equation}
+We verify the bounds
+\begin{equation}\label{eq:bounds}
+s(A_7)<\frac{1499}{8}<\frac{375}{2}<k(A_7).
+\end{equation}
+Let \(E_{ij}\) be the matrix units. Use \(E_{11},\dots,E_{77}\)
+followed by \(E_{ij}+E_{ji}\), \(i<j\), as the symmetric basis.
+Use \(E_{ij}-E_{ji}\), \(i<j\), as the skew-symmetric basis.
+In both lists the pairs \((i,j)\) are ordered lexicographically.
+For the relevant basis \(F_1,\dots,F_N\) and positive integers
+\(p,q\), form the integer symmetric matrix
+\[
+M^{(1)}_{ij}=p^2\ip{F_i}{F_j}
+       -q^2\ip{L_{A_7}(F_i)}{L_{A_7}(F_j)} .
+\]
+Its quadratic form at the coordinates of \(X\) is
+\(p^2\|X\|_F^2-q^2\|L_{A_7}(X)\|_F^2\).
+For a positive definite form the restricted norm is below \(p/q\).
+A negative value places the norm above \(p/q\).
+
+Use rational symmetric elimination with the recurrence
+\[
+d_j=M^{(j)}_{jj},\qquad
+M^{(j+1)}_{i\ell}=M^{(j)}_{i\ell}
+    -M^{(j)}_{ij}M^{(j)}_{j\ell}/d_j\qquad(i,\ell>j).
+\]
+The pivot floors obtained from \eqref{eq:example} are summarized by
+\[
+\begin{array}{lrrr|rr}
+\text{Subspace} & N & p & q & \min_{1\le j<N}\lfloor d_j\rfloor
+                            & \lfloor d_N\rfloor\\ \hline
+\text{Symmetric}      &28&1499&8&130009&1024128\\
+\text{Skew-symmetric} &21&375 &2& 17610&  -9319
+\end{array}
+\]
+Each elimination is a congruence to the direct sum of the pivot
+and the trailing matrix by completing the square.
+All pivots in the symmetric case
+are positive, and the last pivot in the skew-symmetric case is
+negative. This proves \eqref{eq:bounds}.
+
+For \(n\ge7\), set \(A_n=A_7\oplus0_{n-7}\), with the zero block
+omitted at \(n=7\). Equation~\eqref{eq:padding} preserves
+\eqref{eq:bounds}. Let \(\mathbf 1_n\) be the vector of ones and
+set \(P_n=\mathbf 1_n\mathbf 1_n^T/(40n)\). Adding \(P_n\) to
+\(A_n\) changes each restricted norm by at most \(1/20\), since
+\(\|L_{P_n}\|\le2\|P_n\|_2=1/20\).
+The two rational bounds in \eqref{eq:bounds} lie \(1/16\) on
+either side of \(2999/16\). Since \(1/20<1/16\), the integer matrix
+\[
+D_n=40nA_n+\mathbf 1_n\mathbf 1_n^T
+\qquad\text{satisfies}\qquad
+s(D_n)<40n\cdot\frac{2999}{16}<k(D_n).
+\]
+Every entry of \(D_n\) is congruent to \(1\) modulo \(40n\).
+This completes the proof of Theorem~\ref{thm:main}.
+
+\section*{Acknowledgment}
+This work was carried out through automated proof discovery using
+GPT-6.2 Sol at the \texttt{max} reasoning setting in Codex. The human author
+sorted out and reorganized the work and takes full responsibility for it.
+The \LaTeX{} manuscript and Lean formalization code are available at
+\url{https://github.com/jinshanmu/SymmetricMaximizer}.
+
+\begin{thebibliography}{9}
+
+\bibitem{byers-nash}
+R.~Byers and S.~Nash.
+On the singular \textquotedblleft vectors\textquotedblright\ of the
+Lyapunov operator.
+\emph{SIAM J. Algebraic Discrete Methods} \textbf{8}(1), 59--66 (1987).
+\doi{10.1137/0608003}.
+
+\bibitem{chen-tian}
+S.~Chen and Y.~Tian.
+Note on \textquotedblleft On the singular \textquoteleft vectors\textquoteright\
+of the Lyapunov operator\textquotedblright\ by R.~Byers and S.~Nash.
+\emph{SIAM J. Matrix Anal. Appl.} \textbf{36}(3), 1069--1072 (2015).
+\doi{10.1137/140974031}.
+
+\bibitem{kressner-vandereycken}
+D.~Kressner and B.~Vandereycken.
+A counterexample to the symmetric-maximizer conjecture for Lyapunov operators.
+arXiv:2608.20875 (2026).
+\doi{10.48550/arXiv.2608.20875}.
+
+\bibitem{grothendieck}
+A.~Grothendieck.
+La th\'eorie des classes de Chern.
+\emph{Bull. Soc. Math. France} \textbf{86}, 137--154 (1958).
+\doi{10.24033/bsmf.1501}.
+
+\end{thebibliography}
+\end{document}
