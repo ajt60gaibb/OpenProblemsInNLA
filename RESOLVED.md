@@ -38,6 +38,23 @@ The passing scopes include AC-01's small-CW upper bound (also relevant to AC-04)
 
 ## Resolved catalog entries
 
+### 🟠 MF-13 — symmetric maximizers for Lyapunov operators of order six
+
+**Affirmative solution claimed, 21 November 2026.** Shanmu Jin,
+[*Symmetric maximizers of Lyapunov operators*](references/jin-mf13-2026-11-21/manuscript.pdf),
+Theorem 1 (p. 1) and the order-six proof in Section 3 (pp. 2–4), gives
+a symmetric Frobenius-unit maximizer for every real order-six Lyapunov
+operator $`X\mapsto AX+XA^T`$. The claim addresses the entire
+[original target](matrix-functions-and-stability/MF-13/README.md#problem-statement).
+The manuscript's three-plane selection uses a nonzero top Chern number to
+produce the subspace used in the norm comparison.
+
+The [proof source](references/jin-mf13-2026-11-21/manuscript.tex) and
+[Lean proof and verification evidence](matrix-functions-and-stability/MF-13/README.md#lean-proof-and-verification-evidence)
+are available for review. The submitter reran the pinned Lean proof and
+verified attainment and equality of both maxima. Independent catalog review
+is pending.
+
 ### ✅ KE-02 — deterministic nearly linear eigenvalue separation for tridiagonal matrices
 
 **Solved affirmatively, 16 November 2026.** Wenqi Zhu (University of Oxford)
