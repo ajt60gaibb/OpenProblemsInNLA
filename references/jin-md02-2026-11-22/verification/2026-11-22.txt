@@ -1,0 +1,32 @@
+MD-02 submitter verification, 2026-11-22
+Environment: Linux x86_64. Fresh public proof clone with cached dependencies.
+Proof repository: https://github.com/jinshanmu/LovaszTheta
+Revision: 79d3682466a040230b751f3c8cf588fe75d7e46e
+All 9 dependency checkouts matched the Lake manifest and had clean tracked files.
+
+Lake version 5.0.0-src+611c117 (Lean version 4.36.0)
+Lean (version 4.36.0, x86_64-unknown-linux-gnu, commit 611c117bfaf7b7ae1cfcf246ce6fba31e8f509e9, Release)
+
+$ lake build --wfail
+Build completed successfully (8416 jobs).
+
+$ lake lint --wfail
+-- No environment linters were run for LovaszTheta.
+Running linter on specified modules: [LovaszTheta]
+-- Linting passed for LovaszTheta.
+
+$ lake env lean --root="$(dirname "$md02_check_file")" -DwarningAsError=true "$md02_check_file"
+Checked the transitive axioms of 6 declarations.
+'MD02Verification.adj_iff_selected' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MD02Verification.inversionClass_singleton' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MD02Verification.theta_isGreatest' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MD02Verification.catalogExpectation_eq' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MD02Verification.tendsto_catalogExpectation_div_sqrt' depends on axioms: [propext, Classical.choice, Quot.sound]
+'LovaszTheta.Circulant.tendsto_normalizedExpectedTheta' depends on axioms: [propext, Classical.choice, Quot.sound]
+
+Submission artifacts (SHA-256)
+df1dc24cf22398ac404b0c4eea25916a745748a9f142d01eb50fba504b10ea79  manuscript.tex
+1eec14183ecd9c6ea215653f7fd74809d0a42bc8fa6755b95c7270bf2097b8f3  manuscript.pdf
+5c9eb5eb3335d030558544dfc76d96f7597abf120ca7bf39f8253ac28eb94e1c  verification/MD02Check.lean
+
+Independent catalog review is pending.
