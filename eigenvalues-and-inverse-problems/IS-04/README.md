@@ -6,8 +6,18 @@
 
 **Difficulty:** challenging  
 **Importance:** interesting to the community  
-**Status:** Partially resolved  
-**Last checked:** 2026-09-11  
+**Status:** Solution claimed  
+**Last checked:** 2026-11-23  
+
+## Affirmative resolution claimed — 23 November 2026
+
+Theorem 1 (p. 1) of *On the condition number of sign matrices*, submitted by Matias Andia, gives a real sign matrix with spectral condition number at most two in every positive dimension. The bound is strict outside order three, where the minimum equals two. Thus the supremum in IS-04 is two and is attained only at order three. The construction uses no symmetry or circulant assumption on the resulting matrix. GPT-6.2 Pro discovered the proof autonomously. AI wrote most of the manuscript, which Andia is reviewing and editing. [Paper](https://github.com/matias-ma/ai-math/blob/466673c69a4e074757a1f382283ef1b985e291e7/sign_matrix_condition_two/paper.pdf) · [Solution and reproduction instructions](https://github.com/matias-ma/ai-math/tree/main/sign_matrix_condition_two).
+
+## Lean proof and verification evidence
+
+The submission includes an external Lean 4.20.0 proof with Mathlib v4.20.0. `SignCond.verifiedMain` proves the equivalent Gram-matrix formulation of Theorem 1. For each positive order it supplies a sign matrix and a positive scale with $`tI\preceq AA^\top\preceq4tI`$, with a strict upper window available for the same matrix outside order three. At order three every admissible nonnegative condition-number bound is at least two. The eigenvalues of the Gram matrix are the squared singular values, giving the stated condition numbers and supremum. [Pinned final theorem](https://github.com/matias-ma/ai-math/blob/466673c69a4e074757a1f382283ef1b985e291e7/sign_matrix_condition_two/lean/Verified.lean).
+
+The finite proposition is discharged by `SignCond.verifiedFinite`, including the Fourier bounds for all 9,983 sequence lengths. The submitter’s 23 November kernel audit reports only `propext`, `Classical.choice`, and `Quot.sound` for both declarations. From `sign_matrix_condition_two/lean` at the pinned revision, run `lake exe cache get` followed by `python3 verify_finite.py` for the full certificate replay and axiom report. Independent catalog review is pending. [Submitter’s axiom log](../../references/andia-is04-2026-11-23/axioms.txt).
 
 <!-- colbrook-round3 -->
 ## Independently reviewed partial result - 2026-09-11
@@ -18,7 +28,7 @@ Theorem 1 constructs explicit real sign matrices of order $`p^2`$ for every odd 
 
 <!-- /colbrook-round3 -->
 
-**Rating rationale:** Challenging reflects a sharp universal constant whose remaining obstruction is a large finite set of dimensions; community impact is the construction of well-conditioned sign matrices.
+**Rating rationale:** Historical assessment of the original problem. Challenging reflects a sharp universal constant whose remaining obstruction is a large finite set of dimensions; community impact is the construction of well-conditioned sign matrices.
 
 ## Problem statement
 
@@ -35,7 +45,7 @@ with $`\kappa_2(A)=+\infty`$ for singular $`A`$. Prove or disprove
 \sup_{n\geq1}h(n)=2.
 ```
 
-Since $`h(3)=2`$, the unresolved claim is the upper bound in every dimension.
+Since $`h(3)=2`$, the claim to prove is the upper bound in every dimension.
 No symmetry or circulant structure is imposed. The target refines the known
 existence of uniformly well-conditioned sign matrices, which is useful for
 constructing approximately isometric linear maps and well-conditioned bases.

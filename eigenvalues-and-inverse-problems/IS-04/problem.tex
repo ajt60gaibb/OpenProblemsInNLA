@@ -34,7 +34,7 @@ dimension},pdfauthor={Open Problems in Numerical Linear Algebra}}
 \fancyhf{}
 \fancyhead[L]{\sffamily\footnotesize\color{muted}OPEN PROBLEMS IN NUMERICAL LINEAR ALGEBRA}
 \fancyhead[R]{\sffamily\bfseries\footnotesize\color{accent}IS-04}
-\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-09-11}}
+\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-11-23}}
 \fancyfoot[R]{\sffamily\footnotesize\color{muted}\thepage}
 \renewcommand{\headrulewidth}{0.3pt}
 \renewcommand{\headrule}{\hbox to\headwidth{\color{accent}\leaders\hrule height \headrulewidth\hfill}}
@@ -51,10 +51,53 @@ condition number of two for a sign matrix in every dimension\par}
 \vspace{7pt}
 {\sffamily\small\textbf{Difficulty:} challenging\quad\textbf{Importance:} interesting
 to the community\par}
-{\sffamily\small\bfseries\color{accent}Status: Partially resolved\par}
+{\sffamily\small\bfseries\color{accent}Status: Solution claimed\par}
 \vspace{4pt}
 {\color{accent}\hrule height 0.8pt}
 \vspace{6pt}
+\subsection{Affirmative resolution claimed --- 23 November
+2026}\label{affirmative-resolution-claimed-23-november-2026}
+
+Theorem 1 (p.~1) of \emph{On the condition number of sign matrices},
+submitted by Matias Andia, gives a real sign matrix with spectral
+condition number at most two in every positive dimension. The bound is
+strict outside order three, where the minimum equals two. Thus the
+supremum in IS-04 is two and is attained only at order three. The
+construction uses no symmetry or circulant assumption on the resulting
+matrix. GPT-6.2 Pro discovered the proof autonomously. AI wrote most of
+the manuscript, which Andia is reviewing and editing.
+\href{https://github.com/matias-ma/ai-math/blob/466673c69a4e074757a1f382283ef1b985e291e7/sign_matrix_condition_two/paper.pdf}{Paper}
+·
+\href{https://github.com/matias-ma/ai-math/tree/main/sign_matrix_condition_two}{Solution
+and reproduction instructions}.
+
+\subsection{Lean proof and verification
+evidence}\label{lean-proof-and-verification-evidence}
+
+The submission includes an external Lean 4.20.0 proof with Mathlib
+v4.20.0. \textit{SignCond.verifiedMain} proves the equivalent
+Gram-matrix formulation of Theorem 1. For each positive order it
+supplies a sign matrix and a positive scale with
+\(tI\preceq AA^\top\preceq4tI\), with a strict upper window available
+for the same matrix outside order three. At order three every admissible
+nonnegative condition-number bound is at least two. The eigenvalues of
+the Gram matrix are the squared singular values, giving the stated
+condition numbers and supremum.
+\href{https://github.com/matias-ma/ai-math/blob/466673c69a4e074757a1f382283ef1b985e291e7/sign_matrix_condition_two/lean/Verified.lean}{Pinned
+final theorem}.
+
+The finite proposition is discharged by
+\textit{SignCond.verifiedFinite}, including the Fourier bounds for all
+9,983 sequence lengths. The submitter's 23 November kernel audit reports
+only \textit{propext}, \textit{Classical.choice}, and
+\textit{Quot.sound} for both declarations. From
+\textit{sign\_matrix\_condition\_two/lean} at the pinned revision, run
+\textit{lake exe cache get} followed by
+\textit{python3 verify\_finite.py} for the full certificate replay and
+axiom report. Independent catalog review is pending.
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/references/andia-is04-2026-11-23/axioms.txt}{Submitter's
+axiom log}.
+
 \subsection{Independently reviewed partial result -
 2026-09-11}\label{independently-reviewed-partial-result---2026-09-11}
 
@@ -76,27 +119,23 @@ record}. The supplied manuscripts and code disclose AI generation. Agent
 review is not external human peer review or formal certification; no
 novelty or priority claim is made.
 
-\textbf{Rating rationale:} Challenging reflects a sharp universal
-constant whose remaining obstruction is a large finite set of
-dimensions; community impact is the construction of well-conditioned
-sign matrices.
+\textbf{Rating rationale:} Historical assessment of the original
+problem. Challenging reflects a sharp universal constant whose remaining
+obstruction is a large finite set of dimensions; community impact is the
+construction of well-conditioned sign matrices.
 
 \subsection{Problem statement}\label{problem-statement}
 
 For \(n\geq1\), define
 
-\[
-h(n)=\min_{A\in\{-1,1\}^{n\times n}}\kappa_2(A),\qquad
-\kappa_2(A)=\frac{\sigma_{\max}(A)}{\sigma_{\min}(A)},
-\]
+\[h(n)=\min_{A\in\{-1,1\}^{n\times n}}\kappa_2(A),\qquad
+\kappa_2(A)=\frac{\sigma_{\max}(A)}{\sigma_{\min}(A)},\]
 
 with \(\kappa_2(A)=+\infty\) for singular \(A\). Prove or disprove
 
-\[
-\sup_{n\geq1}h(n)=2.
-\]
+\[\sup_{n\geq1}h(n)=2.\]
 
-Since \(h(3)=2\), the unresolved claim is the upper bound in every
+Since \(h(3)=2\), the claim to prove is the upper bound in every
 dimension. No symmetry or circulant structure is imposed. The target
 refines the known existence of uniformly well-conditioned sign matrices,
 which is useful for constructing approximately isometric linear maps and
