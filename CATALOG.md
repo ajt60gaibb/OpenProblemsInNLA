@@ -1,6 +1,6 @@
 # All problems and their status
 
-**88 problems with open targets:** 31 open and 57 partially resolved. **129 other retained entries**, excluded from the open count.
+**87 problems with open targets:** 31 open and 56 partially resolved. **130 other retained entries**, excluded from the open count.
 
 **Resolution evidence:** 37 solved (published or independently audited); 87 solved with Lean verification.
 
@@ -51,7 +51,6 @@ Retained entries outside the open count:
 | --- | --- | --- | --- | --- | --- |
 | [IE-07](eigenvalues-and-inverse-problems/IE-07/README.md) | Deterministic regularization of the nonsymmetric eigenproblem | **🔵 OPEN** | extreme | broadly interesting | [PDF](eigenvalues-and-inverse-problems/IE-07/problem.pdf) · [TeX](eigenvalues-and-inverse-problems/IE-07/problem.tex) |
 | [IS-01](eigenvalues-and-inverse-problems/IS-01/README.md) | Two permutation matrices generate the doubly stochastic spectral boundary | **🔵 OPEN** | challenging | interesting to the community | [PDF](eigenvalues-and-inverse-problems/IS-01/problem.pdf) · [TeX](eigenvalues-and-inverse-problems/IS-01/problem.tex) |
-| [IS-04](eigenvalues-and-inverse-problems/IS-04/README.md) | A condition number of two for a sign matrix in every dimension | **🟡 PARTIAL** | challenging | interesting to the community | [PDF](eigenvalues-and-inverse-problems/IS-04/problem.pdf) · [TeX](eigenvalues-and-inverse-problems/IS-04/problem.tex) |
 | [IS-05](eigenvalues-and-inverse-problems/IS-05/README.md) | The optimal decay exponent for the conditioning of sign matrices | **🟡 PARTIAL** | extreme | interesting to the community | [PDF](eigenvalues-and-inverse-problems/IS-05/problem.pdf) · [TeX](eigenvalues-and-inverse-problems/IS-05/problem.tex) |
 | [SP-01](eigenvalues-and-inverse-problems/SP-01/README.md) | The sharp generic threshold for spectral-subspace rotation | **🔵 OPEN** | challenging | interesting to the community | [PDF](eigenvalues-and-inverse-problems/SP-01/problem.pdf) · [TeX](eigenvalues-and-inverse-problems/SP-01/problem.tex) |
 | [SP-02](eigenvalues-and-inverse-problems/SP-02/README.md) | The sharp off-diagonal threshold for spectral-subspace rotation | **🔵 OPEN** | challenging | interesting to the community | [PDF](eigenvalues-and-inverse-problems/SP-02/problem.pdf) · [TeX](eigenvalues-and-inverse-problems/SP-02/problem.tex) |
@@ -69,6 +68,7 @@ Retained entries outside the open count:
 | [IE-10](eigenvalues-and-inverse-problems/IE-10/README.md) | Conditioning of a random Krylov compression of a cyclic shift | **✅ SOLVED** | challenging | interesting to specialist | [PDF](eigenvalues-and-inverse-problems/IE-10/problem.pdf) · [TeX](eigenvalues-and-inverse-problems/IE-10/problem.tex) |
 | [IS-02](eigenvalues-and-inverse-problems/IS-02/README.md) | Where a symmetric stochastic matrix can be spectrally unique | **🏆 LEAN VERIFIED** | challenging | interesting to specialist | [PDF](eigenvalues-and-inverse-problems/IS-02/problem.pdf) · [TeX](eigenvalues-and-inverse-problems/IS-02/problem.tex) |
 | [IS-03](eigenvalues-and-inverse-problems/IS-03/README.md) | Johnson's derivative-realizability conjecture | **🏆 LEAN VERIFIED** | challenging | interesting to the community | [PDF](eigenvalues-and-inverse-problems/IS-03/problem.pdf) · [TeX](eigenvalues-and-inverse-problems/IS-03/problem.tex) |
+| [IS-04](eigenvalues-and-inverse-problems/IS-04/README.md) | A condition number of two for a sign matrix in every dimension | **🟠 SOLUTION CLAIMED** | challenging | interesting to the community | [PDF](eigenvalues-and-inverse-problems/IS-04/problem.pdf) · [TeX](eigenvalues-and-inverse-problems/IS-04/problem.tex) |
 | [KE-02](eigenvalues-and-inverse-problems/KE-02/README.md) | Construct a separating diagonal perturbation in nearly linear time | **✅ SOLVED** | challenging | interesting to the community | [PDF](eigenvalues-and-inverse-problems/KE-02/problem.pdf) · [TeX](eigenvalues-and-inverse-problems/KE-02/problem.tex) |
 | [KE-03](eigenvalues-and-inverse-problems/KE-03/README.md) | Find a near-largest nonnormal eigenvalue using few matrix-vector products | **🏆 LEAN VERIFIED** | challenging | interesting to the community | [PDF](eigenvalues-and-inverse-problems/KE-03/problem.pdf) · [TeX](eigenvalues-and-inverse-problems/KE-03/problem.tex) |
 | [KE-04](eigenvalues-and-inverse-problems/KE-04/README.md) | Strict interlacing across block Lanczos iterations | **🏆 LEAN VERIFIED** | challenging | interesting to the community | [PDF](eigenvalues-and-inverse-problems/KE-04/problem.pdf) · [TeX](eigenvalues-and-inverse-problems/KE-04/problem.tex) |

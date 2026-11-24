@@ -2,13 +2,12 @@
 
 [← All categories](../README.md) · [Full catalog](../CATALOG.md) · [Solved and claimed solutions](../RESOLVED.md)
 
-**11 problems with open targets.** 15 retained entries are excluded from the open count.
+**10 problems with open targets.** 16 retained entries are excluded from the open count.
 
 | ID | Problem | Status | Difficulty | Impact | Read / source |
 | --- | --- | --- | --- | --- | --- |
 | [IE-07](IE-07/README.md) | Deterministic regularization of the nonsymmetric eigenproblem | **🔵 OPEN** | extreme | broadly interesting | [PDF](IE-07/problem.pdf) · [TeX](IE-07/problem.tex) |
 | [IS-01](IS-01/README.md) | Two permutation matrices generate the doubly stochastic spectral boundary | **🔵 OPEN** | challenging | interesting to the community | [PDF](IS-01/problem.pdf) · [TeX](IS-01/problem.tex) |
-| [IS-04](IS-04/README.md) | A condition number of two for a sign matrix in every dimension | **🟡 PARTIAL** | challenging | interesting to the community | [PDF](IS-04/problem.pdf) · [TeX](IS-04/problem.tex) |
 | [IS-05](IS-05/README.md) | The optimal decay exponent for the conditioning of sign matrices | **🟡 PARTIAL** | extreme | interesting to the community | [PDF](IS-05/problem.pdf) · [TeX](IS-05/problem.tex) |
 | [SP-01](SP-01/README.md) | The sharp generic threshold for spectral-subspace rotation | **🔵 OPEN** | challenging | interesting to the community | [PDF](SP-01/problem.pdf) · [TeX](SP-01/problem.tex) |
 | [SP-02](SP-02/README.md) | The sharp off-diagonal threshold for spectral-subspace rotation | **🔵 OPEN** | challenging | interesting to the community | [PDF](SP-02/problem.pdf) · [TeX](SP-02/problem.tex) |
@@ -26,6 +25,7 @@
 | [IE-10](IE-10/README.md) | Conditioning of a random Krylov compression of a cyclic shift | **✅ SOLVED** | challenging | interesting to specialist | [PDF](IE-10/problem.pdf) · [TeX](IE-10/problem.tex) |
 | [IS-02](IS-02/README.md) | Where a symmetric stochastic matrix can be spectrally unique | **🏆 LEAN VERIFIED** | challenging | interesting to specialist | [PDF](IS-02/problem.pdf) · [TeX](IS-02/problem.tex) |
 | [IS-03](IS-03/README.md) | Johnson's derivative-realizability conjecture | **🏆 LEAN VERIFIED** | challenging | interesting to the community | [PDF](IS-03/problem.pdf) · [TeX](IS-03/problem.tex) |
+| [IS-04](IS-04/README.md) | A condition number of two for a sign matrix in every dimension | **🟠 SOLUTION CLAIMED** | challenging | interesting to the community | [PDF](IS-04/problem.pdf) · [TeX](IS-04/problem.tex) |
 | [KE-02](KE-02/README.md) | Construct a separating diagonal perturbation in nearly linear time | **✅ SOLVED** | challenging | interesting to the community | [PDF](KE-02/problem.pdf) · [TeX](KE-02/problem.tex) |
 | [KE-03](KE-03/README.md) | Find a near-largest nonnormal eigenvalue using few matrix-vector products | **🏆 LEAN VERIFIED** | challenging | interesting to the community | [PDF](KE-03/problem.pdf) · [TeX](KE-03/problem.tex) |
 | [KE-04](KE-04/README.md) | Strict interlacing across block Lanczos iterations | **🏆 LEAN VERIFIED** | challenging | interesting to the community | [PDF](KE-04/problem.pdf) · [TeX](KE-04/problem.tex) |

@@ -19,6 +19,10 @@ None of these statuses is counted as open. A partial result leaves the
 surviving target in the open catalog with **🟡 PARTIAL**, even if that partial
 result is formalized in Lean.
 
+## IS-04 — condition number two for sign matrices in every dimension
+
+**Affirmative solution claimed, 23 November 2026.** Matias Andia submits Theorem 1 of *On the condition number of sign matrices*. It gives a sign matrix of condition number at most two in every positive dimension, strictly below two except at order three. The submission includes a Lean proof of the equivalent Gram-matrix statement and an exact finite-certificate replay. [Canonical entry and verification evidence](eigenvalues-and-inverse-problems/IS-04/README.md#lean-proof-and-verification-evidence) · [Paper and solution](https://github.com/matias-ma/ai-math/tree/main/sign_matrix_condition_two).
+
 ## MF-14 — exact seven-product maximum 47 — Marcus Webb; original negative answer Lean-formalized by George Stepaniants
 
 **Solved negatively, with exact maximum determined, 17 September 2026.** Marcus Webb, The University of Manchester. [Theorem 1 of the complete degree-47 proof](references/webb-mf14-degree47-2026-09-17/proof.pdf) proves $`d_7=47`$ in the original complex full-closure model. It establishes coverage of every polynomial of degree at most 47 and excludes coverage of the entire degree-at-most-48 space, retaining all coefficients through degree 128. The original equality $`d_7=42`$ remains displayed on the [canonical page](matrix-functions-and-stability/MF-14/README.md).
