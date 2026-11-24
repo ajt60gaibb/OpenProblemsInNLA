@@ -19,6 +19,12 @@ None of these statuses is counted as open. A partial result leaves the
 surviving target in the open catalog with **🟡 PARTIAL**, even if that partial
 result is formalized in Lean.
 
+## IE-07 — deterministic regularization of the nonsymmetric eigenproblem
+
+**Solved affirmatively; paper submitted 21 November 2026; recorded 24 November 2026.** Matthew J. Colbrook, [*Deterministic regularisation of the nonsymmetric eigenproblem*](https://arxiv.org/abs/2611.28614), **Theorem 1.1**, constructs the perturbation required by the [original IE-07 target](eigenvalues-and-inverse-problems/IE-07/README.md) for every complex contraction of order $`n\geq2`$ and $`0<\delta<1/2`$. It gives $`\|E\|_2<\delta`$, simple spectrum and $`\kappa_V(A+E)/\mathop{\mathrm{gap}}\nolimits(A+E)\leq C(n/\delta)^{20/3}`$, and returns an exact eigensystem in $`O(n^3\log^d(n/\delta))`$ unit-cost real-field operations and comparisons. Sections 2–7 prove the result; Theorem 1.1 and Section 6 state the arbitrary-length-integer unit-cost convention. This is the original exact-arithmetic problem, including defective inputs.
+
+The status records the linked arXiv theorem; no new independent proof audit or Lean verification by this catalog is asserted. The paper discloses AI assistance in Section 1.3. The original ID, statement and historical ratings remain retained, and the entry leaves the open count.
+
 ## IS-04 — condition number two for sign matrices in every dimension
 
 **Affirmative solution claimed, 23 November 2026.** Matias Andia submits Theorem 1 of *On the condition number of sign matrices*. It gives a sign matrix of condition number at most two in every positive dimension, strictly below two except at order three. The submission includes a Lean proof of the equivalent Gram-matrix statement and an exact finite-certificate replay. [Canonical entry and verification evidence](eigenvalues-and-inverse-problems/IS-04/README.md#lean-proof-and-verification-evidence) · [Paper and solution](https://github.com/matias-ma/ai-math/tree/main/sign_matrix_condition_two).
