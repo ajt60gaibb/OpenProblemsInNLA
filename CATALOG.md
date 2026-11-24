@@ -2,7 +2,7 @@
 
 **87 problems with open targets:** 31 open and 56 partially resolved. **130 other retained entries**, excluded from the open count.
 
-**Resolution evidence:** 37 solved (published or independently audited); 87 solved with Lean verification.
+**Resolution evidence:** 36 solved (published or independently audited); 88 solved with Lean verification.
 
 Each entry records its own literature-check date. Literature checks are bounded; ratings are editorial. “Impact” uses the canonical `Importance` field.
 
@@ -64,7 +64,7 @@ Retained entries outside the open count:
 
 | ID | Problem | Status | Difficulty | Impact | Read / source |
 | --- | --- | --- | --- | --- | --- |
-| [IE-08](eigenvalues-and-inverse-problems/IE-08/README.md) | A cubic-time Schur algorithm using logarithmic precision | **✅ SOLVED** | extreme | broadly interesting | [PDF](eigenvalues-and-inverse-problems/IE-08/problem.pdf) · [TeX](eigenvalues-and-inverse-problems/IE-08/problem.tex) |
+| [IE-08](eigenvalues-and-inverse-problems/IE-08/README.md) | A cubic-time Schur algorithm using logarithmic precision | **🏆 LEAN VERIFIED** | extreme | broadly interesting | [PDF](eigenvalues-and-inverse-problems/IE-08/problem.pdf) · [TeX](eigenvalues-and-inverse-problems/IE-08/problem.tex) |
 | [IE-10](eigenvalues-and-inverse-problems/IE-10/README.md) | Conditioning of a random Krylov compression of a cyclic shift | **✅ SOLVED** | challenging | interesting to specialist | [PDF](eigenvalues-and-inverse-problems/IE-10/problem.pdf) · [TeX](eigenvalues-and-inverse-problems/IE-10/problem.tex) |
 | [IS-02](eigenvalues-and-inverse-problems/IS-02/README.md) | Where a symmetric stochastic matrix can be spectrally unique | **🏆 LEAN VERIFIED** | challenging | interesting to specialist | [PDF](eigenvalues-and-inverse-problems/IS-02/problem.pdf) · [TeX](eigenvalues-and-inverse-problems/IS-02/problem.tex) |
 | [IS-03](eigenvalues-and-inverse-problems/IS-03/README.md) | Johnson's derivative-realizability conjecture | **🏆 LEAN VERIFIED** | challenging | interesting to the community | [PDF](eigenvalues-and-inverse-problems/IS-03/problem.pdf) · [TeX](eigenvalues-and-inverse-problems/IS-03/problem.tex) |

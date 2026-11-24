@@ -19,6 +19,12 @@ None of these statuses is counted as open. A partial result leaves the
 surviving target in the open catalog with **🟡 PARTIAL**, even if that partial
 result is formalized in Lean.
 
+## IE-08 — stronger logarithmic-precision Schur theorem, Lean verified
+
+**Lean verified; registered 23 November 2026; recorded 24 November 2026.** Matthew J. Colbrook, [*Schur decomposition with logarithmic precision in cubic time up to logarithmic factors*](https://arxiv.org/abs/2611.29923), **Theorem 1**, strengthens the earlier affirmative resolution to $`O(n^3\log^2(n/(\delta p)))`$ arithmetic operations and $`O(\log(n/(\delta p)))`$ mantissa bits, with joint success probability at least $`1-p`$ for every $`0<p<1/2`$. Taking $`p=0.01`$ recovers the original target with exponent two. Exact triangularity and the work bound hold on every execution.
+
+[Palomar PALOMAR-2026-11-23-000003, version 1](https://palomar-registry.org/entry?id=PALOMAR-2026-11-23-000003&version=1) registers `SchurFormal.main_result` at immutable revision `6035fb72968d7a5d4cf8e86c92aa3c49d330f9a7`. [Canonical entry, statement correspondence, pinned dependencies, axiom report and reproduction](eigenvalues-and-inverse-problems/IE-08/README.md#lean-proof-and-verification-evidence). This catalog reviewed the public verification and automated statement-review records; no local Lean rerun or external human peer review is asserted. The September solution and its audit remain retained, as do the permanent ID and original target. The open count is unchanged.
+
 ## IS-04 — condition number two for sign matrices in every dimension
 
 **Affirmative solution claimed, 23 November 2026.** Matias Andia submits Theorem 1 of *On the condition number of sign matrices*. It gives a sign matrix of condition number at most two in every positive dimension, strictly below two except at order three. The submission includes a Lean proof of the equivalent Gram-matrix statement and an exact finite-certificate replay. [Canonical entry and verification evidence](eigenvalues-and-inverse-problems/IS-04/README.md#lean-proof-and-verification-evidence) · [Paper and solution](https://github.com/matias-ma/ai-math/tree/main/sign_matrix_condition_two).

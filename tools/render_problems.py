@@ -29,6 +29,9 @@ def plain_pdf_title(title):
 
 def restore_pdf_layout(identifier, body):
     """Keep document commands out of the public mathematical statements."""
+    if identifier == "IE-08":
+        # Keep the short reproduction instructions and command block together.
+        body = body.replace("**Reproduction.**", "\\Needspace{14\\baselineskip}\n\n**Reproduction.**", 1)
     if identifier == "MD-01":
         # Keep the original expectation target together after the resolution notice.
         body = body.replace("## Original problem statement\n", "\\newpage\n\n## Original problem statement\n", 1)
