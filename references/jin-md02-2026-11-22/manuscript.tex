@@ -1,0 +1,1171 @@
+\documentclass[11pt,letterpaper]{article}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern,microtype}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[hidelinks]{hyperref}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}[section]
+\newcommand{\E}{\mathbb E}
+\newcommand{\Z}{\mathbb Z}
+\newcommand{\one}{\mathbf 1}
+\newcommand{\tr}{\operatorname{tr}}
+\newcommand{\Var}{\operatorname{Var}}
+\newcommand{\aut}{\operatorname{aut}}
+\newcommand{\abs}[1]{\lvert #1\rvert}
+\newcommand{\norm}[1]{\lVert #1\rVert}
+\newcommand{\op}{\mathrm{op}}
+\newcommand{\doi}[1]{\href{https://doi.org/#1}{\nolinkurl{#1}}}
+
+\title{The sharp Lov\'asz theta constant for two random graph models}
+\author{Shanmu Jin\thanks{Department of Neurosurgery, Peking Union Medical College
+  Hospital, No.~1 Shuaifuyuan, Dongcheng District, Beijing
+  100730, China.
+  \href{mailto:jinshanmu1129@pku.edu.cn}{\nolinkurl{jinshanmu1129@pku.edu.cn}}.
+  \href{https://orcid.org/0009-0009-5346-753X}{ORCID 0009-0009-5346-753X}.}}
+\date{}
+\hypersetup{pdftitle={The sharp Lov\'asz theta constant for two random graph models},
+  pdfauthor={Shanmu Jin},
+  pdfsubject={Lov\'asz theta asymptotics for independent-edge and circulant random graphs}}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+The expected Lov\'asz theta number is asymptotic to \(\sqrt n\) both for the
+Erd\H{o}s--R\'enyi graph \(G(n,1/2)\) and for the random circulant graph in
+which each cyclic distance is included independently with probability
+\(1/2\). For independent edges we prove a sharp norm bound for the graph
+matrices in a positive semidefinite certificate. For circulant graphs we
+control a smoothed Fourier program using Gaussian approximations indexed
+by rooted trees. The circulant proof applies to every order, including
+even orders with a single antipodal distance.
+\end{abstract}
+
+\section{Introduction}
+
+Lov\'asz introduced the theta number as an upper bound on the Shannon
+capacity of a graph~\cite{Lovasz}. For a simple graph \(G\) on \(n\)
+vertices, we use the semidefinite formulation
+\begin{equation}\label{eq:theta}
+ \vartheta(G)=\max\{\langle J,X\rangle : X\succeq0,\ \tr X=1,\
+        X_{ij}=0\text{ for }\{i,j\}\in E(G)\},
+\end{equation}
+where \(X\) is real symmetric and \(J\) is the all-ones matrix.
+Juh\'asz established the order \(\sqrt n\) for \(G(n,1/2)\)~\cite{Juhasz}.
+Potechin and Xu obtained the leading constant one by constructing a
+certificate from graph matrices~\cite{PX}. For random circulants,
+Bandeira et al. used a Fourier linear program and
+conjectured the same constant~\cite{BBDFKK}. Chen et al. proved the
+expectation limit over odd orders using smoothed Fourier equations and
+rooted-tree fields~\cite{CHHWY}.
+
+Section~\ref{sec:independent} gives a direct trace count and product rule
+for the graph matrices in the independent-edge certificate. In
+Section~\ref{sec:circulant}, a rank count for the leaf sums of a tree gives
+Gaussian comparison over any cyclic group, including the singleton
+distance class at even order.
+
+\begin{theorem}\label{thm:main}
+Let \(G_n\) have either of the following distributions.
+\begin{enumerate}
+\item \(G_n=G(n,1/2)\), with independent edges.
+\item \(G_n\) is the graph on \(\Z_n=\Z/n\Z\) in which \(i\) and \(j\)
+are adjacent if \(i-j\) lies in a random connection set. Each nonzero
+inversion class \(\{s,-s\}\) is included independently with probability
+\(1/2\).
+\end{enumerate}
+Then \(\E\vartheta(G_n)/\sqrt n\to 1\) as \(n\to\infty\) through all
+positive integers.
+\end{theorem}
+
+The lower bound is common to the two models. Strict feasibility at
+\(I/n\) in \eqref{eq:theta} gives a dual optimum
+\(Q=\vartheta(G)I-J+Y\succeq0\), with \(Y\) supported on the edges of
+\(G\). The matrix \((Q+J)/(n\vartheta(G))\) is feasible for the complement
+\(\overline G\). Since \(\langle J,Q\rangle\ge0\), it follows that
+\(\vartheta(G)\vartheta(\overline G)\ge n\)~\cite{Lovasz}. Both distributions are
+invariant under complementation, so \(\E\vartheta(G_n)\ge\sqrt n\) by
+the arithmetic--geometric mean inequality. We will also use the bounds
+\(1\le\vartheta(G)\le n\), which follow from \(I/n\) and \(J\preceq nI\).
+
+\section{Independent edges}\label{sec:independent}
+
+Let \(A\) be zero on the diagonal, \(+1\) on edges, and \(-1\) on
+nonedges. Its entries above the diagonal are independent fair signs.
+A matrix \(W\succeq0\) with constant diagonal \(b\) and entries
+\(-a/\sqrt n\) on off-diagonal nonedges, where \(a>0\), gives
+\begin{equation}\label{eq:witness}
+ \vartheta(G_n)\le 1+(b/a)\sqrt n.
+\end{equation}
+Indeed, \(B=(1+b\sqrt n/a)I-(\sqrt n/a)W\) agrees with \(J\) on every
+entry that can contribute to the objective in \eqref{eq:theta}, and
+\(B\preceq(1+b\sqrt n/a)I\). We construct such a matrix with \(b/a\)
+close to one.
+
+\subsection{Graph matrices}
+
+A shape is a finite simple graph with ordered left and right boundary
+vertices, which may coincide. Its graph matrix has entries
+\[
+ (M_\alpha)_{ij}=
+ \sum_{\substack{\phi:V(\alpha)\hookrightarrow\{1,\ldots,n\}\\
+                 \phi(\mathrm{left})=i,\ \phi(\mathrm{right})=j}}
+          \prod_{\{x,y\}\in E(\alpha)} A_{\phi(x),\phi(y)}.
+\]
+Shapes are taken up to isomorphism preserving the ordered boundaries.
+The basic shapes are the single edge and the graphs formed from a cycle
+by adding noncrossing chords, with the two boundaries adjacent on the
+cycle~\cite{PX}. The cycle is the unique spanning cycle. Indeed, the
+endpoints of a chord separate the interiors of its two arcs, so a
+spanning path between these endpoints cannot traverse both interiors.
+In particular, an automorphism fixing both boundaries fixes the whole
+shape. A chain is formed by identifying the right boundary of each
+basic shape with the left boundary of its successor. A single vertex
+is a chain of length zero. Write \(\widehat M_\alpha\) for
+\(n^{-(\abs{V(\alpha)}-1)/2}M_\alpha\) for a chain, and for
+\(n^{-\abs{V(\alpha)}/2}M_\alpha\) for two disjoint chains with one
+outer boundary on each.
+
+We will use a consequence of the spanning cycle. When the edges of a
+basic shape are split into two nonempty sets, at least two vertices
+meet both sets. If there are exactly two such vertices, each set of
+edges gives a connected graph on its incident vertices. Indeed,
+deleting a vertex from the spanning cycle leaves a spanning path, so
+every component of either edge set must meet the other set in at least
+two vertices.
+
+\begin{lemma}\label{lem:rough}
+For a fixed shape \(\gamma\), let \(v\) be its vertex count and \(z\)
+the number of isolated vertices outside its boundaries. Let \(\iota=1\) if
+its boundaries are connected or coincide, and \(\iota=0\) otherwise. For
+any fixed \(m>0\), with probability \(1-O(n^{-m})\),
+\begin{equation}\label{eq:rough}
+ \norm{M_\gamma}_{\op}\le C(\log n)^C n^{(v+z-\iota)/2},
+\end{equation}
+where \(C\) depends only on \(\gamma\) and \(m\).
+\end{lemma}
+
+\begin{proof}
+This is the graph-matrix separator bound with one vertex on each
+boundary~\cite{AMP}. Color the \(n\) labels independently and uniformly
+by the vertices of \(\gamma\), and restrict each vertex to labels of
+its color. The resulting matrix \(M^{\mathrm{col}}\) satisfies
+\(M_\gamma=v^v\E_{\mathrm{col}} M^{\mathrm{col}}\). Convexity bounds the
+\(2\ell\)-th norm moment of \(M_\gamma\) by \(v^{2\ell v}\) times the
+average of \(\E\tr[(M^{\mathrm{col}}(M^{\mathrm{col}})^{\mathsf T})^\ell]\).
+
+For a fixed coloring, every edge in a contributing trace term must
+repeat in copies of the same shape edge. Thus each nonisolated vertex
+role uses at most \(\ell\) different labels across the \(2\ell\) copies.
+Each boundary role also uses at most \(\ell\) labels because the trace
+identifies it in pairs. Isolated interior vertices use at most \(2\ell\)
+labels per role. If \(\iota=1\), fix a path of length \(j\) joining the
+boundaries, taking \(j=0\) for coincident boundaries. Its copies form a
+closed walk with at most \(\ell j\) distinct edges, hence at most \(\ell j+1\)
+labels altogether. The total label count is therefore at most
+\(\ell(v+z-\iota)+\iota\). There are at most \((2\ell v)^{2\ell v}\)
+equality patterns of labels. Taking \(\ell=\lceil\log n\rceil\) and
+applying Markov's inequality gives \eqref{eq:rough}.
+\end{proof}
+
+\begin{lemma}\label{lem:sharp}
+Let \(M_c=\sum_\alpha c_\alpha\widehat M_\alpha\) be a symmetric
+combination of finitely many basic shapes with fixed real coefficients.
+For every \(\epsilon>0\) and fixed \(m>0\), with probability
+\(1-o(n^{-m})\),
+\begin{equation}\label{eq:sharp}
+ \norm{M_c}_{\op}\le(2+\epsilon)\Bigl(\sum_\alpha c_\alpha^2\Bigr)^{1/2}.
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+By homogeneity take \(\sum_\alpha c_\alpha^2=1\), and let \(v_\ast\) be the
+largest shape size. Expand \(\E\tr M_c^\ell\) for even \(\ell\).
+A term specifies a closed sequence of \(\ell\) labeled basic shapes,
+called blocks in this count. Consecutive blocks share the right label
+of one and the left label of the next. Only terms in which every edge
+occurs an even number of times contribute. We count their equality
+patterns before choosing the actual labels.
+
+Let \(m_i\) count the labels in block \(i\) that occur both earlier and
+later in the sequence. The edge between the two boundaries must
+repeat, so \(m_i\ge1\) for \(1<i<\ell\). Put
+\(t=\sum_{1<i<\ell}(m_i-1)\), and let \(v_i\) be the size of block
+\(i\). Each label occurs at least twice. Counting half a label at
+its first occurrence and half at its last gives
+\[
+ \#\{\text{labels}\}=1+\tfrac12\sum_{i=1}^\ell(v_i-1)-t/2.
+\]
+Including the normalization of each matrix, a pattern contributes at
+most \(n^{1-t/2}\) times its absolute coefficient weight.
+
+There are at most \(t\) blocks with \(m_i\ge2\). Every other block is
+of one of two types. In a forward block only the left label can have
+occurred earlier. In a return block only the right label can occur
+later. The first block is forward and the last is a return. For an
+interior block with \(m_i=1\), its repeated boundary edge forces that
+unique label to be a boundary. If it is the left boundary, the right
+label occurs only later. An edge between an earlier-only and a
+later-only label would occur once. Deleting the left boundary leaves
+a connected graph, so every other label occurs only later. Reversing
+the order proves the return case.
+
+For a forward block \(B_i\), let \(B_j\) be the first later block that
+shares an edge with it. Suppose \(m_j<2\), so \(B_j\) is a return block.
+Indeed, the shared edge gives \(B_j\) two labels that have already occurred.
+If an edge of \(B_i\) were absent from \(B_j\), splitting the edges of
+\(B_i\) by membership in \(B_j\) would give two mixed vertices. Each occurs
+in \(B_j\) and has a later occurrence, because the edge absent from
+\(B_j\) has yet to repeat. This forces \(m_j\ge2\). Hence
+\(E(B_i)\subseteq E(B_j)\). If the inclusion is strict, let \(B_k\) be the
+last block before \(B_j\) sharing an edge with it. Then \(i\le k<j\).
+Some edge of \(B_j\) lies outside \(B_k\). For \(k=i\) this follows from
+strict inclusion, and for \(k>i\) it follows because \(B_k\) misses every
+edge of \(B_i\) by the choice of \(j\). Split the edges of \(B_j\) by
+membership in \(B_k\). Each mixed vertex occurs in \(B_j\) and before
+\(B_k\), since an edge of \(B_j\) outside \(B_k\) must repeat before
+\(B_k\). Thus \(m_k\ge2\), which forces \(i<k<j\) because \(B_i\) is forward.
+
+Pair \(B_i\) and \(B_j\) when \(m_j<2\) and \(E(B_i)=E(B_j)\). Their edges
+have no earlier occurrences by the forward rule, none in between by
+the choice of \(j\), and none later by the return rule.
+The paired blocks also have the same labels, since every vertex is
+incident to an edge.
+Reversing the argument for return blocks shows that
+every unpaired block is at most two edge-sharing steps from some
+block with \(m_i\ge2\), with any intermediate block of forward or
+return type. A labeled edge has at most one occurrence in a forward
+block and one in a return block, since those are its first and last
+occurrences. As each block has at most \(\binom{v_\ast}{2}\) edges, the
+number of unpaired blocks is \(O_{v_\ast}(t)\).
+
+Mark the unpaired blocks and both members of each pair whose forward
+block has an internal label that occurs in another block before its
+return. Take the first intervening occurrence of such a label. A
+paired forward block could contain it only at its left boundary, so
+its predecessor would have it at its right boundary. The original
+forward block has it internally, and a later predecessor would
+contradict the choice of the first occurrence. A paired return block
+from a different pair would require its own forward partner to have
+used the label before the original forward block or between that
+block and the first intervening occurrence. Thus the first
+intervening occurrence is in an unpaired block.
+Each such block accounts for at most \(v_\ast\)
+additional pairs, since an internal label is new in its forward
+block. Hence the number \(r\) of marked positions is \(O_{v_\ast}(t)\).
+
+Fix these positions and record the equality pattern in sequence.
+Give each newly exposed label its name in order of exposure. A marked
+block exposes all its labels in a fixed vertex order of its shape.
+An unmarked block exposes only its boundaries. At a marked step,
+specify the shape and record for each vertex a previous name or a
+new label, using at most \((v_\ast\ell+1)^{v_\ast}\) choices beyond the
+shape. At an unmarked forward step, store a waiting pair with its two ordered
+endpoints, giving the right endpoint a new name. Its internal labels
+stay private to that pair until the return.
+
+At an unmarked return, the preceding block supplies the starting
+label, which must therefore be an endpoint of the pair. The only
+previous block to use a private label is its own forward block, and
+that block ends at an endpoint. The pair is unique among the waiting
+pairs at the start, because the starting label cannot recur after
+the return.
+The destination is either the pair's other endpoint or the other
+cycle neighbor of the start, if present. If another waiting pair
+contains the other endpoint, that endpoint must be the destination
+because it occurs in a later return. Otherwise neither destination
+can start an immediately following unmarked return. Thus one bit at
+each step records the next unmarked type when needed, or the
+destination at a return when the next type is forced. The first
+position, if unmarked, is forward. After a return, only its
+destination can recur among the labels of the pair. In particular,
+if the destination is internal to the forward block, give it a new
+name at the return.
+
+The exposed names, the pairing, and each change of boundaries are
+therefore determined by the marked shapes and the code alone. Number
+the vertices of each forward cycle from its left boundary in the
+direction of its right boundary. For a fixed size and change of
+boundaries, reversing or rotating these cyclic positions gives the
+return order. This permutation is fixed by the code and invertible.
+Thus the return shape is \(\rho(\alpha)\) for the forward shape
+\(\alpha\), with \(\rho\) injective on the allowed shapes. The sum of
+the pair's absolute weights is at most
+\(\sum_\alpha\abs{c_\alpha c_{\rho(\alpha)}}\le1\) by Cauchy--Schwarz,
+where coefficients outside the given family are zero. Once the
+forward shapes are chosen, assign the private labels to their
+respective positions in each pair to recover the full equality
+pattern. For \(t=0\) the total weight is at most
+\(2^\ell\). For \(t\ge1\), choosing and describing \(O_{v_\ast}(t)\) marked
+positions, and summing their shape weights, gives the bound
+\(2^\ell(v_\ast\ell+1)^{C t}\), with \(C\) fixed. Taking
+\(\ell=2\lceil(\log n)^2\rceil\) gives
+\[
+ \E\tr M_c^\ell\le n\,2^\ell
+    \left(1+\sum_{t\ge1}\left[\frac{(v_\ast\ell+1)^C}{\sqrt n}\right]^t\right)
+    =n\,2^\ell(1+o(1)).
+\]
+Markov's inequality proves \eqref{eq:sharp}.
+\end{proof}
+
+\subsection{The chain product}
+
+\begin{lemma}\label{lem:product}
+Multiply the normalized graph matrix of a fixed chain or a fixed pair
+of disjoint chains on the right by that of a fixed basic shape
+\(\sigma\). Up to an error \(o(1)\) in operator norm with probability
+\(1-O(n^{-2})\), the product is the sum of the following terms, each
+with coefficient one for each identification.
+\begin{enumerate}
+\item Append \(\sigma\) at the right boundary, with all other vertices
+      distinct.
+\item Identify \(\sigma\) edge for edge with the last block of the right
+      chain. If the new right boundary is that block's left endpoint,
+      delete the block. For the other possible right boundary, a
+      single chain becomes the shortened chain and a disjoint isolated
+      right boundary. For a pair of chains this last term occurs when
+      the right chain had length one, and replaces it by an isolated
+      right boundary.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+A chain of length zero has matrix \(I\), so consider a single chain
+of positive length or a pair of chains. Expand the product by the
+identifications of vertices across the two factors. Common edges
+cancel. Let \(u,v,w\) be the left, joining and new right boundaries,
+respectively. Of the set \(S\) of shared vertices, let \(U\) be those
+incident to a remaining edge or equal to \(u\) or \(w\). The quotient
+has \(v_P+v_\sigma-\abs S\) vertices, where \(v_P,v_\sigma\) are the
+vertex counts of the two factors. Its isolated interior vertices
+are precisely \(S\setminus U\), since the joining vertex \(v\) is
+shared and all vertices of the factors outside the boundaries
+have incident edges. The product normalization divides by
+\(n^{(v_P+v_\sigma-2)/2}\) for one chain and
+\(n^{(v_P+v_\sigma-1)/2}\) for two chains. Thus if \(\iota\) is the
+boundary connectivity parameter of the quotient, the exponent of
+\(n\) in \eqref{eq:rough} after normalization is
+\[
+ \frac{2-\abs U-\iota}{2}\quad\text{for one chain},\qquad
+ \frac{1-\abs U-\iota}{2}\quad\text{for two chains}.
+\]
+When all edges survive, \(U=S\). For a single chain the boundaries
+are connected through \(v\), so the only term with exponent zero is
+the gluing with \(S=\{v\}\). For two chains this gluing also has
+exponent zero, and an additional identification gives a negative
+exponent.
+
+When some but not all edges of \(\sigma\) cancel, its two edge sets
+have at least two mixed vertices in \(U\). The only case to check is
+one chain with \(\abs U=2\). The uncanceled edges of \(\sigma\) connect
+the mixed vertices and \(w\). If all edges at \(w\) had canceled,
+\(w\) would be a third vertex in \(U\). The left boundary \(u\) also
+connects to \(U\). If it
+is shared it belongs to \(U\), and otherwise a path in the old chain
+to its first shared vertex reaches \(U\) through a surviving edge.
+Thus \(\iota=1\) and the exponent is negative.
+
+When all edges of \(\sigma\) cancel, they lie in the last block. Indeed,
+a spanning cycle of \(\sigma\) cannot cross an articulation vertex of
+the chain, and \(\sigma\) contains the right endpoint \(v\). The same
+conclusion holds for a single edge. If the inclusion in the last block
+is proper, apply the split to that block's edges. For \(\abs U=2\) the
+remaining edges of the block join both mixed vertices, one of which is
+\(w\). As above, in the single-chain case \(u\) connects to \(U\), so the
+exponent is negative. If the cancellation is exact, deleting that
+block leaves its left endpoint and the new right boundary among the
+shared vertices. These coincide in the first case of rule 2. With two
+chains and a right chain of length one, only the new right boundary
+need be retained. These are precisely the exponent-zero cases.
+The new right boundary must be a cycle neighbor of \(v\), or the
+other vertex for a single edge. For each candidate, the two ordered
+boundaries and the unique spanning cycle determine at most one
+identification.
+
+Removing \(z\) isolated interior vertices multiplies the unnormalized
+matrix on the remaining vertices by \(n^z(1+O(n^{-1}))\), since their
+labels are chosen without replacement. In the exponent-zero cases
+this gives the claimed normalized terms. Their norms are at most
+polylogarithmic by \eqref{eq:rough}, so the scalar errors and the terms
+with negative exponents have norm \(o(1)\).
+\end{proof}
+
+\subsection{A positive semidefinite certificate}
+
+Write \(P_j(x)=U_j(x/2)\) for the Chebyshev polynomials of the second
+kind, orthonormal for the semicircle probability measure \(\mu\) on
+\([-2,2]\). They satisfy \(P_j(2\cos t)=\sin((j+1)t)/\sin t\).
+The connection between these polynomials and chain concatenation
+comes from Potechin and Xu~\cite{PX}.
+For a symmetric coefficient array \(c\) of square sum one,
+let \(M_c=\sum_\alpha c_\alpha\widehat M_\alpha\), and write \(C_j(M_c)\)
+for the sum of chains of \(j\) blocks with their product coefficients.
+Here symmetry of the array means invariance under boundary reversal.
+Set \(C_0(M_c)=I\). In the product \(C_j(M_c)M_c\), the appending term is
+\(C_{j+1}(M_c)\) and the backtracking term is \(C_{j-1}(M_c)\), with
+coefficient \(\sum_\alpha c_\alpha^2=1\). The remaining terms are
+pairs of chains. Such pairs stay in the same class upon right
+multiplication, up to the error in Lemma~\ref{lem:product}. The
+recurrence \(P_{j+1}(x)=xP_j(x)-P_{j-1}(x)\), together with
+\eqref{eq:sharp}, gives for each fixed \(j\)
+\begin{equation}\label{eq:cheb}
+ P_j(M_c)=C_j(M_c)+D_j(M_c)+o(1),
+\end{equation}
+where \(D_j(M_c)\) is a finite combination of two-chain matrices, and
+the error is in operator norm with probability \(1-O(n^{-2})\).
+In particular \(D_0=D_1=0\).
+
+We need a nonnegative polynomial on \([-2,2]\) with a controlled
+Chebyshev expansion. Let \(R_N(x)=\E\abs{4B/N-2}\) for a binomial
+variable \(B\) with parameters \(N,(x+2)/4\). This is an even
+polynomial and Jensen's inequality gives \(R_N(x)\ge\abs x\).
+The binomial variance gives \(R_N(x)-\abs x\le2/\sqrt N\). The
+derivative of the Bernstein polynomial is \(N/4\) times a binomial
+average of adjacent differences of the data \(\abs{4j/N-2}\),
+so \(\abs{R_N'}\le1\). Write
+\[
+ F_N(x)=x+R_N(x)=b_0+P_1(x)+\sum_{j=2}^N b_jP_j(x).
+\]
+The sine formula gives \((4-x^2)P_j''-3xP_j'+j(j+2)P_j=0\).
+
+Integration by parts against \(\mu\) now yields
+\(\sum_{j\ge2}j(j+2)b_j^2=\int(4-x^2)(R_N')^2\,d\mu\). In particular,
+\begin{equation}\label{eq:poly-coeff}
+ \sum_{j\ge2}j b_j^2\le\frac34,
+ \qquad a^2:=1-\sum_{j\ge2}b_j^2=1-\int R_N^2\,d\mu+b_0^2.
+\end{equation}
+By \eqref{eq:poly-coeff},
+\(\sum_{j\ge2}b_j^2\le\tfrac12\sum_{j\ge2}j b_j^2\le3/8\), so we take
+the positive root \(a\ge\sqrt{5/8}\). Since \(R_N\) converges uniformly
+to \(\abs x\), we have \(b_0\to\int\abs x\,d\mu>0\) and
+\(\int R_N^2\,d\mu\to\int x^2\,d\mu=1\). It follows that \(a/b_0\to1\).
+
+Fix \(N\). Give the single edge coefficient \(a\). For each chain of
+\(j\ge2\) already constructed basic shapes, add its boundary edge
+and give the resulting shape coefficient \(b_j\) times the product
+of its constituent coefficients. The spanning paths in the blocks
+concatenate to give the new cycle together with the added edge.
+Every chord stays within a single block's interval on this cycle,
+which makes the result a basic shape. Deleting its boundary edge
+recovers the ordered chain, whose blocks are its
+maximal two-connected subgraphs and bridges. Hence every constructed
+shape has a unique coefficient. The construction preserves boundary
+reversal. Give the edge depth zero and each new shape depth one plus
+the largest depth of its constituents. If \(\kappa_h\) is the squared
+coefficient norm through depth \(h\), then
+\[
+ \kappa_0=a^2,\qquad \kappa_{h+1}=a^2+\sum_{j\ge2} b_j^2 \kappa_h^j.
+\]
+This map fixes one and has Lipschitz constant at most \(3/4\) on
+\([0,1]\) by \eqref{eq:poly-coeff}. Thus \(\kappa_h\uparrow1\), and the
+normalized finite arrays converge in \(\ell_2\) to the full array.
+
+Let \(M_c\) have the coefficients through depth \(h\), divided by
+\(\sqrt{\kappa_h}\). For any chain of length at least two or pair of
+chains, write \(\operatorname{cl}\) for adding its boundary edge with
+the normalization held fixed. This multiplies the matrix entry
+\((i,j)\) by \(A_{ij}\). The closure of a pair of chains has norm
+\(o(1)\) by \eqref{eq:rough}, since it now has connected boundaries.
+Use this operation term by term on \(C_j(M_c)\) and \(D_j(M_c)\). By
+construction the coefficient array of \(\sum_{j\ge2}b_j
+\operatorname{cl}(C_j(M_c))\) approaches that of
+\(M_c-a A/\sqrt{n\kappa_h}\) in \(\ell_2\) as \(h\to\infty\). Indeed,
+closing a chain is injective on the ordered chain types, and the
+\(j\)-fold tensor power of the coefficient array is continuous in
+\(\ell_2\) for fixed \(j\). Let \(e_h\to0\) denote this coefficient
+difference in norm. Reversing a chain preserves its product
+coefficient and reverses its closure, so the matrix difference is
+symmetric. Lemma~\ref{lem:sharp} bounds its norm by \(3e_h\) with
+probability \(1-O(n^{-2})\).
+
+The matrix
+\[
+ W_0=b_0 I+\frac{a}{\sqrt{\kappa_h}}\frac{A}{\sqrt n}
+       +\sum_{j\ge2} b_j (\mathrm{id}+\operatorname{cl})(C_j(M_c)+D_j(M_c))
+\]
+has diagonal \(b_0\) and nonedge entries \(-a/\sqrt{n\kappa_h}\). By
+\eqref{eq:cheb} its symmetric part is within \(3e_h+o(1)\) of
+\(F_N(M_c)\) in operator norm with probability \(1-O(n^{-2})\).
+For any \(\eta>0\), choose \(h\) so that \(3e_h<\eta/3\). The fixed
+polynomial \(F_N\) is nonnegative on \([-2,2]\), so it is at least
+\(-\eta/3\) on \([-2-\delta,2+\delta]\) for some \(\delta>0\). This
+interval contains the spectrum of \(M_c\) with the same probability
+by \eqref{eq:sharp}. Adding \(\eta I\) to the symmetric part of
+\(W_0\) therefore gives a positive semidefinite matrix for sufficiently
+large \(n\). Apply \eqref{eq:witness}, using \(\kappa_h\le1\), to get
+\(\vartheta(G_n)\le 1+(b_0+\eta)\sqrt n/a\) on this event. On the
+complement use \(\vartheta(G_n)\le n\). Letting \(n\to\infty\), then
+\(\eta\downarrow0\), then \(N\to\infty\), proves the independent-edge
+upper bound.
+
+\section{Random circulants}\label{sec:circulant}
+
+\subsection{The smoothed Fourier program}
+
+Write \(\mathcal D\) for the connection set and \(\mathcal N\) for its
+complement in \(\Z_n\setminus\{0\}\). Define \(\varepsilon_0=0\),
+\(\varepsilon_s=-1\) on \(\mathcal D\), and \(\varepsilon_s=1\) on
+\(\mathcal N\). Thus \(\varepsilon_s=\xi_{[s]}\) for \(s\ne0\), where
+\([s]=\{s,-s\}\) and the \(\xi_{[s]}\) are independent fair signs.
+Let \(\mathcal F_{ks}=e^{-2\pi i ks/n}\). For
+\(\mathcal S\in\{\mathcal D,\mathcal N\}\), set
+\[
+ P_{\mathcal S}=n^{-1}\mathcal F\operatorname{diag}(\one_{\mathcal S})\mathcal F^*,
+ \qquad \Pi=n^{-1}\one\one^{\mathsf T},\qquad K=P_{\mathcal N}-P_{\mathcal D}.
+\]
+The operators \(P_{\mathcal D},P_{\mathcal N},\Pi\) are mutually orthogonal
+projections that sum to \(I\). They preserve real even vectors, and
+\(K^2=I-\Pi\).
+
+Averaging \(X\) in \eqref{eq:theta} over cyclic translations gives a
+circulant matrix with entries \(x_{i-j}/n\), where \(x\) is real and even.
+Its eigenvalues are \(y=\mathcal F x/n\). Thus \(y\) is a real even
+probability vector by positivity and the trace constraint. Since
+\(x=\mathcal F^*y\), the edge constraints are \(P_{\mathcal D}y=0\).
+Conversely, each real even probability vector in this kernel gives a
+feasible matrix with entries \((\mathcal F^*y)_{i-j}/n\).
+The objective is \(\sum_s x_s=ny_0\)~\cite{BBDFKK}.
+For probability vectors in \(\ker P_{\mathcal D}\) and
+\(\ker P_{\mathcal N}\) the inner product is \(1/n\), because only
+their constant projections contribute.
+
+Following \cite{CHHWY}, fix \(0<\tau\le1\), put \(w_0=1\) and
+\(w_k=\tau/n\) for \(k\ne0\), and write \(\omega=\sum_k w_k\).
+There exist positive real even vectors \(p,q\) in \(\ker P_{\mathcal D}\)
+and \(\ker P_{\mathcal N}\), respectively, satisfying
+\[
+ p_kq_k=w_k,\qquad \sum_k p_k=\sum_k q_k=\sqrt{n\omega}.
+\]
+To obtain them, minimize
+\((\sum_k p_k)^2/(2n)-\sum_k w_k\log p_k\) over positive real even
+\(p\in\ker P_{\mathcal D}\). The domain contains \(\one\).
+On a sublevel set the sum \(S=\sum_k p_k\) is bounded above, since the
+objective is at least \(S^2/(2n)-\omega\log S\). The logarithmic terms then
+bound every coordinate away from zero, so the minimum is attained
+in the interior. With \(q_k=w_k/p_k\), the gradient \(\Pi p-q\) is
+real and even. Its orthogonality to the real even part of
+\(\ker P_{\mathcal D}\) therefore puts it in
+\(\operatorname{ran}P_{\mathcal D}\). This gives
+\(P_{\mathcal N}q=0\) and \(\Pi q=\Pi p\), so
+\(\omega=\langle p,q\rangle=S^2/n\). As \(q/\sqrt{n\omega}\) is a feasible
+probability vector for the complement, \(ny_0\le\sqrt{n\omega}/q_0\)
+for every feasible \(y\). Using \(p_0q_0=1\) yields
+\begin{equation}\label{eq:barrier-upper}
+ \vartheta(G_n)/\sqrt n\le\sqrt\omega\,p_0.
+\end{equation}
+
+Set \(f=p-q\) and \(\Phi(v)_k=\sqrt{v_k^2+4w_k}\). Then
+\(f=K(p+q)=K\Phi(f)\). For any real even mean-zero vector \(v\), let
+\(u=\Phi(v)\), \(r=v-Ku\), \(\widetilde p=(u+v)/2\), and
+\[
+ \Delta=\sum_k w_k(\widetilde p_k/p_k+p_k/\widetilde p_k-2)\ge0.
+\]
+Since \((u_k+v_k)(u_k-v_k)=4w_k\), the two ratio terms sum to
+\(\tfrac12(\langle u,p+q\rangle-\langle v,f\rangle)\). Using
+\(K^2=I-\Pi\) and \(K(p+q)=f\) gives
+\[
+ \Delta=\sqrt\omega\,(\zeta-2\sqrt\omega)-\tfrac12\langle r,f\rangle,
+ \qquad \zeta=n^{-1/2}\sum_k u_k.
+\]
+Also \(\zeta^2-4\omega=\norm{v}_2^2-\norm{Ku}_2^2=2\langle v,r\rangle-\norm{r}_2^2\).
+Dividing by \(\zeta+2\sqrt\omega\) bounds \(\Delta\) by
+\((\norm v_2+\tfrac12\norm f_2)\norm r_2\).
+The term at zero in \(\Delta\) is at least \((\log(\widetilde p_0/p_0))^2\)
+by \(2(\cosh x-1)\ge x^2\). Since
+\(\log\widetilde p_0=\operatorname{arsinh}(v_0/2)\),
+\eqref{eq:barrier-upper} gives
+\begin{equation}\label{eq:residual}
+ \log\bigl(\vartheta(G_n)/\sqrt n\bigr)
+ \le \tfrac12\log\omega+\tfrac12\abs{v_0}+\sqrt\Delta,
+ \qquad 0\le\Delta\le(\norm v_2+\tfrac12\norm f_2)\norm r_2.
+\end{equation}
+
+\subsection{A Fourier kernel bound}
+
+We need a bound on \(\norm f_2\). The bound below has the same order
+as the kernel estimate of Bandeira et al.~\cite{BBDFKK}, which uses
+restricted isometry for uniformly sampled Fourier rows~\cite{HR}.
+Here we take nets for a Rademacher process on the inversion classes.
+
+\begin{lemma}\label{lem:kernel}
+With probability \(1-O(e^{-c(\log n)^2})\), every real vector \(x\)
+whose Fourier transform vanishes on \(\mathcal D\) or on \(\mathcal N\)
+satisfies \(\norm x_2\le C n^{-1/2}(\log n)^2\norm x_1\).
+\end{lemma}
+
+\begin{proof}
+Let \(\nu=cn/(\log n)^4\) for a small fixed \(c>0\), and let
+\(\mathcal A=\{x\in\mathbb R^n:\norm x_2\le1,\ \norm x_1\le\sqrt{\nu}\}\).
+Write \(d_{\mathcal F}(x,y)=\norm{\mathcal F(x-y)}_\infty\) and
+\[
+ \mathcal R(x)=\frac1n\sum_{a\ne0}\varepsilon_a\abs{(\mathcal F x)_a}^2.
+\]
+For \(x,y\in\mathcal A\), Parseval and Cauchy--Schwarz give
+\(\abs{\mathcal R(x)-\mathcal R(y)}\le2d_{\mathcal F}(x,y)\). The sum of
+squares of the independent sign coefficients of this difference is
+at most \(8d_{\mathcal F}(x,y)^2/n\).
+Indeed, each class has size at most two, and
+\(\sum_a (\abs{(\mathcal F x)_a}+\abs{(\mathcal F y)_a})^2\le4n\).
+Hoeffding's inequality gives the corresponding subgaussian tail.
+
+For \(0<u\le\sqrt{\nu}\), the set \(\mathcal A\) has a \(d_{\mathcal F}\)-net inside
+\(\mathcal A\) with logarithmic size at most \(C \nu(\log n)^2/u^2\).
+For each \(x\), write it as the expectation of a random vector in
+\(\{0,\pm\sqrt{\nu} e_1,\ldots,\pm\sqrt{\nu} e_n\}\) using its \(\ell_1\)
+bound. An average of \(\lceil C \nu\log n/u^2\rceil\) independent
+copies approximates \(x\) within \(u/2\) in \(d_{\mathcal F}\) with positive
+probability by Hoeffding's inequality at the \(n\) complex Fourier
+coordinates. Count the possible averages and choose a point of
+\(\mathcal A\) from each \(u/2\)-ball that meets it.
+
+Take nets at radii \(u_j=2^{-j}\sqrt{\nu}\), starting with \(\{0\}\) and
+stopping when \(u_j\le1/32\). There are \(O(\log n)\) scales. Apply the
+sign tail to pairs at consecutive scales at distance at most \(3u_j\).
+For each such pair the probability of an increment exceeding
+\(C_1\sqrt{\nu/n}\log n\) in absolute value is at most
+\(2\exp(-c_1 C_1^2 \nu(\log n)^2/u_j^2)\).
+The number of pairs is at most \(\exp(C_2\nu(\log n)^2/u_j^2)\).
+Taking \(C_1\) large and summing over scales using \(\nu/u_j^2=4^j\)
+bounds the failure probability by \(O(e^{-c'(\log n)^2})\).
+Telescoping from zero and using the deterministic bound for the
+last approximation gives
+\(\sup_{x\in\mathcal A}\abs{\mathcal R(x)}\le C_3\sqrt{\nu/n}(\log n)^2+1/16\le1/2\)
+for small enough \(c\). A unit vector in \(\mathcal A\) whose transform
+vanishes on either set would instead have
+\(\abs{\mathcal R(x)}=1-\abs{(\mathcal F x)_0}^2/n\ge1-\nu/n\). Rescaling proves
+the estimate.
+\end{proof}
+
+For a real even vector, membership in \(\ker P_{\mathcal D}\) means
+that its Fourier transform vanishes on \(\mathcal D\), and likewise
+for \(\mathcal N\). The masses of \(p,q\) therefore give, on the event
+of Lemma~\ref{lem:kernel},
+\begin{equation}\label{eq:f-bound}
+ \norm f_2=O_\tau((\log n)^2).
+\end{equation}
+
+\subsection{Tree fields over the cyclic group}
+
+Consider unordered rooted trees whose internal nodes have at least
+two children. For such a tree \(T\), write \(d(T)\), \(l(T)\), and
+\(\aut(T)\) for its number of nodes, number of leaves, and number of
+root-preserving automorphisms. Assign a residue to each leaf, and
+let \(r_v\) be the sum of the leaf residues below node \(v\). Call an
+assignment admissible when all \(r_v\) are nonzero and all classes
+\([r_v]\) are distinct. Define the standardized tree field~\cite{CHHWY} by
+\begin{equation}\label{eq:tree}
+ Z_T(k)=\frac{n^{-l(T)/2}}{\sqrt{\aut(T)}}
+       \sum_{\text{admissible assignments}}
+             e^{-2\pi i k r_{\rm root}/n}\prod_{v\in V(T)}\varepsilon_{r_v}.
+\end{equation}
+Negating the leaf residues shows that the exponential may be replaced
+by its cosine and that the field is real and even. The nonzero root
+residue makes its spatial mean zero. For the one-node tree \(L\),
+\(Z_L=\mathcal F\varepsilon/\sqrt n=\sqrt n K e_0\). Each \(Z_T(k)\)
+is a homogeneous multilinear polynomial of degree \(d(T)\) in the
+independent signs. If \(U=\sum_I u_I\prod_{b\in I}\xi_b\), define
+\(\partial_b U=\sum_{I\ni b}u_I\prod_{a\in I\setminus\{b\}}\xi_a\).
+
+A frequency \(k\) is regular if \(2k\ne0\) in \(\Z_n\). Thus the
+exceptional frequencies are zero and, in even order, \(n/2\).
+
+\begin{lemma}\label{lem:tree-moments}
+For trees \(T,S\) with at most \(D\) nodes, let
+\(B_D=\exp(CD\log(2D))\) for a suitable absolute \(C\). Uniformly in
+frequency and in the modulus, the second moments of the coordinates
+are at most \(B_D\), \(\E(\partial_b Z_T(k))^2\le B_D/n\), and
+\begin{equation}\label{eq:deriv-var}
+ \Var\!\left(\frac{1}{d(T)}\sum_b
+           \partial_b Z_T(k)\,\partial_b Z_S(j)\right)\le B_D/n.
+\end{equation}
+For regular \(k,j\),
+\begin{equation}\label{eq:cov}
+ \E[Z_T(k)Z_S(j)]=\one_{\{T\simeq S,\ j=\pm k\}}+O(B_D/\sqrt n).
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+For a set \(A\) of nodes in a tree with \(l\) leaves, let \(\rho(A)\)
+be the rank of the descendant-leaf indicator rows at those nodes.
+Subtract from each selected row the rows of its immediate selected
+descendants, using the original rows for the subtraction. This is
+a triangular change of rows with diagonal entries one. The resulting
+rows have disjoint supports, and the nonempty supports give
+independent rows. In particular, prescribed
+residues of the nodes in \(A\) leave at most \(n^{l-\rho(A)}\) possible
+leaf assignments. Each new nonzero row has a pivot of one, so this
+argument works modulo every \(n\). For a nonempty proper subset \(A\),
+\begin{equation}\label{eq:rank}
+ \rho(A)+\rho(A^{\mathrm c})\ge l+1.
+\end{equation}
+The two spans together contain every leaf row. If their intersection
+were zero, every minimally dependent set consisting of a parent and
+all its children would lie on one side of the partition. This would
+place the entire tree on one side.
+
+A sign support (the set of classes used by an assignment) fixes all
+leaf residues once its node roles and orientations are specified.
+This costs at most \(d(T)!2^{d(T)}\) choices. Prescribing one class at
+one node leaves at most \(2n^{l(T)-1}\) assignments. If \(N_I\) is the
+number of assignments with support \(I\), the squared coefficient is
+at most \(n^{-l(T)}N_I^2\). By sign orthogonality, the second moment
+uses the sum over all \(I\) and the squared derivative the sum over
+\(I\ni b\). Use \(N_I\le d(T)!2^{d(T)}\) and bound the corresponding
+sums of \(N_I\) by \(n^{l(T)}\) and \(2d(T)n^{l(T)-1}\).
+For \eqref{eq:deriv-var}, the nonconstant part comes from unequal
+supports with a common class. Fix the matching of roles and
+orientations on the overlap. In one of the two trees the overlap
+occupies a proper subset \(A\) of its roles. With leaf counts \(l,l'\),
+the number of assignment pairs is at most \(n^{l+l'-\rho(A)}\), by
+choosing the other tree's leaves first. For any fixed symmetric
+difference of the supports, specify the roles and orientations of
+its classes. The first tree then has at most \(n^{l-\rho(A^{\mathrm c})}\)
+choices, and its shared classes determine the rest of the second
+tree's labels. Each summand has absolute weight at most
+\(D n^{-(l+l')/2}\), counting the derivative choices. For a fixed
+overlap pattern, the squared Walsh norm is at most the largest
+absolute coefficient times the sum of absolute coefficients.
+Multiplying the two counts and the squared weight gives the power
+\(n^{l-\rho(A)-\rho(A^{\mathrm c})}\). The role allocations and
+orientations contribute a factor \(\exp(O(D\log(2D)))\). There are at most
+this many overlap patterns as well, so the \(L^2\) triangle
+inequality and \eqref{eq:rank} give \eqref{eq:deriv-var}.
+
+For \eqref{eq:cov}, the two supports must match completely. Different
+node counts give zero. For unequal leaf counts, specify the smaller
+leaf assignment first, which gives a bound \(B_D/\sqrt n\). Suppose
+then that the trees have the same leaf count \(l\). Assignments using
+the even-order singleton occur at most \(Dn^{l-1}\) times before
+matching. Their contribution is \(O(B_D/n)\). For all other admissible
+assignments a match specifies a unique signed node permutation.
+A permutation that fails to preserve the target's parent-sum relations
+as identities in the source leaves imposes a nonzero integer linear
+congruence that is a signed sum of at most \(D+1\) indicator rows.
+Fixing every leaf but one with nonzero coefficient \(a\) leaves
+at most \(\gcd(\abs a,n)\le D+1\) choices, so at most
+\((D+1)n^{l-1}\) assignments solve it. A permutation preserving all
+the relations maps the real spaces of node sums bijectively, since
+they have the same dimension. Its integer identities hold modulo
+\(n\) too. Each source assignment determines the target assignment
+from the target's matched leaf values. In its contribution we may
+sum over unrestricted leaf assignments with error \(O(B_D/n)\).
+Zero and singleton values and coincidences up to sign each impose a condition
+with a coefficient of magnitude one, since distinct descendant-leaf
+sets are nested or disjoint.
+
+If the target root is matched to a proper source node, the two root
+residues are independent uniform residues. The two leaf-sum rows have
+a minor of determinant one from a leaf inside that subtree and a
+leaf outside. The average cosine product is then zero.
+A root-to-root match between trees with more than one node preserves
+the leaves. The bijection of the real node-sum spaces preserves all
+minimal dependencies, up to signs. In a minimal dependent set,
+some subtracted row vanishes.
+The relation between that row's original node and its immediate
+selected descendants must use the entire set. If the set contains
+the root, it therefore consists of the root and an antichain covering
+its leaves. Such a set is minimally dependent, since the antichain
+has disjoint nonempty leaf sets. The unique largest set of this form
+consists of the root and all the leaves, so the signed permutation
+preserves it. The dependence also forces a common sign at the root
+and the leaves. The other node rows are sums of their descendant
+leaves. The leaf permutation therefore preserves the corresponding
+sets, their containment order, and the common sign. These matches are
+exactly rooted tree isomorphisms with a common sign, including the
+two trivial signed matches for one-node trees. For each of the
+\(2\aut(T)\) matches when \(T\simeq S\), the cosine product averages to
+\(1/2\) if \(j=\pm k\), and to zero otherwise, at regular frequencies.
+The normalizations in \eqref{eq:tree} now give \eqref{eq:cov}.
+\end{proof}
+
+\subsection{Gaussian comparison}
+
+For a sign polynomial \(U\) of degree at most \(D\), we use the bound
+\begin{equation}\label{eq:hypercontractivity}
+ \norm U_{L^{2m}}\le (2m-1)^{D/2}\norm U_{L^2}
+ \qquad(m\text{ a positive integer}).
+\end{equation}
+Indeed, the average of \((a+b)^{2m}\) and \((a-b)^{2m}\) is at most
+\((a^2+(2m-1)b^2)^m\) by comparing the even binomial coefficients.
+Writing \(U=U_0+\xi U_1\) in one sign and taking the \(L^m\) triangle
+inequality bounds \(\norm U_{L^{2m}}^2\) by
+\(\norm{U_0}_{L^{2m}}^2+(2m-1)\norm{U_1}_{L^{2m}}^2\).
+Iteration bounds this by the sum of squared sign coefficients with
+weight \((2m-1)^j\) in degree \(j\), which proves
+\eqref{eq:hypercontractivity}.
+
+\begin{lemma}\label{lem:comparison}
+At one regular frequency, or at two regular frequencies distinct up
+to sign, take tree coordinates with at most \(D\) nodes. The Gaussian
+counterparts are independent standard normals, one for each tree type
+and each frequency. Let \(V\) be a real linear combination of these
+coordinates with coefficient \(\ell_1\) norm at most \(C_0 4^D\), and
+let \(G_V\) be its Gaussian counterpart, of variance at most \(C_0\).
+Suppose \(\psi\) has three continuous derivatives with
+\(\abs{\psi^{(j)}(x)}\le C_\psi(1+\abs x)^{2M+3}\) for \(0\le j\le3\).
+Then, for a constant \(C\) depending only on \(C_0\),
+\begin{equation}\label{eq:comparison}
+ \abs{\E \psi(V)-\E \psi(G_V)}\le C_\psi E_{D,M}/\sqrt n,
+ \qquad E_{D,M}=\exp\!\bigl(C[(D+1)(M+1)]^2\bigr).
+\end{equation}
+In particular, for a polynomial of total degree at most \(2M\), the
+expectation error is at most its absolute coefficient sum times
+\(E_{D,M}/\sqrt n\), after increasing \(C\). At arbitrary frequencies
+the expected absolute value of such a polynomial is at most its
+absolute coefficient sum times \(E_{D,M}\).
+\end{lemma}
+
+\begin{proof}
+Write \(V=\sum_i a_iY_i\), where \(Y_i\) is a homogeneous coordinate of
+degree \(d_i\), and let \(A_1=\sum_i\abs{a_i}\). Flip a uniformly chosen
+sign, producing \(Y_i'\) and \(V'\). If there are \(m_0\) signs, the
+conditional mean of \(Y_i'-Y_i\) is \(-\lambda_iY_i\), with
+\(\lambda_i=2d_i/m_0\). Exchangeability gives for any test function \(g\)
+\[
+ \E[Y_i g(V)]=\frac{1}{2\lambda_i}
+       \E[(Y_i'-Y_i)(g(V')-g(V))].
+\]
+Put \(\sigma^2=\E G_V^2\) and take \(G_V\) independent of the signs.
+For \(V_t=\sqrt t\,V+\sqrt{1-t}\,G_V\), differentiate
+\(\E \psi(V_t)\) and integrate by parts in \(G_V\). The derivative is
+\(\E[V \psi'(V_t)]/(2\sqrt t)-\sigma^2\E \psi''(V_t)/2\).
+Apply the flip identity with \(g(x)=\psi'(\sqrt t\,x+\sqrt{1-t}\,G_V)\),
+conditioning on \(G_V\). Its linear Taylor term gives
+\(\sqrt t\,\E[\Gamma \psi''(V_t)]\) in \(\E[V\psi'(V_t)]\), where
+\[
+ \Gamma=\sum_{i,j}\frac{a_i a_j}{d_i}
+                  \sum_b\partial_bY_i\,\partial_bY_j.
+\]
+Orthogonality gives \(\E\Gamma=\E V^2\), and Lemma~\ref{lem:tree-moments}
+gives \(\norm{\Gamma-\sigma^2}_{L^2}\le C A_1^2 B_D/\sqrt n\).
+
+For the Taylor remainder set \(\delta_b=\sum_i\abs{a_i}\norm{\partial_bY_i}_{L^2}\).
+Then \(\max_b \delta_b\le A_1\sqrt{B_D/n}\) and
+\(\sum_b \delta_b^2\le A_1^2 D B_D\), the latter because
+\(\sum_b\E(\partial_bY_i)^2=d_i\E Y_i^2\).
+At a flip of sign \(b\), the remainder uses three sign differences
+and the third derivative of \(\psi\) along the segment between
+\(V_t\) and \(\sqrt t\,V'+\sqrt{1-t}\,G_V\).
+Use H\"older with three \(L^6\) norms for the sign differences and
+\(L^2\) for the derivative. By \eqref{eq:hypercontractivity}, the
+absolute remainder in \(\E[V\psi'(V_t)]\) is bounded by
+\[
+ C t C_\psi 5^{3D/2}\Bigl(\sum_b \delta_b^3\Bigr)
+     \bigl(1+2\norm V_{L^{2r}}+\norm{G_V}_{L^{2r}}\bigr)^r,
+ \qquad r=2M+3.
+\]
+Here the probability of choosing \(b\) cancels the factor \(m_0\) in
+the flip identity, and \(V'\) at each fixed flip has the law of \(V\).
+Both this bound after division by \(2\sqrt t\), and the covariance
+error involving \(\Gamma-\sigma^2\), are at most \(C_\psi E_{D,M}/\sqrt n\)
+by \eqref{eq:hypercontractivity} and the Gaussian moment bound
+\(\norm{G_V}_{L^{2r}}\le\sigma\sqrt{2r}\).
+
+The moment factors in these estimates are bounded by powers of
+\(1+(2r-1)^{D/2}A_1\sqrt{B_D}+\sigma\sqrt{2r}\), with exponents at
+most \(r\). These and the remaining degree factors fit in \(E_{D,M}\).
+Integrating over \(0<t<1\) gives \eqref{eq:comparison}. The endpoint
+limits follow by dominated convergence, using the polynomial growth
+bound for \(\psi\) and the moments of \(V\) and \(G_V\).
+
+Each monomial of degree \(d\le 2M\) is a polarization of the \(d\)-th
+power of linear combinations with coefficient \(\ell_1\) norm at
+most one. Explicitly, average
+\((\prod_{i=1}^d\eta_i)(\sum_{i=1}^d\eta_iY_i/d)^d\) over independent
+fair signs \(\eta_i\), and multiply by \(d^d/d!\). The derivative
+bounds for these powers and the polarization factor fit in the
+same exponential envelope. The bound at arbitrary frequencies
+follows by H\"older and \eqref{eq:hypercontractivity}.
+\end{proof}
+
+\subsection{The Gaussian equation}
+
+We now restrict to rooted trees with even numbers of children at
+internal nodes. Let \(\gamma_T\) be independent standard normals
+indexed by these trees, and write \(h_j=\mathrm{He}_j/\sqrt{j!}\) for
+the normalized probabilists' Hermite polynomials. Grafting a new
+root above a multiset of children defines the isometry \(\mathcal J\)
+from the span of the positive even-order Hermite products to the
+span of the nonleaf coordinates \(\gamma_T\)~\cite{CHHWY}. In detail,
+\[
+ \mathcal J\!\left(\prod_T h_{m_T}(\gamma_T)\right)=\gamma_{T_*},
+\]
+where \(T_*\) has \(m_T\) children of type \(T\), and \(\sum_T m_T\) is
+positive and even. These are orthonormal families indexed by the
+same multisets, so \(\mathcal J\) extends to their closed span.
+
+Write \(\varphi_\tau(x)=\sqrt{x^2+4\tau}\). We construct a centered
+Gaussian linear combination \(H\) satisfying
+\begin{equation}\label{eq:gauss}
+ H=2\gamma_L+\mathcal J\bigl(\varphi_\tau(H)-\E\varphi_\tau(H)\bigr)
+\end{equation}
+with a tail bound for its squared coefficients by tree size.
+Choose \(\sigma_\tau>0\) so that \(\E\varphi_\tau(\sigma_\tau\,g)=2\sqrt{1+\tau}\)
+for a standard normal \(g\). The left side is continuous and strictly
+increasing from \(2\sqrt\tau\) to infinity. Jensen's inequality for
+the square root gives \(\sigma_\tau^2\ge4\), and Jensen's inequality for the
+Euclidean norm of \((\sigma_\tau\,\abs g, 2\sqrt\tau)\) gives \(\sigma_\tau^2\le2\pi\).
+Let \(\beta_j\) be the Hermite coefficients of
+\(\varphi_\tau(\sigma_\tau\,g)\). Parseval gives
+\(\sum_{j\ge2}\beta_j^2=\sigma_\tau^2-4\), and odd coefficients vanish.
+Integration by parts in the Gaussian density gives
+\begin{equation}\label{eq:hermite-energy}
+ \sum_{j\ge1} j\beta_j^2=\sigma_\tau^2\,\E\!\left[\varphi_\tau'(\sigma_\tau\,g)^2\right]<\sigma_\tau^2.
+\end{equation}
+Indeed, the coefficients of the derivative in \(g\) are
+\(\sqrt{j}\beta_j\) in degree \(j-1\). Repeating this argument shows
+that for any integer \(p\ge1\), the squared Hermite tail at degrees
+above \(M\) for \(\varphi_\tau(\sigma g)\) is \(O_{\tau,p}(M^{-p})\),
+uniformly for \(0<\sigma\le\sqrt{2\pi}\). The \(p\)-th derivative has bounded
+Gaussian \(L^2\) norm on this range, and the squared coefficient in
+degree \(j\) is weighted by \(j(j-1)\cdots(j-p+1)\) in the derivative
+norm. The bounded derivatives follow by differentiating
+\(\varphi_\tau(x)=\sqrt{x^2+4\tau}\) with \(\tau>0\) fixed.
+
+Define numbers \(u_T\) recursively by \(u_L=2/\sigma_\tau\) and
+\[
+ u_{T_*}=\frac{\beta_j}{\sigma_\tau}
+      \sqrt{\frac{j!}{\prod_T m_T!}}\prod_T u_T^{m_T},
+ \qquad j=\sum_T m_T\ge2.
+\]
+The squares \(u_T^2\) are the probabilities of the unordered trees
+in a branching process having zero offspring with probability
+\(4/\sigma_\tau^2\), and \(j\ge2\) offspring with probability \(\beta_j^2/\sigma_\tau^2\).
+The multinomial factor counts orderings of the children. The mean
+number of offspring is less than one by \eqref{eq:hermite-energy},
+so the expected total population is finite and \(\sum_Tu_T^2=1\).
+The offspring law has finite moments of every order by the Hermite
+tail bound. The same is true of the total population. To see this,
+truncate the process at height \(h\) and expand the \(p\)-th power of
+one plus the sum of the child populations. Terms involving a single
+child to power \(p\) have coefficient equal to the mean offspring
+number times the previous height's \(p\)-th moment. The remaining
+terms have uniformly bounded expectation by induction on \(p\),
+using the \(p\)-th moment of the offspring number. This bounds the
+\(p\)-th moments uniformly in \(h\), and monotone convergence gives
+the assertion.
+
+Set \(H=\sigma_\tau\sum_Tu_T\gamma_T\), with convergence in \(L^2\).
+The Hermite generating function expands \(h_j(\sum_Tu_T\gamma_T)\)
+in the products \(\prod_T h_{m_T}(\gamma_T)\) with coefficients
+\(\sqrt{j!/\prod_Tm_T!}\prod_Tu_T^{m_T}\). To extend the finite identity,
+normalize finite truncations of \(u\) to have norm one. The resulting
+Gaussian sums converge in \(L^{2j}\) for each fixed \(j\), since the
+variance of the difference tends to zero. Their Hermite polynomials
+converge in \(L^2\), and each product coefficient converges to the
+displayed value. Applying the identity to the Hermite expansion proves
+\eqref{eq:gauss} by the recursion for \(u_T\). If \(H_D\) is the projection
+of \(H\) onto trees of at most \(D\) nodes, the population moments give
+\begin{equation}\label{eq:tree-tail}
+ \E\abs{H-H_D}^2=O_{\tau,p}(D^{-p})\quad\text{for every integer }p\ge1,
+ \qquad 4\le\E H_D^2\le2\pi.
+\end{equation}
+The lower variance bound follows from the leaf term.
+
+\subsection{Transfer to the random Fourier program}
+
+For a Gaussian linear combination \(Y\) with finite support, write
+\(Y[n]\) for the vector obtained by replacing \(\gamma_T\) by \(Z_T\).
+Write \(\|z\|_{n,2}^2=n^{-1}\sum_k\abs{z_k}^2\). From
+Lemma~\ref{lem:tree-moments}, for \(Y\) supported on trees of at most
+\(D\) nodes,
+\begin{equation}\label{eq:linear-transfer}
+ \E\norm{Y[n]}_{n,2}^2=(1+O(B_D/\sqrt n))\E Y^2,
+ \qquad \E\abs{Y[n](0)}^2\le B_D\E Y^2,
+\end{equation}
+with \(C\) in \(B_D\) enlarged. In fact, there are at most \(4^D\) tree
+types through size \(D\), by encoding plane representatives by their
+traversals. Cauchy--Schwarz bounds the squared coefficient \(\ell_1\) norm
+by \(4^D\E Y^2\). There are at most two exceptional coordinates.
+
+Let \(P_M\) be the degree-\(M\) Hermite projection of \(\varphi_\tau\) under
+the law of \(H_D\) in \eqref{eq:tree-tail}, and put
+\(Y=\mathcal J(P_M(H_D)-\E P_M(H_D))\). With the constant in \(E_{D,M}\)
+enlarged depending on \(\tau\), the estimates are
+\begin{align}
+ \E\norm{P_M(H_D[n])-\varphi_\tau(H_D[n])}_{n,2}^2
+   &\le C_{\tau,p} M^{-p}+E_{D,M}/\sqrt n, \label{eq:activation}\\
+ \E\norm{K P_M(H_D[n])-Y[n]}_{n,2}^2
+   &\le E_{D,M}/\sqrt n. \label{eq:grafting}
+\end{align}
+For \eqref{eq:activation}, apply Lemma~\ref{lem:comparison} to
+\(\psi(x)=(P_M(x)-\varphi_\tau(x))^2\). The coefficient bound for \(H_D\) in
+\eqref{eq:linear-transfer} applies to the linear combination. The
+coefficients of \(P_M\) in the normalized Hermite basis have squared
+sum at most \(\E\varphi_\tau(H_D)^2\le2\pi+4\tau\). In the power basis
+the absolute coefficient sum is at most
+\(\exp(O_\tau(M\log(2M)))\), by the Hermite generating function and
+\(\E H_D^2\ge4\). This bounds \(\psi\) and its first three derivatives as
+required, up to a factor \((1+\abs x)^{2M+3}\). At the exceptional
+frequencies the same growth bound and \eqref{eq:hypercontractivity}
+give a total contribution at most \(E_{D,M}/n\) to the spatial
+average. The Gaussian mean of \(\psi\) is the Hermite tail bounded above
+in the proof of \eqref{eq:tree-tail}.
+
+For \eqref{eq:grafting}, first take a normalized Hermite product
+of positive even total degree at most \(M\) evaluated at the tree
+fields, and denote the resulting vector by \(U\). With
+\(\mathcal F_{ks}=e^{-2\pi i ks/n}\), the action of \(K\) multiplies the
+mode \(k\mapsto e^{-2\pi i ks/n}\) by \(\varepsilon_s\). Expanding
+\(K U\) therefore adds a sign at the new root, whose residue is the
+sum of the child residues. The component of degree
+\(1+\sum_T m_T d(T)\) is exactly \(Z_{T_*}\). Indeed, a zero root
+residue gives zero, any repeated class reduces the degree by at
+least two, and lower Hermite terms have smaller sign degree. The
+leading term expands over all assignments to the individual copies
+of the child trees, once per assignment to the grafted tree's
+leaves. Its normalizing factor agrees because
+\[
+ \aut(T_*)=\prod_T m_T!\,\aut(T)^{m_T}
+\]
+for the multiplicities \(m_T\) of the child types. In particular, the
+singleton class at even order is treated by the same sign rule.
+By orthogonality of sign degrees and \(K^2=I-\Pi\),
+\begin{align*}
+ \E\norm{K U-Z_{T_*}}_{n,2}^2
+   &= \E\norm{K U}_{n,2}^2-\E\norm{Z_{T_*}}_{n,2}^2,\\
+ \E\norm{K U}_{n,2}^2
+   &= \frac1n\sum_k\E U(k)^2-\frac1{n^2}\sum_{k,j}\E[U(k)U(j)].
+\end{align*}
+In the first sum the Gaussian expectation is one at regular
+frequencies. In the double sum it is zero at regular frequencies
+distinct up to sign. There are at most two excluded single terms
+and \(O(n)\) excluded pairs. The absolute
+power coefficient sum for a normalized Hermite product of total
+degree at most \(M\) is \(\exp(O(M\log(2M)))\), again by the generating
+function. Lemma~\ref{lem:comparison} bounds the average errors on
+the regular terms by \(E_{D,M}/\sqrt n\) and the excluded
+contributions by \(E_{D,M}/n\), with the constant enlarged.
+The grafted tree has
+at most \(1+DM\) nodes, so \eqref{eq:linear-transfer} puts its averaged
+squared norm within the same error of one. This proves the bound
+for each product.
+
+The constant in the Hermite expansion of \(P_M(H_D)\) is annihilated by
+\(K\). There are at most \((1+4^D+M)^M\) remaining products, and their
+squared coefficient sum is at most \(2\pi+4\tau\). Cauchy--Schwarz
+therefore gives \eqref{eq:grafting}, still within the envelope
+\(E_{D,M}\) after increasing its constant.
+
+Take \(v=H_D[n]/\sqrt n\). Its mean across the coordinates is zero,
+it is real and even, and \eqref{eq:linear-transfer} bounds its second
+moment and \(\E\abs{v_0}^2\). By \eqref{eq:gauss}, the isometry of
+\(\mathcal J\), and the Lipschitz bound \(\abs{\varphi_\tau'}\le1\),
+\[
+ \E\abs{H_D-2\gamma_L-Y}^2=O_{\tau,p}(D^{-p}+M^{-p}).
+\]
+This linear combination is supported on trees of at most \(1+DM\)
+nodes, so \eqref{eq:linear-transfer} transfers its bound to the spatial
+mean square, with additional error at most \(E_{D,M}/\sqrt n\).
+At zero the smoothing weight changes. In vector form
+\[
+ \Phi(v)=\varphi_\tau(H_D[n])/\sqrt n+(2+\beta)e_0,
+ \qquad \abs\beta\le 2\abs{v_0}+2\sqrt{\tau/n}.
+\]
+The bound follows from \(\sqrt{v_0^2+4}-2\le\abs{v_0}\) and
+\(\sqrt{v_0^2+4\tau/n}\le\abs{v_0}+2\sqrt{\tau/n}\).
+Since \(Z_L=\sqrt n K e_0\), the residual is
+\begin{align*}
+ v-K\Phi(v)
+ &=\frac{(H_D-2\gamma_L-Y)[n]}{\sqrt n}
+   +\frac{Y[n]-K P_M(H_D[n])}{\sqrt n}\\
+ &\quad+\frac{K\bigl(P_M(H_D[n])-\varphi_\tau(H_D[n])\bigr)}{\sqrt n}
+   -\beta K e_0.
+\end{align*}
+The last term has expected squared norm \(O_\tau(B_D/n)\) by
+\eqref{eq:linear-transfer} and \(\norm K_{\op}\le1\).
+Bounding the other terms by the linear transfer,
+\eqref{eq:grafting}, and \eqref{eq:activation} gives
+\[
+ \E\norm{v-K\Phi(v)}_2^2
+ \le C_{\tau,p}(D^{-p}+M^{-p})+E_{D,M}/\sqrt n.
+\]
+Choose \(D=M=\lfloor(\log n)^{1/16}\rfloor\) and take \(p=200\).
+Then \(E_{D,M}=n^{o(1)}\), and we have
+\begin{equation}\label{eq:approx}
+ \E\norm v_2^2=O_\tau(1),\qquad
+ (\E\norm{v-K\Phi(v)}_2^2)^{1/2}=O_\tau((\log n)^{-6}),\qquad
+ \E\abs{v_0}^2\le n^{-1+o(1)}.
+\end{equation}
+
+\subsection{Expectation bound}
+
+Write \(\mathcal E_n\) for the event of Lemma~\ref{lem:kernel}.
+By \eqref{eq:residual}, \eqref{eq:f-bound}, \eqref{eq:approx}, and
+Cauchy--Schwarz, \(\E[\Delta\,\one_{\mathcal E_n}]=O_\tau((\log n)^{-4})\).
+Set \(\delta_n=(\log n)^{-1/2}\). The event \(\mathcal E_n\), \(\abs{v_0}\le\delta_n\)
+and \(\Delta\le\delta_n^2\) hold together with failure probability
+\(O_\tau((\log n)^{-3})\), by Lemma~\ref{lem:kernel} and Markov's
+inequality. On their intersection,
+\eqref{eq:residual} gives
+\(\vartheta(G_n)/\sqrt n\le\sqrt{1+\tau}\exp(3\delta_n/2)\).
+
+For the exceptional contribution, the circulant matrix with entries
+\(\varepsilon_{i-j}\), plus \(I\), agrees with \(J\) on the diagonal
+and on nonedges. Its largest eigenvalue is at most
+\(1+\norm{\mathcal F\varepsilon}_\infty\), which bounds
+\(\vartheta(G_n)\) by \eqref{eq:theta}. Each Fourier coefficient is a
+real sign sum with squared coefficient sum at most \(2n\), since
+reflected pairs contribute coefficients of magnitude at most two
+and the singleton contributes at most one. Hoeffding's inequality and a union
+bound give \(\norm{\mathcal F\varepsilon}_\infty\le4\sqrt{n\log n}\)
+with failure probability at most \(2n^{-3}\). Using this bound on the
+exceptional event costs \(O_\tau((\log n)^{-5/2})\) in the normalized
+expectation, and the spectral tail costs at most \(2n^{-5/2}\) by
+\(\vartheta(G_n)\le n\). Hence
+\(\limsup_{n\to\infty}\E\vartheta(G_n)/\sqrt n\le\sqrt{1+\tau}\).
+Letting \(\tau\downarrow0\) and using the complement lower bound
+completes the proof of Theorem~\ref{thm:main}.
+
+\section*{Acknowledgments}
+
+This work was carried out through automated proof discovery using
+GPT-6.2 Sol Max in Codex. The human author sorted and reorganized the
+resulting material and takes full responsibility for the work.
+The \LaTeX{} manuscript and Lean formalization code are available at
+\url{https://github.com/jinshanmu/LovaszTheta}.
+
+\begin{thebibliography}{9}
+
+\bibitem{Lovasz}
+L. Lov\'asz, \emph{On the Shannon capacity of a graph},
+IEEE Trans. Inform. Theory \textbf{25} (1979), no.~1, 1--7.
+\doi{10.1109/TIT.1979.1055985}.
+
+\bibitem{Juhasz}
+F. Juh\'asz, \emph{The asymptotic behaviour of Lov\'asz' \(\vartheta\)
+function for random graphs}, Combinatorica \textbf{2} (1982), no.~2,
+153--155.
+\doi{10.1007/BF02579314}.
+
+\bibitem{PX}
+A. Potechin and J. Xu, \emph{Sharp Lov\'asz-Theta Bounds on Random Graphs},
+arXiv:2609.30064v1, 2026. \doi{10.48550/arXiv.2609.30064}.
+
+\bibitem{BBDFKK}
+A. S. Bandeira, J. B{\l}asiok, D. Dmitriev, U. Faure, A. Kireeva,
+and D. Kunisky, \emph{The Lov\'asz number of random circulant graphs},
+Proc. Int. Conf. Sampling Theory and Applications (SampTA), 2025,
+1--5.
+\doi{10.1109/SampTA64769.2025.11133544}.
+
+\bibitem{CHHWY}
+X. Chen, H. Hu, Y. Hu, W. Wang, and L. Yang, \emph{Sharp asymptotics for
+the Lov\'asz number of random circulant graphs}, arXiv:2610.22971v1, 2026.
+\doi{10.48550/arXiv.2610.22971}.
+
+\bibitem{AMP}
+K. Ahn, D. Medarametla, and A. Potechin, \emph{Graph Matrices: Norm
+Bounds and Applications}, arXiv:1604.03423v5, 2021.
+\doi{10.48550/arXiv.1604.03423}.
+
+\bibitem{HR}
+I. Haviv and O. Regev, \emph{The restricted isometry property of
+subsampled Fourier matrices}, Proc. 27th Annu. ACM-SIAM Symp.
+Discrete Algorithms (SODA), 2016, 288--297.
+\doi{10.1137/1.9781611974331.ch22}.
+
+\end{thebibliography}
+\end{document}

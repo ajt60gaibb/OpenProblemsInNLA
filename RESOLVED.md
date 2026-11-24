@@ -42,6 +42,21 @@ The passing scopes include AC-01's small-CW upper bound (also relevant to AC-04)
 
 ## Resolved catalog entries
 
+### 🟠 MD-02 — sharp Lovász-theta constant for random circulants
+
+**Affirmative solution claimed, 22 November 2026.** Shanmu Jin,
+[*The sharp Lovász theta constant for two random graph models*](references/jin-md02-2026-11-22/manuscript.pdf),
+Theorem 1, model (2) (p. 1), and Section 3 (pp. 7–14), proves the
+expectation limit in the [original MD-02 model](matrix-discrepancy-and-optimization/MD-02/README.md).
+The proof includes even orders with one fair bit for the antipodal class
+and extends the odd-order result of [Chen et al., Theorem 1.1](https://arxiv.org/abs/2610.22971v1).
+
+[Submission and reproduction](references/jin-md02-2026-11-22/README.md) ·
+[Lean proof and verification evidence](matrix-discrepancy-and-optimization/MD-02/README.md#lean-proof-and-verification-evidence).
+The submitter verified the attained SDP maximum and the normalized
+expectation limit for the exact catalog model at the pinned Lean revision.
+Independent catalog review is pending.
+
 ### 🟠 MF-13 — symmetric maximizers for Lyapunov operators of order six
 
 **Affirmative solution claimed, 21 November 2026.** Shanmu Jin,
