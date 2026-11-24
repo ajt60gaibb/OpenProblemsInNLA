@@ -1,6 +1,6 @@
 # All problems and their status
 
-**89 problems with open targets:** 32 open and 57 partially resolved. **128 other retained entries**, excluded from the open count.
+**88 problems with open targets:** 31 open and 57 partially resolved. **129 other retained entries**, excluded from the open count.
 
 **Resolution evidence:** 37 solved (published or independently audited); 87 solved with Lean verification.
 
@@ -289,7 +289,6 @@ Retained entries outside the open count:
 
 | ID | Problem | Status | Difficulty | Impact | Read / source |
 | --- | --- | --- | --- | --- | --- |
-| [MD-02](matrix-discrepancy-and-optimization/MD-02/README.md) | The sharp Lovász-theta constant for random circulant graphs | **🔵 OPEN** | challenging | interesting to the community | [PDF](matrix-discrepancy-and-optimization/MD-02/problem.pdf) · [TeX](matrix-discrepancy-and-optimization/MD-02/problem.tex) |
 | [MD-05](matrix-discrepancy-and-optimization/MD-05/README.md) | The sharp universal Spencer discrepancy constant | **🔵 OPEN** | extreme | interesting to the community | [PDF](matrix-discrepancy-and-optimization/MD-05/problem.pdf) · [TeX](matrix-discrepancy-and-optimization/MD-05/problem.tex) |
 
 Retained entries outside the open count:
@@ -297,6 +296,7 @@ Retained entries outside the open count:
 | ID | Problem | Status | Difficulty | Impact | Read / source |
 | --- | --- | --- | --- | --- | --- |
 | [MD-01](matrix-discrepancy-and-optimization/MD-01/README.md) | The sharp Lovász-theta constant for dense random graphs | **🟠 SOLUTION CLAIMED** | challenging | broadly interesting | [PDF](matrix-discrepancy-and-optimization/MD-01/problem.pdf) · [TeX](matrix-discrepancy-and-optimization/MD-01/problem.tex) |
+| [MD-02](matrix-discrepancy-and-optimization/MD-02/README.md) | The sharp Lovász-theta constant for random circulant graphs | **🟠 SOLUTION CLAIMED** | challenging | interesting to the community | [PDF](matrix-discrepancy-and-optimization/MD-02/problem.pdf) · [TeX](matrix-discrepancy-and-optimization/MD-02/problem.tex) |
 | [MD-03](matrix-discrepancy-and-optimization/MD-03/README.md) | The Komlós discrepancy conjecture | **🏆 LEAN VERIFIED** | extreme | broadly interesting | [PDF](matrix-discrepancy-and-optimization/MD-03/problem.pdf) · [TeX](matrix-discrepancy-and-optimization/MD-03/problem.tex) |
 | [MD-04](matrix-discrepancy-and-optimization/MD-04/README.md) | The Beck–Fiala discrepancy conjecture | **🏆 LEAN VERIFIED** | extreme | broadly interesting | [PDF](matrix-discrepancy-and-optimization/MD-04/problem.pdf) · [TeX](matrix-discrepancy-and-optimization/MD-04/problem.tex) |
 | [MD-06](matrix-discrepancy-and-optimization/MD-06/README.md) | Global synchronization of a random cubic graph | **✅ SOLVED** | challenging | interesting to the community | [PDF](matrix-discrepancy-and-optimization/MD-06/problem.pdf) · [TeX](matrix-discrepancy-and-optimization/MD-06/problem.tex) |
