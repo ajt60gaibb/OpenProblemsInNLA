@@ -1,8 +1,8 @@
 # All problems and their status
 
-**83 problems with open targets:** 27 open and 56 partially resolved. **134 other retained entries**, excluded from the open count.
+**82 problems with open targets:** 26 open and 56 partially resolved. **135 other retained entries**, excluded from the open count.
 
-**Resolution evidence:** 38 solved (published or independently audited); 89 solved with Lean verification.
+**Resolution evidence:** 39 solved (published or independently audited); 89 solved with Lean verification.
 
 Each entry records its own literature-check date. Literature checks are bounded; ratings are editorial. “Impact” uses the canonical `Importance` field.
 
@@ -49,7 +49,6 @@ Retained entries outside the open count:
 
 | ID | Problem | Status | Difficulty | Impact | Read / source |
 | --- | --- | --- | --- | --- | --- |
-| [IE-07](eigenvalues-and-inverse-problems/IE-07/README.md) | Deterministic regularization of the nonsymmetric eigenproblem | **🔵 OPEN** | extreme | broadly interesting | [PDF](eigenvalues-and-inverse-problems/IE-07/problem.pdf) · [TeX](eigenvalues-and-inverse-problems/IE-07/problem.tex) |
 | [IS-01](eigenvalues-and-inverse-problems/IS-01/README.md) | Two permutation matrices generate the doubly stochastic spectral boundary | **🔵 OPEN** | challenging | interesting to the community | [PDF](eigenvalues-and-inverse-problems/IS-01/problem.pdf) · [TeX](eigenvalues-and-inverse-problems/IS-01/problem.tex) |
 | [IS-05](eigenvalues-and-inverse-problems/IS-05/README.md) | The optimal decay exponent for the conditioning of sign matrices | **🟡 PARTIAL** | extreme | interesting to the community | [PDF](eigenvalues-and-inverse-problems/IS-05/problem.pdf) · [TeX](eigenvalues-and-inverse-problems/IS-05/problem.tex) |
 | [SP-01](eigenvalues-and-inverse-problems/SP-01/README.md) | The sharp generic threshold for spectral-subspace rotation | **🔵 OPEN** | challenging | interesting to the community | [PDF](eigenvalues-and-inverse-problems/SP-01/problem.pdf) · [TeX](eigenvalues-and-inverse-problems/SP-01/problem.tex) |
@@ -64,6 +63,7 @@ Retained entries outside the open count:
 
 | ID | Problem | Status | Difficulty | Impact | Read / source |
 | --- | --- | --- | --- | --- | --- |
+| [IE-07](eigenvalues-and-inverse-problems/IE-07/README.md) | Deterministic regularization of the nonsymmetric eigenproblem | **✅ SOLVED** | extreme | broadly interesting | [PDF](eigenvalues-and-inverse-problems/IE-07/problem.pdf) · [TeX](eigenvalues-and-inverse-problems/IE-07/problem.tex) |
 | [IE-08](eigenvalues-and-inverse-problems/IE-08/README.md) | A cubic-time Schur algorithm using logarithmic precision | **🏆 LEAN VERIFIED** | extreme | broadly interesting | [PDF](eigenvalues-and-inverse-problems/IE-08/problem.pdf) · [TeX](eigenvalues-and-inverse-problems/IE-08/problem.tex) |
 | [IE-10](eigenvalues-and-inverse-problems/IE-10/README.md) | Conditioning of a random Krylov compression of a cyclic shift | **✅ SOLVED** | challenging | interesting to specialist | [PDF](eigenvalues-and-inverse-problems/IE-10/problem.pdf) · [TeX](eigenvalues-and-inverse-problems/IE-10/problem.tex) |
 | [IS-02](eigenvalues-and-inverse-problems/IS-02/README.md) | Where a symmetric stochastic matrix can be spectrally unique | **🏆 LEAN VERIFIED** | challenging | interesting to specialist | [PDF](eigenvalues-and-inverse-problems/IS-02/problem.pdf) · [TeX](eigenvalues-and-inverse-problems/IS-02/problem.tex) |

@@ -34,7 +34,7 @@ eigenproblem},pdfauthor={Open Problems in Numerical Linear Algebra}}
 \fancyhf{}
 \fancyhead[L]{\sffamily\footnotesize\color{muted}OPEN PROBLEMS IN NUMERICAL LINEAR ALGEBRA}
 \fancyhead[R]{\sffamily\bfseries\footnotesize\color{accent}IE-07}
-\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-09-10}}
+\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-11-26}}
 \fancyfoot[R]{\sffamily\footnotesize\color{muted}\thepage}
 \renewcommand{\headrulewidth}{0.3pt}
 \renewcommand{\headrule}{\hbox to\headwidth{\color{accent}\leaders\hrule height \headrulewidth\hfill}}
@@ -51,7 +51,7 @@ regularization of the nonsymmetric eigenproblem\par}
 \vspace{7pt}
 {\sffamily\small\textbf{Difficulty:} extreme\quad\textbf{Importance:} broadly
 interesting\par}
-{\sffamily\small\bfseries\color{accent}Status: Open\par}
+{\sffamily\small\bfseries\color{accent}Status: Solved\par}
 \vspace{4pt}
 {\color{accent}\hrule height 0.8pt}
 \vspace{6pt}
@@ -59,24 +59,56 @@ interesting\par}
 of a fully general nonnormal eigenproblem; broad impact comes from
 replacing randomness in a basic numerical linear algebra primitive.
 
+\subsection{Resolution --- 2026-11-24}\label{resolution-2026-11-24}
+
+\textbf{Solved affirmatively by Matthew J. Colbrook}, Department of
+Applied Mathematics and Theoretical Physics, University of Cambridge.
+\textbf{Theorem 1.1 (Deterministic spectral regularisation)} of
+\href{https://arxiv.org/abs/2611.28614v1}{\emph{Deterministic
+regularisation of the nonsymmetric eigenproblem}}, submitted 21 November
+2026, resolves the full original exact-arithmetic target. The proof is
+in Sections 2--7, with the algorithm, termination, uniform bounds and
+arithmetic cost assembled in Section 7.
+
+For every \(n\geq2\), complex contraction \(A\) and \(0<\delta<1/2\),
+the theorem constructs deterministically \(E\) with \(\|E\|_2<\delta\)
+such that \(A+E\) has simple spectrum and
+
+\[\frac{\kappa_V(A+E)}{\mathop{\mathrm{gap}}\nolimits(A+E)}
+\leq C(n/\delta)^{20/3},\]
+
+using \(O(n^3\log^d(n/\delta))\) real-field operations and comparisons,
+for universal \(C,d\). It also returns an exact eigensystem and inverse
+eigenbasis. Thus it supplies the required perturbation, including for
+defective inputs, with \(c=20/3\) and a strictly stronger perturbation
+bound. The definitions of the spectral norm, eigenbasis condition number
+and minimum gap agree with the retained statement below.
+
+The computational model is specified immediately after Theorem 1.1 and
+in Section 6: arithmetic and comparisons have unit cost, including
+operations on integers of arbitrary length. The result concerns the
+exact-arithmetic target; it does not assert a floating-point precision
+or bit-complexity bound. Section 1.3 discloses AI assistance in
+developing the proof.
+
+The permanent ID, canonical path, original statement, source references
+and earlier audit notes are retained. The difficulty and importance
+ratings are historical; this entry is excluded from the open count.
+
 \subsection{Problem statement}\label{problem-statement}
 
 For a matrix \(M\) with simple spectrum, define
 
-\[
-\operatorname{gap}(M)=\min_{i\ne j}|\lambda_i(M)-\lambda_j(M)|,
+\[\mathop{\mathrm{gap}}\nolimits(M)=\min_{i\ne j}|\lambda_i(M)-\lambda_j(M)|,
 \qquad
-\kappa_V(M)=\inf_{M=VDV^{-1},\ D\text{ diagonal}}\|V\|_2\|V^{-1}\|_2.
-\]
+\kappa_V(M)=\inf_{M=VDV^{-1},\ D\text{ diagonal}}\|V\|_2\|V^{-1}\|_2.\]
 
 For every \(n\geq2\), \(A\in\mathbb C^{n\times n}\) with
 \(\|A\|_2\leq1\), and \(0<\delta<1/2\), construct deterministically a
 matrix \(E\) such that
 
-\[
-\|E\|_2\leq\delta,\qquad A+E\text{ has simple spectrum},\qquad
-\frac{\kappa_V(A+E)}{\operatorname{gap}(A+E)}\leq C(n/\delta)^c,
-\]
+\[\|E\|_2\leq\delta,\qquad A+E\text{ has simple spectrum},\qquad
+\frac{\kappa_V(A+E)}{\mathop{\mathrm{gap}}\nolimits(A+E)}\leq C(n/\delta)^c,\]
 
 using \(O(n^3\log^d(n/\delta))\) exact arithmetic operations, for
 universal constants \(C,c,d\). The task is to find the perturbation, not
@@ -109,4 +141,19 @@ Rechecked \href{https://arxiv.org/html/2602.05394v3}{workshop version
 found no solution. The corrected reciprocal scale in this entry remains
 necessary; the source's displayed exponent does not match the intended
 inverse-polynomial regularity guarantee.
+
+\subsection{Independent informal review ---
+2026-11-26}\label{independent-informal-review-2026-11-26}
+
+A Codex review of v1 checked the discriminant collision and phase
+arguments, the root approximation and exact eigensystem correction, and
+the termination and two-stage work bounds. The arithmetic count uses the
+radix packing of Lemma 6.1 with comparisons and exact arithmetic on
+unbounded field values. In Lemma 6.3, the stored phase in the Frobenius
+pairing is \(\overline{t_j}\), since the pairing uses the adjoint of the
+accumulated perturbation. Reading the summand with this conjugation
+gives the stated pairing and costs one real sign change per stored
+phase. The review found no blocking issue in the exact-arithmetic
+argument. This was an informal AI review.
+\href{https://arxiv.org/html/2611.28614v1}{Preprint v1, §§2--7}.
 \end{document}

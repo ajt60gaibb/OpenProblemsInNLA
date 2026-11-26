@@ -2,11 +2,10 @@
 
 [← All categories](../README.md) · [Full catalog](../CATALOG.md) · [Solved and claimed solutions](../RESOLVED.md)
 
-**10 problems with open targets.** 16 retained entries are excluded from the open count.
+**9 problems with open targets.** 17 retained entries are excluded from the open count.
 
 | ID | Problem | Status | Difficulty | Impact | Read / source |
 | --- | --- | --- | --- | --- | --- |
-| [IE-07](IE-07/README.md) | Deterministic regularization of the nonsymmetric eigenproblem | **🔵 OPEN** | extreme | broadly interesting | [PDF](IE-07/problem.pdf) · [TeX](IE-07/problem.tex) |
 | [IS-01](IS-01/README.md) | Two permutation matrices generate the doubly stochastic spectral boundary | **🔵 OPEN** | challenging | interesting to the community | [PDF](IS-01/problem.pdf) · [TeX](IS-01/problem.tex) |
 | [IS-05](IS-05/README.md) | The optimal decay exponent for the conditioning of sign matrices | **🟡 PARTIAL** | extreme | interesting to the community | [PDF](IS-05/problem.pdf) · [TeX](IS-05/problem.tex) |
 | [SP-01](SP-01/README.md) | The sharp generic threshold for spectral-subspace rotation | **🔵 OPEN** | challenging | interesting to the community | [PDF](SP-01/problem.pdf) · [TeX](SP-01/problem.tex) |
@@ -21,6 +20,7 @@
 
 | ID | Problem | Status | Difficulty | Impact | Read / source |
 | --- | --- | --- | --- | --- | --- |
+| [IE-07](IE-07/README.md) | Deterministic regularization of the nonsymmetric eigenproblem | **✅ SOLVED** | extreme | broadly interesting | [PDF](IE-07/problem.pdf) · [TeX](IE-07/problem.tex) |
 | [IE-08](IE-08/README.md) | A cubic-time Schur algorithm using logarithmic precision | **🏆 LEAN VERIFIED** | extreme | broadly interesting | [PDF](IE-08/problem.pdf) · [TeX](IE-08/problem.tex) |
 | [IE-10](IE-10/README.md) | Conditioning of a random Krylov compression of a cyclic shift | **✅ SOLVED** | challenging | interesting to specialist | [PDF](IE-10/problem.pdf) · [TeX](IE-10/problem.tex) |
 | [IS-02](IS-02/README.md) | Where a symmetric stochastic matrix can be spectrally unique | **🏆 LEAN VERIFIED** | challenging | interesting to specialist | [PDF](IS-02/problem.pdf) · [TeX](IS-02/problem.tex) |
