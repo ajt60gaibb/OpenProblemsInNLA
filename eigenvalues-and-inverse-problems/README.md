@@ -21,7 +21,7 @@
 
 | ID | Problem | Status | Difficulty | Impact | Read / source |
 | --- | --- | --- | --- | --- | --- |
-| [IE-08](IE-08/README.md) | A cubic-time Schur algorithm using logarithmic precision | **✅ SOLVED** | extreme | broadly interesting | [PDF](IE-08/problem.pdf) · [TeX](IE-08/problem.tex) |
+| [IE-08](IE-08/README.md) | A cubic-time Schur algorithm using logarithmic precision | **🏆 LEAN VERIFIED** | extreme | broadly interesting | [PDF](IE-08/problem.pdf) · [TeX](IE-08/problem.tex) |
 | [IE-10](IE-10/README.md) | Conditioning of a random Krylov compression of a cyclic shift | **✅ SOLVED** | challenging | interesting to specialist | [PDF](IE-10/problem.pdf) · [TeX](IE-10/problem.tex) |
 | [IS-02](IS-02/README.md) | Where a symmetric stochastic matrix can be spectrally unique | **🏆 LEAN VERIFIED** | challenging | interesting to specialist | [PDF](IS-02/problem.pdf) · [TeX](IS-02/problem.tex) |
 | [IS-03](IS-03/README.md) | Johnson's derivative-realizability conjecture | **🏆 LEAN VERIFIED** | challenging | interesting to the community | [PDF](IS-03/problem.pdf) · [TeX](IS-03/problem.tex) |
