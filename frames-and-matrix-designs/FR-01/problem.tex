@@ -34,7 +34,7 @@ count},pdfauthor={Open Problems in Numerical Linear Algebra}}
 \fancyhf{}
 \fancyhead[L]{\sffamily\footnotesize\color{muted}OPEN PROBLEMS IN NUMERICAL LINEAR ALGEBRA}
 \fancyhead[R]{\sffamily\bfseries\footnotesize\color{accent}FR-01}
-\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-09-10}}
+\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-11-26}}
 \fancyfoot[R]{\sffamily\footnotesize\color{muted}\thepage}
 \renewcommand{\headrulewidth}{0.3pt}
 \renewcommand{\headrule}{\hbox to\headwidth{\color{accent}\leaders\hrule height \headrulewidth\hfill}}
@@ -62,16 +62,18 @@ for sensing, algorithms and numerical approximation.
 Does a deterministic algorithm exist, with running time polynomial in
 \(N\), which, for every pair of integers \(N\geq2\) and
 \(1\leq s\leq N\), constructs a matrix \(A\in\mathbb R^{m\times N}\)
-satisfying \[
-m\leq C s\log^c(2N),\qquad
+satisfying
+
+\[m\leq C s\log^c(2N),\qquad
 \|x\|_2\leq\|Ax\|_2\leq2\|x\|_2
-\quad\text{whenever }x\in\mathbb R^N,\ |\operatorname{supp}(x)|\leq s,
-\] for absolute constants \(C,c>0\)? The algorithm must output the
-entries, rather than merely assert existence. As usual, one may use
-rational output of polynomial bit length; the fixed distortion interval
-permits sufficiently fine rational rounding using polynomial bit length
-of a construction with slack. The row bound is permitted to exceed
-\(N\), when the identity is sufficient.
+\quad\text{whenever }x\in\mathbb R^N,\ |\mathop{\mathrm{supp}}\nolimits(x)|\leq s,\]
+
+for absolute constants \(C,c>0\)? The algorithm must output the entries,
+rather than merely assert existence. As usual, one may use rational
+output of polynomial bit length; the fixed distortion interval permits
+sufficiently fine rational rounding using polynomial bit length of a
+construction with slack. The row bound is permitted to exceed \(N\),
+when the identity is sufficient.
 
 This is the deterministic construction question in the data-streams
 workshop report, with its original fixed-distortion convention. The
@@ -84,11 +86,13 @@ count}\label{related-stronger-question-optimal-row-count}
 
 Does a deterministic algorithm, polynomial in \(N\), output for every
 \(N\ge2\) and \(1\le s\le N\) a rational matrix
-\(B\in\mathbb Q^{m\times N}\) of polynomial bit length such that \[
-m\le C s\log(eN/s),\qquad
+\(B\in\mathbb Q^{m\times N}\) of polynomial bit length such that
+
+\[m\le C s\log(eN/s),\qquad
 \tfrac12\|x\|_2^2\le\|Bx\|_2^2\le\tfrac32\|x\|_2^2
-\quad\text{for all }x\in\mathbb R^N\text{ with }|\operatorname{supp}x|\le s,
-\] for an absolute \(C\)? This is the supplied ADD-022 quantitative
+\quad\text{for all }x\in\mathbb R^N\text{ with }|\mathop{\mathrm{supp}}\nolimits x|\le s,\]
+
+for an absolute \(C\)? This is the supplied ADD-022 quantitative
 formulation of the deterministic-construction gap discussed by Rao, with
 fixed distortion and an explicit output model. It strengthens the row
 target of the original question. Both targets are grouped as one entry;
@@ -109,7 +113,7 @@ randomized constructions do not answer either deterministic question.
   A. S. Bandeira, \emph{Ten Lectures and Forty-Two Open Problems in the
   Mathematics of Data Science}, lecture notes, Open Problem 5.1 (printed
   p.~88), a related weaker target with sparsity about
-  \(m^{0.6}/\operatorname{polylog}N\).
+  \(m^{0.6}/\mathop{\mathrm{polylog}}\nolimits N\).
   \href{https://people.math.ethz.ch/~abandeira/TenLecturesFortyTwoProblems.pdf}{Author's
   notes}.
 \item
@@ -140,4 +144,18 @@ count still uses randomness. Searches for deterministic RIP
 constructions through the audit date found no construction meeting
 either displayed target. This is a bounded literature check, not a proof
 that no solution exists.
+
+\subsection{Literature update ---
+2026-11-26}\label{literature-update-2026-11-26}
+
+Christian Kümmerle and Dustin G. Mixon construct explicit real matrices
+with \(s=m^{2/3-o(1)}\), vanishing restricted isometry constant and
+\(m/N\to0\) along a family. Theorem 1 and §4.3 describe the construction
+and polynomial-time entry computation to prescribed precision. In that
+family, \(m=s^{3/2+o(1)}\) and \(\log N=O(\log m)\), so both row-count
+targets above remain open. The authors supply Lean proofs of the
+mathematical bounds and discuss the running time separately.
+\href{https://arxiv.org/html/2611.14475v1}{Preprint, Theorem 1 and §4.3}
+· \href{https://github.com/ckuemmerle/ExplicitRIPTwoThirds}{Authors'
+Lean source}.
 \end{document}

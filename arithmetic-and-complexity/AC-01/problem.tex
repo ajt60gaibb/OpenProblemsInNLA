@@ -34,7 +34,7 @@ two?},pdfauthor={Open Problems in Numerical Linear Algebra}}
 \fancyhf{}
 \fancyhead[L]{\sffamily\footnotesize\color{muted}OPEN PROBLEMS IN NUMERICAL LINEAR ALGEBRA}
 \fancyhead[R]{\sffamily\bfseries\footnotesize\color{accent}AC-01}
-\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-10-06}}
+\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-11-26}}
 \fancyfoot[R]{\sffamily\footnotesize\color{muted}\thepage}
 \renewcommand{\headrulewidth}{0.3pt}
 \renewcommand{\headrule}{\hbox to\headwidth{\color{accent}\leaders\hrule height \headrulewidth\hfill}}
@@ -51,7 +51,7 @@ the matrix multiplication exponent two?\par}
 \vspace{7pt}
 {\sffamily\small\textbf{Difficulty:} extreme\quad\textbf{Importance:} broadly
 interesting\par}
-{\sffamily\small\bfseries\color{accent}Status: Open\par}
+{\sffamily\small\bfseries\color{accent}Status: Lean verified\par}
 \vspace{4pt}
 {\color{accent}\hrule height 0.8pt}
 \vspace{6pt}
@@ -61,8 +61,67 @@ follows from matrix multiplication's role throughout NLA and
 computational complexity.\\
 \textbf{Topic:} arithmetic complexity of dense matrix multiplication
 
-\hypertarget{problem-statement}{%
-\subsection{Problem statement}\label{problem-statement}}
+\subsection{Negative resolution --- 24 November
+2026}\label{negative-resolution-24-november-2026}
+
+The square matrix multiplication exponent over \(\mathbb C\) is \(9/4\).
+Theorem 1.1 of OpenAI's
+\href{https://github.com/openai/math/blob/92b516ef8e2abf66c3db7aa31438d3010bc7956f/preprints/The-matrix-multiplication-exponent-is-nine-fourths-November-24-2026/paper.pdf}{\emph{The
+matrix multiplication exponent is nine fourths}} supplies the matching
+lower bound. The October upper bound below was also extended to every
+field by Alimzhan Amanov, Maxim van den Berg and Jeroen Zuiddam in
+\href{https://arxiv.org/html/2610.30054v1}{\emph{Multiplying matrices
+via polynomials}, §4.4}. The exponent is an infimum. The upper bound
+gives \(O_{\varepsilon}(n^{9/4+\varepsilon})\) for every
+\(\varepsilon>0\).
+
+\subsubsection{Lean proof and verification
+evidence}\label{lean-proof-and-verification-evidence}
+
+The pinned release proves
+\textit{OAI.LinearAlgebra.MatrixExponent.omega\_eq} for rational
+circuits and \textit{OAI.LinearAlgebra.SpectralBooks.square\_exponent}
+for division-free formal polynomial circuits, over every field. A
+program defined on all complex inputs gives rational-function identities
+because \(\mathbb C\) is infinite. The rational-circuit lower bound
+therefore applies to the original program model, and the division-free
+upper bound gives programs defined on all inputs.
+\href{https://github.com/openai/math/blob/92b516ef8e2abf66c3db7aa31438d3010bc7956f/lean/OAI/LinearAlgebra/MatrixExponent/FieldFormula.lean}{With-division
+theorem} ·
+\href{https://github.com/openai/math/blob/92b516ef8e2abf66c3db7aa31438d3010bc7956f/lean/OAI/LinearAlgebra/SpectralBooks/ExactExponent.lean}{Division-free
+theorem}.
+
+Carlos Toledo's independent verification record of 25 November 2026
+reports that Lean's kernel and nanoda accepted both bridges to
+independently written with-division statements,
+\textit{Bridge.DivisionA} and \textit{Bridge.DivisionB}, with transitive
+axioms limited to \textit{propext}, \textit{Classical.choice} and
+\textit{Quot.sound}. The audit used Lean 4.34.1, mathlib
+\textit{d13f23b723b8a846827a245b89c10fc7d3f11612}, and the release's
+\href{https://github.com/openai/math/blob/92b516ef8e2abf66c3db7aa31438d3010bc7956f/lean/lake-manifest.json}{dependency
+manifest}. This catalog reviewed the theorem correspondence and public
+verification record. The kernel checks were run by the external audit.
+\href{https://carlostoledo.co/omega/}{Audit, rows K0 and F2} ·
+\href{https://doi.org/10.5281/zenodo.24537370}{Archived configurations,
+proof exports and dated logs}.
+
+To reproduce the release theorem and axiom checks from the pinned
+revision, run the following from its \textit{lean} directory. The audit
+archive also contains the two division Comparator configurations.
+
+\begin{verbatim}
+lake exe cache get
+lake build OAI.LinearAlgebra.SpectralBooks.ExactExponent
+check_dir=$(mktemp -d)
+cat >"$check_dir/MatrixExponentAxioms.lean" <<'EOF'
+import OAI.LinearAlgebra.SpectralBooks.ExactExponent
+#print axioms OAI.LinearAlgebra.MatrixExponent.omega_eq
+#print axioms OAI.LinearAlgebra.SpectralBooks.square_exponent
+EOF
+lake env lean "$check_dir/MatrixExponentAxioms.lean"
+\end{verbatim}
+
+\subsection{Problem statement}\label{problem-statement}
 
 Over the field \(\mathbb C\), let \(M(n)\) be the minimum number of
 scalar additions, subtractions, multiplications, and divisions in an
@@ -74,13 +133,11 @@ products be computed in \(O(n^{2+\varepsilon})\) arithmetic operations?
 This asks about asymptotic arithmetic cost; it does not assert an
 \(O(n^2)\) algorithm or a floating-point stability guarantee.
 
-\hypertarget{why-it-matters}{%
-\subsection{Why it matters}\label{why-it-matters}}
+\subsection{Why it matters}\label{why-it-matters}
 
 Matrix multiplication is a basic cost driver for dense NLA.
 
-\hypertarget{references-and-status}{%
-\subsection{References and status}\label{references-and-status}}
+\subsection{References and status}\label{references-and-status}
 
 M. Bläser,
 \href{https://theoryofcomputing.org/articles/gs005/gs005.pdf}{\emph{Fast
@@ -89,12 +146,10 @@ computational model. E. Dupont et al.,
 \href{https://arxiv.org/abs/2608.16884}{\emph{Improving the matrix
 multiplication exponent with modern optimization and AlphaEvolve}}
 (2026), abstract and §1, reports \(\omega<2.371177\). The October 2026
-manuscript below reports a stronger upper bound. An exponent-two claim
-is recorded separately with its verification limits. \textbf{Admitted:
-no validated resolution located.}
+manuscript below gives a stronger upper bound. The earlier exponent-two
+claim is recorded with its verification limits.
 
-\hypertarget{status-check-2026-09-10}{%
-\subsection{Status check --- 2026-09-10}\label{status-check-2026-09-10}}
+\subsection{Status check --- 2026-09-10}\label{status-check-2026-09-10}
 
 Rechecked \href{https://arxiv.org/abs/2608.16884}{Dupont et al., August
 2026}, and searched for exponent-two proofs and newer
@@ -103,9 +158,8 @@ two, at 2.371177. No proof of exponent two or a strict lower bound above
 two was located. Faster finite-size identities and improved numerical
 optimizations of existing bounds do not decide the asymptotic equality.
 
-\hypertarget{reviewed-research-submission-14-september-2026}{%
 \subsection{Reviewed research submission --- 14 September
-2026}\label{reviewed-research-submission-14-september-2026}}
+2026}\label{reviewed-research-submission-14-september-2026}
 
 \textbf{Author:} Sidney Holden, Center for Computational Biology,
 Flatiron Institute, Simons Foundation.
@@ -118,17 +172,14 @@ Sections 4--8 prove the auxiliary bound
 The Section 10 scalar-tree obstruction is not a tensor-rank lower bound.
 Neither result proves \(\omega=2\).
 
-\textbf{Status: Open.}
 \href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/references/holden-ac-2026-09-14/AC-01-submission.pdf}{Report}
 ·
 \href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/references/holden-ac-2026-09-14/verification/review-ac01-ac02.md}{Independent
-AI-agent audit and limitations}. AI assistance disclosed; no external
-human review, formal verification or Lean checks. Original target and
-prior-source credit retained.
+AI-agent audit and limitations}. AI assistance was disclosed. This
+submission received an informal AI-agent audit.
 
-\hypertarget{literature-update-2026-10-06}{%
 \subsection{Literature update ---
-2026-10-06}\label{literature-update-2026-10-06}}
+2026-10-06}\label{literature-update-2026-10-06}
 
 OpenAI,
 \href{https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/preprints/Matrix-Multiplication-Nine-Fourths-October-2-2026/paper.pdf}{\emph{An
@@ -146,12 +197,11 @@ reports an unconditional formalization for finite division-free
 arithmetic programs with arbitrary positive exponent slack, which fits
 the arithmetic model in this entry. This update reviewed the statement
 and published scope; it did not rerun Lean or independently audit the
-proof. The reported upper bound improves the August bound cited above
-but leaves \(\omega=2\) open.
+proof. The reported upper bound improved the August bound. The November
+result supplied the matching lower bound.
 
-\hypertarget{unvalidated-exponent-two-claim-18-september-2026}{%
 \subsubsection{Unvalidated exponent-two claim --- 18 September
-2026}\label{unvalidated-exponent-two-claim-18-september-2026}}
+2026}\label{unvalidated-exponent-two-claim-18-september-2026}
 
 Zhi-Wei Sun, \href{https://chinaxiv.org/abs/202609.00167}{\emph{Tensor
 Degenerations for Matrix Multiplication}}, ChinaXiv:202609.00167. The
@@ -167,7 +217,6 @@ this would settle the displayed target. During this check the original
 abstract and PDF endpoints returned HTTP 403; the proof was
 inaccessible. The inspected evidence consists of the original title/date
 listing and the reproduced abstract. No independent validation was
-located, and this catalog has not checked the argument. This remains an
-unvalidated full-resolution claim and does not change the \textbf{Open}
-status.
+located in that check. The claimed exponent two conflicts with the
+subsequently verified lower bound above.
 \end{document}

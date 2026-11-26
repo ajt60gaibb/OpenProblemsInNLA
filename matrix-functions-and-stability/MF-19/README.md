@@ -7,7 +7,7 @@
 **Difficulty:** extreme  
 **Importance:** broadly interesting  
 **Status:** Partially resolved  
-**Last checked:** 2026-09-10
+**Last checked:** 2026-11-26
 
 **Rating rationale:** Unconditional decidability in unrestricted dimension is an extreme longstanding barrier; reachability, recurrences and exact linear dynamics give broad significance.
 
@@ -35,3 +35,14 @@ Status check (2026-09-10): the 2026 survey still poses the general problem. The 
 ## Audit — 2026-09-10
 
 Independently rechecked [Luca–Ouaknine–Worrell, §1](https://arxiv.org/pdf/2607.15510), its current v1 record, and the [2026 survey's author abstract](https://people.mpi-sws.org/~joel/publications/skolem_and_positivity_survey26abs.html). The order-at-most-four decidability result gives a substantive exact subclass (in particular, $`d\le4`$ here), justifying Partially resolved; conditional decidability and density-one sets do not settle unrestricted inputs. Later Skolem-decidability searches found no unconditional general resolution. Both ratings are retained.
+
+## Literature update — 2026-11-26
+
+Piotr Bacik gives examples in which testing for a $`p`$-adic zero at each
+prime fails to distinguish an integer zero from twisted rational zeros.
+His Theorem 4 yields a conditional decision procedure for simultaneous
+integer zeros of two coprime, non-weakly-degenerate recurrence sequences
+under the $`p`$-adic Schanuel conjecture. The unrestricted rational
+matrix-power problem still requires an unconditional decision procedure
+or an undecidability proof.
+[Preprint, Theorem 4 and Examples 24–25](https://arxiv.org/html/2609.16392v1).

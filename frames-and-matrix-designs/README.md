@@ -2,7 +2,7 @@
 
 [← All categories](../README.md) · [Full catalog](../CATALOG.md) · [Solved and claimed solutions](../RESOLVED.md)
 
-**9 problems with open targets.** 3 retained entries are excluded from the open count.
+**8 problems with open targets.** 4 retained entries are excluded from the open count.
 
 | ID | Problem | Status | Difficulty | Impact | Read / source |
 | --- | --- | --- | --- | --- | --- |
@@ -10,7 +10,6 @@
 | [FR-02](FR-02/README.md) | Sharp sample complexity for restricted isometries from the cyclic Fourier matrix | **🟡 PARTIAL** | extreme | broadly interesting | [PDF](FR-02/problem.pdf) · [TeX](FR-02/problem.tex) |
 | [FR-03](FR-03/README.md) | Uniform conditioning of large Paley-frame column subsets | **🔵 OPEN** | extreme | broadly interesting | [PDF](FR-03/problem.pdf) · [TeX](FR-03/problem.tex) |
 | [FR-04](FR-04/README.md) | Universal exponential deterioration of minimally redundant real phase-retrieval frames | **🔵 OPEN** | challenging | interesting to the community | [PDF](FR-04/problem.pdf) · [TeX](FR-04/problem.tex) |
-| [FR-06](FR-06/README.md) | Nonexistence of a complete set of mutually unbiased bases in dimension six | **🔵 OPEN** | extreme | broadly interesting | [PDF](FR-06/problem.pdf) · [TeX](FR-06/problem.tex) |
 | [FR-07](FR-07/README.md) | Zauner's conjecture on maximal complex equiangular tight frames | **🟡 PARTIAL** | extreme | broadly interesting | [PDF](FR-07/problem.pdf) · [TeX](FR-07/problem.tex) |
 | [FR-08](FR-08/README.md) | Hadamard matrices at every admissible order | **🟡 PARTIAL** | extreme | broadly interesting | [PDF](FR-08/problem.pdf) · [TeX](FR-08/problem.tex) |
 | [FR-09](FR-09/README.md) | Complex equiangular tight frames with twice the dimension | **🟡 PARTIAL** | extreme | interesting to the community | [PDF](FR-09/problem.pdf) · [TeX](FR-09/problem.tex) |
@@ -21,6 +20,7 @@
 | ID | Problem | Status | Difficulty | Impact | Read / source |
 | --- | --- | --- | --- | --- | --- |
 | [FR-05](FR-05/README.md) | Vanishing injectivity probability at 4d minus 5 complex phase measurements | **🏆 LEAN VERIFIED** | challenging | interesting to the community | [PDF](FR-05/problem.pdf) · [TeX](FR-05/problem.tex) |
+| [FR-06](FR-06/README.md) | Nonexistence of a complete set of mutually unbiased bases in dimension six | **🟠 SOLUTION CLAIMED** | extreme | broadly interesting | [PDF](FR-06/problem.pdf) · [TeX](FR-06/problem.tex) |
 | [FR-10](FR-10/README.md) | Sharp sampling complexity for Walsh restricted isometries | **✅ SOLVED** | extreme | broadly interesting | [PDF](FR-10/problem.pdf) · [TeX](FR-10/problem.tex) |
 | [FR-12](FR-12/README.md) | Counting real Hadamard matrices | **🏆 LEAN VERIFIED** | extreme | interesting to the community | [PDF](FR-12/problem.pdf) · [TeX](FR-12/problem.tex) |
 

@@ -8,13 +8,13 @@
 **Importance:** broadly interesting  
 **Rating rationale:** Extreme because matching information bounds for every adaptive algorithm and growing rank is a fundamental barrier; broad impact includes large-scale spectral computation and data analysis.  
 **Source:** Bakshi–Narayanan, Open Question 1.10.  
-**Last checked:** 2026-10-06  
+**Last checked:** 2026-11-26  
 **Status:** Partially resolved  
 
-## Later literature — checked 6 October 2026
+## Literature update — 2026-11-26
 
-The [primary arXiv abstract of Zhang et al.](https://arxiv.org/abs/2609.35840),
-first submitted 24 September 2026, reports the spectral query bound
+Theorem 3.1, equation (6), of Zhang et al.'s October revision gives
+the spectral query bound
 
 ```math
 Q_\infty^*=\widetilde\Theta\!\left(
@@ -24,23 +24,16 @@ Q_\infty^*=\widetilde\Theta\!\left(
 
 The paper uses adaptive exact products with a real $`m\times n`$ matrix
 and its transpose, a rank-$`k`$ right projector, and success probability
-$`2/3`$. Its abstract specifies sufficiently small $`\varepsilon`$ and
-suppresses logarithmic factors in $`\widetilde\Theta`$.
+$`2/3`$. It assumes $`1\le k< N`$ and sufficiently small $`\varepsilon`$.
+The lower bound has the displayed polynomial rate, and the upper bound
+allows logarithmic factors. [Preprint v2, §3](https://arxiv.org/html/2609.35840v2#S3).
 
-This supplies relevant growing-rank bounds. However, the repository asks
-for **universal constant factors simultaneously in every admissible finite
-parameter**, with success probability $`99/100`$. The displayed rate does
-not settle the logarithmic factors or by itself close the finite-accuracy
-transition gap recorded below. Its success guarantee is not silently
-identified with the catalog's guarantee. **Status remains Partially
-resolved**, and the original target is unchanged. The paper's Schatten-norm
-transition is recorded in [RA-15](../RA-15/README.md).
-
-**Evidence limit:** this check retrieved the primary abstract through the
-search index; the full manuscript could not be retrieved. No theorem
-number, independently checked full proof, or Lean verification is claimed
-for this addition. The earlier partial results and their separate review
-records remain as recorded below.
+The lower bound also applies at the catalog's required success
+probability $`99/100`$. A matching characterization to universal
+constant factors at that confidence and across all admissible finite
+parameters remains open, including the transition regime below. This
+update checked the full manuscript's statement and oracle model.
+See [RA-15](../RA-15/README.md) for the Schatten-norm transition.
 
 
 ## Further partial results — exact capacity and adaptive innovations, 14 September 2026
@@ -82,7 +75,7 @@ Matrix products dominate many large-scale singular-subspace computations. The qu
 
 1. Ainesh Bakshi and Shyam Narayanan, [*Krylov Methods are (nearly) Optimal for Low-Rank Approximation*](https://arxiv.org/html/2304.03191v1#S1.SS2), arXiv:2304.03191v1 (2023), Open Question 1.10; Theorem 1.1 and Algorithm 7.4.
 2. Tyler Chen et al., [*Does block size matter in randomized block Krylov low-rank approximation?*](https://arxiv.org/abs/2508.06486), 2025, §1: later block-size bounds.
-3. H. Zhang, W. Wu, C. Zhang, Y. Li, C. Zheng, C. Fang, H. Li, and Z. Lin, [*Matrix-Vector Complexity of Low-Rank Approximation*](https://arxiv.org/abs/2609.35840), arXiv:2609.35840, 24 September 2026, abstract; the present literature notice is limited to that primary abstract.
+3. H. Zhang, W. Wu, C. Zhang, Y. Li, C. Zheng, C. Fang, H. Li, and Z. Lin, [*Matrix–Vector Complexity of Low-Rank Approximation*](https://arxiv.org/html/2609.35840v2), arXiv:2609.35840v2, 19 October 2026, Theorem 3.1.
 
 ## Status check
 

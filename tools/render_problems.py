@@ -145,7 +145,7 @@ def render(source):
             'IE-14', 'IE-15', 'IE-17', 'IE-19', 'IE-21',
             'IE-24', 'IE-25', 'IE-26', 'IS-02', 'IS-03', 'IS-05', 'IV-02', 'IV-03', 'IV-04',
             'IV-05', 'IV-06', 'KE-03', 'KE-04', 'MD-06', 'MF-15',
-            'MF-16', 'MF-17', 'MI-03', 'MI-04', 'MI-06', 'MI-07', 'MI-08',
+            'MF-16', 'MF-17', 'MF-19', 'MI-03', 'MI-04', 'MI-06', 'MI-07', 'MI-08',
             'MI-09', 'MI-15', 'MI-19', 'MI-23', 'MI-29', 'NM-03', 'NM-04', 'PF-05',
             'RA-02', 'RA-06', 'RA-08', 'RA-09', 'RA-10', 'RA-12',
             'RE-01', 'RE-02', 'SP-04',
@@ -158,7 +158,7 @@ def render(source):
         if identifier in {"SP-11", "SP-12"}:
             # Keep the retained target after the literature-resolution notice.
             tex = tex.replace(r"\subsection{Problem statement}", "\\newpage\n" + r"\subsection{Problem statement}", 1)
-        if identifier in {"SF-01", "IE-12"}:
+        if identifier in {"AC-04", "SF-01", "IE-12"}:
             tex = tex.replace(r"\subsection{References and status}", "\\newpage\n" + r"\subsection{References and status}", 1)
         if identifier == "IE-20":
             tex = tex.replace(r"Define \(P_{\rm CG}", "\\newpage\n" + r"Define \(P_{\rm CG}", 1)

@@ -1,8 +1,8 @@
 # All problems and their status
 
-**87 problems with open targets:** 31 open and 56 partially resolved. **130 other retained entries**, excluded from the open count.
+**83 problems with open targets:** 27 open and 56 partially resolved. **134 other retained entries**, excluded from the open count.
 
-**Resolution evidence:** 37 solved (published or independently audited); 87 solved with Lean verification.
+**Resolution evidence:** 39 solved (published or independently audited); 88 solved with Lean verification.
 
 Each entry records its own literature-check date. Literature checks are bounded; ratings are editorial. “Impact” uses the canonical `Importance` field.
 
@@ -270,7 +270,6 @@ Retained entries outside the open count:
 | [FR-02](frames-and-matrix-designs/FR-02/README.md) | Sharp sample complexity for restricted isometries from the cyclic Fourier matrix | **🟡 PARTIAL** | extreme | broadly interesting | [PDF](frames-and-matrix-designs/FR-02/problem.pdf) · [TeX](frames-and-matrix-designs/FR-02/problem.tex) |
 | [FR-03](frames-and-matrix-designs/FR-03/README.md) | Uniform conditioning of large Paley-frame column subsets | **🔵 OPEN** | extreme | broadly interesting | [PDF](frames-and-matrix-designs/FR-03/problem.pdf) · [TeX](frames-and-matrix-designs/FR-03/problem.tex) |
 | [FR-04](frames-and-matrix-designs/FR-04/README.md) | Universal exponential deterioration of minimally redundant real phase-retrieval frames | **🔵 OPEN** | challenging | interesting to the community | [PDF](frames-and-matrix-designs/FR-04/problem.pdf) · [TeX](frames-and-matrix-designs/FR-04/problem.tex) |
-| [FR-06](frames-and-matrix-designs/FR-06/README.md) | Nonexistence of a complete set of mutually unbiased bases in dimension six | **🔵 OPEN** | extreme | broadly interesting | [PDF](frames-and-matrix-designs/FR-06/problem.pdf) · [TeX](frames-and-matrix-designs/FR-06/problem.tex) |
 | [FR-07](frames-and-matrix-designs/FR-07/README.md) | Zauner's conjecture on maximal complex equiangular tight frames | **🟡 PARTIAL** | extreme | broadly interesting | [PDF](frames-and-matrix-designs/FR-07/problem.pdf) · [TeX](frames-and-matrix-designs/FR-07/problem.tex) |
 | [FR-08](frames-and-matrix-designs/FR-08/README.md) | Hadamard matrices at every admissible order | **🟡 PARTIAL** | extreme | broadly interesting | [PDF](frames-and-matrix-designs/FR-08/problem.pdf) · [TeX](frames-and-matrix-designs/FR-08/problem.tex) |
 | [FR-09](frames-and-matrix-designs/FR-09/README.md) | Complex equiangular tight frames with twice the dimension | **🟡 PARTIAL** | extreme | interesting to the community | [PDF](frames-and-matrix-designs/FR-09/problem.pdf) · [TeX](frames-and-matrix-designs/FR-09/problem.tex) |
@@ -281,6 +280,7 @@ Retained entries outside the open count:
 | ID | Problem | Status | Difficulty | Impact | Read / source |
 | --- | --- | --- | --- | --- | --- |
 | [FR-05](frames-and-matrix-designs/FR-05/README.md) | Vanishing injectivity probability at 4d minus 5 complex phase measurements | **🏆 LEAN VERIFIED** | challenging | interesting to the community | [PDF](frames-and-matrix-designs/FR-05/problem.pdf) · [TeX](frames-and-matrix-designs/FR-05/problem.tex) |
+| [FR-06](frames-and-matrix-designs/FR-06/README.md) | Nonexistence of a complete set of mutually unbiased bases in dimension six | **🟠 SOLUTION CLAIMED** | extreme | broadly interesting | [PDF](frames-and-matrix-designs/FR-06/problem.pdf) · [TeX](frames-and-matrix-designs/FR-06/problem.tex) |
 | [FR-10](frames-and-matrix-designs/FR-10/README.md) | Sharp sampling complexity for Walsh restricted isometries | **✅ SOLVED** | extreme | broadly interesting | [PDF](frames-and-matrix-designs/FR-10/problem.pdf) · [TeX](frames-and-matrix-designs/FR-10/problem.tex) |
 | [FR-12](frames-and-matrix-designs/FR-12/README.md) | Counting real Hadamard matrices | **🏆 LEAN VERIFIED** | extreme | interesting to the community | [PDF](frames-and-matrix-designs/FR-12/problem.pdf) · [TeX](frames-and-matrix-designs/FR-12/problem.tex) |
 
@@ -306,11 +306,8 @@ Retained entries outside the open count:
 
 | ID | Problem | Status | Difficulty | Impact | Read / source |
 | --- | --- | --- | --- | --- | --- |
-| [AC-01](arithmetic-and-complexity/AC-01/README.md) | Is the matrix multiplication exponent two? | **🔵 OPEN** | extreme | broadly interesting | [PDF](arithmetic-and-complexity/AC-01/problem.pdf) · [TeX](arithmetic-and-complexity/AC-01/problem.tex) |
 | [AC-02](arithmetic-and-complexity/AC-02/README.md) | Exact bilinear rank of the $`3\times3`$ matrix product | **🔵 OPEN** | extreme | interesting to the community | [PDF](arithmetic-and-complexity/AC-02/problem.pdf) · [TeX](arithmetic-and-complexity/AC-02/problem.tex) |
 | [AC-03](arithmetic-and-complexity/AC-03/README.md) | Border rank of the $`3\times3`$ matrix product | **🔵 OPEN** | extreme | interesting to the community | [PDF](arithmetic-and-complexity/AC-03/problem.pdf) · [TeX](arithmetic-and-complexity/AC-03/problem.tex) |
-| [AC-04](arithmetic-and-complexity/AC-04/README.md) | Minimal asymptotic rank of the small Coppersmith–Winograd tensor | **🔵 OPEN** | extreme | broadly interesting | [PDF](arithmetic-and-complexity/AC-04/problem.pdf) · [TeX](arithmetic-and-complexity/AC-04/problem.tex) |
-| [AC-05](arithmetic-and-complexity/AC-05/README.md) | Strassen's asymptotic rank conjecture for tight tensors | **🔵 OPEN** | extreme | broadly interesting | [PDF](arithmetic-and-complexity/AC-05/problem.pdf) · [TeX](arithmetic-and-complexity/AC-05/problem.tex) |
 | [AC-06](arithmetic-and-complexity/AC-06/README.md) | Explicit tensors with quadratic border rank | **🔵 OPEN** | extreme | broadly interesting | [PDF](arithmetic-and-complexity/AC-06/problem.pdf) · [TeX](arithmetic-and-complexity/AC-06/problem.tex) |
 | [AC-07](arithmetic-and-complexity/AC-07/README.md) | Scholz–Brauer inequality for multiplication chains | **🟡 PARTIAL** | extreme | interesting to specialist | [PDF](arithmetic-and-complexity/AC-07/problem.pdf) · [TeX](arithmetic-and-complexity/AC-07/problem.tex) |
 | [AC-08](arithmetic-and-complexity/AC-08/README.md) | Knuth–Stolarsky lower bound for addition chains | **🟡 PARTIAL** | extreme | interesting to specialist | [PDF](arithmetic-and-complexity/AC-08/problem.pdf) · [TeX](arithmetic-and-complexity/AC-08/problem.tex) |
@@ -325,6 +322,9 @@ Retained entries outside the open count:
 | ID | Problem | Status | Difficulty | Impact | Read / source |
 | --- | --- | --- | --- | --- | --- |
 | [AA-01](arithmetic-and-complexity/AA-01/README.md) | Deciding accurate evaluability of real polynomials | **✅ SOLVED** | extreme | broadly interesting | [PDF](arithmetic-and-complexity/AA-01/problem.pdf) · [TeX](arithmetic-and-complexity/AA-01/problem.tex) |
+| [AC-01](arithmetic-and-complexity/AC-01/README.md) | Is the matrix multiplication exponent two? | **🏆 LEAN VERIFIED** | extreme | broadly interesting | [PDF](arithmetic-and-complexity/AC-01/problem.pdf) · [TeX](arithmetic-and-complexity/AC-01/problem.tex) |
+| [AC-04](arithmetic-and-complexity/AC-04/README.md) | Minimal asymptotic rank of the small Coppersmith–Winograd tensor | **✅ SOLVED** | extreme | broadly interesting | [PDF](arithmetic-and-complexity/AC-04/problem.pdf) · [TeX](arithmetic-and-complexity/AC-04/problem.tex) |
+| [AC-05](arithmetic-and-complexity/AC-05/README.md) | Strassen's asymptotic rank conjecture for tight tensors | **✅ SOLVED** | extreme | broadly interesting | [PDF](arithmetic-and-complexity/AC-05/problem.pdf) · [TeX](arithmetic-and-complexity/AC-05/problem.tex) |
 
 
 ## [Intervals and absolute value equations](intervals-and-absolute-value-equations/README.md)

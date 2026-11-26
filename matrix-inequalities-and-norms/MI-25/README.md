@@ -7,7 +7,7 @@
 **Difficulty:** challenging  
 **Importance:** interesting to the community  
 **Status:** Partially resolved  
-**Last checked:** 2026-10-06
+**Last checked:** 2026-11-26
 
 **Rating rationale:** Sharp cancellation constants for entire Schatten classes require new control across the Schatten scale, a challenging norm-geometry question; dimension-independent control would inform perturbation estimates across the community.
 
@@ -47,6 +47,16 @@ The September 25, 2026 [Palomar record, version 1](https://palomar-registry.org/
 These concern an explicit sharp constant for complex diagonal matrices when $`p\ge256`$, expressed as a one-variable maximum over $`[1/2,2]`$ and attained by a three-coordinate cyclic construction. The bound is uniform in dimension, with sharpness in each dimension at least three ([pinned diagonal solution](https://github.com/savarin/hlawka-schatten/blob/1829591140522193a81ae721330e4d775c81123e/ConstructionDiagonalSolution.lean), [registry comparator](https://github.com/savarin/hlawka-schatten/blob/1829591140522193a81ae721330e4d775c81123e/comparator-construction-diagonal.json)). The registry's listed declarations do not include the general-matrix existence theorem; its diagonal verification record must be distinguished from the author's broader existence proof release.
 
 **Scope and remaining gap:** The existence theorem and the sharp diagonal subcase are partial progress toward the original target. Determining the least constants for general complex matrices, beyond already settled cases such as $`C_2=1`$, remains open. The status remains **Partially resolved**. This update inspected the pinned source and registry record; it did not run Lean or independently audit the complete existence proof, and it does not assign full-target formal verification.
+
+## Literature update — 2026-11-26
+
+Seokbin Lee gives an elementary real $`2\times2`$ trace-norm counterexample
+in Theorem 2.1 and a written proof of Esa's finiteness result for
+$`1< p<\infty`$ in Theorem 2.3. The proof covers the rectangular complex
+formulation through Hermitian dilation. Section 3 discusses the sharp
+diagonal result and leaves the sharp constants for general complex
+matrices open beyond the settled cases.
+[Preprint, Theorems 2.1 and 2.3 and §3](https://arxiv.org/html/2611.30356v1).
 
 ## References
 

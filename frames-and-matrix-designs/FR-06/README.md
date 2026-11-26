@@ -2,10 +2,32 @@
 
 **Difficulty:** extreme  
 **Importance:** broadly interesting  
-**Status:** Open  
-**Last checked:** 2026-10-06
+**Status:** Solution claimed  
+**Last checked:** 2026-11-26
 
-**Rating rationale:** Dimension six is the leading composite-dimension obstruction for mutually unbiased bases; its resolution would affect quantum measurements and structured matrix design.
+**Rating rationale:** The original question isolates a leading composite-dimension obstruction for mutually unbiased bases, with consequences for quantum measurements and structured matrix design.
+
+## Affirmative solution claim — 15 November 2026
+
+Jinze Yang, Yile Liu, Yangyang Li and Xiu-Hao Deng's Theorem 2
+excludes seven mutually unbiased orthonormal bases in $`\mathbb C^6`$,
+which is the exact nonexistence question below. Their Proposition 3
+gives an integer and rational certificate using moments constrained
+by orthonormality, unbiasedness and the second-moment identity of a
+complete family. The authors give a verifier and checksums in §4.
+[Preprint, Theorem 2 and §§3–4](https://arxiv.org/html/2611.19809v1).
+
+OpenAI's earlier exact-certificate paper, Theorem 1.2, also excludes
+seven bases. The associated Lean scope gives a family-size upper bound
+of five. The sharper upper bound of three is addressed by separate
+computer-assisted work, including the November preprint of Mateo
+Cárdenes Wuttig and Joseph Tindall. This catalog compared the statements
+with the original target. Independent certificate replay and review of
+the Lean verification record for this entry are pending.
+[OpenAI exact-certificate paper and Lean scope](https://github.com/openai/math/blob/main/lean/docs/266.md) ·
+[Cárdenes Wuttig and Tindall preprint](https://arxiv.org/abs/2611.06917v1).
+
+## Problem statement
 
 
 Do there fail to exist seven matrices $`U_1,\ldots,U_7\in\mathbb C^{6\times6}`$ such that
@@ -37,7 +59,10 @@ Searched “mutually unbiased bases dimension six solved 2026” and “MUB 6 Ha
 
 The September 30 version 3.0-candidate of *No Szöllősi matrix lies in a quadruplet of mutually unbiased bases in dimension six* claims that no mutually unbiased quartet can contain both the standard basis and the columns of $`S/\sqrt6`$ when $`S`$ belongs to the specified closed two-circulant Szöllősi family. The source includes boundary cases in that family and supplies interval-arithmetic certificates and internal replay checks ([versioned deposit and manuscript](https://zenodo.org/records/23051062), [candidate source](https://github.com/ipitchford/szollosi-mub-exclusion/tree/v3.0-candidate)).
 
-**Scope and remaining gap:** This is an unrefereed restricted-family candidate. The checked source does not record unaffiliated reproduction or end-to-end formal verification, and no certificate replay was performed for this update. Excluding quartets containing this family does not exclude every possible seven-tuple in the displayed statement; the manuscript's broader dimension-six implication depends on a separate conjecture. The full target therefore remains **Open**.
+This October check covered a restricted-family candidate with internal
+certificates. Its implication for the full dimension-six problem depended
+on a separate conjecture. The full-scope claim above uses a different
+certificate.
 
 <!-- navigation -->
 [All categories](../../README.md) · [Category index](../README.md) · [Read PDF](problem.pdf) · [LaTeX source](problem.tex)

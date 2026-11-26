@@ -6,23 +6,23 @@ This generated source inventory covers every permanent registered ID. It does no
 
 Registered entries: **217**.
 
-- external-statement-source: **6**
+- external-statement-source: **7**
 - local-statement-source: **68**
-- missing-statement: **98**
+- missing-statement: **97**
 - shared-statement-source: **45**
 
-The 5 existing scope gaps remain explicit even when a new shared statement is recorded. IE-01, TR-01, IV-01, MI-15, MI-18, MF-23, and MI-32 cite pinned external formalizations and are tracked separately from entries with no Lean statement. Copied historical and review projects do not count.
+The 5 existing scope gaps remain explicit even when a new shared statement is recorded. AC-01, IE-01, TR-01, IV-01, MI-15, MI-18, MF-23, and MI-32 cite pinned external formalizations and are tracked separately from entries with no Lean statement. Copied historical and review projects do not count.
 
 Regenerate with `python3 tools/statement_inventory.py --base-ref <published-commit>`; add `--check` to reject stale generated files. The base commit is explicit so unrelated working-branch commits do not change the inventory.
 
 | ID | Status | Statement source | Exactness concerns |
 | --- | --- | --- | --- |
 | [AA-01](../../../arithmetic-and-complexity/AA-01/README.md) | Solved | shared-statement-source | Not audited here. |
-| [AC-01](../../../arithmetic-and-complexity/AC-01/README.md) | Open | missing-statement | Not audited here. |
+| [AC-01](../../../arithmetic-and-complexity/AC-01/README.md) | Lean verified | external-statement-source | Not audited here. |
 | [AC-02](../../../arithmetic-and-complexity/AC-02/README.md) | Open | missing-statement | Not audited here. |
 | [AC-03](../../../arithmetic-and-complexity/AC-03/README.md) | Open | missing-statement | Not audited here. |
-| [AC-04](../../../arithmetic-and-complexity/AC-04/README.md) | Open | missing-statement | Not audited here. |
-| [AC-05](../../../arithmetic-and-complexity/AC-05/README.md) | Open | missing-statement | Not audited here. |
+| [AC-04](../../../arithmetic-and-complexity/AC-04/README.md) | Solved | missing-statement | Not audited here. |
+| [AC-05](../../../arithmetic-and-complexity/AC-05/README.md) | Solved | missing-statement | Not audited here. |
 | [AC-06](../../../arithmetic-and-complexity/AC-06/README.md) | Open | missing-statement | Not audited here. |
 | [AC-07](../../../arithmetic-and-complexity/AC-07/README.md) | Partially resolved | missing-statement | Not audited here. |
 | [AC-08](../../../arithmetic-and-complexity/AC-08/README.md) | Partially resolved | missing-statement | Not audited here. |
@@ -39,7 +39,7 @@ Regenerate with `python3 tools/statement_inventory.py --base-ref <published-comm
 | [FR-03](../../../frames-and-matrix-designs/FR-03/README.md) | Open | missing-statement | Not audited here. |
 | [FR-04](../../../frames-and-matrix-designs/FR-04/README.md) | Open | missing-statement | Not audited here. |
 | [FR-05](../../../frames-and-matrix-designs/FR-05/README.md) | Lean verified | local-statement-source | Not audited here. |
-| [FR-06](../../../frames-and-matrix-designs/FR-06/README.md) | Open | missing-statement | Not audited here. |
+| [FR-06](../../../frames-and-matrix-designs/FR-06/README.md) | Solution claimed | missing-statement | Not audited here. |
 | [FR-07](../../../frames-and-matrix-designs/FR-07/README.md) | Partially resolved | missing-statement | Not audited here. |
 | [FR-08](../../../frames-and-matrix-designs/FR-08/README.md) | Partially resolved | missing-statement | Not audited here. |
 | [FR-09](../../../frames-and-matrix-designs/FR-09/README.md) | Partially resolved | missing-statement | Not audited here. |
@@ -239,6 +239,6 @@ Regenerate with `python3 tools/statement_inventory.py --base-ref <published-comm
 
 Within each status, finite explicit assertions can share basic matrix definitions. Computational, probabilistic, and algebraic-geometric targets require concrete models; uninterpreted predicates are not complete replacements for those targets.
 
-- **Solved (5):** KE-02, TR-23, TR-25, TR-28, TR-29.
+- **Solved (7):** AC-04, AC-05, KE-02, TR-23, TR-25, TR-28, TR-29.
 - **Partially resolved (56):** AC-07, AC-08, AC-09, AC-11, AC-12, AC-13, AV-03, FR-02, FR-07, FR-08, FR-09, FR-11, IE-20, IE-27, IE-28, IS-05, KE-01, MF-04, MF-15, MF-19, MF-20, MI-01, MI-02, MI-05, MI-08, MI-09, MI-10, MI-11, MI-12, MI-14, MI-17, MI-25, MI-30, NR-01, NR-02, PF-01, RA-01, RA-11, RA-14, RA-15, RA-17, RA-18, RE-03, SP-03, SP-08, SP-09, SP-10, TR-03, TR-05, TR-10, TR-11, TR-12, TR-18, TR-19, TR-30, TR-31.
-- **Open (31):** AC-01, AC-02, AC-03, AC-04, AC-05, AC-06, AC-10, FR-01, FR-03, FR-04, FR-06, IE-07, IE-24, IE-25, IS-01, MD-05, MF-01, MF-09, MF-10, MI-20, NM-01, RA-16, RE-01, RE-02, SP-01, SP-02, SP-07, TR-09, TR-16, TR-22, TR-24.
+- **Open (27):** AC-02, AC-03, AC-06, AC-10, FR-01, FR-03, FR-04, IE-07, IE-24, IE-25, IS-01, MD-05, MF-01, MF-09, MF-10, MI-20, NM-01, RA-16, RE-01, RE-02, SP-01, SP-02, SP-07, TR-09, TR-16, TR-22, TR-24.

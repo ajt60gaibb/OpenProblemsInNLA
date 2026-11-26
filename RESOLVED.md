@@ -36,11 +36,44 @@ Webb's [earlier degree-44 contribution](references/webb-mf14-degree44-2026-09-17
 
 ## Reviewed AC-01–AC-06 research — 14 September 2026
 
-**All six remain Open.** Sidney Holden (Center for Computational Biology, Flatiron Institute, Simons Foundation) submits independently audited supporting tensor research. The [submission record](references/holden-ac-2026-09-14/README.md) gives verified affiliation, attributed reports, exact theorem locators, original-target comparisons and three separate informal Codex AI-agent reviews.
+All six targets were open at the September review. Sidney Holden (Center for Computational Biology, Flatiron Institute, Simons Foundation) submits independently audited supporting tensor research. The [submission record](references/holden-ac-2026-09-14/README.md) gives verified affiliation, attributed reports, exact theorem locators, original-target comparisons and three separate informal Codex AI-agent reviews.
 
 The passing scopes include AC-01's small-CW upper bound (also relevant to AC-04), restricted AC-02 support and Sun-block results, elementary AC-03 geometric/Fourier arguments, AC-04 symmetric extraction and local rigidity, AC-05 power classifications, and AC-06 certificate compaction and finite checks. Missing verifier artifacts prevent a full audit of the AC-02 continuation and AC-03 package; their stronger unverified claims are explicitly excluded from the passing scope. None settles its original target or supports a Solved designation. No external human peer review, formal verification or novelty claim is asserted. No Lean verification was performed. Permanent IDs, original targets and the open count are unchanged.
 
 ## Resolved catalog entries
+
+### 🏆 AC-01 — the square matrix multiplication exponent is nine fourths
+
+**Negative resolution, 24 November 2026.** Theorem 1.1 of OpenAI's
+[*The matrix multiplication exponent is nine fourths*](https://github.com/openai/math/blob/92b516ef8e2abf66c3db7aa31438d3010bc7956f/preprints/The-matrix-multiplication-exponent-is-nine-fourths-November-24-2026/paper.pdf)
+gives $`\omega(\mathbb C)=9/4`$. The with-division lower bound and the
+division-free upper bound together apply to the original all-input model.
+Carlos Toledo's independent audit records successful kernel checks of the
+square exponent, including the model with division. [Canonical entry and
+verification evidence](arithmetic-and-complexity/AC-01/README.md#lean-proof-and-verification-evidence) ·
+[Archived audit](https://doi.org/10.5281/zenodo.24537370).
+
+### ✅ AC-04 — the small Coppersmith–Winograd tensor has asymptotic rank greater than three
+
+**Negative resolution, 24 November 2026.** Equality to three would force
+$`\omega(\mathbb C)=2`$ by [Alman and Li, Theorem 1.2](https://arxiv.org/html/2605.21738v1).
+The flattening lower bound and the verified AC-01 exponent therefore imply
+strict inequality. [Canonical entry and deduction](arithmetic-and-complexity/AC-04/README.md#negative-resolution--24-november-2026).
+
+### ✅ AC-05 — a counterexample to Strassen's tight-tensor conjecture
+
+**Negative resolution, 24 November 2026.** The two-by-two matrix multiplication
+tensor is concise and tight in format $`4\times4\times4`$. Its asymptotic
+rank is $`2^{9/4}>4`$ by Corollary 1.2 of the [November preprint](https://github.com/openai/math/blob/92b516ef8e2abf66c3db7aa31438d3010bc7956f/preprints/The-matrix-multiplication-exponent-is-nine-fourths-November-24-2026/paper.pdf).
+[Canonical entry and counterexample](arithmetic-and-complexity/AC-05/README.md#negative-resolution--24-november-2026).
+
+### 🟠 FR-06 — no complete set of mutually unbiased bases in dimension six
+
+**Affirmative solution claimed, 15 November 2026.** Theorem 2 of
+[Yang, Liu, Li and Deng](https://arxiv.org/html/2611.19809v1) uses an exact
+certificate to exclude seven pairwise mutually unbiased orthonormal bases
+in $`\mathbb C^6`$. The claim matches the original nonexistence question.
+[Canonical entry and evidence scope](frames-and-matrix-designs/FR-06/README.md#affirmative-solution-claim--15-november-2026).
 
 ### 🟠 MD-02 — sharp Lovász-theta constant for random circulants
 

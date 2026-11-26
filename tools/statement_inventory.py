@@ -32,6 +32,12 @@ SCOPE_GAPS = {
     "TR-04": "Unfolding rank is an arbitrary function and the operation count is an unconstrained natural-number output.",
 }
 EXTERNAL_PROJECTS = {
+    "AC-01": {
+        "repository": "https://github.com/openai/math",
+        "revision": "92b516ef8e2abf66c3db7aa31438d3010bc7956f",
+        "statement_path": "lean/OAI/LinearAlgebra/MatrixExponent/FieldFormula.lean",
+        "entry_point": "lean/OAI/LinearAlgebra/SpectralBooks/ExactExponent.lean",
+    },
     "IE-01": {
         "repository": "https://github.com/sgstepaniants/Forsythe",
         "revision": "8d1b0c0545a77b40245e84705aa7d273e6c81e62",
@@ -262,7 +268,7 @@ def render_coverage(inventory):
              f"Registered entries: **{counts['registered']}**.", ""]
     lines += [f"- {key}: **{value}**" for key, value in counts["classification"].items()]
     lines += ["", f"The {len(SCOPE_GAPS)} existing scope gaps remain explicit even when a new shared statement is recorded. "
-              "IE-01, TR-01, IV-01, MI-15, MI-18, MF-23, and MI-32 cite pinned external formalizations and are tracked separately "
+              "AC-01, IE-01, TR-01, IV-01, MI-15, MI-18, MF-23, and MI-32 cite pinned external formalizations and are tracked separately "
               "from entries with no Lean statement. Copied historical and review projects do not count.", "",
               "Regenerate with `python3 tools/statement_inventory.py --base-ref <published-commit>`; "
               "add `--check` to reject stale generated files. The base commit is explicit so unrelated "

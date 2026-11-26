@@ -8,8 +8,23 @@
 **Importance:** broadly interesting  
 **Rating rationale:** Extreme because reaching the minimal asymptotic rank for this tensor would force the foundational exponent-two breakthrough; broad importance therefore extends well beyond its fixed small format.  
 **Topic:** asymptotic tensor algorithms  
-**Last checked:** 2026-09-14  
-**Status:** Open  
+**Last checked:** 2026-11-26  
+**Status:** Solved  
+
+## Negative resolution — 24 November 2026
+
+The asymptotic rank of the displayed tensor is strictly greater than three.
+Its flattening rank is three and is multiplicative under the grouped tensor
+powers, giving the lower bound three. Equality would force the complex
+matrix multiplication exponent to be two by Theorem 1.2 of
+[Alman and Li, *Asymptotic Rank Speedup Theorems, Revisited*](https://arxiv.org/html/2605.21738v1).
+The tensor in that theorem is the displayed small Coppersmith–Winograd
+tensor with parameter two. The November exact exponent is nine fourths,
+so the equality is impossible. This update checked the reduction against
+the original target and reviewed the verification record for the exponent.
+The deduction settles the equality question and leaves the exact value
+of the asymptotic rank undetermined.
+[Exponent result and verification](../AC-01/README.md#lean-proof-and-verification-evidence).
 
 ## Context and notation
 
@@ -38,10 +53,7 @@ of its size parameter.
 Bläser, [2013](https://theoryofcomputing.org/articles/gs005/gs005.pdf),
 Problem 9.8. Alman–Li, [2026](https://arxiv.org/abs/2605.21738),
 Theorems 1.2–1.3, relates the target to $`\omega=2`$ and establishes the partial
-upper bound $`\widetilde R(T)<3.931`$. Searches for “small Coppersmith Winograd
-asymptotic rank 2026 3” located that improvement, not equality. Border-rank
-results for a fixed tensor power do not alone determine this limit.
-**Admitted: no resolution located.**
+upper bound $`\widetilde R(T)<3.931`$.
 
 ## Status check — 2026-09-10
 
@@ -53,4 +65,4 @@ Rechecked [Alman–Li, abstract and Theorems 1.2–1.3](https://arxiv.org/html/2
 
 Theorems 3.1 and 4.2 give $`\widetilde R(T)<3.896914`$; later sections prove local rigidity. The separately reviewed [AC-01 report](../../references/holden-ac-2026-09-14/AC-01-submission.pdf), Section 8, strengthens the bound to $`3.876919161`$. Neither settles equality with three.
 
-**Status: Open.** [Report](../../references/holden-ac-2026-09-14/AC-04-submission.pdf) · [Independent AI-agent audit and limitations](../../references/holden-ac-2026-09-14/verification/review-ac03-ac04.md). AI assistance disclosed; no external human review, formal verification or Lean checks. Original target and prior-source credit retained.
+[Report](../../references/holden-ac-2026-09-14/AC-04-submission.pdf) · [Independent AI-agent audit and limitations](../../references/holden-ac-2026-09-14/verification/review-ac03-ac04.md). AI assistance was disclosed. This submission received an informal AI-agent audit.

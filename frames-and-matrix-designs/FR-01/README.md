@@ -3,7 +3,7 @@
 **Difficulty:** extreme  
 **Importance:** broadly interesting  
 **Status:** Open  
-**Last checked:** 2026-09-10
+**Last checked:** 2026-11-26
 
 **Rating rationale:** Uniform efficient deterministic restricted isometries are a foundational derandomization barrier with consequences for sensing, algorithms and numerical approximation.
 
@@ -45,6 +45,18 @@ for an absolute $`C`$? This is the supplied ADD-022 quantitative formulation of 
 Searched “deterministic RIP polynomial time nearly optimal 2025 2026”, “restricted isometry deterministic square root bottleneck 2026”, and current explicit sensing-matrix papers. The August 2026 paper *Compressed sensing matrices from orthogonal spaces over finite fields of odd characteristic* (arXiv:2608.23062) gives particular finite-field constructions and coherence bounds, not the displayed uniform nearly linear row count. No resolution was found for either target. Rao’s v2 theorem achieves optimal rows using randomness and does not settle the stronger deterministic formulation.
 
 **Audit update (2026-09-10):** Rechecked Rao v2: its optimal row count still uses randomness. Searches for deterministic RIP constructions through the audit date found no construction meeting either displayed target. This is a bounded literature check, not a proof that no solution exists.
+
+## Literature update — 2026-11-26
+
+Christian Kümmerle and Dustin G. Mixon construct explicit real matrices
+with $`s=m^{2/3-o(1)}`$, vanishing restricted isometry constant and
+$`m/N\to0`$ along a family. Theorem 1 and §4.3 describe the construction
+and polynomial-time entry computation to prescribed precision. In that
+family, $`m=s^{3/2+o(1)}`$ and $`\log N=O(\log m)`$, so both row-count
+targets above remain open. The authors supply Lean proofs of the
+mathematical bounds and discuss the running time separately.
+[Preprint, Theorem 1 and §4.3](https://arxiv.org/html/2611.14475v1) ·
+[Authors' Lean source](https://github.com/ckuemmerle/ExplicitRIPTwoThirds).
 
 <!-- navigation -->
 [All categories](../../README.md) · [Category index](../README.md) · [Read PDF](problem.pdf) · [LaTeX source](problem.tex)

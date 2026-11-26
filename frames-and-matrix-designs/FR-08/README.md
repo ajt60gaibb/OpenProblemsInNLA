@@ -3,7 +3,7 @@
 **Difficulty:** extreme  
 **Importance:** broadly interesting  
 **Status:** Partially resolved  
-**Last checked:** 2026-09-10
+**Last checked:** 2026-11-26
 
 **Rating rationale:** This longstanding all-order sign-design conjecture underlies optimal real transforms and has broad consequences in combinatorics, coding and experiment design.
 
@@ -28,6 +28,17 @@ Such an $`H`$ is a real Hadamard matrix. The question concerns all admissible or
  The May 2026 source states the universal conjecture explicitly. Searches for “Hadamard conjecture”, “proof”, “2026”, and recent construction papers found no general resolution. Individual-order construction announcements do not settle this statement. Because such announcements can rapidly change the smallest unknown order, no particular order is asserted here to remain open. This bounded literature search is not a proof of open status.
 
 **Audit update (2026-09-10):** Rechecked the May 2026 Conjecture 1.1 and searched for later Hadamard constructions and general proofs. Established infinite construction families do not cover every multiple of four; no newly verified general solution was located. This is a bounded literature check, not a proof that no solution exists.
+
+## Literature update — 2026-11-26
+
+Ronan Egan, Ilias Kotsireas, Stephen London and Pádraig Ó Catháin verify
+the twelve constructions announced by Levent Alpöge, Philippe Voinov
+and Saul Reynolds-Haertle, including order 668. Together these cover
+every multiple of four below 2000. The authors also give constructions
+at further orders. Section 4 and Table 5 of the November revision
+list 2396 as the smallest order with no known construction in their
+survey. Existence at every admissible order remains open.
+[Preprint, version 2, §§3–4 and Table 5](https://arxiv.org/html/2610.27175v2).
 
 <!-- navigation -->
 [All categories](../../README.md) · [Category index](../README.md) · [Read PDF](problem.pdf) · [LaTeX source](problem.tex)

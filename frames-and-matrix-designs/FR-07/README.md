@@ -3,7 +3,7 @@
 **Difficulty:** extreme  
 **Importance:** broadly interesting  
 **Status:** Partially resolved  
-**Last checked:** 2026-09-10
+**Last checked:** 2026-11-26
 
 **Rating rationale:** All-dimension SIC existence is a central structured-design barrier connecting frame theory, quantum information and arithmetic geometry.
 
@@ -31,6 +31,15 @@ These frames attain the optimal coherence for $`d^2`$ unit vectors and lead to h
 Searched “Zauner conjecture proof 2026”, “SIC POVM all dimensions solved”, and checked the latest versions rather than relying on search snippets. The apparent January 2026 proof claim is withdrawn; its unchanged abstract must not be read as a valid solution. The Appleby–Flammia–Kopp construction does not give an unconditional proof of the statement. No other general resolution was found.
 
 **Audit update (2026-09-10):** Rechecked the Appleby–Flammia–Kopp conditional construction and Joka’s withdrawn v5, and searched for other general proofs. Many individual dimensions have exact constructions, but the all-dimension existence question remains unresolved; the withdrawn claim is not a solution. This is a bounded literature check, not a proof that no solution exists.
+
+## Literature update — 2026-11-26
+
+Hassan Khodaiemehr's November preprint reduces existence of a SIC in a
+given dimension to a condition on the Galois conjugates of the overlap
+units of an associated ghost SIC. Section VII identifies the unresolved
+arithmetic hypotheses in the reduction. The exact checks in small
+dimensions and the conditional implication leave existence in every
+dimension open. [Preprint, §§VI.4 and VII](https://arxiv.org/html/2611.01524v1).
 
 <!-- navigation -->
 [All categories](../../README.md) · [Category index](../README.md) · [Read PDF](problem.pdf) · [LaTeX source](problem.tex)

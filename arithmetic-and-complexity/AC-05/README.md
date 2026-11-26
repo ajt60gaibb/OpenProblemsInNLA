@@ -8,8 +8,27 @@
 **Importance:** broadly interesting  
 **Rating rationale:** Extreme because it predicts minimal asymptotic complexity for every concise tight tensor; broad importance follows from consequences for matrix multiplication and exponential-time combinatorial algorithms.  
 **Topic:** complexity of structured tensor powers  
-**Last checked:** 2026-09-14  
-**Status:** Open  
+**Last checked:** 2026-11-26  
+**Status:** Solved  
+
+## Negative resolution — 24 November 2026
+
+The two-by-two matrix multiplication tensor is a counterexample. Label the
+three factors by $`(i,j)`$, $`(j,k)`$ and $`(k,i)`$, with
+$`i,j,k\in\{0,1\}`$. Each flattening has rank four because its four rows
+have nonempty disjoint support. The three label functions
+$`i+2j`$, $`-2j+4k`$ and $`-4k-i`$ are injective on their respective pairs and
+sum to zero on every support triple. This checks conciseness and tightness
+in the displayed formulation with $`d=4`$.
+
+The asymptotic rank of this tensor is $`2^{9/4}>4`$. Corollary 1.2 of
+OpenAI's [*The matrix multiplication exponent is nine
+fourths*](https://github.com/openai/math/blob/92b516ef8e2abf66c3db7aa31438d3010bc7956f/preprints/The-matrix-multiplication-exponent-is-nine-fourths-November-24-2026/paper.pdf)
+gives asymptotic rank $`n^{9/4}`$ for the square multiplication tensor of
+side length $`n`$. The independent audit checked this rank formula in Lean
+against a separately written definition. This catalog checked the
+counterexample's hypotheses above directly.
+[Audit, row G3c](https://carlostoledo.co/omega/).
 
 ## Context and notation
 
@@ -43,9 +62,7 @@ A. Björklund and P. Kaski,
 True*](https://arxiv.org/abs/2310.11926), Conjecture 3 and §2.3, states the
 conjecture and gives a conditional consequence, not a refutation. K. Lee,
 [*Asymptotic rank bounds: a numerical census*](https://arxiv.org/abs/2601.08119)
-(2026), Conjecture 1, retains the tight/concise formulation. Searches for
-“asymptotic rank conjecture proved 2026” found no resolution. Numerical evidence
-is not a proof. **Admitted: no resolution located.**
+(2026), Conjecture 1, records the tight/concise formulation.
 
 ## Status check — 2026-09-10
 
@@ -55,4 +72,6 @@ Rechecked [Lee, Conjecture 1](https://arxiv.org/html/2601.08119v1) and [Björklu
 
 **Author:** Sidney Holden, Center for Computational Biology, Flatiron Institute, Simons Foundation. [Verified affiliation](../../references/holden-ac-2026-09-14/README.md) · [Report](../../references/holden-ac-2026-09-14/AC-05-submission.pdf) · [Independent AI audit](../../references/holden-ac-2026-09-14/verification/review-ac05-ac06.md).
 
-Theorems 3.2–9.3 give scoped power classifications and finite lower bounds, not the missing asymptotic upper bound. Inherited claims are excluded from this audit. **Open** is retained. AI assistance disclosed; no external human review, formal verification or Lean checks.
+Theorems 3.2–9.3 give scoped power classifications and finite lower bounds.
+AI assistance was disclosed. This submission received an informal AI-agent
+audit, limited to the stated results.
