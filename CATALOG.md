@@ -1,6 +1,6 @@
 # All problems and their status
 
-**82 problems with open targets:** 26 open and 56 partially resolved. **135 other retained entries**, excluded from the open count.
+**83 problems with open targets:** 27 open and 56 partially resolved. **135 other retained entries**, excluded from the open count.
 
 **Resolution evidence:** 39 solved (published or independently audited); 89 solved with Lean verification.
 
@@ -93,6 +93,7 @@ Retained entries outside the open count:
 | [MF-15](matrix-functions-and-stability/MF-15/README.md) | Critical exponent for generalized doubly nonnegative matrices | **🟡 PARTIAL** | challenging | interesting to the community | [PDF](matrix-functions-and-stability/MF-15/problem.pdf) · [TeX](matrix-functions-and-stability/MF-15/problem.tex) |
 | [MF-19](matrix-functions-and-stability/MF-19/README.md) | Decidability of zero hitting by rational matrix powers | **🟡 PARTIAL** | extreme | broadly interesting | [PDF](matrix-functions-and-stability/MF-19/problem.pdf) · [TeX](matrix-functions-and-stability/MF-19/problem.tex) |
 | [MF-20](matrix-functions-and-stability/MF-20/README.md) | Decidability of zero hitting by a matrix exponential | **🟡 PARTIAL** | extreme | broadly interesting | [PDF](matrix-functions-and-stability/MF-20/problem.pdf) · [TeX](matrix-functions-and-stability/MF-20/problem.tex) |
+| [MF-25](matrix-functions-and-stability/MF-25/README.md) | Maximum degree of real polynomials with a multiplication budget | **🔵 OPEN** | challenging | interesting to the community | [PDF](matrix-functions-and-stability/MF-25/problem.pdf) · [TeX](matrix-functions-and-stability/MF-25/problem.tex) |
 
 Retained entries outside the open count:
 

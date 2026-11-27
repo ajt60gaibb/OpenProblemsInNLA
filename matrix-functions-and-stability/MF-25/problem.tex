@@ -1,0 +1,226 @@
+% Standalone problem document, generated from the adjacent README.md.
+% Compile with XeLaTeX. Mathematical content is maintained in Markdown.
+\documentclass[11pt,a4paper]{article}
+\usepackage[fontsize=10.5pt]{scrextend}
+\usepackage[margin=22mm,headheight=15pt,headsep=9mm,footskip=11mm]{geometry}
+\usepackage{fontspec}
+\setmainfont{texgyrepagella}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic]
+\setsansfont{texgyreheros}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic]
+\setmonofont{texgyrecursor}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic,Scale=MatchLowercase]
+\usepackage{amsmath,amssymb}
+\usepackage{unicode-math}
+\setmathfont{texgyrepagella-math.otf}
+\usepackage{xcolor,microtype,enumitem,needspace,fancyhdr}
+\usepackage{bookmark}
+\definecolor{ink}{HTML}{17344B}
+\definecolor{accent}{HTML}{197D80}
+\definecolor{muted}{HTML}{596773}
+\hypersetup{colorlinks=true,linkcolor=accent,urlcolor=accent,pdftitle={MF-25 - Maximum
+degree of real polynomials with a multiplication
+budget},pdfauthor={Open Problems in Numerical Linear Algebra}}
+\urlstyle{same}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5pt plus 1pt minus 1pt}
+\linespread{1.04}
+\setlength{\emergencystretch}{3em}
+\widowpenalty=10000
+\clubpenalty=10000
+\displaywidowpenalty=10000
+\allowdisplaybreaks[1]
+\setlist{nosep,leftmargin=1.5em}
+\providecommand{\tightlist}{\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\providecommand{\pandocbounded}[1]{#1}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\sffamily\footnotesize\color{muted}OPEN PROBLEMS IN NUMERICAL LINEAR ALGEBRA}
+\fancyhead[R]{\sffamily\bfseries\footnotesize\color{accent}MF-25}
+\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-11-27}}
+\fancyfoot[R]{\sffamily\footnotesize\color{muted}\thepage}
+\renewcommand{\headrulewidth}{0.3pt}
+\renewcommand{\headrule}{\hbox to\headwidth{\color{accent}\leaders\hrule height \headrulewidth\hfill}}
+\makeatletter
+\renewcommand{\section}{\Needspace{5\baselineskip}\@startsection{section}{1}{0pt}{12pt plus 2pt minus 2pt}{4pt}{\sffamily\bfseries\large\color{ink}}}
+\renewcommand{\subsection}{\Needspace{4\baselineskip}\@startsection{subsection}{2}{0pt}{9pt plus 1pt minus 1pt}{3pt}{\sffamily\bfseries\normalsize\color{ink}}}
+\makeatother
+\setcounter{secnumdepth}{0}
+\begin{document}
+{\sffamily\small\color{muted}Matrix functions and stability\par}
+\vspace{3pt}
+{\raggedright\hyphenpenalty=10000\exhyphenpenalty=10000\sffamily\bfseries\fontsize{21}{24}\selectfont\color{ink}Maximum
+degree of real polynomials with a multiplication budget\par}
+\vspace{7pt}
+{\sffamily\small\textbf{Difficulty:} challenging\quad\textbf{Importance:} interesting
+to the community\par}
+{\sffamily\small\bfseries\color{accent}Status: Open\par}
+\vspace{4pt}
+{\color{accent}\hrule height 0.8pt}
+\vspace{6pt}
+\textbf{Rating rationale:} Real coefficient-space density and sharp
+degree exclusions must both be established for arbitrary budgets. The
+result would give a benchmark for designing low-cost matrix-function
+approximations.
+
+\hypertarget{problem-statement}{%
+\subsection{Problem statement}\label{problem-statement}}
+
+For a nonnegative integer \(r\), let \(\Pi_r\) be the set of real
+polynomials of degree exactly \(r\). For a nonnegative integer \(m\),
+let \(\Pi_{2^m}^*\) be the real polynomials computable from \(1,x\) by a
+straight-line program with at most \(m\) nonscalar multiplications. Each
+multiplication forms the product of two previously available
+polynomials, while arbitrary real linear combinations are free. This is
+the same arithmetic model as in
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/matrix-functions-and-stability/MF-01/README.md}{MF-01}
+and
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/matrix-functions-and-stability/MF-14/README.md}{MF-14},
+except that MF-14 uses complex coefficients and fixes the multiplication
+budget to seven. Substituting a square matrix \(X\) for \(x\) gives an
+evaluation scheme valid for matrices of arbitrary size.
+
+Identify each polynomial of degree at most \(r\) with its monomial
+coefficient vector in \(\mathbb R^{r+1}\). The bar denotes Euclidean
+closure in this coefficient space. Define
+
+\[d(m)=\max\left\{
+r\in\mathbb N:\Pi_r\subseteq
+\overline{\Pi_{2^m}^*\cap\Pi_r}
+\right\}.\]
+
+The inclusion at degree \(r\) means that for every \(p\in\Pi_r\) and
+every \(\varepsilon>0\) there exists a \(q\in\Pi_{2^m}^*\cap\Pi_r\)
+whose coefficient vector is within Euclidean distance \(\varepsilon\) of
+that of \(p\). Thus every real polynomial of degree \(d(m)\) can be
+approximated arbitrarily closely in its coefficients by polynomials of
+the same degree that admit evaluation with at most \(m\) nonscalar
+multiplications.
+
+The classical Paterson--Stockmeyer algorithm provides a constructive
+lower bound, while the dimension formula \(\dim(\Pi_{2^m}^*)=m^2\) for
+\(m>2\) (Jarlebring and Lorentzon, Theorem 4.2) provides an upper bound.
+Together, these give
+
+\[\left\lfloor\frac{(m+2)^2}{4}\right\rfloor
+\leq d(m)\leq m^2-1,\qquad m>2.\]
+
+The lower bound follows from exact polynomial evaluation using the
+Paterson--Stockmeyer scheme; the upper bound follows since the space of
+polynomials of degree exactly \(r\) has dimension \(r+1\). The general
+problem is to determine \(d(m)\), and we propose the following.
+
+\textbf{Conjecture.} For every integer \(m\geq4\),
+
+\[\boxed{d(m)=m^2-m.}\]
+
+\hypertarget{why-it-matters}{%
+\subsection{Why it matters}\label{why-it-matters}}
+
+Matrix products typically dominate the cost of evaluating a polynomial
+of a large dense matrix. The conjecture would identify the greatest
+degree at which any real polynomial approximant, for example one used to
+approximate the matrix exponential, can be perturbed arbitrarily little
+in its coefficients and evaluated within a prescribed product budget.
+
+\hypertarget{related-problems}{%
+\subsection{Related problems}\label{related-problems}}
+
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/matrix-functions-and-stability/MF-01/README.md}{MF-01}
+studies optimal approximation of the sign function under a fixed
+multiplication budget. In contrast, the present problem concerns the
+maximum polynomial degree achievable with a given number of
+multiplications.
+
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/matrix-functions-and-stability/MF-14/README.md}{MF-14}
+concerns polynomial evaluation with seven matrix multiplications. Webb
+(2026) established that the maximum degree in the complex, full-space
+Zariski-closure model is 47. Since real Euclidean density within a
+fixed-degree polynomial space implies complex Zariski density in the
+full coefficient space, this result provides the upper bound
+
+\[d(7)\leq47.\]
+
+This improves the general dimension bound \(d(7)\leq48\), but does not
+establish the conjectured equality \(d(7)=42\). The sense of
+approximability the current conjecture leads to is different from that
+of
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/matrix-functions-and-stability/MF-14/README.md}{MF-14},
+since higher order coefficients are here enforced to zero; which is may
+improve practical usefulness.
+
+See also
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/references/webb-mf14-degree47-2026-09-17/proof.pdf}{Webb's
+degree-47 proof}.
+
+\hypertarget{references-and-status-evidence}{%
+\subsection{References and status
+evidence}\label{references-and-status-evidence}}
+
+E. Jarlebring and G. Lorentzon, \emph{The Polynomial Set Associated with
+a Fixed Number of Matrix-Matrix Multiplications}, SIAM Journal on
+Applied Algebra and Geometry 10(3), 549--581 (2026).
+\href{https://doi.org/10.1137/25M1779036}{DOI: 10.1137/25M1779036}.
+
+M. S. Paterson and L. J. Stockmeyer, \emph{On the Number of Nonscalar
+Multiplications Necessary to Evaluate Polynomials}, SIAM Journal on
+Computing 2(1), 60--66 (1973).
+\href{https://doi.org/10.1137/0202007}{DOI: 10.1137/0202007}.
+
+\textbf{Rigorous results.} Theorem 4.2 of Jarlebring and Lorentzon
+proves the dimension formula \(\dim(\Pi_{2^m}^*)=m^2\) for \(m>2\).
+Section 5.1 gives an exact four-product construction with real
+coefficients for every real polynomial of degree 12 and identifies 12 as
+the optimal degree for coverage. In particular, the exact construction
+gives the density inclusion at degree 12 in the formulation above.
+
+\textbf{Numerical and empirical evidence.} The following results support
+the conjecture:
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{\(d(5)=20\):} Real evaluation schemes for several degree-20
+  polynomials were obtained using homotopy continuation, together with a
+  combinatorial analysis of zero patterns in the evaluation schemes
+  (Jarlebring and Lorentzon, §5, Conjecture 5.1). These findings are
+  consistent with the earlier work of Sastre et al.~(2025, §4), who
+  developed a five-multiplication evaluation scheme for degree-20
+  polynomials, where realness of coefficients were not studied.
+\item
+  \textbf{\(d(6)=30\):} A real evaluation scheme for a degree-30
+  polynomial was obtained using an iteratively regularized Newton
+  method, together with a combinatorial analysis of zero patterns in the
+  evaluation schemes (Jarlebring and Lorentzon, §5, Conjecture 5.2).
+\end{itemize}
+
+These results provide numerical support for the conjectured degrees but
+do not establish Euclidean density or optimality. The numerical
+experiments and evaluation schemes are available in the
+\href{https://github.com/GustafLorentzon/polynomial-set-paper}{accompanying
+software repository}.
+
+\textbf{Relation to the published conjectures.} The conjecture above
+generalizes the small-budget observations in Jarlebring and Lorentzon,
+which states separate conjectures for five, six, and seven products. It
+also uses a different notion of closure: Section 2.2 specifies Zariski
+closure, and (5.1) takes the closure of the full output set before
+testing coverage at a given degree. Here the approximating outputs must
+have exactly the target degree and converge in real Euclidean
+coefficient space.
+
+\hypertarget{audit-2026-11-27}{%
+\subsection{Audit --- 2026-11-27}\label{audit-2026-11-27}}
+
+Checked the published SIAGA article's model and closure convention,
+Theorem 4.2, the constructions and conjectures in §5, and the concluding
+discussion. Also checked the local MF-14 resolution, §4 of Sastre et
+al.'s degree-20 construction, and §6 of Alonso et al.'s preprint on
+stable evaluation. A targeted search by the SIAGA title and by the
+five-, six-, and seven-product degree claims located related
+constructions and the complex MF-14 result.
+
+This bounded check located no proof or counterexample for the stated
+all-budget real, same-degree Euclidean conjecture.
+
+\href{https://wseas.com/journals/mathematics/2025/b385106-036\%282025\%29.pdf}{Sastre
+et al., §4} · \href{https://arxiv.org/html/2603.23143\#S6}{Alonso et
+al., §6}.
+\end{document}
