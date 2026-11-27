@@ -7,9 +7,17 @@
 **Difficulty:** challenging  
 **Importance:** interesting to the community  
 **Status:** Open  
-**Last checked:** 2026-09-13
+**Last checked:** 2026-11-27
 
 **Rating rationale:** Determining a sharp two-parameter function after the proposed formula failed is challenging; matrix-sum bounds affect norm estimates used across NLA.
+
+## Structural non-attainment and exact 2×2 collapse — 27 November 2026
+
+**Author:** Marcio Diaz (Space AI). [Preprint PDF](../../references/diaz-mi20-2026-11-27/mi20_subquadratic_lee_whitepaper.pdf) · [Zenodo DOI 10.5281/zenodo.24591861](https://doi.org/10.5281/zenodo.24591861) · [Submission and reproduction scripts](../../references/diaz-mi20-2026-11-27/README.md).
+
+The manuscript proves four structural results for every $`1 < p < 2`$ and every $`m \ge 2`$: (i) the finite-dimensional optimal constants form a strictly increasing infinite sequence $`1 = C_{p,m}(1) < C_{p,m}(2) < \cdots < C_{p,m}(n) < C_{p,m}(n+1) < \cdots < C_{p,m}(\infty)`$ over both $`\mathbb{C}`$ and $`\mathbb{R}`$ (Theorem 1, settling Qiu's dimensional-growth conjecture and transferring via Xing Li's Theorem 1.1 to concave-function Lee constants in Corollary 1); (ii) on any infinite-dimensional separable Hilbert space $`\mathcal{H}`$, no tuple in $`(\mathcal{S}_p(\mathcal{H}))^m`$ containing any finite-rank operator can attain $`C_{p,m}(\infty)`$ (Theorem 2); (iii) universal $`2\times 2`$ collapse $`C_{p,m}(2) = C_{p,m}^{\mathbb{R}}(2) = C_{p,2}(2)`$ for all $`m \ge 2`$ and all $`p > 1`$, with exact closed form $`C_{3/2,m}(2) = ((107 + 51\sqrt{17})/256)^{1/6}`$ and monic cubic evaluation $`z^3 - z^2 - 4z + 2 = 0`$ at $`p = 4/3`$ giving $`C_{4/3,m}(2) \approx 1.0183023754`$ (Theorem 3); and (iv) explicit small-integer $`2\times 3`$ pairs at $`p \in \{3/2, 4/3, 5/4\}`$ strictly surpassing $`C_{p,m}(2)`$, verified without floating-point arithmetic by pure Python standard-library rational certificates (Theorem 4). Proposition 5 shows that kernel lifting extends to all $`p \ge 2`$, forcing $`\ker(S) \cap \operatorname{ran}(H) \neq \{0\}`$ at every superquadratic finite-dimensional maximizer and pinpointing Lemma 2 as the mechanism of the $`p = 2`$ phase transition.
+
+Status remains **Open**: these theorems resolve finite-dimensional and finite-rank non-attainment but do not determine an explicit formula for $`C_p(m) = C_{p,m}(\infty)`$ across $`1 < p < 2`$ and $`m \ge 2`$. Author submission with exact zero-float rational and symbolic verification scripts and informal AI-assisted proof audit; no external human peer review or Lean formalization was performed.
 
 ## Reviewed continuation — 13 September 2026
 
