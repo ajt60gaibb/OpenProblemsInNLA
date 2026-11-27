@@ -6,19 +6,36 @@
 
 **Difficulty:** extreme  
 **Importance:** interesting to the community  
-**Rating rationale:** Extreme because additivity across arbitrary polytopes is a general structural barrier for extension complexity; community importance links optimal factorizations with compositional linear optimization models.  
-**Status:** Partially resolved  
+**Rating rationale:** Historical rating of the original target. Additivity across arbitrary polytopes posed a general structural barrier for extension complexity, linking optimal factorizations with compositional linear optimization models.  
+**Status:** Solved  
 **Area:** nonnegative rank and polyhedral optimization  
-**Last checked:** 2026-09-13
+**Last checked:** 2026-11-27
 
-## Reviewed continuation — 13 September 2026
+## Negative resolution — 27 November 2026
 
-Sidney Holden (Center for Computational Biology, Flatiron Institute, Simons Foundation) supplies a computer-assisted proof that $`\mathop{\mathrm{xc}}\nolimits(P\times Q)=12`$ whenever both factors are polygons of extension complexity six. The [fourth-round report](../../references/holden-continuations-2026-09-13/NR-02/report.pdf), main theorem and geometry-to-Boolean reduction, reduces this statement to ten exact LRAT refutations. The broader inherited all-polytopes corollary in the package was not independently re-audited in this submission.
+Minhao Liu's [Theorem 1](https://arxiv.org/html/2611.33631v1#S1), submitted
+25 November 2026, constructs a full-dimensional rational polytope
+$`P\subset\mathbb R^{24}`$ with 50 facets and 150 vertices. The extension
+complexities are 40 for $`P`$ and 79 for $`P\times P`$. If $`S`$ is the full
+facet–vertex slack matrix of $`P`$ and $`C`$ is the matrix in the original
+statement with $`Q=P`$, Yannakakis' factorization theorem gives
 
-Status remains **Partially resolved**: arbitrary higher-complexity factors and unrestricted Cartesian-product additivity are not settled.
+```math
+\mathop{\mathrm{rank}}\nolimits_+(C)=79
+<80=2\mathop{\mathrm{rank}}\nolimits_+(S).
+```
 
-The [independent informal Codex AI-agent review](../../references/holden-continuations-2026-09-13/verification/NR-02/review.md) records its accepted scope and checks. [Submission, original package, reproduction and verified affiliation](../../references/holden-continuations-2026-09-13/README.md). This is not external human peer review or formal verification; no Lean verification was performed.
+[Section 5.3](https://arxiv.org/html/2611.33631v1#S5.SS3) supplies the
+polytope inequalities. Proposition 9 gives the two real nonnegative ranks
+for the selected rows, and Theorem 3 transfers them to the full slack
+matrices by adding 26 for one factor and 52 for the square.
 
+The [independent Codex proof note](solution.md) verifies the strict gap
+with a limiting argument for Liu's matrices and a direct proof that the
+retained coordinate rows are facets. The review is informal and
+AI-assisted. Lluis Eriksson's
+[companion verification](https://airr.science/papers/ARR-2026-0WKHQBJJDA8C4VPT/versions/v1/)
+checks selected finite steps using exact arithmetic and Lean.
 
 ## Context and notation
 
@@ -68,4 +85,11 @@ theorem.
 ## Status check — 2026-09-10
 
 Rechecked [Tiwary–Weltge–Zenklusen](https://arxiv.org/abs/1702.01959) and [Weltge’s 2022 workshop question](https://www.cargese.org/2022/open-problems.pdf), then searched for later product-additivity proofs and counterexamples. Equality is proved whenever one factor is a pyramid, a substantive portion of the displayed target. The unrestricted equality remains open in the latest explicit source located; no subsequent full resolution was found. The 2022 date limits the strength of the current-status evidence.
+
+## Reviewed continuation — 13 September 2026
+
+Sidney Holden (Center for Computational Biology, Flatiron Institute, Simons Foundation) supplies a computer-assisted proof that $`\mathop{\mathrm{xc}}\nolimits(P\times Q)=12`$ whenever both factors are polygons of extension complexity six. The [fourth-round report](../../references/holden-continuations-2026-09-13/NR-02/report.pdf), main theorem and geometry-to-Boolean reduction, reduces this statement to ten exact LRAT refutations. The broader inherited all-polytopes corollary in the package was not independently re-audited in this submission.
+
+This was the basis for the September **Partially resolved** classification.
+The [independent informal Codex AI-agent review](../../references/holden-continuations-2026-09-13/verification/NR-02/review.md) records its accepted scope and checks. [Submission, original package, reproduction and verified affiliation](../../references/holden-continuations-2026-09-13/README.md). This is not external human peer review or formal verification; no Lean verification was performed.
 
