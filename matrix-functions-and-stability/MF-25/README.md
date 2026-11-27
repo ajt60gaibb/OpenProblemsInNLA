@@ -133,7 +133,72 @@ coefficients for every real polynomial of degree 12 and identifies
 12 as the optimal degree for coverage in the ambient complex model.
 Together these imply $`d(4)=12`$ in the formulation above.
 
-**Numerical and empirical evidence.** The following results support the conjecture:
+### A six-product upper bound
+
+**Partial result (AI-derived).** In the real, same-degree model above,
+$`d(6)\le 32`$. This neither establishes density at degree 32 nor
+settles the conjectured value $`d(6)=30`$.
+
+Start with $`V=\mathrm{span}\{1,x\}`$. One product augments $`V`$
+by $`fg`$ with $`f,g\in V`$. Work over the complex numbers for the
+dimension bound. Choose a degree-echelon basis with monic elements of
+distinct degrees $`0=s_0< s_1=1< \cdots< s_\ell`$. If the two factors
+have degrees $`s_i,s_j`$, with $`1\le i\le j`$, we can make them monic
+and remove their constant terms without changing the augmented span:
+the changes to the product, apart from an overall nonzero factor,
+belong to $`V`$. The normalized factors therefore have at most
+$`i+j-2`$ free coefficients in this basis. A gate that leaves
+$`V`$ unchanged may be omitted.
+
+Set $`z=s_i+s_j`$. If $`z`$ is not already a pivot degree, then it is the
+new pivot. Otherwise reduce against the old basis: either the product
+is redundant or the new pivot is an unused degree below $`z`$. Each
+choice of pivots defines a chart on which the updated echelon basis is
+a rational function of the old parameters and the new factor
+coefficients. Requiring degrees to drop only restricts the parameter
+domain. The first nonredundant product adds $`x^2`$ with no parameters.
+The second adds either degree 3, giving the full space through
+degree 3 with no parameters, or degree 4, represented modulo the old
+span by $`x^4+c x^3`$ with at most one parameter.
+
+The [standalone Python checker](../../references/mf25-six-product-bound/check_degree_bounds.py)
+starts with pivots $`(0,1)`$ and bound 0. For each nonconstant pivot
+pair it inserts the new sum, or tries every unused lower degree if
+the sum is already present. It adds the parameter cost above and
+keeps the maximum over paths to each pivot list. The computation
+uses only integers and does not assume the candidate drops occur.
+
+After at most five products, the maximum possible degree is 32 by
+degree doubling. Thus an output of degree 33, 34, or 35 needs a sixth
+product whose factor degrees sum to the target; its leading term
+cannot be canceled by the earlier span. In the cases below, the
+second bound includes the last product and up to eight output
+coefficients.
+
+- Degree 33: pivots $`(0,1,2,4,8,16,17)`$, factors of degrees
+  16 and 17, parameter bound 15 before the last product and 32 after
+  including the output; or pivots $`(0,1,2,4,8,16,32)`$, factors
+  of degrees 1 and 32, bounds 19 and 32.
+- Degree 34: pivots $`(0,1,2,4,8,9,17)`$ or
+  $`(0,1,2,4,8,16,17)`$, factors both of degree 17, bounds 15
+  and 33; pivots $`(0,1,2,4,8,16,18)`$, factors of degrees 16
+  and 18, bounds 16 and 33; or pivots $`(0,1,2,4,8,16,32)`$,
+  factors of degrees 2 and 32, bounds 19 and 33.
+- Degree 35: no pair.
+
+At degrees 33 and 34, the upper bounds 32 and 33 are strictly below
+the full coefficient dimensions 34 and 35. The Zariski closure
+of the finite union of rational images is therefore proper. A
+nonzero polynomial vanishing on it cannot vanish on all of the real
+exact-degree locus, so continuity rules out real density.
+Degree 35 is impossible outright. At every degree
+$`r\ge 36`$, the ambient dimension bound of 36 from Jarlebring and
+Lorentzon's Theorem 4.2 is strictly less than $`r+1`$. Together
+these give $`d(6)\le 32`$.
+
+### Numerical evidence
+
+The following results support the conjecture:
 
 - **$`d(5)=20`$:** Real evaluation schemes for several degree-20 polynomials were obtained using homotopy continuation, together with a combinatorial analysis of zero patterns in the evaluation schemes (Jarlebring and Lorentzon, §5, Conjecture 5.1). These findings are consistent with the earlier work of Sastre et al. (2025, §4), who developed a five-multiplication evaluation scheme for degree-20 polynomials, where realness of coefficients were not studied.
 - **$`d(6)=30`$:** A real evaluation scheme for a degree-30 polynomial was obtained using an iteratively regularized Newton method, together with a combinatorial analysis of zero patterns in the evaluation schemes (Jarlebring and Lorentzon, §5, Conjecture 5.2).
