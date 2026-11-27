@@ -4,11 +4,11 @@ Published base: `7ebc4e21f2a4e19db341a3fb28644ab4e2df7ebf`.
 
 This generated source inventory covers every permanent registered ID. It does not certify proofs, compilation, or mathematical fidelity. Catalog statuses are retained verbatim. A solution file's existence is not evidence that the original target is proved.
 
-Registered entries: **217**.
+Registered entries: **218**.
 
 - external-statement-source: **7**
 - local-statement-source: **68**
-- missing-statement: **97**
+- missing-statement: **98**
 - shared-statement-source: **45**
 
 The 5 existing scope gaps remain explicit even when a new shared statement is recorded. AC-01, IE-01, TR-01, IV-01, MI-15, MI-18, MF-23, and MI-32 cite pinned external formalizations and are tracked separately from entries with no Lean statement. Copied historical and review projects do not count.
@@ -119,6 +119,7 @@ Regenerate with `python3 tools/statement_inventory.py --base-ref <published-comm
 | [MF-22](../../../matrix-functions-and-stability/MF-22/README.md) | Lean verified | local-statement-source | Not audited here. |
 | [MF-23](../../../matrix-functions-and-stability/MF-23/README.md) | Lean verified | local-statement-source | Not audited here. |
 | [MF-24](../../../matrix-functions-and-stability/MF-24/README.md) | Lean verified | local-statement-source | Not audited here. |
+| [MF-25](../../../matrix-functions-and-stability/MF-25/README.md) | Open | missing-statement | Not audited here. |
 | [MI-01](../../../matrix-inequalities-and-norms/MI-01/README.md) | Partially resolved | missing-statement | Not audited here. |
 | [MI-02](../../../matrix-inequalities-and-norms/MI-02/README.md) | Partially resolved | missing-statement | Not audited here. |
 | [MI-03](../../../matrix-inequalities-and-norms/MI-03/README.md) | Lean verified | local-statement-source | Not audited here. |
@@ -241,4 +242,4 @@ Within each status, finite explicit assertions can share basic matrix definition
 
 - **Solved (8):** AC-04, AC-05, IE-07, KE-02, TR-23, TR-25, TR-28, TR-29.
 - **Partially resolved (56):** AC-07, AC-08, AC-09, AC-11, AC-12, AC-13, AV-03, FR-02, FR-07, FR-08, FR-09, FR-11, IE-20, IE-27, IE-28, IS-05, KE-01, MF-04, MF-15, MF-19, MF-20, MI-01, MI-02, MI-05, MI-08, MI-09, MI-10, MI-11, MI-12, MI-14, MI-17, MI-25, MI-30, NR-01, NR-02, PF-01, RA-01, RA-11, RA-14, RA-15, RA-17, RA-18, RE-03, SP-03, SP-08, SP-09, SP-10, TR-03, TR-05, TR-10, TR-11, TR-12, TR-18, TR-19, TR-30, TR-31.
-- **Open (26):** AC-02, AC-03, AC-06, AC-10, FR-01, FR-03, FR-04, IE-24, IE-25, IS-01, MD-05, MF-01, MF-09, MF-10, MI-20, NM-01, RA-16, RE-01, RE-02, SP-01, SP-02, SP-07, TR-09, TR-16, TR-22, TR-24.
+- **Open (27):** AC-02, AC-03, AC-06, AC-10, FR-01, FR-03, FR-04, IE-24, IE-25, IS-01, MD-05, MF-01, MF-09, MF-10, MF-25, MI-20, NM-01, RA-16, RE-01, RE-02, SP-01, SP-02, SP-07, TR-09, TR-16, TR-22, TR-24.
