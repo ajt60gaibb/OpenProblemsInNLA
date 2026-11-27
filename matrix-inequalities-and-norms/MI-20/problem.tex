@@ -59,6 +59,79 @@ to the community\par}
 after the proposed formula failed is challenging; matrix-sum bounds
 affect norm estimates used across NLA.
 
+\subsection{Universal quadratic upper bound, infinite-tree extremizers,
+zero-float enclosures, and Lean 4 formalization --- 27 November
+2026}\label{universal-quadratic-upper-bound-infinite-tree-extremizers-zero-float-enclosures-and-lean-4-formalization-27-november-2026}
+
+\textbf{Author:} Marcio Díaz (Space Research AI).
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/references/diaz-mi20-v3-2026-11-27/mi20_subquadratic_lee_whitepaper.pdf}{Version
+3 PDF} · \href{https://doi.org/10.5281/zenodo.24608035}{Zenodo DOI
+10.5281/zenodo.24608035} ·
+\href{https://github.com/spaceresearchai/mi20-subquadratic-lee}{GitHub
+repository} ·
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/references/diaz-mi20-v3-2026-11-27/README.md}{Submission,
+Lean 4 project, and zero-float certificates}.
+
+Expanding the structural non-attainment manuscript below (and fixing the
+singular-vector direction slip in Theorem 2, Step 1), Version 3 proves a
+fixed-dimension unitary-free PSD/POVM reformulation via Same-Dimension
+Lemma 2' (Theorem 5), formalizes Holden's complex-interpolation
+log-convexity at fixed finite dimension \(n\) (Theorem 6), proves a
+concentration-compactness dichotomy ruling out mass splitting in
+\((\mathcal{S}_p(\ell^2))^m\) (Theorem 7), establishes the exact
+two-term \(p \to 1^+\) quadratic law in dimension \(2\) (Proposition 8),
+and shows unconditionally that any attaining tuple in
+\((\mathcal{S}_p(\mathcal{H}))^m\) satisfies
+\(\ker(S) \cap \overline{\mathop{\mathrm{ran}}\nolimits(H)} = \{0\}\),
+onto-isometric polar factors
+\(U_k U_k^* = I_{\overline{\mathop{\mathrm{ran}}\nolimits(H)}}\), and
+\(0 \in \sigma(H^{-1/2}|A_k|H^{-1/2})\) (Theorem 8).
+
+On Holden's positive power system
+\((D + H_j)^{2\kappa-1} = \Lambda D^{1/2} G_j^{\kappa-1} D^{1/2}\)
+(\(\kappa = \frac{p}{2(p-1)}\),
+\(\Phi_j = G_j^\kappa - D G_j^{\kappa-1} D\)), Theorem 9 proves the
+commutator identity \([D, \Phi_j] = 0\) for each summand individually, a
+Power-Variance Lemma, and a Top-Eigenspace Spectral Dichotomy on
+\(E_{\max} = \ker(D - d_{\max}I)\). Theorem 10 deduces the universal
+pure-algebraic upper bound
+\(\sigma_+(\Lambda) = h_+(\Lambda)^{\kappa-1}(h_+(\Lambda) - 1) \le (m-1)\frac{(\kappa-1)^{\kappa-1}}{\kappa^\kappa}\)
+for all \(1 < p < 2\) and \(m \ge 2\), giving closed-form radical caps
+\(\Lambda \le \frac{13+16\sqrt{2}}{4} < \frac{891}{100}\)
+(\(p = 4/3, m = 2\)) and
+\(\Lambda \le \frac{49\sqrt{3}}{18} < \frac{472}{100}\)
+(\(p = 3/2, m = 2\)), the first dimension-free non-asymptotic quadratic
+bound \(\ln C_{p,m}(\infty) \le \frac{m^2-1}{2p^2}(p-1)^2\), and the
+sharp asymptotic Lambert-\(W\) constant
+\(K_m = \frac{c_m^2 + 2c_m}{2}\) (\(c_m = W_0((m-1)/e)\),
+\(K_2 \approx 0.317236\)).
+
+Theorem 11 constructs self-similar infinite-tree extremizers on
+\(\ell^2(\mathcal{T}_s)\) whose depth-2 (\(42\times 42\)) truncations
+yield zero-float certified lower bounds
+\(C_{4/3,2}(\infty) > 1.0183715755\) and
+\(C_{3/2,2}(\infty) > 1.03643716806\). Theorem 12 proves an
+unconditional Two-State Pinch 2-letter reduction whose zero-float exact
+rational \(LDL^\top\) four-corner SOS certificates yield
+\(C_{4/3,2}(\infty) \le (17209/16000)^{1/4} \approx 1.0183777756\) and
+\(C_{3/2,2}(\infty) \le (5567/5000)^{1/3} \approx 1.0364548918\),
+tightening the best known certified upper bound across every
+\(1 < p < 2\) at \(m = 2\) when combined with Theorems 6 and 10.
+Theorems 1, 3 (\(1 < p < 2\) and \(p = 3/2\)), 4 (\(p = 3/2\)), 5, 6
+(from \(p_0 = 1\)), 9, and 10 (28 top-level theorems across 10 modules,
+12,206 lines) are formalized in Lean 4.33.1 + Mathlib with zero
+\texttt{sorry} and standard axioms only, and all numerical bounds in
+Theorems 4, 11, and 12 are checked without floats by
+\texttt{python3 -B -S verify\_all\_exact\_certificates.py}.
+
+Status remains \textbf{Open}: proving exact global optimality and
+evaluating the infinite-tree fixed point across all \(1 < p < 2\) and
+\(m \ge 2\) remain open. The
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/references/diaz-mi20-v3-2026-11-27/README.md\#audit-notes}{audit
+and reproduction notes} record the Lean-verified vs.\ paper-only scope;
+no external human peer review or catalog-side independent Lean
+Comparator run has yet been performed.
+
 \subsection{Structural non-attainment and exact 2×2 collapse --- 27
 November
 2026}\label{structural-non-attainment-and-exact-22-collapse-27-november-2026}
