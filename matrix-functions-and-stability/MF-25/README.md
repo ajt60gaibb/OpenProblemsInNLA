@@ -55,10 +55,13 @@ Together, these give
 \leq d(m)\leq m^2-1,\qquad m>2.
 ```
 
-The lower bound follows from exact polynomial evaluation using the
-Paterson--Stockmeyer scheme; the upper bound follows since the space
-of polynomials of degree exactly $`r`$ has dimension $`r+1`$. The general problem is to determine $`d(m)`$, 
-and we propose the following.
+For positive integers $`a,b`$ with $`a+b=m+2`$, the Paterson--Stockmeyer
+scheme evaluates any polynomial of degree $`ab`$ using $`a-1`$ products
+to compute powers through $`x^a`$ and $`b-1`$ products in Horner evaluation
+in $`x^a`$. The leading block is scalar. Taking balanced $`a,b`$ gives
+the lower bound. For the upper bound, the degree-$`r`$ coefficient space
+has dimension $`r+1`$ and its nonzero-leading-coefficient locus is Zariski
+dense in it. The general problem is to determine $`d(m)`$.
 
 
 **Conjecture 1.** For every integer $`m\geq 4`$,
@@ -69,7 +72,7 @@ d(m)=m^2-m.
 
 Even if Conjecture 1 does not hold, the following weaker asymptotic statement may still be true.
 
-**Conjecture 2.** 
+**Conjecture 2.**
 
 ```math
 \lim_{m\to\infty}\frac{d(m)}{m^2}=1.
@@ -83,7 +86,7 @@ of a large dense matrix. The conjecture would identify the greatest
 degree at which any real polynomial approximant, for example one used
 to approximate the matrix exponential, can be perturbed arbitrarily
 little in its coefficients and evaluated within a prescribed product
-budget. 
+budget.
 
 ## Related problems
 
@@ -94,19 +97,20 @@ number of multiplications.
 
 [MF-14](../MF-14/README.md) concerns polynomial evaluation with seven
 matrix multiplications. Webb (2026) established that the maximum degree
-in the complex, full-space Zariski-closure model is 47. Since real
-Euclidean density within a fixed-degree polynomial space implies
-complex Zariski density in the full coefficient space, this result
-provides the upper bound
+in the complex, ambient Zariski-closure model is 47. If the real
+same-degree outputs are Euclidean dense at degree $`r`$, the complex
+ambient Zariski closure contains the entire complex coefficient subspace
+through degree $`r`$. Indeed, any polynomial equation vanishing on the
+outputs also vanishes on the real degree-$`r`$ locus, and therefore on that
+complex subspace. This gives
 
 ```math
 d(7)\leq47.
 ```
 
-This improves the general dimension bound $`d(7)\leq48`$, but does not
-establish the conjectured equality $`d(7)=42`$. The sense of approximability the current conjecture 
-leads to is different from that of [MF-14](../MF-14/README.md), since higher order coefficients are here enforced to zero; which 
-is may improve practical usefulness.
+This improves the general dimension bound $`d(7)\leq48`$. The
+conjectured equality $`d(7)=42`$ remains open. MF-25 requires all higher
+coefficients to vanish in every approximating output.
 
 See also [Webb's degree-47 proof](../../references/webb-mf14-degree47-2026-09-17/proof.pdf).
 
@@ -126,9 +130,8 @@ Computing 2(1), 60–66 (1973).
 the dimension formula $`\dim(\Pi_{2^m}^*)=m^2`$ for $`m>2`$.
 Section 5.1 gives an exact four-product construction with real
 coefficients for every real polynomial of degree 12 and identifies
-12 as the optimal degree for coverage. In particular, the exact
-construction gives the density inclusion at degree 12 in the
-formulation above.
+12 as the optimal degree for coverage in the ambient complex model.
+Together these imply $`d(4)=12`$ in the formulation above.
 
 **Numerical and empirical evidence.** The following results support the conjecture:
 
