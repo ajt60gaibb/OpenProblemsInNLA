@@ -38,3 +38,15 @@ import MI20
 #print axioms MI20.universal_bound_p43_m2
 #print axioms MI20.universal_bound_p32_m2
 #print axioms MI20.universal_quadratic_log_bound
+#print axioms MI20.exists_negative_flux_eigenvector
+#print axioms MI20.universal_sharp_one_line_bound
+#print axioms MI20.sharp_one_line_cap_p43_m2
+#print axioms MI20.sharp_one_line_cap_p32_m2
+#print axioms MI20.sharp_one_line_p2_limit_frobenius
+#print axioms MI20.universal_two_function_bound
+#print axioms MI20.two_function_regime1_bound
+#print axioms MI20.two_function_regime2_bound
+#print axioms MI20.superexponential_p2_collapse_bound
+#print axioms MI20.two_function_cap_p32_m2
+#print axioms MI20.two_function_cap_p43_m2
+#print axioms MI20.bessel_two_line_identity_p43

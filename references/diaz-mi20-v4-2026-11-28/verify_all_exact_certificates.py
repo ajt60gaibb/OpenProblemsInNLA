@@ -5,16 +5,17 @@ verify_all_exact_certificates.py
 Author:      Marcio Díaz (Space Research AI, https://spaceresearch.ai, marcio.diaz@gmail.com)
 Date:        November 27, 2026
 Purpose:     100% ZERO-FLOATING-POINT, ZERO-EXTERNAL-DEPENDENCY master verifier for ALL
-             exact rational certificates of Open Problem MI-20 (Version 3):
+             exact rational certificates of Open Problem MI-20 (Version 4):
                - Suite 1 (Theorem 4): Small-integer 2x3 witnesses at p = 3/2, 4/3, 5/4
                - Suite 2 (Theorem 11): World-record 42x42 self-similar tree lower bounds
                    * C_{4/3,2}(inf) > 1.0183715755  (beats Holden's 1.018371575)
                    * C_{3/2,2}(inf) > 1.03643716806 (beats n=14 PSD 1.036437168055)
                - Suite 3 (Theorem 12): Unconditional Two-State Pinch upper-bound chains
-                   * p = 4/3, m = 2: Lam <= 86045/10000 => C_{4/3,2}(inf) <= (86045/80000)^(1/4)
-                                     = 1.0183777756... (27.2x tighter than Holden's 1.01854047)
-                   * p = 3/2, m = 2: Lam <= 44536/10000 => C_{3/2,2}(inf) <= (44536/40000)^(1/3)
-                                     = 1.0364549111... (459x tighter than Holden's 1.04458345)
+                 (including convex-hull trapezoid certification via strict convexity of sigma_+)
+                   * p = 4/3, m = 2: Lam <= 21511/2500 => C_{4/3,2}(inf) <= (21511/20000)^(1/4)
+                                     = 1.0183748167... (52.1x tighter than Holden's 1.01854047)
+                   * p = 3/2, m = 2: Lam <= 890677/200000 => C_{3/2,2}(inf) <= (890677/800000)^(1/3)
+                                     = 1.0364382131... (7,795x tighter than Holden's 1.04458345)
                - Suite 4: Negative tamper tests & literal noncommuting rational matrix sanity check
 
 Invocation (strictly stdlib-only, no site-packages):
@@ -303,33 +304,34 @@ def canon(w: str) -> str:
 
 
 def sigma_plus_bounds_p43(L: Fraction):
-    """Exact rational bracket (lo, hi) for sigma_+(L) = h_+(L)^2 - h_+(L) at p = 4/3 (kappa = 2),
-    where h_+(L) > 1/2 is the unique root of (1 + h)^3 - L * h = 0 on (1/2, inf)."""
+    """Exact rational bracket (sig_lo, sig_hi, slope_lo) for sigma_+(L) = h_+(L)^2 - h_+(L)
+    and its derivative sigma_+'(L) = (h_+(L) / (1 + h_+(L)))^2 at p = 4/3 (kappa = 2),
+    where h_+(L) > 1/2 is the unique root of (1 + h)^3 - L * h = 0 on (1/2, inf).
+    Since h -> h/(1+h) is strictly increasing, sigma_+(L) is strictly convex in L."""
     f = lambda h: (1 + h) ** 3 - L * h
     hi = Fraction(2)
     while f(hi) <= 0:
         hi *= 2
     h_lo, h_hi = bisect_increasing(f, Fraction(1, 2), hi, 90)
     assert h_lo >= Fraction(1, 2)
-    # h -> h^2 - h is strictly increasing on [1/2, inf)
-    return h_lo * h_lo - h_lo, h_hi * h_hi - h_hi
+    slope_lo = (h_lo / (1 + h_lo)) ** 2
+    return h_lo * h_lo - h_lo, h_hi * h_hi - h_hi, slope_lo
 
 
 def sigma_plus_bounds_p32(L: Fraction):
-    """Exact rational bracket (lo, hi) for sigma_+(L) = m_+(L)^3 - m_+(L) at p = 3/2 (kappa = 3/2),
-    where m_+(L) = sqrt(h_+(L)) > 1/sqrt(3) is the unique root of (1 + m^2)^2 - L * m = 0 on (1, inf)
-    for L > 4."""
+    """Exact rational bracket (sig_lo, sig_hi, slope_lo) for sigma_+(L) = m_+(L)^3 - m_+(L)
+    and its derivative sigma_+'(L) = m_+(L)^2 / (1 + m_+(L)^2) at p = 3/2 (kappa = 3/2),
+    where m_+(L) = sqrt(h_+(L)) > 1 is the unique root of (1 + m^2)^2 - L * m = 0 on (1, inf).
+    Since m -> m^2/(1+m^2) is strictly increasing, sigma_+(L) is strictly convex in L."""
     f = lambda m: (1 + m * m) ** 2 - L * m
-    # For L > 4, f(1) = 4 - L < 0 and m -> (1+m^2)^2 - L*m is strictly increasing on [1, inf)
-    # since f'(m) = 4m(1+m^2) - L; wait: at L <= 4.72 and m >= 1, 4m(1+m^2) >= 8 > 4.72 > L!
     assert L > 4 and L < 8
     hi = Fraction(2)
     while f(hi) <= 0:
         hi *= 2
     m_lo, m_hi = bisect_increasing(f, Fraction(1), hi, 90)
     assert m_lo >= Fraction(1)
-    # m -> m^3 - m is strictly increasing on [1, inf)
-    return m_lo ** 3 - m_lo, m_hi ** 3 - m_hi
+    slope_lo = (m_lo * m_lo) / (1 + m_lo * m_lo)
+    return m_lo ** 3 - m_lo, m_hi ** 3 - m_hi, slope_lo
 
 
 def allowed_localizers_p43(tau_bar: Fraction, h_bar: Fraction, use_D_le_I: bool):
@@ -354,6 +356,11 @@ def allowed_localizers_p43(tau_bar: Fraction, h_bar: Fraction, use_D_le_I: bool)
         allowed['(I-D)(tauD3-Phi)'] = [
             (tau_bar, 'DDD'), (-tau_bar, 'DDDD'), (Fm1, 'HDH'),
             (F1, 'DHD'), (F1, 'DHDH'), (Fm1, 'DDHD')
+        ]
+        # Valid unconditionally in State 1: 0 < D <= I => D(I-D) >= 0 commutes with tau D^3 - Phi >= 0.
+        allowed['D(I-D)(tauD3-Phi)'] = [
+            (tau_bar, 'DDDD'), (-tau_bar, 'DDDDD'), (Fm1, 'DHDH'),
+            (F1, 'DDHD'), (F1, 'DDHDH'), (Fm1, 'DDDHD')
         ]
     return allowed
 
@@ -478,8 +485,17 @@ def verify_pinch_rectangle(rect, mode: str):
     for u, v in comm_pairs:
         assert set(u) <= alphabet and set(v) <= alphabet
 
-    # 4. Verify all 4 corners are present and EXACTLY pass both zero residual AND exact LDL^T > 0!
-    req_corners = set([(L_lo, P_lo), (L_lo, P_hi), (L_hi, P_lo), (L_hi, P_hi)])
+    # 4. Verify all 4 corners (rectangle or convex trapezoid) are present and EXACTLY pass
+    #    both zero polynomial residual AND exact rational LDL^T > 0!
+    if 'trapezoid_P' in rect:
+        P_lo_L, P_hi_L, P_lo_R, P_hi_R = [parse_frac(v) for v in rect['trapezoid_P']]
+        assert P_lo_L <= P_hi_L and P_lo_R <= P_hi_R
+        assert use_D_le_I, "Convex trapezoid hull is used exclusively for State-1 curve P = sigma_+(L)"
+        trap_P = (P_lo_L, P_hi_L, P_lo_R, P_hi_R)
+        req_corners = set([(L_lo, P_lo_L), (L_lo, P_hi_L), (L_hi, P_lo_R), (L_hi, P_hi_R)])
+    else:
+        trap_P = (P_lo, P_hi, P_lo, P_hi)
+        req_corners = set([(L_lo, P_lo), (L_lo, P_hi), (L_hi, P_lo), (L_hi, P_hi)])
     seen_corners = set()
     min_piv = None
     for corner in rect['corners']:
@@ -546,17 +562,17 @@ def verify_pinch_rectangle(rect, mode: str):
             assert val == 0, f"NONZERO RESIDUAL {val} on word '{cw}' at ({L_c},{P_c}) in {rect['label']}!"
 
     assert req_corners <= seen_corners, f"Missing corners in {rect['label']}"
-    return L_lo, L_hi, P_lo, P_hi, tau_bar, use_D_le_I, min_piv
+    return L_lo, L_hi, P_lo, P_hi, tau_bar, use_D_le_I, trap_P, min_piv
 
 
 def verify_interval_coverage(rects_meta, start_cap: Fraction, final_cap: Fraction,
                              c_kap_hi: Fraction, sigma_fn, mode_name: str):
-    """Verify with 100% exact rationals that the rectangles seamlessly refute ALL
+    """Verify with 100% exact rationals that the rectangles/trapezoids seamlessly refute ALL
     (Lam, tau) with Lam in [final_cap, start_cap] and tau in [sigma_+(Lam), c_kap_hi]."""
-    # Group rectangles by their exact Lambda interval [L_lo, L_hi]
+    # Group pieces by their exact Lambda interval [L_lo, L_hi]
     by_L = {}
-    for L_lo, L_hi, P_lo, P_hi, tau_bar, use_D in rects_meta:
-        by_L.setdefault((L_lo, L_hi), []).append((P_lo, P_hi, tau_bar, use_D))
+    for L_lo, L_hi, P_lo, P_hi, tau_bar, use_D, trap_P in rects_meta:
+        by_L.setdefault((L_lo, L_hi), []).append((P_lo, P_hi, tau_bar, use_D, trap_P))
 
     # 1. Verify Lambda intervals form a contiguous cover of [final_cap, start_cap]
     L_intervals = sorted(by_L.keys())
@@ -570,19 +586,32 @@ def verify_interval_coverage(rects_meta, start_cap: Fraction, final_cap: Fractio
 
     # 2. On EVERY Lambda interval [L_lo, L_hi], verify exact (State 1 + State 2) coverage of tau in [sigma_+(Lam), c_kap_hi]!
     for (L_lo, L_hi), pieces in L_intervals_with_pieces(L_intervals, by_L):
-        sig_lo_min, _ = sigma_fn(L_lo)
-        _, sig_hi_max = sigma_fn(L_hi)
+        sig_lo_min, sig_lo_max, slope_lo_min = sigma_fn(L_lo)
+        _, sig_hi_max, _ = sigma_fn(L_hi)
         sys1 = [p for p in pieces if p[3]]      # use_D_le_I = True
         sys2 = [p for p in pieces if not p[3]]  # use_D_le_I = False
 
         if sys1:
-            # Sys1 must cover P = sigma_+(Lam) across ALL Lam in [L_lo, L_hi]
-            # (since sigma_+ is strictly increasing in Lam, [sigma_+(L_lo), sigma_+(L_hi)] <= [P_lo, P_hi])
+            # Sys1 convex quadrilateral conv{(L_lo, P_lo_L), (L_lo, P_hi_L), (L_hi, P_lo_R), (L_hi, P_hi_R)}
+            # must contain the ENTIRE graph {(L, sigma_+(L)) : L in [L_lo, L_hi]}.
+            # Because sigma_+(L) is strictly convex (sigma_+'(L) = (h_+/(1+h_+))^(2k-2) is strictly increasing):
+            #   - Upper secant edge >= sigma_+(L)  <==  P_hi_L >= sig_lo_max and P_hi_R >= sig_hi_max
+            #   - Lower edge <= supporting tangent <= sigma_+(L)  <==  P_lo_L <= sig_lo_min
+            #     and P_lo_R <= P_lo_L + slope_lo_min * (L_hi - L_lo).
             tau_split = None
-            for P_lo, P_hi, tau_bar, _ in sys1:
-                assert P_lo <= sig_lo_min and sig_hi_max <= P_hi, (
-                    f"{mode_name} [{L_lo},{L_hi}]: Sys1 P=[{P_lo},{P_hi}] does not cover "
-                    f"sigma_+ in [{fmt_dec(sig_lo_min,8)}, {fmt_dec(sig_hi_max,8)}]"
+            for P_lo, P_hi, tau_bar, _, trap_P in sys1:
+                P_lo_L, P_hi_L, P_lo_R, P_hi_R = trap_P
+                assert P_lo_L <= sig_lo_min, (
+                    f"{mode_name} [{L_lo},{L_hi}]: Sys1 P_lo_L={P_lo_L} > sig_lo_min={fmt_dec(sig_lo_min,10)}"
+                )
+                assert sig_lo_max <= P_hi_L, (
+                    f"{mode_name} [{L_lo},{L_hi}]: Sys1 P_hi_L={P_hi_L} < sig_lo_max={fmt_dec(sig_lo_max,10)}"
+                )
+                assert sig_hi_max <= P_hi_R, (
+                    f"{mode_name} [{L_lo},{L_hi}]: Sys1 P_hi_R={P_hi_R} < sig_hi_max={fmt_dec(sig_hi_max,10)}"
+                )
+                assert P_lo_R <= P_lo_L + slope_lo_min * (L_hi - L_lo), (
+                    f"{mode_name} [{L_lo},{L_hi}]: Sys1 P_lo_R={P_lo_R} exceeds lower supporting tangent!"
                 )
                 tau_split = tau_bar if tau_split is None else max(tau_split, tau_bar)
             # Sys2 pieces must seamlessly cover [tau_split, c_kap_hi]
@@ -597,7 +626,7 @@ def verify_interval_coverage(rects_meta, start_cap: Fraction, final_cap: Fractio
             f"{mode_name} [{L_lo},{L_hi}]: Sys2 starts at {sys2_sorted[0][0]} > needed {fmt_dec(tau_need_lo,8)}"
         )
         cur_tau = sys2_sorted[0][0]
-        for P_lo, P_hi, tau_bar, _ in sys2_sorted:
+        for P_lo, P_hi, tau_bar, _, _ in sys2_sorted:
             assert P_lo <= cur_tau, f"{mode_name} [{L_lo},{L_hi}]: GAP in tau between {cur_tau} and {P_lo}!"
             assert tau_bar >= P_hi
             if P_hi > cur_tau:
@@ -641,9 +670,9 @@ def verify_suite3_upper_bounds():
     meta_43 = []
     print(f"\n  --- Chain A: p = 4/3, m = 2 (start={p43['start_cap']} -> final={p43['final_cap']}) ---")
     for rect in p43['rectangles']:
-        L_lo, L_hi, P_lo, P_hi, tb, useD, mp = verify_pinch_rectangle(rect, 'p43')
-        meta_43.append((L_lo, L_hi, P_lo, P_hi, tb, useD))
-        print(f"    [PASS] {rect['label']:36s} | 0 residual | min_LDL_piv={fmt_dec(mp, 10)}")
+        L_lo, L_hi, P_lo, P_hi, tb, useD, tp, mp = verify_pinch_rectangle(rect, 'p43')
+        meta_43.append((L_lo, L_hi, P_lo, P_hi, tb, useD, tp))
+        print(f"    [PASS] {rect['label']:44s} | 0 residual | min_LDL_piv={fmt_dec(mp, 10)}")
     verify_interval_coverage(meta_43, Fraction(891, 100), final_43, c_kap_43_hi, sigma_plus_bounds_p43, "p43")
     _, C43_hi = nth_root_bounds(final_43 / 8, 4, 70)
     print(f"  [PASS] p = 4/3 seamless coverage verified: Lam <= {final_43} => C_{{4/3,2}}(inf) <= {fmt_dec(C43_hi, 12, round_up=True)}")
@@ -655,9 +684,9 @@ def verify_suite3_upper_bounds():
     meta_32 = []
     print(f"\n  --- Chain B: p = 3/2, m = 2 (start={p32['start_cap']} -> final={p32['final_cap']}) ---")
     for rect in p32['rectangles']:
-        L_lo, L_hi, P_lo, P_hi, tb, useD, mp = verify_pinch_rectangle(rect, 'p32')
-        meta_32.append((L_lo, L_hi, P_lo, P_hi, tb, useD))
-        print(f"    [PASS] {rect['label']:36s} | 0 residual | min_LDL_piv={fmt_dec(mp, 10)}")
+        L_lo, L_hi, P_lo, P_hi, tb, useD, tp, mp = verify_pinch_rectangle(rect, 'p32')
+        meta_32.append((L_lo, L_hi, P_lo, P_hi, tb, useD, tp))
+        print(f"    [PASS] {rect['label']:44s} | 0 residual | min_LDL_piv={fmt_dec(mp, 10)}")
     verify_interval_coverage(meta_32, Fraction(472, 100), final_32, c_kap_32_hi, sigma_plus_bounds_p32, "p32")
     _, C32_hi = nth_root_bounds(final_32 / 4, 3, 70)
     print(f"  [PASS] p = 3/2 seamless coverage verified: Lam <= {final_32} => C_{{3/2,2}}(inf) <= {fmt_dec(C32_hi, 12, round_up=True)}")
@@ -705,7 +734,21 @@ def verify_suite4_tamper_and_algebra(upper_data, lower_data):
         failed = True
     assert failed, "Inflated lower-bound target was NOT caught!"
 
-    # 4d. Literal noncommuting 2x2 rational matrix sanity check of canon(w) on D v = v
+    # 4d. Tamper with a State-1 trapezoid lower-right tangent corner -> MUST FAIL!
+    bad_meta = [(
+        Fraction(4453385, 1000000), Fraction(44536, 10000),
+        Fraction(2382, 10000), Fraction(2384, 10000), Fraction(2395, 10000), True,
+        (Fraction(23823, 100000), Fraction(23824, 100000), Fraction(23840, 100000), Fraction(23840, 100000))
+    )]
+    failed = False
+    try:
+        verify_interval_coverage(bad_meta, Fraction(44536, 10000), Fraction(4453385, 1000000),
+                                 Fraction(385, 1000), sigma_plus_bounds_p32, "tamper_trap")
+    except AssertionError:
+        failed = True
+    assert failed, "Tampered convex trapezoid tangent bound was NOT caught!"
+
+    # 4e. Literal noncommuting 2x2 rational matrix sanity check of canon(w) on D v = v
     D = [[Fraction(1), Fraction(0)], [Fraction(0), Fraction(1, 3)]]
     H = [[Fraction(2, 5), Fraction(1, 7)], [Fraction(1, 7), Fraction(3, 11)]]
     v = [Fraction(1), Fraction(0)]  # exact eigenvector D v = v!
@@ -719,7 +762,7 @@ def verify_suite4_tamper_and_algebra(upper_data, lower_data):
     for w in ['', 'D', 'DDH', 'HD', 'DHHD', 'HDH', 'DHDH', 'HDHD', 'DDHDH']:
         assert eval_word(w) == eval_word(canon(w)), f"canon failed on literal matrices for '{w}'"
 
-    print("  [PASS] All 3 negative tamper tests caught immediately!")
+    print("  [PASS] All 4 negative tamper tests caught immediately!")
     print("  [PASS] Literal 2x2 noncommuting rational matrix check of canon(w) on D v = v passed!")
 
 

@@ -14,7 +14,7 @@
 \usepackage[most]{tcolorbox}
 \usepackage{listings}
 \usepackage[colorlinks=true,linkcolor=accentblue,citecolor=accentblue,urlcolor=accentblue,
-  pdftitle={No Finite-Dimensional Extremizer for Subquadratic Lee Constants (MI-20) — Version 3 with Universal Quadratic Bound, Infinite-Tree Extremizers, Zero-Float Enclosures, and Lean 4 Formalization},
+  pdftitle={No Finite-Dimensional Extremizer for Subquadratic Lee Constants (MI-20) — Version 4 with Sharp Universal Bounds, Super-Exponential p->2 Collapse, BCH p->1 Limit, Zero-Float Enclosures, and 40-Theorem Lean 4 Formalization},
   pdfauthor={Marcio Díaz (Space Research AI)},
   pdfsubject={Open Problem MI-20 (OpenProblemsInNLA), Matrix Analysis, Schatten Norms, Lean 4 Formalization},
   pdfkeywords={Lee conjecture, Schatten norms, MI-20, Lean 4, Mathlib, Space Research AI, Marcio Díaz}]{hyperref}
@@ -171,7 +171,7 @@
 \thispagestyle{firstpage}
 
 % Top institutional/classification banner
-{\sffamily\footnotesize\bfseries\color{accentblue}MATHEMATICAL WHITEPAPER (VERSION 3) $\cdot$ MATRIX ANALYSIS \hfill OPEN PROBLEM MI-20 (OPENPROBLEMSINNLA)}\par
+{\sffamily\footnotesize\bfseries\color{accentblue}MATHEMATICAL WHITEPAPER (VERSION 4) $\cdot$ MATRIX ANALYSIS \hfill OPEN PROBLEM MI-20 (OPENPROBLEMSINNLA)}\par
 \vspace{2pt}
 {\color{ink}\hrule height 1.1pt}
 \vspace{11pt}
@@ -179,7 +179,7 @@
 \begin{center}
   {\LARGE\bfseries\color{ink} No Finite-Dimensional Extremizer for Subquadratic\\[3pt] Lee Constants}\par
   \vspace{6pt}
-  {\large\itshape\color{muted} Infinite-Dimensional Hierarchy, Universal Quadratic Upper Bound, Self-Similar Tree Extremizers,\\[1pt] Two-State Pinch Enclosures, and Machine-Checked Lean 4 Formalization for Problem MI-20}\par
+  {\large\itshape\color{muted} Infinite-Dimensional Hierarchy, Sharp Universal \& Super-Exponential Collapse Bounds,\\[1pt] Self-Similar Trees, Exact BCH Limit, Zero-Float Enclosures, and Lean 4 Formalization}\par
   \vspace{8pt}
   {\normalsize\bfseries Marcio Díaz}\textsuperscript{1}\par
   \vspace{1.5pt}
@@ -198,14 +198,14 @@ For a Schatten exponent $p \ge 1$ and $m \ge 2$ matrices, Eun-Young Lee's quasi-
 \]
 While $C_{1,m} = 1$ ($n = 1$) and Qiu (August 2026) proved $C_{p,m}$ is attained at $n = m$ for all $p \ge 2$, determining $C_{p,m}$ for $1 < p < 2$ remains open as Problem~\textbf{MI-20} in \emph{Open Problems in Numerical Linear Algebra}.
 
-We develop a comprehensive structural and quantitative theory for MI-20, machine-checking its finite-dimensional and universal algebraic core in \textbf{Lean~4.33.1 + Mathlib} (10 modules, $12{,}206$ lines, 28 audited theorems, zero \texttt{sorry}, zero warnings, standard axioms only) alongside a standalone zero-floating-point rational verifier (\texttt{python3 -B -S}). For every $1 < p < 2$ and $m \ge 2$, we prove a strict infinite-dimensional hierarchy $1 = C_{p,m}(1) < C_{p,m}(2) < \cdots < C_{p,m}(n) < C_{p,m}(n+1) < \cdots < C_{p,m}(\infty)$ over both $\C$ and $\R$ (Theorem~1; concave transfer Corollary~1). On any separable Hilbert space $\Hilb$, every attaining tuple in $(\Sp(\Hilb))^m$ must have every $A_k$ of infinite rank (Theorem~2) with $\ker(S) \cap \overline{\ran(H)} = \{0\}$ and onto-isometric polar factors $U_k U_k^* = I_{\overline{\ran(H)}}$ (Theorem~8). We establish universal $2\times 2$ collapse $C_{p,m}(2) = C_{p,2}(2)$ (Theorem~3), certified small-integer $2\times 3$ witnesses (Theorem~4), fixed-dimension PSD/POVM reformulations (Theorem~5), Lean-verified log-convexity (Theorem~6), concentration-compactness ruling out mass splitting (Theorem~7), and an exact $p \to 1^+$ quadratic law in dimension~2 (Proposition~8).
+We develop a comprehensive structural and quantitative theory for MI-20, machine-checking its finite-dimensional and universal algebraic core in \textbf{Lean~4.33.1 + Mathlib} (11 modules, $13{,}770$ lines, 40 audited theorems, zero \texttt{sorry}, zero warnings, standard axioms only) alongside a standalone zero-floating-point rational verifier (\texttt{python3 -B -S}). For every $1 < p < 2$ and $m \ge 2$, we prove a strict infinite-dimensional hierarchy $1 = C_{p,m}(1) < C_{p,m}(2) < \cdots < C_{p,m}(n) < C_{p,m}(n+1) < \cdots < C_{p,m}(\infty)$ over both $\C$ and $\R$ (Theorem~1; concave transfer Corollary~1). On any separable Hilbert space $\Hilb$, every attaining tuple in $(\Sp(\Hilb))^m$ must have every $A_k$ of infinite rank (Theorem~2) with $\ker(S) \cap \overline{\ran(H)} = \{0\}$ and onto-isometric polar factors $U_k U_k^* = I_{\overline{\ran(H)}}$ (Theorem~8). We establish universal $2\times 2$ collapse $C_{p,m}(2) = C_{p,2}(2)$ (Theorem~3), certified small-integer $2\times 3$ witnesses (Theorem~4), fixed-dimension PSD/POVM reformulations (Theorem~5), Lean-verified log-convexity (Theorem~6), concentration-compactness ruling out mass splitting (Theorem~7), and an exact $p \to 1^+$ quadratic law in dimension~2 (Proposition~8).
 
-In Version~3, we establish four breakthroughs on Holden's positive power system $(D + H_j)^{2\kappa-1} = \Lambda D^{1/2} G_j^{\kappa-1} D^{1/2}$ ($\kappa = \frac{p}{2(p-1)}$): (i)~a \textbf{Universal Commutator Theorem} $[D, G_j^\kappa - D G_j^{\kappa-1} D] = 0$, a \textbf{Power-Variance Lemma}, and a \textbf{Top-Eigenspace Spectral Dichotomy} (Theorem~9, \emph{Lean~4 verified}); (ii)~a \textbf{Universal Pure-Algebraic Upper Bound} $\sigma_+(\Lambda) \le (m-1)c_\kappa$ for all $1<p<2, m\ge 2$, resolving Open Question~2 via the first dimension-free non-asymptotic quadratic bound $\ln C_{p,m}(\infty) \le \frac{m^2-1}{2p^2}(p-1)^2$ and exact Lambert-$W$ constant $K_m$ (Theorem~10, \emph{Lean~4 verified}, beating Holden across $1 < p \le 1.22$ by up to $230\times$); (iii)~an explicit \textbf{self-similar infinite-tree extremizer} on $\ell^2(\mathcal{T}_s)$ yielding zero-float certified $42\times 42$ world-record lower bounds $C_{4/3,2}(\infty) > 1.0183715755$ and $C_{3/2,2}(\infty) > 1.03643716806$ (Theorem~11); and (iv)~an unconditional \textbf{Two-State Pinch 2-letter reduction} with zero-float $LDL^\top$ certificates proving $C_{4/3,2}(\infty) \le (17209/16000)^{1/4} \approx 1.0183777756$ ($27.2\times$ tighter than Holden) and $C_{3/2,2}(\infty) \le (5567/5000)^{1/3} \approx 1.0364548918$ ($459\times$ tighter than Holden), strictly improving the best known upper bound for \textbf{every} $p \in (1, 2)$ at $m = 2$ (Theorem~12).}
+On Holden's positive power system $(D + H_j)^{2\kappa-1} = \Lambda D^{1/2} G_j^{\kappa-1} D^{1/2}$ ($\kappa = \frac{p}{2(p-1)}$), we establish: (i)~a \textbf{Universal Commutator Theorem} $[D, \Phi_j] = 0$, \textbf{Power-Variance Lemma}, and \textbf{Top-Eigenspace Spectral Dichotomy} (Theorem~9, \emph{Lean~4 verified}); (ii)~four progressively sharper pure-algebraic universal upper bounds for all $1<p<2$ and $m\ge 2$ (Theorems~10, 10A, 10B, and 10C, \emph{all Lean~4 verified}), yielding the first dimension-free quadratic log bound $\ln C_{p,m}(\infty) \le \frac{m^2-1}{2p^2}(p-1)^2$, a 1-line bound exact in the Frobenius limit $p \to 2^-$ for all $m \ge 2$, a coupled two-function bound proving the \textbf{$C^\infty$-flat super-exponential collapse law} $0 < C_{p,2}(\infty) - C_{p,2}(2) = O\bigl((1+\sqrt{2})^{-\frac{2(p-1)}{2-p}}\bigr)$ as $p \to 2^-$ (pinning $C_{1.95,2}(\infty)$ to 14 digits, $C_{1.90,2}(\infty)$ to 10 digits, and beating Holden by $471\times$ at $p = 7/4$ and $69\times$ at $p = 5/3$ with zero SDP), and a 2-line pure-algebraic Bessel bound at $p = 4/3$ giving $C_{4/3,2}(\infty) \le 1.018930$ and $C_{4/3,3}(\infty) \le 1.032735$; (iii)~explicit \textbf{self-similar infinite-tree extremizers} on $\ell^2(\mathcal{T}_s)$ with sharp $\Sp$-summability $(m-1)\sum d_i^{2\kappa} < 1$ and zero-float $42\times 42$ world-record lower bounds $C_{4/3,2}(\infty) > 1.0183715755$ and $C_{3/2,2}(\infty) > 1.03643716806$ (Theorem~11); (iv)~an unconditional \textbf{Two-State Pinch 2-letter reduction} with strictly convex trapezoid hulls ($\sigma_+'(\Lambda) = (h_+/(1+h_+))^{2\kappa-2}$) and zero-float $LDL^\top$ certificates proving $C_{4/3,2}(\infty) \le (21511/20000)^{1/4} \approx 1.0183748167$ ($\mathbf{52.1\times}$ tighter than Holden) and $C_{3/2,2}(\infty) \le (890677/800000)^{1/3} \approx 1.0364382131$ ($\mathbf{7{,}795\times}$ tighter than Holden, gap $1.05\times 10^{-6}$), strictly improving the best known upper bound for \textbf{every} $p \in (1, 2)$ (Theorem~12); and (v)~the exact \textbf{$p \to 1^+$ Baker--Campbell--Hausdorff operator limit} $\operatorname{Dexp}_{-M}[U^2] = 4a_L e^{-M} - 2\Phi_{\lim}$ with tree limit $K_2^{\mathrm{tree}}(\infty) = 0.2259284\dots$ (Theorem~13).}
 \end{tcolorbox}
 
 \begin{tcolorbox}[statusbox]
 {\sffamily\footnotesize\bfseries\color{statusborder!90!black}SCOPE, FORMAL VERIFICATION STATUS, AND PROBLEM STATUS (MI-20 REMAINS OPEN)}\par\vspace{1.5pt}
-{\small Problem~\textbf{MI-20} asks for the exact closed-form function $C_p(m) = C_{p,m}(\infty)$ for all $1 < p < 2$ and $m \ge 2$, and therefore \textbf{remains Open}. This Version~3 manuscript expands Version~1 (Zenodo DOI~\href{https://doi.org/10.5281/zenodo.24591861}{10.5281/zenodo.24591861}) and Version~2 with: (i)~Theorems~8--12, completely solving Version~2's Open Question~2 (dimension-free quadratic $p \to 1^+$ upper bound for all $m \ge 2$), establishing the universal commutator miracle and top-eigenspace spectral dichotomy, constructing explicit self-similar infinite-tree extremizers with world-record zero-float lower bounds, and certifying $27\times$--$459\times$ tighter zero-float upper bounds at $p = 4/3$ and $p = 3/2$; (ii)~an expanded \textbf{10-module Lean~4.33.1 + Mathlib} formalization ($12{,}206$ lines, 28 audited top-level theorems including Theorems~9--10, zero \texttt{sorry}, zero compiler warnings, standard axioms \texttt{[propext, Classical.choice, Quot.sound]} only); and (iii)~a zero-dependency pure-stdlib master verifier (\texttt{python3 -B -S verify\_all\_exact\_certificates.py}) auditing every rational lower and upper certificate with zero floating-point arithmetic. Theorems~2, 7, 8, Corollary~1, Theorem~3(2), Theorem~4(2)--(3), Theorem~5's $m=2$ corollary, Proposition~8, and the analytic reductions of Theorems~11--12 are proved on paper (with all numerical inequalities in Theorems~4, 11, and~12 machine-checked without floats); no external human peer review has yet been performed.}
+{\small Problem~\textbf{MI-20} asks for the exact closed-form function $C_p(m) = C_{p,m}(\infty)$ for all $1 < p < 2$ and $m \ge 2$, and therefore \textbf{remains Open}. This Version~4 manuscript (Zenodo DOI~\href{https://doi.org/10.5281/zenodo.24612832}{10.5281/zenodo.24612832}; Concept DOI~\href{https://doi.org/10.5281/zenodo.24591860}{10.5281/zenodo.24591860}) expands Versions~1--3 (DOIs~\href{https://doi.org/10.5281/zenodo.24591861}{10.5281/zenodo.24591861} and~\href{https://doi.org/10.5281/zenodo.24608035}{10.5281/zenodo.24608035}) with: (i)~Theorems~10A, 10B, 10C, and~13—delivering an exact-at-$p=2$ 1-line universal bound, the $C^\infty$-flat super-exponential $p \to 2^-$ collapse law pinning $C_{p,2}(\infty)$ to 7--14 digits near $p = 2$, a 2-line pure-algebraic Bessel bound at $p = 4/3$ for all $m \ge 2$, and the exact $p \to 1^+$ BCH Lie--Trotter operator limit with sharp $\Sp$-summability $(m-1)\sum d_i^{2\kappa} < 1$; (ii)~upgraded Theorem~12 zero-float Two-State Pinch convex-trapezoid certificates tightening Holden's best upper bounds by $\mathbf{52.1\times}$ at $p = 4/3$ and $\mathbf{7{,}795\times}$ at $p = 3/2$ (with $d = 9$ numerical SDP pinching to $1.55\times 10^{-7}$, $52{,}572\times$ tighter than Holden); (iii)~an expanded \textbf{11-module Lean~4.33.1 + Mathlib} formalization ($13{,}770$ lines, 40 audited top-level theorems including Theorems~9, 10, 10A, 10B, and~10C, zero \texttt{sorry}, zero compiler warnings, standard axioms \texttt{[propext, Classical.choice, Quot.sound]} only); and (iv)~the zero-dependency pure-stdlib master verifier (\texttt{python3 -B -S verify\_all\_exact\_certificates.py}) auditing all rational lower and upper certificates with zero floating-point arithmetic. Theorems~2, 7, 8, 13, Corollary~1, Theorem~3(2), Theorem~4(2)--(3), Theorem~5's $m=2$ corollary, Proposition~8, and the analytic reductions of Theorems~11--12 are proved on paper (with all numerical inequalities in Theorems~4, 11, and~12 machine-checked without floats); no external human peer review has yet been performed.}
 \end{tcolorbox}
 
 \section{Introduction and Background}
@@ -232,7 +232,7 @@ together with interpolated upper bounds $C_{p,2}(\infty) \le (861/800)^{1-1/p}$ 
 
 \medskip
 \textbf{Main contributions of this paper.}
-We prove that the dimensional phase transition at $p = 2$ is completely sharp and universal: for \emph{every} $1 < p < 2$ and \emph{every} $m \ge 2$, \emph{every finite-dimensional ansatz is strictly suboptimal} (Theorem~1), and even on infinite-dimensional Hilbert spaces $\Sp(\Hilb)$ every attaining tuple must have every summand of infinite rank (Theorem~2), full-rank sum $\ker(S) \cap \overline{\ran(H)} = \{0\}$, onto-isometric polar factors $U_k U_k^* = I_{\overline{\ran(H)}}$, and $0 \in \sigma(H^{-1/2}|A_k|H^{-1/2})$ (Theorem~8). Conversely, Proposition~5 pinpoints why $p \ge 2$ stabilizes in finite dimension. In dimension $n = 2$, we prove universal $m$-independence ($C_{p,m}(2) = C_{p,2}(2)$, Theorem~3), exact zero-float and Lean-verified $2\times 3$ witnesses (Theorem~4), fixed-dimension PSD/POVM reformulations (Theorem~5), Lean-formalized log-convexity (Theorem~6), concentration-compactness ruling out mass splitting (Theorem~7), and an exact $p \to 1^+$ quadratic law (Proposition~8). Finally, on Holden's positive power system~\eqref{eq:power_sys}, we prove a universal commutator miracle and top-eigenspace spectral dichotomy (Theorem~9), deduce a pure-algebraic universal upper bound solving Open Question~2 via the first dimension-free quadratic log bound for all $1<p<2, m\ge 2$ (Theorem~10, both Lean~4 verified), construct explicit self-similar infinite-tree extremizers yielding zero-float world-record lower bounds at $p = 4/3$ and $p = 3/2$ (Theorem~11), and establish an unconditional Two-State Pinch 2-letter reduction whose zero-float rational $LDL^\top$ certificates beat Holden's best upper bounds by $27.2\times$ at $p = 4/3$ and $459\times$ at $p = 3/2$—strictly improving the best known upper bound for every $p \in (1, 2)$ at $m = 2$ (Theorem~12).
+We prove that the dimensional phase transition at $p = 2$ is completely sharp and universal: for \emph{every} $1 < p < 2$ and \emph{every} $m \ge 2$, \emph{every finite-dimensional ansatz is strictly suboptimal} (Theorem~1), and even on infinite-dimensional Hilbert spaces $\Sp(\Hilb)$ every attaining tuple must have every summand of infinite rank (Theorem~2), full-rank sum $\ker(S) \cap \overline{\ran(H)} = \{0\}$, onto-isometric polar factors $U_k U_k^* = I_{\overline{\ran(H)}}$, and $0 \in \sigma(H^{-1/2}|A_k|H^{-1/2})$ (Theorem~8). Conversely, Proposition~5 pinpoints why $p \ge 2$ stabilizes in finite dimension. In dimension $n = 2$, we prove universal $m$-independence ($C_{p,m}(2) = C_{p,2}(2)$, Theorem~3), exact zero-float and Lean-verified $2\times 3$ witnesses (Theorem~4), fixed-dimension PSD/POVM reformulations (Theorem~5), Lean-formalized log-convexity (Theorem~6), concentration-compactness ruling out mass splitting (Theorem~7), and an exact $p \to 1^+$ quadratic law (Proposition~8). On Holden's positive power system~\eqref{eq:power_sys}, we prove a universal commutator miracle and top-eigenspace spectral dichotomy (Theorem~9), deduce a four-tier hierarchy of Lean-verified pure-algebraic universal upper bounds—solving Open Question~2 via the first dimension-free quadratic log bound (Theorem~10), recovering Qiu's Frobenius limit $C_{2,m}$ in one line for all $m \ge 2$ (Theorem~10A), establishing the $C^\infty$-flat super-exponential $p \to 2^-$ collapse law pinning $C_{p,2}(\infty)$ to 7--14 digits near $p = 2$ (Theorem~10B), and proving a 2-line pure-algebraic Bessel bound at $p = 4/3$ for all $m \ge 2$ (Theorem~10C)—construct explicit self-similar infinite-tree extremizers with sharp $\Sp$-summability and zero-float world-record lower bounds (Theorem~11), certify $52.1\times$ ($p = 4/3$) and $7{,}795\times$ ($p = 3/2$) tighter zero-float Two-State Pinch convex-trapezoid upper bounds strictly improving the best known upper bound for every $p \in (1, 2)$ (Theorem~12), and derive the exact $p \to 1^+$ Baker--Campbell--Hausdorff operator limit (Theorem~13).
 
 \section{Statement of Main Results}
 
@@ -389,8 +389,53 @@ For $\Lambda > \frac{(2\kappa-1)^{2\kappa-1}}{(\kappa-1)^{\kappa-1}\kappa^\kappa
 \end{tcolorbox}
 
 \begin{tcolorbox}[mathbox]
+\textbf{Theorem 10A (Sharp One-Line Universal Bound — Exact in the $p \to 2^-$ Frobenius Limit).}\hfill\leanbadge{Lean~4 verified}\par\vspace{1.5pt}
+\emph{For every $1 < p < 2$ ($\kappa = \frac{p}{2(p-1)} > 1$) and every $m \ge 2$, every solution of~\eqref{eq:power_sys} satisfies}
+\begin{equation}\label{eq:thm10A}
+  \bigl(1 + h_+(\Lambda)\bigr)^{2\kappa - 1}\bigl(h_+(\Lambda) - 1\bigr)
+  \le (m - 1)\,\frac{(2\kappa - 1)^{2\kappa - 1}}{\kappa^{2\kappa}}.
+\end{equation}
+\emph{This single inequality strictly dominates~\eqref{eq:univ_alg_cap} at every $(p, m)$ by the factor $(2\kappa-1)^{2\kappa-1}/(\Lambda\,\kappa^{2\kappa}) < 1$, preserves the sharp $O((p-1)^2)$ scaling as $p \to 1^+$, is \textbf{exact in the limit $p \to 2^-$ ($\kappa \to 1^+$)}—recovering Qiu's and Tang--Zhang's Frobenius constant $C_{2,m} = \sqrt{(1+\sqrt{m})/2}$ for every $m \ge 2$—and directly beats Holden's computer-assisted upper bounds at $p = 3/2$ ($\Lambda < 451/100 \implies C_{3/2,2}(\infty) \le 1.039968$ vs.\ $1.044583$), $p = 5/4$ ($1.013571$ vs.\ $1.014805$), $p = 5/3$, and $p = 7/4$ in one algebraic line (with $\Lambda < 872/100 \implies C_{4/3,2}(\infty) \le 1.021644$ at $p = 4/3$).}
+\end{tcolorbox}
+
+\begin{tcolorbox}[mathbox]
+\textbf{Theorem 10B (Two-Function Bound \& Super-Exponential Collapse at $p \to 2^-$).}\hfill\leanbadge{Lean~4 verified}\par\vspace{1.5pt}
+\emph{Let $1 < p < 2$ ($\kappa > 1$), $m \ge 2$, and suppose scalars $(\alpha, \beta, \gamma, c_Z, c_X) \in \R^5$ with $\gamma \ge 0$ satisfy}
+\[
+  z^{2\kappa - 1}(2 - \beta - z) - \alpha z \le c_Z \quad (\forall z > 0),
+  \qquad
+  (\beta\Lambda + \gamma)x^{\kappa - 1} - \gamma x^\kappa + \alpha x \le c_X \quad (\forall x > 0).
+\]
+\emph{Then every solution of~\eqref{eq:power_sys} obeys $(\Lambda + \gamma)\,\frac{\sigma_+(\Lambda)}{m - 1} - \alpha \le c_Z + c_X$. In particular, taking $\beta = 2 - B$ ($B > 2$) and $\alpha(B) := \frac{(2\kappa-2)^{2\kappa-2}}{(2\kappa-1)^{2\kappa-1}} B^{2\kappa-1}$ yields closed-form weighted AM--GM upper bounds across all $(p, m)$:}
+\begin{enumerate}[label=(\alph*),leftmargin=1.8em,itemsep=2pt,topsep=2pt]
+  \item \emph{\textbf{Regime I ($4/3 < p < 2$, $1 < \kappa < 2$):} For any $B > 2$ and $\gamma > 0$ with $\gamma + (\kappa-1)(2-\kappa)^{\frac{2-\kappa}{\kappa-1}}\alpha(B)^{\frac{1}{\kappa-1}}\gamma^{-\frac{2-\kappa}{\kappa-1}} \le (B - 2)\Lambda$, one has $(\Lambda + \gamma)\frac{\sigma_+(\Lambda)}{m-1} \le \alpha(B)$.}
+  \item \emph{\textbf{Regime II ($1 < p < 4/3$, $\kappa > 2$):} For any $B > 2$, $\Lambda\frac{\sigma_+(\Lambda)}{m-1} \le \alpha(B) + \frac{\kappa-2}{\kappa-1}\bigl(\frac{\alpha(B)^{\kappa-1}}{(\kappa-1)(B-2)\Lambda}\bigr)^{\frac{1}{\kappa-2}}$.}
+  \item \emph{\textbf{Explicit $C^\infty$-Flat Super-Exponential Collapse Law ($3/2 < p < 2$, all $m \ge 2$):} Setting $B := \frac{2\kappa-1}{2\kappa-2} = \frac{1}{2 - p} > 2$ cancels all fractional powers on $\alpha(B) = \frac{1}{2\kappa-2} = \frac{p-1}{2-p}$ identically and proves}
+  \[
+    0 < C_{p,2}(\infty) - C_{p,2}(2) = O\Bigl((1 + \sqrt{2})^{-\frac{2(p-1)}{2-p}}\Bigr) \qquad (p \to 2^-),
+  \]
+  \emph{so $C_{p,2}(\infty)$ and $C_{p,2}(2)$ agree to all derivative orders at $p = 2^-$. With zero SDP, this pins $C_{p,2}(\infty)$ to 14 digits at $p = 1.95$ (gap $1.98\times 10^{-14}$), 10 digits at $p = 1.90$ (gap $1.27\times 10^{-10}$), 7 digits at $p = 1.85$ (gap $7.18\times 10^{-8}$), beats Holden by $471\times$ at $p = 7/4$ ($C_{7/4,2} \le 1.0681498$) and $69\times$ at $p = 5/3$ ($C_{5/3,2} \le 1.0574723$), and via elementary complete-square certificates proves $\Lambda < 447/100$ ($C_{3/2,2} \le 1.037312$, $9.1\times$ tighter than Holden) and $\Lambda < 866/100$ ($C_{4/3,2} \le 1.019895$).}
+\end{enumerate}
+\end{tcolorbox}
+
+\begin{tcolorbox}[mathbox]
+\textbf{Theorem 10C (Two-Line Pure-Algebraic Bessel Bound at $p = 4/3$, All $m \ge 2$).}\hfill\leanbadge{Lean~4 verified}\par\vspace{1.5pt}
+\emph{At $p = 4/3$ ($\kappa = 2$), for any $D, H \succ 0$ solving $(D+H)^3 = \Lambda D H D$ and any unit vector $v$ with $Dv = v$ and $(HDH - DHD)v = -Pv$, setting $u := Hv$, $a := v^* u > 0$, $s_2 := \|u\|_2^2$, and $s_3 := u^* H u$ yields the exact identities}
+\[
+  s_3 = (\Lambda - 4)a - 2s_2 - 1 + P,
+  \qquad
+  \|(D + H)u\|_2^2 = 1 + 2a + s_2 - \Lambda P,
+\]
+\emph{together with $a^2 \le s_2$, $s_2^2 \le a s_3$, and Bessel's inequality in $\operatorname{span}\{v, u\}$:}
+\[
+  (s_2 - a^2)\bigl(1 + 2a + s_2 - \Lambda P - (a + s_2)^2\bigr) \ge \bigl(a - P + s_3 - a(a + s_2)\bigr)^2.
+\]
+\emph{Using neither $D \preceq I$, nor $[D, \Phi] = 0$, nor any SDP, eliminating $(a, s_2)$ over $P \in [\sigma_+(\Lambda)/(m-1), 1/4]$ yields the pure-algebraic caps $C_{4/3,2}(\infty) \le 1.018930$ ($\Lambda \le 8.623168$, $16\times$ tighter than Theorem~10), $C_{4/3,3}(\infty) \le 1.032735$ (vs.\ tree $1.031864$, $20\times$ tighter than Theorem~10), $C_{4/3,4}(\infty) \le 1.043885$, and $C_{4/3,10}(\infty) \le 1.087759$.}
+\end{tcolorbox}
+
+\begin{tcolorbox}[mathbox]
 \textbf{Theorem 11 (Self-Similar Infinite-Tree Extremizers \& Zero-Float World-Record Lower Bounds).}
-\emph{For every $1 < p < 2$, $m \ge 2$, and branching order $s \ge 2$, any $s \times s$ self-similar block $(D_B, H_B, \Lambda_s)$ ($D_B = \diag(1, d_2,\dots,d_s)$, $H_B \succ 0$) solving $(D_B+H_B)^{2\kappa-1} = \Lambda_s D_B^{1/2} G_B^{\kappa-1} D_B^{1/2}$ with diagonal flux $\Phi_B = \sigma_+(\Lambda_s)\,D_B^{2\kappa}\diag\bigl(-\frac{1}{m-1}, 1, \dots, 1\bigr)$ and branching contraction $(m-1)\sum_{i=2}^s d_i < 1$ assembles on the infinite $(m-1)(s-1)$-ary tree $\mathcal{T}_s$ into a trace-class solution of~\eqref{eq:power_sys} achieving $C_{p,m}(\infty) \ge \bigl(\Lambda_s / 2^{2\kappa-1}\bigr)^{1/(2\kappa)}$. Truncating the $s = 5$ tree at depth~$2$ ($K = 21$, matrix order $42\times 42$) yields two \textbf{zero-floating-point certified world-record lower bounds} (\texttt{lower\_record\_certificates.json}):}
+\emph{For every $1 < p < 2$, $m \ge 2$, and branching order $s \ge 2$, any $s \times s$ self-similar block $(D_B, H_B, \Lambda_s)$ ($D_B = \diag(1, d_2,\dots,d_s)$, $H_B \succ 0$) solving $(D_B+H_B)^{2\kappa-1} = \Lambda_s D_B^{1/2} G_B^{\kappa-1} D_B^{1/2}$ with diagonal flux $\Phi_B = \sigma_+(\Lambda_s)\,D_B^{2\kappa}\diag\bigl(-\frac{1}{m-1}, 1, \dots, 1\bigr)$ and sharp $\Sp$-branching contraction $(m-1)\sum_{i=2}^s d_i^{2\kappa} < 1$ (in particular whenever $(m-1)\sum_{i=2}^s d_i < 1$) assembles on the infinite $(m-1)(s-1)$-ary tree $\mathcal{T}_s$ into a valid $\Sp(\ell^2(\mathcal{T}_s))$ solution of~\eqref{eq:power_sys} achieving $C_{p,m}(\infty) \ge \bigl(\Lambda_s / 2^{2\kappa-1}\bigr)^{1/(2\kappa)}$. Truncating the $s = 5$ tree at depth~$2$ ($K = 21$, matrix order $42\times 42$) yields two \textbf{zero-floating-point certified world-record lower bounds} (\texttt{lower\_record\_certificates.json}):}
 \begin{align*}
   C_{4/3,2}(\infty) &> 1.0183715755 \qquad (\text{strictly exceeding Holden's } 1.018371575), \\
   C_{3/2,2}(\infty) &> 1.03643716806 \qquad (\text{strictly exceeding } n = 14 \text{ PSD } 1.036437168055).
@@ -398,14 +443,36 @@ For $\Lambda > \frac{(2\kappa-1)^{2\kappa-1}}{(\kappa-1)^{\kappa-1}\kappa^\kappa
 \end{tcolorbox}
 
 \begin{tcolorbox}[mathbox]
-\textbf{Theorem 12 (Unconditional Two-State Pinch Reduction \& Zero-Float Certified Upper Bounds).}
-\emph{Every finite-dimensional solution of~\eqref{eq:power_sys} at $m = 2$ admits an exact 2-letter polynomial reduction to a pair of coupled vector states (State~1 on $E_{\max}$ with $0 \prec D \preceq I$, $\widetilde{\Phi}_1 v = -\sigma_+(\Lambda) v$; State~2 at the global flux extremum $\tau = \max_i|\phi_{1,i}| \in [\sigma_+(\Lambda), c_\kappa]$ with $D w = w$, $\widetilde{\Phi}_{j_*} w = -\tau w$) obeying the unconditional operator bounds $H_j \preceq h_+(\Lambda) D$ ($p = 4/3$) and $M_j := D^{-1/2}G_j^{1/2}D^{-1/2} \preceq \sqrt{h_+(\Lambda)}\,I$ ($p = 3/2$). Starting purely from Theorem~10's Lean-verified caps ($891/100$ and $472/100$), 5 and 8 four-corner shared-multiplier SOS rectangles certified by exact rational $LDL^\top$ with zero polynomial residuals (\texttt{upper\_bound\_certificates.json}) prove unconditionally:}
+\textbf{Theorem 12 (Unconditional Two-State Pinch Reduction, Convex Trapezoid Hulls \& Zero-Float Upper Bounds).}
+\emph{Every finite-dimensional solution of~\eqref{eq:power_sys} at $m = 2$ admits an exact 2-letter polynomial reduction to a pair of coupled vector states (State~1 on $E_{\max}$ with $0 \prec D \preceq I$, $\widetilde{\Phi}_1 v = -\sigma_+(\Lambda) v$; State~2 at the global flux extremum $\tau = \max_i|\phi_{1,i}| \in [\sigma_+(\Lambda), c_\kappa]$ with $D w = w$, $\widetilde{\Phi}_{j_*} w = -\tau w$) obeying the unconditional operator bounds $H_j \preceq h_+(\Lambda) D$ ($p = 4/3$) and $M_j := D^{-1/2}G_j^{1/2}D^{-1/2} \preceq \sqrt{h_+(\Lambda)}\,I$ ($p = 3/2$). Moreover, for every $\kappa > 1$, the critical flux curve obeys the exact derivative identity}
+\begin{equation}\label{eq:sig_convex}
+  \frac{d\sigma_+}{d\Lambda} = \left(\frac{h_+(\Lambda)}{1 + h_+(\Lambda)}\right)^{2\kappa - 2},
+\end{equation}
+\emph{so $\sigma_+(\Lambda)$ is strictly convex in $\Lambda$ and its graph over any interval $[L_{\mathrm{lo}}, L_{\mathrm{hi}}]$ lies inside a thin 4-corner convex trapezoid bounded by its secant above and its supporting tangent at $L_{\mathrm{lo}}$ below. Starting purely from Theorem~10's Lean-verified caps ($891/100$ and $472/100$), 7 and 11 four-corner shared-multiplier SOS certificates (combining rectangles, convex trapezoids, and ray-free State-2 bases) certified by exact rational $LDL^\top$ with zero polynomial residuals (\texttt{upper\_bound\_certificates.json}) prove unconditionally:}
 \[
-  C_{4/3,2}(\infty) \le \left(\frac{17209}{16000}\right)^{1/4} \approx 1.0183777756,
+  C_{4/3,2}(\infty) \le \left(\frac{21511}{20000}\right)^{1/4} \approx 1.0183748167,
   \qquad
-  C_{3/2,2}(\infty) \le \left(\frac{5567}{5000}\right)^{1/3} \approx 1.0364548918,
+  C_{3/2,2}(\infty) \le \left(\frac{890677}{800000}\right)^{1/3} \approx 1.0364382131,
 \]
-\emph{tightening Holden's upper-bound gaps by factors of $\mathbf{27.2\times}$ (at $p = 4/3$, using only $8$--$14$ moment variables vs.\ Holden's 184 identities) and $\mathbf{459\times}$ (at $p = 3/2$). Combined with Theorems~6 and~10, this strictly improves the best known certified upper bound on $C_{p,2}(\infty)$ for \textbf{every} $p \in (1, 2)$.}
+\emph{tightening Holden's upper-bound gaps by factors of $\mathbf{52.1\times}$ (at $p = 4/3$, with zero facial projection across all 7 pieces) and $\mathbf{7{,}795\times}$ (at $p = 3/2$, total enclosure width $1.05\times 10^{-6}$). Combined with Theorems~6, 10A, and~10B, this strictly improves the best known certified upper bound on $C_{p,2}(\infty)$ across \textbf{every} $p \in (1, 2)$—by up to $7.8\times 10^{10}\times$ near $p = 2$.}
+\end{tcolorbox}
+
+\begin{tcolorbox}[mathbox]
+\textbf{Theorem 13 (Exact $p \to 1^+$ Baker--Campbell--Hausdorff Limit \& Sharp $\Sp$-Tree Criterion).}
+\emph{Under the Lie--Trotter scaling $D = e^{-R/\kappa}$, $H_j = D^{1/2}(I - U_j/\kappa)D^{1/2}$, $\Lambda / 2^{2\kappa-1} = e^{a_L/\kappa}$ ($\kappa = \frac{p}{2(p-1)} \to \infty$, so $C_{p,m} = 1 + 2a_L(p-1)^2 + O((p-1)^3)$), and $M_j := 2R + U_j$, Holden's positive power system~\eqref{eq:power_sys} collapses as $p \to 1^+$ to the exact single-exponential operator system}
+\begin{equation}\label{eq:bch_limit}
+  \operatorname{Dexp}_{-M_j}[U_j^2] = 4a_L\, e^{-M_j} - 2\,\Phi_{\lim,j},
+  \qquad
+  \Phi_{\lim,j} := -\tfrac{1}{2}\bigl(U_j e^{-M_j} + e^{-M_j} U_j\bigr),
+  \qquad \sum_{j=1}^m \Phi_{\lim,j} = 0,
+\end{equation}
+\emph{where $\operatorname{Dexp}_{-M}[Y] := \int_0^1 e^{-tM} Y e^{-(1-t)M}\,dt$. In an eigenbasis of $M_j = \diag(\mu_i)$ with $W := U_j - I$ and $\Delta_{ij} := (\mu_i - \mu_j)/2$,~\eqref{eq:bch_limit} reduces to the exact algebraic hyperbolic identities}
+\[
+  (W^2)_{ii} = 1 + 4a_L,
+  \qquad
+  (W^2)_{ij} = 2\left(\frac{\Delta_{ij}}{\tanh \Delta_{ij}} - 1\right) W_{ij} \quad (i \neq j).
+\]
+\emph{Moreover, the exact $\Sp$-norm summability condition for Theorem~11's infinite tree is $(m - 1)\sum_{i=2}^s d_i^{2\kappa} < 1$, which converges cleanly to $(m-1)\sum_{i=2}^s e^{-2r_i} < 1$ as $p \to 1^+$ (holding with $(m-1)\sum e^{-2r_i} \approx 0.0235 \ll 1$ for $m = 2$). Solving~\eqref{eq:bch_limit} on self-similar trees gives geometric convergence $K_2^{\mathrm{tree}}(2..5) = 0.2256291 \to 0.2259051 \to 0.2259260 \to 0.2259282$ ($\to 0.2259284\dots$), with $K_3^{\mathrm{tree}}(2) = 0.391674$ and $K_4^{\mathrm{tree}}(2) = 0.526478$.}
 \end{tcolorbox}
 
 \section{Complete Self-Contained Proofs of Theorems 1--4 and Proposition 5}
@@ -901,26 +968,81 @@ Since $t \le \frac{m-1}{\kappa}$, dividing by $2\kappa$ gives
 using $\frac{1}{4\kappa^2} = \frac{(p-1)^2}{p^2}$. Finally, as $p \to 1^+$ ($\kappa \to \infty$), writing $t = c/\kappa + o(1/\kappa)$ in~\eqref{eq:univ_alg_cap} yields $c\, e^c = \frac{m-1}{e}$, so $c = c_m := W_0\bigl(\frac{m-1}{e}\bigr)$, and $\ln C = \frac{1}{2\kappa}\bigl(\frac{c}{2\kappa} + \frac{c^2}{4\kappa} + o(\kappa^{-1})\bigr) = \frac{c_m^2 + 2c_m}{8\kappa^2} + o(\kappa^{-2}) = \frac{c_m^2 + 2c_m}{2}(p - 1)^2 + o((p-1)^2)$, giving $K_m = \frac{c_m^2 + 2c_m}{2}$ ($c_2 = W_0(1/e) = 0.2784645428\dots$, $K_2 = 0.3172357935\dots$).
 \end{proof}
 
+\subsection{Proofs of Theorems 10A, 10B, and 10C (Sharp One-Line, Super-Exponential $p \to 2^-$ Collapse \& Bessel Bounds)}
+
+\begin{proof}[Proofs of Theorems 10A, 10B, and 10C (formalized in \texttt{MI20/Theorem10B\_\allowbreak SharpUniversalAndSuperexp.lean})]
+Normalize $0 \prec D \preceq I$ with nonempty top eigenspace $E_{\max} = \ker(D - I)$. As in Theorem~10, Theorem~9(a)--(c) provides a unit eigenvector $v \in E_{\max}$ of all $\Phi_j|_{E_{\max}}$ and an index $j_0$ with $\Phi_{j_0} v = +\sigma_+(\Lambda) v$. Since $\sum_{j=1}^m \Phi_j v = 0$, by pigeonhole there exists $j_1 \neq j_0$ such that
+\[
+  \Phi_{j_1} v = -P v \qquad \text{for some } P \ge \frac{\sigma_+(\Lambda)}{m - 1} > 0.
+\]
+Drop the index $j_1$ ($H := H_{j_1}$, $G := D^{1/2} H D^{1/2}$, $\Phi := G^\kappa - D G^{\kappa-1} D$). Let $Z > 0$ and $X > 0$ be the finite spectral random variables of $D + H$ and $G$, respectively, in the unit state $v$. Using $Dv = v$, we obtain four exact universal spectral moment identities valid for \emph{every} $\kappa > 1$ and $m \ge 2$:
+\begin{align}
+  \mathbb{E}_v[Z] &= v^*(D + H)v = 1 + v^* H v = 1 + v^* G v = 1 + \mathbb{E}_v[X], \label{eq:mom_ZX1}\\
+  \mathbb{E}_v[Z^{2\kappa - 1}] &= v^*(D + H)^{2\kappa - 1}v = \Lambda\, v^* D^{1/2} G^{\kappa - 1} D^{1/2} v = \Lambda\,\mathbb{E}_v[X^{\kappa - 1}], \label{eq:mom_ZX2}\\
+  \mathbb{E}_v[X^{\kappa - 1} - X^\kappa] &= -v^*(G^\kappa - D G^{\kappa - 1} D)v = -v^*\Phi v = P, \label{eq:mom_ZX3}\\
+  \mathbb{E}_v[Z^{2\kappa}] &= v^*(D + H)(D + H)^{2\kappa - 1}v = \Lambda\, v^*(D + H)D^{1/2} G^{\kappa - 1} D^{1/2} v \notag\\
+  &= \Lambda\bigl(v^* G^{\kappa - 1} v + v^* G^\kappa v\bigr) = \Lambda\bigl(2\mathbb{E}_v[X^{\kappa - 1}] - P\bigr), \label{eq:mom_ZX4}
+\end{align}
+where~\eqref{eq:mom_ZX4} used $D^{1/2}(D+H)D^{1/2} = D^2 + G$, $Dv = v$, and $v^* G^\kappa v = v^* G^{\kappa-1} v - P$. Combining~\eqref{eq:mom_ZX2} and~\eqref{eq:mom_ZX4} eliminates $\mathbb{E}_v[X^{\kappa-1}]$ completely and yields the \textbf{exact universal flux-moment identity}:
+\begin{equation}\label{eq:flux_Z_id}
+  \mathbb{E}_v\bigl[Z^{2\kappa - 1}(2 - Z)\bigr] = 2\mathbb{E}_v[Z^{2\kappa - 1}] - \mathbb{E}_v[Z^{2\kappa}] = \Lambda P \ge \frac{\Lambda\,\sigma_+(\Lambda)}{m - 1}.
+\end{equation}
+
+\textbf{Theorem 10A (1-line sharp bound \& exact $p \to 2^-$ Frobenius limit).}
+By weighted AM--GM with weights $\frac{2\kappa-1}{2\kappa}$ and $\frac{1}{2\kappa}$ on $\frac{z}{2\kappa-1}$ and $2 - z$ (and trivially when $z \ge 2$), every $z > 0$ satisfies $z^{2\kappa-1}(2 - z) \le \frac{(2\kappa-1)^{2\kappa-1}}{\kappa^{2\kappa}}$ (attained uniquely at $z_* = \frac{2\kappa-1}{\kappa}$). Substituting into~\eqref{eq:flux_Z_id} gives $\Lambda\,\sigma_+(\Lambda) \le (m-1)\frac{(2\kappa-1)^{2\kappa-1}}{\kappa^{2\kappa}}$. Since $\Lambda\,\sigma_+(\Lambda) = \Lambda h_+^{\kappa-1}(h_+ - 1) = (1 + h_+)^{2\kappa-1}(h_+ - 1)$ by the scalar root equation $(1+h_+)^{2\kappa-1} = \Lambda h_+^{\kappa-1}$, canceling $h_+^{\kappa-1}$ yields~\eqref{eq:thm10A} immediately. Letting $\kappa \to 1^+$ ($p \to 2^-$) in~\eqref{eq:thm10A} gives $(1 + h_+)(h_+ - 1) = h_+^2 - 1 \le m - 1$, hence $h_+ \le \sqrt{m}$ and $C_{2,m} \le \sqrt{(1 + h_+)/2} \le \sqrt{(1 + \sqrt{m})/2}$—recovering Qiu's and Tang--Zhang's exact Frobenius constant for all $m \ge 2$. At $p = 4/3, m = 2$ ($\kappa = 2$),~\eqref{eq:thm10A} reads $(1+h_+)^3(h_+ - 1) \le 27/16$, giving $h_+ < 1.158$ and $\Lambda < 872/100$; at $p = 3/2, m = 2$ ($\kappa = 3/2$), $(1+h_+)^2(h_+ - 1) \le 32/27$, giving $h_+ < 1.238$ and $\Lambda < 451/100$ ($C_{3/2,2} \le 1.039968 < 1.044583$, beating Holden in one line).
+
+\textbf{Theorem 10B (Coupled two-function bound \& $C^\infty$-flat super-exponential $p \to 2^-$ collapse).}
+For any $(\alpha, \beta, \gamma, c_Z, c_X)$ with $\gamma \ge 0$ satisfying $F_Z(z) := z^{2\kappa-1}(2-\beta-z) - \alpha z \le c_Z$ ($\forall z > 0$) and $F_X(x) := (\beta\Lambda + \gamma)x^{\kappa-1} - \gamma x^\kappa + \alpha x \le c_X$ ($\forall x > 0$), taking expectations of $F_Z(Z)$ and $F_X(X)$ and adding using~\eqref{eq:mom_ZX1}--\eqref{eq:flux_Z_id} cancels $\mathbb{E}_v[X]$, $\mathbb{E}_v[Z]$, and $\mathbb{E}_v[Z^{2\kappa-1}] = \Lambda\mathbb{E}_v[X^{\kappa-1}]$ identically:
+\[
+  (\Lambda + \gamma)P - \alpha
+  = \mathbb{E}_v\bigl[F_Z(Z)\bigr] + \mathbb{E}_v\bigl[F_X(X)\bigr]
+  \le c_Z + c_X,
+\]
+and since $\Lambda + \gamma > 0$ and $P \ge \sigma_+(\Lambda)/(m-1)$, we obtain $(\Lambda + \gamma)\frac{\sigma_+(\Lambda)}{m-1} - \alpha \le c_Z + c_X$.
+
+For any $B > 2$, set $\beta := 2 - B < 0$. Applying weighted AM--GM with weights $\frac{2\kappa-2}{2\kappa-1}$ and $\frac{1}{2\kappa-1}$ on $\frac{z}{2\kappa-2}$ and $B - z$ proves $z^{2\kappa-1}(B - z) \le \alpha(B) z$ for all $z > 0$ with $\alpha(B) := \frac{(2\kappa-2)^{2\kappa-2}}{(2\kappa-1)^{2\kappa-1}} B^{2\kappa-1}$ (so $c_Z = 0$). In \emph{Regime~I} ($1 < \kappa < 2$), weighted AM--GM on $x$ between $x^{\kappa-1}$ and $x^\kappa$ yields $\alpha x - \gamma x^\kappa \le (\kappa-1)(2-\kappa)^{\frac{2-\kappa}{\kappa-1}}\alpha^{\frac{1}{\kappa-1}}\gamma^{-\frac{2-\kappa}{\kappa-1}} x^{\kappa-1}$, so $F_X(x) \le 0$ ($c_X = 0$) whenever $\gamma + (\kappa-1)(2-\kappa)^{\frac{2-\kappa}{\kappa-1}}\alpha^{\frac{1}{\kappa-1}}\gamma^{-\frac{2-\kappa}{\kappa-1}} \le (B - 2)\Lambda$. In \emph{Regime~II} ($\kappa > 2$), setting $\gamma = 0$ and applying weighted AM--GM to $\alpha x - (B-2)\Lambda x^{\kappa-1}$ yields $F_X(x) \le c_X := \frac{\kappa-2}{\kappa-1}\bigl(\frac{\alpha^{\kappa-1}}{(\kappa-1)(B-2)\Lambda}\bigr)^{\frac{1}{\kappa-2}}$.
+
+To deduce the \textbf{super-exponential $p \to 2^-$ collapse law} (Part~(c)), restrict to $1 < \kappa < 3/2$ ($3/2 < p < 2$) and choose the canonical tangency parameter $B := \frac{2\kappa-1}{2\kappa-2} = \frac{1}{2-p} > 2$ (making $F_Z$ tangent to $0$ at $z = 1$). Then $B - 2 = \frac{3 - 2\kappa}{2\kappa - 2}$, all fractional powers on $\alpha(B)$ cancel identically to $\alpha(B) = \frac{1}{2\kappa - 2} = \frac{p-1}{2-p}$, and choosing $\gamma = \frac{3 - 2\kappa}{2\kappa - 2}\Lambda - \varepsilon$ with $\varepsilon = O\bigl(\Lambda^{-\frac{2-\kappa}{\kappa-1}}\bigr)$ gives
+\[
+  h_+^{\kappa - 1}(h_+ - 1)
+  \le \frac{m - 1}{(2\kappa - 2)(\Lambda + \gamma)}
+  = \frac{m - 1}{\Lambda}\Bigl(1 + O\bigl(\Lambda^{-\frac{1}{\kappa-1}}\bigr)\Bigr),
+\]
+whence $(1 + h_+)^{2\kappa-1}(h_+ - 1) \le m - 1 + O\bigl((m-1)\Lambda^{-\frac{1}{\kappa-1}}\bigr)$. For $m = 2$, $\Lambda \to 2(1+\sqrt{2})$ as $\kappa \to 1^+$, and the exact $2\times 2$ supremum $C_{p,2}(2)$ satisfies $(1+h)^{2\kappa-1}(h-1) = 1 + O\bigl((1+\sqrt{2})^{-\frac{1}{\kappa-1}}\bigr)$ (by Theorem~3 with $t \to 1+\sqrt{2}$); since $\frac{1}{\kappa - 1} = \frac{2(p-1)}{2-p}$, subtracting yields $0 < C_{p,2}(\infty) - C_{p,2}(2) = O\bigl((1+\sqrt{2})^{-\frac{2(p-1)}{2-p}}\bigr)$. Finally, the Lean-verified rational caps follow directly from complete squares: at $p = 3/2, m = 2$, $(B, \gamma) = (61/25, 8/5)$ gives $F_Z(z) = -z(z - B/2)^2 \le 0$ and $F_X(u^2) = u\bigl(-\gamma(u - \frac{\alpha}{2\gamma})^2 + (2-B)\Lambda + \gamma + \frac{\alpha^2}{4\gamma}\bigr) \le 0$ for $\Lambda \ge 447/100$, contradicting $(\Lambda + \gamma)\sigma_+(\Lambda) \le \alpha$; at $p = 4/3, m = 2$, $(B, \gamma) = (109/50, 0)$ gives $F_Z(z) = -z(z - 2B/3)^2(z + B/3) \le 0$ and $F_X(x) = ((2-B)\Lambda + \alpha)x \le 0$ for $\Lambda \ge 866/100$, contradicting $\Lambda\sigma_+(\Lambda) \le \alpha$.
+
+\textbf{Theorem 10C (2-line pure-algebraic Bessel identity at $p = 4/3$).}
+Let $(D+H)^3 = \Lambda D H D$ with $Dv = v$, $\|v\|_2 = 1$, and $(HDH - DHD)v = -Pv$; set $u := Hv$, $a := v^* u > 0$, $s_2 := \|u\|_2^2$, and $s_3 := u^* H u$. Taking the inner product of $(HDH - DHD)v = -Pv$ with $v$ gives $u^* D u = a - P$. Evaluating $v^*(D+H)^3 v = \Lambda v^* D H D v$ expands via $Dv = v$ to $1 + 3a + 2s_2 + u^* D u + s_3 = \Lambda a$, yielding $s_3 = (\Lambda - 4)a - 2s_2 - 1 + P$. Next, evaluating $v^*(D+H)^3 u = \Lambda v^* D H D u = \Lambda\, u^* D u$ using $(D+H)^2 v = v + u + (D+H)u$ expands to
+\[
+  a + s_2 + u^* D u + s_3 + \|(D+H)u\|_2^2 = \Lambda(a - P),
+\]
+and substituting $u^* D u = a - P$ and $s_3 = (\Lambda - 4)a - 2s_2 - 1 + P$ cancels $\Lambda a$ identically to yield $\|(D+H)u\|_2^2 = 1 + 2a + s_2 - \Lambda P$. Cauchy--Schwarz gives $a^2 = |v^* u|^2 \le s_2$ and $s_2^2 = |v^* H^{1/2} H^{3/2} v|^2 \le a s_3$. Finally, decomposing $(D+H)u$ onto the orthogonal basis $\{v, b\}$ of $\operatorname{span}\{v, u\}$ where $b := u - av$ ($\|b\|_2^2 = s_2 - a^2$), we have $v^*(D+H)u = a + s_2$ and $b^*(D+H)u = a - P + s_3 - a(a + s_2)$, so Bessel's inequality $\|(D+H)u\|_2^2 \ge |v^*(D+H)u|^2 + |b^*(D+H)u|^2 / \|b\|_2^2$ gives the claimed polynomial inequality. Minimizing over $(a, s_2)$ across $P \in [\sigma_+(\Lambda)/(m-1), 1/4]$ yields the reported multi-summand caps for $m = 2, 3, 4, 10$ with zero SDP.
+\end{proof}
+
 \begin{table}[htbp]
 \centering
-\caption{\small Performance of Theorem~10's pure-algebraic upper bound ($m = 2$, zero computer assistance) against exact $C_{p,2}(2)$, Holden's computer-assisted interpolated bound~\cite{Holden2026b}, and Theorem~6 ($C_{2,2}^{2-2/p}$), plus multi-summand constants $K_m$ for $m \in \{2,3,4,10\}$.}
+\caption{\small Progression of pure-algebraic universal upper bounds ($m = 2$, zero SDP, all Lean~4 verified) across $1 < p < 2$: V3 Theorem~10, Theorem~10A (1-line, exact at $p \to 2^-$), and Theorem~10B (coupled 2-function \& $C^\infty$-flat collapse law) vs.\ exact $C_{p,2}(2)$ and Holden's computer-assisted bound~\cite{Holden2026b}.}
 \vspace{3pt}
 \footnotesize
-\begin{tabular}{@{}c l l l l c@{}}
+\setlength{\tabcolsep}{3.6pt}
+\begin{tabular}{@{}c l l l l l c@{}}
 \toprule
-\textbf{Exp $p$} & \textbf{Exact $C_{p,2}(2)$} & \textbf{Theorem~10 UB} & \textbf{Holden UB~\cite{Holden2026b}} & \textbf{Theorem~6 UB} & \textbf{Ratio (Holden / Thm~10) gap} \\
+\textbf{Exp $p$} & \textbf{Exact $C_{p,2}(2)$} & \textbf{Thm~10 (V3)} & \textbf{Thm~10A (1-line)} & \textbf{Thm~10B (2-fn)} & \textbf{Holden~\cite{Holden2026b}} & \textbf{Thm~10B gap} \\
 \midrule
-$1.001$ & $1.0000002194$ & $\mathbf{1.0000003169}$ & $1.0000734121$ & $1.0001880560$ & $\mathbf{231.7\times}$ tighter (pure alg.) \\
-$1.010$ & $1.0000217441$ & $\mathbf{1.0000314104}$ & $1.0007278170$ & $1.0018653654$ & $\mathbf{23.2\times}$ tighter (pure alg.) \\
-$1.050$ & $1.0005229322$ & $\mathbf{1.0007558609}$ & $1.0035053091$ & $1.0090034516$ & $\mathbf{4.6\times}$ tighter (pure alg.) \\
-$1.100$ & $1.0019970115$ & $\mathbf{1.0028919961}$ & $1.0067026151$ & $1.0172587317$ & $\mathbf{2.3\times}$ tighter (pure alg.) \\
-$1.200$ & $1.0073249658$ & $\mathbf{1.0106884981}$ & $1.0123224327$ & $1.0318683259$ & $\mathbf{1.15\times}$ tighter (pure alg.) \\
-$4/3$   & $1.0183023754$ & $1.0272084650$          & $1.0185404735$ & $1.0481813362$ & Starting cap for Thm~12 \\
-$3/2$   & $1.0364143573$ & $1.0563505684$          & $1.0445834539$ & $1.0647522420$ & Starting cap for Thm~12 \\
+$1.01$ & $1.0000217441$ & $1.0000314104$ & $1.0000311864$ & $\mathbf{1.0000311842}$ & $1.0007278170$ & $9.44\times 10^{-6}$ ($75\times$) \\
+$1.05$ & $1.0005229322$ & $1.0007558609$ & $1.0007295175$ & $\mathbf{1.0007281747}$ & $1.0035053091$ & $2.05\times 10^{-4}$ ($14.5\times$) \\
+$1.10$ & $1.0019970115$ & $1.0028919961$ & $1.0026956937$ & $\mathbf{1.0026753511}$ & $1.0067026151$ & $6.78\times 10^{-4}$ ($6.9\times$) \\
+$5/4$  & $1.0109875345$ & $1.0161257590$ & $1.0135711957$ & $\mathbf{1.0129104824}$ & $1.0148050807$ & $1.92\times 10^{-3}$ ($2.0\times$) \\
+$4/3$  & $1.0183023754$ & $1.0272084650$ & $1.0216439289$ & $1.0198944337^*$ & $1.0185404735$ & $1.59\times 10^{-3}$ \\
+$3/2$  & $1.0364143573$ & $1.0563505684$ & $1.0399672267$ & $\mathbf{1.0373118669}$ & $1.0445834539$ & $8.98\times 10^{-4}$ ($9.1\times$) \\
+$5/3$  & $1.0573477358$ & $1.0949133734$ & $1.0595554861$ & $\mathbf{1.0574722027}$ & $1.0658964686$ & $1.24\times 10^{-4}$ ($68.7\times$) \\
+$7/4$  & $1.0681348567$ & $1.1183771599$ & $1.0694570636$ & $\mathbf{1.0681497646}$ & $1.0751632240$ & $1.49\times 10^{-5}$ ($471\times$) \\
+$1.85$ & $1.0807997475$ & $1.1515846113$ & $1.0812748316$ & $\mathbf{1.0807998193}$ & $1.0852719863$ & $\mathbf{7.18\times 10^{-8}}$ ($62{,}300\times$) \\
+$1.90$ & $1.0869208303$ & $1.1711447249$ & $1.0871289306$ & $\mathbf{1.0869208304}$ & $1.0899592471$ & $\mathbf{1.27\times 10^{-10}}$ ($2.4\times 10^7\times$) \\
+$1.95$ & $1.0928831735$ & $1.1939268052$ & $1.0929343506$ & $\mathbf{1.0928831735}$ & $1.0944248477$ & $\mathbf{1.98\times 10^{-14}}$ ($7.8\times 10^{10}\times$) \\
 \bottomrule
 \end{tabular}
 \vspace{4pt}
-\par\parbox{0.96\textwidth}{\footnotesize Multi-summand quadratic constants $K_m = \frac{c_m^2+2c_m}{2}$ as $p \to 1^+$ and pure-algebraic caps: $m = 2$: $K_2 = 0.31723579$; $m = 3$: $K_3 = 0.57026572$ ($C_{4/3,3} \le 1.049246$, $C_{3/2,3} \le 1.102602$); $m = 4$: $K_4 = 0.78567947$; $m = 10$: $K_{10} = 1.70710680$.}
+\par\parbox{0.96\textwidth}{\footnotesize\textsuperscript{*}At $p = 4/3$, Theorem~10C's 2-line pure-algebraic Bessel bound further tightens this (zero SDP) to $C_{4/3,2} \le 1.018930$ ($m = 2$), $C_{4/3,3} \le 1.032735$ ($m = 3$, vs.\ tree $1.031864$), $C_{4/3,4} \le 1.043885$, and $C_{4/3,10} \le 1.087759$. Multi-summand Theorem~10B pure-algebraic caps: $m = 3$: $C_{3/2,3} \le 1.064447$ (vs.\ tree $1.063114$), $C_{7/4,3} \le 1.117226$, $C_{1.9,3} \le 1.148899$; $m = 4$: $C_{3/2,4} \le 1.086336$, $C_{7/4,4} \le 1.156612$; $m = 10$: $C_{3/2,10} \le 1.172208$, $C_{7/4,10} \le 1.310207$. Asymptotic $p \to 1^+$ constants $K_m = \frac{c_m^2+2c_m}{2}$: $K_2 = 0.317236$, $K_3 = 0.570266$, $K_4 = 0.785679$, $K_{10} = 1.707107$.}
 \label{tab:thm10}
 \end{table}
 
@@ -1007,8 +1129,16 @@ On $E_{\max} = \ker(D - I)$, Theorem~9(c) forces $\phi_{1,v} = -\sigma_+(\Lambda
   \item \textbf{State~2 (Global-Flux-Extremum System):} Pick $(j_*, w)$ attaining $\phi_{j_*, w} = -\tau$ and rescale $D \mapsto D/d_w$ so $Dw = w$ (dropping $D \preceq I$). Then $D \succ 0$, $-\tau D^e \preceq \widetilde{\Phi}_{j_*} \preceq +\tau D^e$, and $\widetilde{\Phi}_{j_*} w = -\tau w$.
 \end{enumerate}
 
-\textbf{Step 3: 4-corner shared-multiplier SOS refutation and exact rational certification.}
-On any parameter rectangle $(\Lambda, P) \in [L_{\mathrm{lo}}, L_{\mathrm{hi}}] \times [P_{\mathrm{lo}}, P_{\mathrm{hi}}]$ with fixed upper bounds $\bar{\tau} \ge \tau$ and $\bar{b} > h_+(L_{\mathrm{hi}})$ (at $p = 4/3$) or $\bar{b} > \sqrt{h_+(L_{\mathrm{hi}})}$ (at $p = 3/2$), all localizers $q_s$ are unconditionally PSD: $I, D, H, \bar{b}D-H, \bar{\tau}D^3 \pm \widetilde{\Phi}, D(\bar{\tau}D^3 \pm \widetilde{\Phi})$ at $p = 4/3$; $I, D, M, \bar{b}I-M, \bar{\tau}D^2 \pm \widetilde{\Phi}, D(\bar{\tau}D^2 \pm \widetilde{\Phi})$ at $p = 3/2$; plus $I-D, D(I-D), (I-D)(\bar{\tau}D^e - \widetilde{\Phi})$ in State~1 (since $0 \prec D \preceq I$ commutes with $\widetilde{\Phi}$). Under the vector state $\omega(X) := \operatorname{Re}(u^* X u)$ ($Du = u$), leading/trailing $D$'s strip identically and word reversal preserves $\omega$, defining the canonical word map $\mathrm{canon}(w)$. If there exist \emph{shared} rational multipliers $(c_g, c_p)$, a shared constant $c_0 > 0$, and at each of the four corners $(L_r, P_r)$ strictly positive-definite rational Gram matrices $\widetilde{Z}_s^{(r)} \succ 0$ and commutator multipliers $c_{\mathrm{cm}}^{(r)}$ satisfying the exact symbolic identity
+\textbf{Step 3: Strict convexity of $\sigma_+(\Lambda)$, 4-corner convex trapezoid SOS refutation, and exact rational certification.}
+Differentiating $\Lambda(h) = (1+h)^{2\kappa-1} h^{1-\kappa}$ and $\sigma(h) = h^{\kappa-1}(h - 1)$ along the upper branch $h = h_+(\Lambda) > 1$ gives
+\[
+  \Lambda'(h) = \frac{(1+h)^{2\kappa-2}\bigl(\kappa h - (\kappa - 1)\bigr)}{h^\kappa},
+  \qquad
+  \sigma'(h) = h^{\kappa - 2}\bigl(\kappa h - (\kappa - 1)\bigr),
+\]
+whose ratio cancels $\kappa h - (\kappa - 1) > 0$ identically to establish~\eqref{eq:sig_convex}: $\frac{d\sigma_+}{d\Lambda} = \bigl(\frac{h_+(\Lambda)}{1 + h_+(\Lambda)}\bigr)^{2\kappa - 2}$. Because $h_+(\Lambda)$ and $h \mapsto h/(1+h)$ are strictly increasing and $2\kappa - 2 > 0$, $\sigma_+(\Lambda)$ is \emph{strictly convex} in $\Lambda$ for every $\kappa > 1$. Consequently, over any interval $[L_{\mathrm{lo}}, L_{\mathrm{hi}}]$, the entire State-1 curve $\{(\Lambda, \sigma_+(\Lambda)) : \Lambda \in [L_{\mathrm{lo}}, L_{\mathrm{hi}}]\}$ lies inside the 4-corner convex trapezoid $\mathcal{Q} = \operatorname{conv}\{(L_{\mathrm{lo}}, P_{\mathrm{lo},L}), (L_{\mathrm{lo}}, P_{\mathrm{hi},L}), (L_{\mathrm{hi}}, P_{\mathrm{lo},R}), (L_{\mathrm{hi}}, P_{\mathrm{hi},R})\}$ whenever four exact rational inequalities hold: $P_{\mathrm{lo},L} \le \sigma_+(L_{\mathrm{lo}}) \le P_{\mathrm{hi},L}$, $\sigma_+(L_{\mathrm{hi}}) \le P_{\mathrm{hi},R}$ (upper secant), and $P_{\mathrm{lo},R} \le P_{\mathrm{lo},L} + \sigma_+'(L_{\mathrm{lo}})(L_{\mathrm{hi}} - L_{\mathrm{lo}})$ (lower supporting tangent). Unlike a rectangular bounding box—whose bottom-right corner $(L_{\mathrm{hi}}, \sigma_+(L_{\mathrm{lo}}))$ crosses below the State-1 feasibility curve as $L_{\mathrm{lo}} \to \Lambda_{\mathrm{tree}}(\infty)$—this convex trapezoid hugs the 1D curve to thickness $\approx 10^{-7}$ across an entire macro-interval.
+
+On any convex 4-corner quadrilateral $\mathcal{Q}$ (rectangle or trapezoid) with fixed upper bounds $\bar{\tau} \ge \tau$ and $\bar{b} > h_+(L_{\mathrm{hi}})$ (at $p = 4/3$) or $\bar{b} > \sqrt{h_+(L_{\mathrm{hi}})}$ (at $p = 3/2$), all localizers $q_s$ are unconditionally PSD: $I, D, H, \bar{b}D-H, \bar{\tau}D^3 \pm \widetilde{\Phi}, D(\bar{\tau}D^3 \pm \widetilde{\Phi})$ at $p = 4/3$; $I, D, M, \bar{b}I-M, \bar{\tau}D^2 \pm \widetilde{\Phi}, D(\bar{\tau}D^2 \pm \widetilde{\Phi})$ at $p = 3/2$; plus $I-D, D(I-D), (I-D)(\bar{\tau}D^e - \widetilde{\Phi})$, and $D(I-D)(\bar{\tau}D^3 - \widetilde{\Phi})$ in State~1 (since $0 \prec D \preceq I$ commutes with $\widetilde{\Phi}$). Under the vector state $\omega(X) := \operatorname{Re}(u^* X u)$ ($Du = u$), leading/trailing $D$'s strip identically and word reversal preserves $\omega$, defining the canonical word map $\mathrm{canon}(w)$. If there exist \emph{shared} rational multipliers $(c_g, c_p)$, a shared constant $c_0 > 0$, and at each of the four corners $(L_r, P_r)$ strictly positive-definite rational Gram matrices $\widetilde{Z}_s^{(r)} \succ 0$ and commutator multipliers $c_{\mathrm{cm}}^{(r)}$ satisfying the exact symbolic identity
 \[
   \sum_s \langle \widetilde{Z}_s^{(r)},\, P_s Q_s P_s^\top \rangle + c_0
   \;\equiv\;
@@ -1016,52 +1146,79 @@ On any parameter rectangle $(\Lambda, P) \in [L_{\mathrm{lo}}, L_{\mathrm{hi}}] 
   + \sum_k c_{p,k}\, (\widetilde{\Phi} + P_r D^e) w_k
   + \sum_\ell c_{\mathrm{cm},\ell}^{(r)}\, u_\ell [D, \widetilde{\Phi}] v_\ell
 \]
-modulo $\mathrm{canon}(\cdot)$, then by affine linearity in $(\Lambda, P)$, taking the convex combination of the four corners gives strictly PD Gram matrices $\widetilde{Z}_s(\Lambda, P) \succ 0$ proving $0 \le -c_0 < 0$ for \emph{every} $(\Lambda, P)$ in the entire rectangle.
+modulo $\mathrm{canon}(\cdot)$, then by joint affine linearity in $(\Lambda, P)$, taking the convex combination of the four corners gives strictly PD Gram matrices $\widetilde{Z}_s(\Lambda, P) \succ 0$ proving $0 \le -c_0 < 0$ for \emph{every} $(\Lambda, P) \in \mathcal{Q}$. In State~2 ($D$ unbounded above), omitting basis words starting with $DD$ on $M_0, M, \bar{b}I - M$ and $D$ on the $D$-localizer eliminates structural zero-eigenvalue rays and ensures well-conditioned strictly PD Gram matrices.
 
-Starting from Theorem~10's Lean-verified caps ($891/100$ at $p = 4/3$; $472/100$ at $p = 3/2$), the pure-stdlib zero-float verifier \texttt{verify\_all\_exact\_certificates.py} (Suite~3) independently checks every localizer whitelist, exact rational bounds on $\sigma_+(\Lambda)$ and $\bar{b}$, exact seamless coverage of $[\Lambda_{\mathrm{final}}, \Lambda_{\mathrm{start}}] \times [\sigma_+(\Lambda), c_\kappa]$ via State~1 ($\tau \le \tau_{\mathrm{split}}$) and State~2 ($\tau \in [\tau_{\mathrm{split}}, c_\kappa]$), identically zero polynomial residuals on every canonical word at every corner, and strictly positive rational $LDL^\top$ pivots on every Gram matrix:
+Starting from Theorem~10's Lean-verified caps ($891/100$ at $p = 4/3$; $472/100$ at $p = 3/2$), the pure-stdlib zero-float verifier \texttt{verify\_all\_exact\_certificates.py} (Suite~3) independently checks every localizer whitelist, exact rational brackets on $\sigma_+(\Lambda)$, $\sigma_+'(\Lambda)$, and $\bar{b}$, exact convex-trapezoid and State-2 coverage of $[\Lambda_{\mathrm{final}}, \Lambda_{\mathrm{start}}] \times [\sigma_+(\Lambda), c_\kappa]$, identically zero polynomial residuals on every canonical word at every corner, and strictly positive exact rational $LDL^\top$ pivots on every Gram matrix in $0.32\,\mathrm{s}$:
 \begin{itemize}[leftmargin=1.5em,itemsep=1.5pt]
-  \item \textbf{$p = 4/3, m = 2$ (5 rectangles, 8--14 moment variables, \texttt{proj=0}):} seamlessly refutes $\Lambda \in [17209/2000,\, 891/100]$, proving $C_{4/3,2}(\infty) \le (17209/16000)^{1/4} \le 1.018377775572$.
-  \item \textbf{$p = 3/2, m = 2$ (8 rectangles, 32--50 moment variables):} seamlessly refutes $\Lambda \in [5567/1250,\, 472/100]$, proving $C_{3/2,2}(\infty) \le (5567/5000)^{1/3} \le 1.036454891841$.
+  \item \textbf{$p = 4/3, m = 2$ (7 pieces, 8--44 moment variables, \texttt{proj=0} on every piece):} seamlessly refutes $\Lambda \in [21511/2500,\, 891/100]$, proving $C_{4/3,2}(\infty) \le (21511/20000)^{1/4} \le 1.018374816707$ ($\mathbf{52.1\times}$ tighter than Holden's $1.0185404735$).
+  \item \textbf{$p = 3/2, m = 2$ (11 pieces, 32--80 moment variables):} seamlessly refutes $\Lambda \in [890677/200000,\, 472/100]$, proving $C_{3/2,2}(\infty) \le (890677/800000)^{1/3} \le 1.036438213095$ ($\mathbf{7{,}795\times}$ tighter than Holden's $1.0445834539$, enclosure width $1.05\times 10^{-6}$).
 \end{itemize}
-Finally, applying Theorem~6's log-convexity in $1/p$ across the four anchored nodes $p \in \{1, 4/3, 3/2, 2\}$ (together with Theorem~10 near $p \to 1^+$) gives the composite upper bounds in Table~\ref{tab:enclosures}, strictly improving Holden's previous world-best upper bound for every $p \in (1, 2)$.
+(Numerical floating-point State-1 SDP diagnostics at degree $d = 9$, $152$ moment variables, further tighten the $p = 3/2$ pinch to $\Lambda^* \approx 4.4533735$, $C_{3/2,2} \le 1.036437323$—gap $1.55\times 10^{-7}$, $52{,}572\times$ tighter than Holden—and the dual primal moment matrix at $\Lambda_{\mathrm{tree}}$ has rank~$3$ matching our $s = 5$ self-similar tree block on all words through degree~5 to $10^{-4}$.) Finally, combining Theorems~6, 10A, 10B, and~12 yields Table~\ref{tab:enclosures}, strictly improving the prior best upper bound on $C_{p,2}(\infty)$ for every $p \in (1, 2)$.
 \end{proof}
 
 \begin{table}[htbp]
 \centering
-\caption{\small Certified enclosures for $C_{p,2}(\infty)$ across $1 < p < 2$ combining Theorems~3, 6, 10, 11, and~12, compared directly against Holden's prior world-best bounds~\cite{Holden2026b}.}
+\caption{\small Certified Version~4 enclosures for $C_{p,2}(\infty)$ across $1 < p < 2$ combining Theorems~3, 6, 10A, 10B, 11, and~12, compared directly against Holden's prior world-best bounds~\cite{Holden2026b}.}
 \vspace{3pt}
 \footnotesize
-\setlength{\tabcolsep}{4.0pt}
+\setlength{\tabcolsep}{3.6pt}
 \begin{tabular}{@{}c l l l l c@{}}
 \toprule
 \textbf{Exp $p$} & \textbf{Prior LB} & \textbf{Best LB (this paper)} & \textbf{New Certified UB} & \textbf{Prior UB~\cite{Holden2026b}} & \textbf{Gap Tightening} \\
 \midrule
-$1.01$ & $1.0000217441$ & $1.0000217441$ (Thm~3) & $\mathbf{1.0000314104}$ (Thm~10) & $1.0007278170$ & $\mathbf{73\times}$ tighter \\
-$5/4$  & $1.0109875345$ & $1.0110659197$ ($n=8$) & $\mathbf{1.0146753977}$ (Thm~6+12) & $1.0148050807$ & strictly tighter \\
-$\mathbf{4/3}$ & $1.018371575$ & $\mathbf{1.0183715755}$ (Thm~11$^\dagger$) & $\mathbf{1.0183777756}$ (Thm~12$^\dagger$) & $1.0185404735$ & $\mathbf{27.2\times}$ tighter \\
-$7/5$  & $1.0250690707$ & $1.0250690707$ (Thm~3) & $\mathbf{1.0260861803}$ (Thm~6+12) & $1.0296212875$ & $\mathbf{4.5\times}$ tighter \\
-$\mathbf{3/2}$ & $1.0364143573$ & $\mathbf{1.03643716806}$ (Thm~11$^\dagger$) & $\mathbf{1.0364548918}$ (Thm~12$^\dagger$) & $1.0445834539$ & $\mathbf{459\times}$ tighter \\
-$5/3$  & $1.0558399096$ & $1.0558399096$ (Thm~3) & $\mathbf{1.0609120478}$ (Thm~6+12) & $1.0658964686$ & $\mathbf{2.0\times}$ tighter \\
-$7/4$  & $1.0681348567$ & $1.0681348567$ (Thm~3) & $\mathbf{1.0715695668}$ (Thm~6+12) & $1.0751632240$ & $\mathbf{2.0\times}$ tighter \\
+$1.01$ & $1.0000217441$ & $1.0000217441$ (Thm~3) & $\mathbf{1.0000311842}$ (Thm~10B) & $1.0007278170$ & $\mathbf{74.8\times}$ tighter \\
+$5/4$  & $1.0109875345$ & $1.0110659197$ ($n=8$) & $\mathbf{1.0129104824}$ (Thm~10B) & $1.0148050807$ & $\mathbf{2.03\times}$ tighter \\
+$\mathbf{4/3}$ & $1.018371575$ & $\mathbf{1.0183715755}$ (Thm~11$^\dagger$) & $\mathbf{1.0183748167}$ (Thm~12$^\dagger$) & $1.0185404735$ & $\mathbf{52.1\times}$ tighter \\
+$7/5$  & $1.0250690707$ & $1.0250690707$ (Thm~3) & $\mathbf{1.0260774002}$ (Thm~6+12) & $1.0296212875$ & $\mathbf{4.51\times}$ tighter \\
+$\mathbf{3/2}$ & $1.0364143573$ & $\mathbf{1.03643716806}$ (Thm~11$^\dagger$) & $\mathbf{1.0364382131}$ (Thm~12$^\dagger$) & $1.0445834539$ & $\mathbf{7{,}795\times}$ tighter \\
+$5/3$  & $1.0573477358$ & $1.0573477358$ (Thm~3) & $\mathbf{1.0574722027}$ (Thm~10B) & $1.0658964686$ & $\mathbf{68.7\times}$ tighter \\
+$7/4$  & $1.0681348567$ & $1.0681348567$ (Thm~3) & $\mathbf{1.0681497646}$ (Thm~10B) & $1.0751632240$ & $\mathbf{471\times}$ tighter \\
+$1.85$ & $1.0807997475$ & $1.0807997475$ (Thm~3) & $\mathbf{1.0807998193}$ (Thm~10B) & $1.0852719863$ & $\mathbf{62{,}300\times}$ tighter \\
+$1.90$ & $1.0869208303$ & $1.0869208303$ (Thm~3) & $\mathbf{1.0869208304}$ (Thm~10B) & $1.0899592471$ & $\mathbf{2.39\times 10^7\times}$ tighter \\
+$1.95$ & $1.0928831735$ & $1.0928831735$ (Thm~3) & $\mathbf{1.0928831735}$ (Thm~10B) & $1.0944248477$ & $\mathbf{7.8\times 10^{10}\times}$ tighter \\
 \bottomrule
 \end{tabular}
 \vspace{4pt}
-\par\parbox{0.96\textwidth}{\footnotesize\textsuperscript{$\dagger$}Independently certified with zero floating-point arithmetic by \texttt{python3 -B -S verify\_all\_exact\_certificates.py}.}
+\par\parbox{0.96\textwidth}{\footnotesize\textsuperscript{$\dagger$}Independently certified with zero floating-point arithmetic by \texttt{python3 -B -S verify\_all\_exact\_certificates.py}. All Theorem~10B entries are purely algebraic (zero SDP, Lean~4 verified).}
 \label{tab:enclosures}
 \end{table}
 
+\subsection{Proof of Theorem 13 (Exact $p \to 1^+$ BCH Operator Limit \& Sharp $\Sp$-Tree Summability)}
+
+\begin{proof}[Proof of Theorem 13]
+Set $\varepsilon := 1/\kappa = \frac{2(p-1)}{p} \to 0^+$ and substitute $D = e^{-\varepsilon R}$ and $H_j = D^{1/2}(I - \varepsilon U_j)D^{1/2}$ ($R, U_j$ Hermitian), together with $\Lambda / 2^{2\kappa - 1} = e^{\varepsilon a_L}$ (so $C_{p,m} = (\Lambda / 2^{2\kappa-1})^{\varepsilon/2} = e^{\varepsilon^2 a_L / 2} = 1 + 2a_L(p-1)^2 + O((p-1)^3)$). Let $M_j := 2R + U_j$, so that $2R^2 + \{R, U_j\} = \frac{1}{2}(M_j^2 - U_j^2)$ identically. Expanding to $O(\varepsilon^2)$ gives
+\begin{align*}
+  \tfrac{1}{2}(D + H_j) &= I - \tfrac{\varepsilon}{2} M_j + \tfrac{\varepsilon^2}{8}(M_j^2 - U_j^2) + O(\varepsilon^3)
+  \;\implies\; (2\kappa - 1)\log\tfrac{D + H_j}{2} = -M_j + \varepsilon\bigl(\tfrac{1}{2}M_j - \tfrac{1}{4}U_j^2\bigr) + O(\varepsilon^2), \\
+  G_j &= I - \varepsilon M_j + \tfrac{\varepsilon^2}{2}(M_j^2 - U_j^2) + O(\varepsilon^3)
+  \;\implies\; (\kappa - 1)\log G_j = -M_j + \varepsilon\bigl(M_j - \tfrac{1}{2}U_j^2\bigr) + O(\varepsilon^2).
+\end{align*}
+Applying the Fr\'echet derivative $\left.\frac{d}{d\varepsilon}\right|_{\varepsilon=0} e^{-M_j + \varepsilon Y} = \operatorname{Dexp}_{-M_j}[Y] = \int_0^1 e^{-tM_j} Y e^{-(1-t)M_j}\,dt$ (noting that $\operatorname{Dexp}_{-M_j}[M_j] = M_j e^{-M_j} = \{R, e^{-M_j}\} + \frac{1}{2}\{U_j, e^{-M_j}\}$ since $M_j$ commutes with $e^{-M_j}$) to both sides of $\bigl(\frac{D+H_j}{2}\bigr)^{2\kappa-1} = e^{\varepsilon a_L} D^{1/2} G_j^{\kappa-1} D^{1/2}$ cancels $e^{-M_j}$ at $O(1)$ and cancels $\{R, e^{-M_j}\}$ identically at $O(\varepsilon)$, yielding
+\[
+  \frac{1}{4}\operatorname{Dexp}_{-M_j}[U_j^2] - \frac{1}{4}\{U_j, e^{-M_j}\} = a_L\, e^{-M_j}
+  \iff \operatorname{Dexp}_{-M_j}[U_j^2] = 4a_L\, e^{-M_j} + U_j e^{-M_j} + e^{-M_j} U_j.
+\]
+Simultaneously, the flux operator satisfies $\Phi_j = G_j^\kappa - D G_j^{\kappa-1} D = -\frac{\varepsilon}{2}(U_j e^{-M_j} + e^{-M_j} U_j) + O(\varepsilon^2) = \varepsilon\,\Phi_{\lim,j} + O(\varepsilon^2)$, establishing~\eqref{eq:bch_limit}. Diagonalizing $M_j = \diag(\mu_i)$ and using the divided-difference formula $(\operatorname{Dexp}_{-M_j}[Y])_{ij} = \frac{e^{-\mu_j} - e^{-\mu_i}}{\mu_i - \mu_j} Y_{ij} = e^{-(\mu_i+\mu_j)/2}\frac{\sinh\Delta_{ij}}{\Delta_{ij}} Y_{ij}$ ($\Delta_{ij} := (\mu_i - \mu_j)/2$) together with $\bigl(\frac{1}{2}(U_j e^{-M_j} + e^{-M_j} U_j)\bigr)_{ij} = e^{-(\mu_i+\mu_j)/2}\cosh(\Delta_{ij})\, U_{ij}$ converts~\eqref{eq:bch_limit} entrywise into
+\[
+  \frac{\sinh\Delta_{ij}}{\Delta_{ij}}(U^2)_{ij} = 4a_L \delta_{ij} + 2\cosh(\Delta_{ij}) U_{ij}.
+\]
+Substituting $W := U_j - I$ ($U^2 = W^2 + 2W + I$) simplifies the diagonal to $(W^2)_{ii} = 1 + 4a_L$ and off-diagonals to $(W^2)_{ij} = 2\bigl(\frac{\Delta_{ij}}{\tanh\Delta_{ij}} - 1\bigr)W_{ij}$ ($i \neq j$).
+
+For Theorem~11's infinite tree $\mathcal{T}_s$, note that $G_j = D^{1/2} H_j D^{1/2}$ scales as $w(v)^2$ on each scaled block $w(v)(D_B, H_B)$, so $a_j = D^{1/2} G_j^{\kappa-1} D^{1/2}$ scales homogeneously of degree $2\kappa - 1 = \frac{1}{p - 1}$. Because $(2\kappa - 1)p = \frac{p}{p-1} = q = 2\kappa$, every scaled block contributes $w(v)^{2\kappa}\Tr(a_{B,j}^p)$ to $\Tr((L_j L_j^\top)^p) = \Tr(a_j^p)$ and $w(v)^{2\kappa}\sum r_{B,i}^q$ to $\|R\|_q^q$. Hence the reconstructed infinite-tree tuple lies in $(\Sp(\ell^2(\mathcal{T}_s)))^m$ if and only if $\sum_{v \in \mathcal{T}_s} w(v)^{2\kappa} < \infty$, i.e., if and only if $(m - 1)\sum_{i=2}^s d_i^{2\kappa} < 1$. As $\kappa \to \infty$ with $d_i = e^{-r_i/\kappa}$, this converges cleanly to $(m - 1)\sum_{i=2}^s e^{-2r_i} < 1$—which holds uniformly all the way to $p \to 1^+$ (numerically $0.0235 \ll 1$ for $m = 2$, $s = 5$), even though $\sum_{i=2}^s d_i \to s - 1 \ge 1$ diverges as $p \to 1^+$. Solving~\eqref{eq:bch_limit} via Newton continuation across $s = 2, 3, 4, 5$ achieves residuals $3\times 10^{-16}$--$7\times 10^{-15}$ and geometric convergence $K_2^{\mathrm{tree}}(2) = 0.2256291388$, $K_2^{\mathrm{tree}}(3) = 0.2259051027$, $K_2^{\mathrm{tree}}(4) = 0.2259260356$, $K_2^{\mathrm{tree}}(5) = 0.2259282093$ ($\to 0.2259284\dots$), with $K_3^{\mathrm{tree}}(2) = 0.3916737074$ and $K_4^{\mathrm{tree}}(2) = 0.5264784532$.
+\end{proof}
+
 \section{Machine-Checked Lean 4 + Mathlib Formalization}
 
-To eliminate any possibility of subtle analytic or algebraic gaps in our finite-dimensional and universal algebraic proofs, we formalized the complete finite-dimensional backbone and Theorems~9--10 in \textbf{Lean~4.33.1 + Mathlib} (10 modular files totaling $12{,}206$ lines, plus a standalone zero-dependency companion certificate file \texttt{MI20\_FormalProof.lean} of $1{,}004$ lines). Every theorem compiles with \textbf{zero \texttt{sorry}}, \textbf{zero compiler warnings}, and \textbf{zero custom axioms}.
+To eliminate any possibility of subtle analytic or algebraic gaps in our finite-dimensional and universal algebraic proofs, we formalized the complete finite-dimensional backbone and Theorems~9, 10, 10A, 10B, and~10C in \textbf{Lean~4.33.1 + Mathlib} (11 modular files totaling $13{,}770$ lines, plus a standalone zero-dependency companion certificate file \texttt{MI20\_FormalProof.lean} of $1{,}004$ lines). Every theorem compiles with \textbf{zero \texttt{sorry}}, \textbf{zero compiler warnings}, and \textbf{zero custom axioms}.
 
 \begin{tcolorbox}[leanbox]
 {\sffamily\footnotesize\bfseries\color{leanborder}LEAN 4.33.1 + MATHLIB AXIOM AUDIT (\texttt{lake build \&\& lake env lean MI20/AxiomAudit.lean})}\par\vspace{2.5pt}
-{\raggedright\small All 28 exported top-level theorems in \texttt{MI20/AxiomAudit.lean} pass \texttt{\#print axioms} depending \textbf{exclusively} on Lean's three standard logical axioms \texttt{[propext, Classical.choice, Quot.sound]}: \texttt{prop0\_subgradient\_bound}, \texttt{lemma1\_universal\_rank\_deficiency}, \texttt{lemma2\_full\_rank\_sum}, \texttt{lemma2\_same\_dim\_full\_rank\_sum}, \texttt{lemma3\_polar\_optimality}, \texttt{lemma3\_kernel\_map}, \texttt{psdPow\_mono\_of\_posSemidef}, \texttt{lemma4a\_rank\_one\_smoothness}, \texttt{lemma4b\_kernel\_lifting}, \texttt{prop5\_superquadratic\_obstruction}, \texttt{theorem1\_strict\_hierarchy}, \texttt{theorem1\_no\_finite\_extremizer}, \texttt{schattenNorm\_sq\_le\_trace\_mul\_rpow}, \texttt{theorem3\_universal\_2x2\_collapse}, \texttt{theorem3\_exact\_p32}, \texttt{theorem4\_witness\_p32}, \texttt{theorem5\_psd\_reformulation}, \texttt{theorem5\_povm\_reformulation}, \texttt{theorem6\_interp\_from\_one}, \texttt{theorem6\_p2\_upper\_bound}, \texttt{universal\_commutator\_identity}, \texttt{universal\_commutator\_theorem}, \texttt{power\_variance\_lemma}, \texttt{top\_eigenspace\_spectral\_dichotomy}, \texttt{universal\_algebraic\_upper\_bound}, \texttt{universal\_bound\_p43\_m2}, \texttt{universal\_bound\_p32\_m2}, and \texttt{universal\_quadratic\_log\_bound}.\par}
+{\raggedright\small All 40 exported top-level theorems in \texttt{MI20/AxiomAudit.lean} pass \texttt{\#print axioms} depending \textbf{exclusively} on Lean's three standard logical axioms \texttt{[propext, Classical.choice, Quot.sound]}: \texttt{prop0\_subgradient\_bound}, \texttt{lemma1\_universal\_rank\_deficiency}, \texttt{lemma2\_full\_rank\_sum}, \texttt{lemma2\_same\_dim\_full\_rank\_sum}, \texttt{lemma3\_polar\_optimality}, \texttt{lemma3\_kernel\_map}, \texttt{psdPow\_mono\_of\_posSemidef}, \texttt{lemma4a\_rank\_one\_smoothness}, \texttt{lemma4b\_kernel\_lifting}, \texttt{prop5\_superquadratic\_obstruction}, \texttt{theorem1\_strict\_hierarchy}, \texttt{theorem1\_no\_finite\_extremizer}, \texttt{schattenNorm\_sq\_le\_trace\_mul\_rpow}, \texttt{theorem3\_universal\_2x2\_collapse}, \texttt{theorem3\_exact\_p32}, \texttt{theorem4\_witness\_p32}, \texttt{theorem5\_psd\_reformulation}, \texttt{theorem5\_povm\_reformulation}, \texttt{theorem6\_interp\_from\_one}, \texttt{theorem6\_p2\_upper\_bound}, \texttt{universal\_commutator\_identity}, \texttt{universal\_commutator\_theorem}, \texttt{power\_variance\_lemma}, \texttt{top\_eigenspace\_spectral\_dichotomy}, \texttt{universal\_algebraic\_upper\_bound}, \texttt{universal\_bound\_p43\_m2}, \texttt{universal\_bound\_p32\_m2}, \texttt{universal\_quadratic\_log\_bound}, \texttt{exists\_negative\_flux\_eigenvector}, \texttt{universal\_sharp\_one\_line\_bound}, \texttt{sharp\_one\_line\_cap\_p43\_m2}, \texttt{sharp\_one\_line\_cap\_p32\_m2}, \texttt{sharp\_one\_line\_p2\_limit\_frobenius}, \texttt{universal\_two\_function\_bound}, \texttt{two\_function\_regime1\_bound}, \texttt{two\_function\_regime2\_bound}, \texttt{superexponential\_p2\_collapse\_bound}, \texttt{two\_function\_cap\_p32\_m2}, \texttt{two\_function\_cap\_p43\_m2}, and \texttt{bessel\_two\_line\_identity\_p43}.\par}
 \end{tcolorbox}
 
 \begin{table}[htbp]
 \centering
-\caption{\small Modular Lean~4.33.1 + Mathlib formalization inventory (all 10 modules build cleanly with 0 \texttt{sorry}, 0 warnings).}
+\caption{\small Modular Lean~4.33.1 + Mathlib formalization inventory (all 11 modules build cleanly with 0 \texttt{sorry}, 0 warnings).}
 \vspace{3pt}
 \footnotesize
 \setlength{\tabcolsep}{4.5pt}
@@ -1079,9 +1236,10 @@ To eliminate any possibility of subtle analytic or algebraic gaps in our finite-
 \texttt{MI20/Theorem5\_PSDReduction.lean}& 1,796 & Same-Dim Lemma~2$'$, \textbf{Theorem~5} (PSD \& POVM reformulations) \\
 \texttt{MI20/Theorem6\_LogConvexity.lean}& 1,179 & Schatten H\"older, \textbf{Theorem~6} (Hadamard three-lines, $p=2$ upper bound) \\
 \texttt{MI20/Theorem9\_10\_CommutatorAnd\allowbreak QuadraticBound.lean} & 1,456 & \textbf{Theorem~9} (commutator, power-variance, dichotomy), \textbf{Theorem~10} (universal caps \& quadratic log bound) \\
-\texttt{MI20.lean} + \texttt{AxiomAudit.lean} & 73 & Root library import and complete 28-theorem \texttt{\#print axioms} audit suite \\
+\texttt{MI20/Theorem10B\_SharpUniversal\allowbreak AndSuperexp.lean} & 1,551 & \textbf{Theorem~10A} (1-line bound, exact $p\to 2^-$ Frobenius), \textbf{Theorem~10B} (2-fn Regimes I/II, super-exponential collapse, caps), \textbf{Theorem~10C} (Bessel identity) \\
+\texttt{MI20.lean} + \texttt{AxiomAudit.lean} & 86 & Root library import and complete 40-theorem \texttt{\#print axioms} audit suite \\
 \midrule
-\textbf{Total (Mathlib project)}         & \textbf{12,206} & \textbf{28 audited top-level theorems; 0 \texttt{sorry}; 0 warnings; standard axioms only} \\
+\textbf{Total (Mathlib project)}         & \textbf{13,770} & \textbf{40 audited top-level theorems; 0 \texttt{sorry}; 0 warnings; standard axioms only} \\
 \texttt{MI20\_FormalProof.lean}          &  1,004 & Standalone zero-dependency Lean~4 check of $\mathbb{Z}[\sqrt{17}]$, $P_8$, Sylvester certs, Thm.~1 \\
 \bottomrule
 \end{tabular}
@@ -1089,7 +1247,7 @@ To eliminate any possibility of subtle analytic or algebraic gaps in our finite-
 \end{table}
 
 \textbf{What the formalization covers vs.\ paper-only and zero-float-certified results.}
-The Mathlib formalization covers complex square matrices $\C^{n\times n}$ across all finite dimensions $n \ge 1$ and all $m \ge 2$ for Theorems~1, 3 ($1<p<2$ and $p=3/2$), 4 ($p=3/2$), 5 (PSD and POVM infima), 6 (anchored at $p_0 = 1$, including $p_1 = 2$), 9 (Commutator Identity, Commutator Theorem, Power-Variance Lemma, and Top-Eigenspace Spectral Dichotomy), 10 (universal algebraic bound, exact radical caps at $p = 4/3$ and $3/2$, and non-asymptotic quadratic log bound solving Open Question~2), Proposition~0, Lemmas~1--4, Same-Dimension Lemma~2$'$, and Proposition~5. The infinite-dimensional Hilbert-space results (Theorems~2, 7, and~8), Corollary~1 (which imports Li~\cite{Li2026}), Theorem~3(2), Theorem~5's $m=2$ projection corollary, Proposition~8, and the analytic operator reductions of Theorems~11--12 are proved on paper, while all numerical inequalities in Theorems~4, 11, and~12 are independently certified without floating-point arithmetic by \texttt{python3 -B -S verify\_all\_exact\_certificates.py}.
+The Mathlib formalization covers complex square matrices $\C^{n\times n}$ across all finite dimensions $n \ge 1$ and all $m \ge 2$ for Theorems~1, 3 ($1<p<2$ and $p=3/2$), 4 ($p=3/2$), 5 (PSD and POVM infima), 6 (anchored at $p_0 = 1$, including $p_1 = 2$), 9 (Commutator Identity, Commutator Theorem, Power-Variance Lemma, and Top-Eigenspace Spectral Dichotomy), 10 (universal algebraic bound, exact radical caps at $p = 4/3$ and $3/2$, and non-asymptotic quadratic log bound solving Open Question~2), 10A (1-line sharp bound, rational caps at $p=4/3, 3/2$, exact $p \to 2^-$ Frobenius limit), 10B (coupled two-function bound, Regimes I/II, explicit $B = 1/(2-p)$ super-exponential collapse bound, complete-square caps at $p=3/2, 4/3$), 10C (exact 2-line Bessel identity and inequality at $p = 4/3$), Proposition~0, Lemmas~1--4, Same-Dimension Lemma~2$'$, and Proposition~5. The infinite-dimensional Hilbert-space results (Theorems~2, 7, 8, and~13), Corollary~1 (which imports Li~\cite{Li2026}), Theorem~3(2), Theorem~5's $m=2$ projection corollary, Proposition~8, and the analytic operator reductions of Theorems~11--12 are proved on paper, while all numerical inequalities in Theorems~4, 11, and~12 are independently certified without floating-point arithmetic by \texttt{python3 -B -S verify\_all\_exact\_certificates.py}.
 
 \section{Computational Verification, Extended Staircases to $n = 14$, and Open-Core Diagnostics}
 
@@ -1205,7 +1363,7 @@ Beyond verifying the extended staircases in Table~\ref{tab:psd_ext}, our numeric
 
 All analytical identities, world-record lower bounds, and Two-State Pinch upper bounds are independently reproduced by our bundled scripts:
 \begin{itemize}[leftmargin=1.5em,itemsep=2pt]
-  \item \textbf{Zero-float master certificate verifier (\texttt{python3 -B -S verify\_all\_exact\_certificates.py}):} Pure Python 3 standard library (\texttt{fractions}, \texttt{math}, \texttt{json}) with zero floating-point decisions verifies all four suites in under one second: (1)~Theorem~4's three $2\times 3$ witnesses (Weyl radii $\epsilon_H < 1.5\times 10^{-39}$); (2)~Theorem~11's two $42\times 42$ world-record tree lower bounds (\texttt{lower\_record\_certificates.json}, certifying $C_{4/3,2}(\infty) > 1.0183715755$ and $C_{3/2,2}(\infty) > 1.03643716806$); (3)~Theorem~12's 13 four-corner Two-State Pinch upper-bound rectangles (\texttt{upper\_bound\_certificates.json}, checking Theorem~10's exact integer caps, localizer whitelists, seamless parameter coverage, identically zero polynomial residuals, and strictly positive exact rational $LDL^\top$ pivots); and (4)~three negative tamper regression tests plus a literal noncommuting matrix algebra sanity check.
+  \item \textbf{Zero-float master certificate verifier (\texttt{python3 -B -S verify\_all\_exact\_certificates.py}):} Pure Python 3 standard library (\texttt{fractions}, \texttt{math}, \texttt{json}) with zero floating-point decisions verifies all four suites in $0.32\,\mathrm{s}$: (1)~Theorem~4's three $2\times 3$ witnesses (Weyl radii $\epsilon_H < 1.5\times 10^{-39}$); (2)~Theorem~11's two $42\times 42$ world-record tree lower bounds (\texttt{lower\_record\_certificates.json}, certifying $C_{4/3,2}(\infty) > 1.0183715755$ and $C_{3/2,2}(\infty) > 1.03643716806$); (3)~Theorem~12's 18 four-corner Two-State Pinch upper-bound rectangles and convex trapezoids (\texttt{upper\_bound\_certificates.json}, checking Theorem~10's exact integer caps, localizer whitelists, exact rational tangent/secant convex containment of $\sigma_+(\Lambda)$, seamless parameter coverage, identically zero polynomial residuals, and strictly positive exact rational $LDL^\top$ pivots); and (4)~four negative tamper regression tests (Gram perturbation, localizer tampering, inflated lower target, and convex-trapezoid tangent violation) plus a literal noncommuting matrix algebra sanity check.
   \item \textbf{Symbolic and 105-digit audit (\texttt{verify\_all\_math.py}):} SymPy checks every derivative factorization, palindromic reduction, and Sturm uniqueness bound in Theorem~3 ($p \in \{3/2, 4/3, 5/4\}$); Lemma~4(a) passes $5{,}000$ random complex PSD matrices ($\max(\mathrm{LHS}-\mathrm{RHS}) = -1.36\times 10^{-9}$); Theorem~3's dual Cauchy--Schwarz bound passes $5{,}000$ random complex tuples; and Lemma~2 strictly increases $\|S\|_p$ on $100/100$ random rank-deficient tuples in 105-digit \texttt{mpmath}.
 \end{itemize}
 
@@ -1228,10 +1386,10 @@ print(f"2x2 supremum = {C2:.15f}\n3x3 integer  = {ratio:.15f}\ngap = {ratio - C2
 
 \section{Remaining Open Core of Problem MI-20}
 
-With Theorems~1--12, Proposition~5, Proposition~8, the 10-module Lean~4 formalization, and the zero-float master verifier established—including the complete resolution of Version~2's Open Question~2 via Theorem~10's dimension-free quadratic upper bound $\ln C_{p,m}(\infty) \le \frac{m^2-1}{2p^2}(p-1)^2$—the remaining open core of Problem~MI-20 distills to two sharply focused questions:
+With Theorems~1--13 (including 10A--10C), Proposition~5, Proposition~8, the 11-module / 40-theorem Lean~4 formalization, and the zero-float master verifier established—solving Version~2's Open Question~2, proving the $C^\infty$-flat super-exponential $p \to 2^-$ collapse law, deriving the exact $p \to 1^+$ BCH operator limit, and tightening certified enclosures by $52.1\times$ at $p = 4/3$, $7{,}795\times$ at $p = 3/2$, and up to $7.8\times 10^{10}\times$ near $p = 2$—the remaining open core of Problem~MI-20 distills to two sharply focused questions:
 \begin{enumerate}[leftmargin=1.6em,itemsep=3pt]
-  \item \textbf{Exact optimality and analytic evaluation of the infinite-tree fixed point $\Lambda_{\mathrm{tree}}(\infty)$.} At both benchmark exponents $p = 4/3$ and $p = 3/2$ ($m = 2$), our self-similar infinite-tree extremizer (Theorem~11) matches the Two-State Pinch upper bound (Theorem~12) to $6.2 \times 10^{-6}$ and $1.77 \times 10^{-5}$, respectively, and every single-block optimization tested so far obeys the maximal-flux inequality $\phi_{\max}(\Lambda) \le \sigma_+(\Lambda)$ for $\Lambda > \Lambda_{\mathrm{tree}}(\infty)$. Proving that $\Lambda_{\mathrm{tree}}(\infty)$ is the exact global supremum $2^{2\kappa-1} C_{p,m}(\infty)^{2\kappa}$ for all $1 < p < 2$ and $m \ge 2$—and determining whether the transcendental infinite-tree fixed point admits a closed-form analytic expression—remains open.
-  \item \textbf{Ruling out total spectral vanishing in Theorem~7.} Proving unconditionally that maximizing sequences in Theorem~5's canonical form satisfy $\limsup_{n\to\infty}\lambda_1(T^{(n)}) > 0$ (as strongly supported by both our stabilized staircases $\lambda_1 \approx 0.9872$ and our trace-class infinite-tree solutions $\sum d_i < 1$) would immediately establish that $C_{p,m}(\infty)$ is attained by a compact infinite-rank tuple in $(\Sp(\ell^2))^m$ obeying the proper co-isometry structure of Theorem~8.
+  \item \textbf{Exact optimality and analytic evaluation of the infinite-tree fixed point $\Lambda_{\mathrm{tree}}(\infty)$.} At $p = 4/3$ and $p = 3/2$ ($m = 2$), our self-similar infinite-tree extremizer (Theorem~11) now matches the zero-float Two-State Pinch upper bound (Theorem~12) to $3.24 \times 10^{-6}$ and $1.05 \times 10^{-6}$, respectively (and to $1.55 \times 10^{-7}$ at SDP degree $d = 9$, whose rank-$3$ primal moment matrix matches the $s = 5$ tree word-for-word to $10^{-4}$). At $p \to 1^+$, the exact BCH operator limit (Theorem~13) brackets the true quadratic constant in $[0.2259284,\, 0.3172358]$ and shows that closing the gap requires exploiting the operator-theoretic divided-difference kernel $\Delta_{ij}/\tanh\Delta_{ij}$ coupling $M$ and $U$ beyond 1D spectral moments. Proving unconditionally that $\Lambda_{\mathrm{tree}}(\infty)$ equals $2^{2\kappa-1} C_{p,m}(\infty)^{2\kappa}$ for all $1 < p < 2$ and $m \ge 2$—and determining whether this transcendental fixed point admits a closed-form analytic expression—remains open.
+  \item \textbf{Ruling out total spectral vanishing in Theorem~7.} Proving unconditionally that maximizing sequences in Theorem~5's canonical form satisfy $\limsup_{n\to\infty}\lambda_1(T^{(n)}) > 0$ (as strongly supported by both our stabilized staircases $\lambda_1 \approx 0.9872$ and our $\Sp$-summable infinite-tree solutions obeying $(m-1)\sum d_i^{2\kappa} < 1$ all the way down to $p \to 1^+$) would immediately establish that $C_{p,m}(\infty)$ is attained by a compact infinite-rank tuple in $(\Sp(\ell^2))^m$ obeying the proper co-isometry structure of Theorem~8.
 \end{enumerate}
 
 \begin{thebibliography}{11}
