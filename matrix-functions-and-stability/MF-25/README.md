@@ -60,10 +60,19 @@ Paterson--Stockmeyer scheme; the upper bound follows since the space
 of polynomials of degree exactly $`r`$ has dimension $`r+1`$. The general problem is to determine $`d(m)`$, 
 and we propose the following.
 
-**Conjecture.** For every integer $`m\geq4`$,
+
+**Conjecture 1.** For every integer $`m\geq 4`$,
 
 ```math
-\boxed{d(m)=m^2-m.}
+d(m)=m^2-m.
+```
+
+Even if Conjecture 1 does not hold, the following weaker asymptotic statement may still be true.
+
+**Conjecture 2.** 
+
+```math
+\lim_{m\to\infty}\frac{d(m)}{m^2}=1.
 ```
 
 
