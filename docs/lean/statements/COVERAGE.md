@@ -29,7 +29,7 @@ Regenerate with `python3 tools/statement_inventory.py --base-ref <published-comm
 | [AC-09](../../../arithmetic-and-complexity/AC-09/README.md) | Partially resolved | missing-statement | Not audited here. |
 | [AC-10](../../../arithmetic-and-complexity/AC-10/README.md) | Open | missing-statement | Not audited here. |
 | [AC-11](../../../arithmetic-and-complexity/AC-11/README.md) | Partially resolved | missing-statement | Not audited here. |
-| [AC-12](../../../arithmetic-and-complexity/AC-12/README.md) | Partially resolved | missing-statement | Not audited here. |
+| [AC-12](../../../arithmetic-and-complexity/AC-12/README.md) | Solved | missing-statement | Not audited here. |
 | [AC-13](../../../arithmetic-and-complexity/AC-13/README.md) | Partially resolved | missing-statement | Not audited here. |
 | [AV-01](../../../intervals-and-absolute-value-equations/AV-01/README.md) | Solved | shared-statement-source | Not audited here. |
 | [AV-02](../../../intervals-and-absolute-value-equations/AV-02/README.md) | Solved | shared-statement-source | Not audited here. |
@@ -40,7 +40,7 @@ Regenerate with `python3 tools/statement_inventory.py --base-ref <published-comm
 | [FR-04](../../../frames-and-matrix-designs/FR-04/README.md) | Open | missing-statement | Not audited here. |
 | [FR-05](../../../frames-and-matrix-designs/FR-05/README.md) | Lean verified | local-statement-source | Not audited here. |
 | [FR-06](../../../frames-and-matrix-designs/FR-06/README.md) | Solution claimed | missing-statement | Not audited here. |
-| [FR-07](../../../frames-and-matrix-designs/FR-07/README.md) | Partially resolved | missing-statement | Not audited here. |
+| [FR-07](../../../frames-and-matrix-designs/FR-07/README.md) | Lean verified | missing-statement | Not audited here. |
 | [FR-08](../../../frames-and-matrix-designs/FR-08/README.md) | Partially resolved | missing-statement | Not audited here. |
 | [FR-09](../../../frames-and-matrix-designs/FR-09/README.md) | Partially resolved | missing-statement | Not audited here. |
 | [FR-10](../../../frames-and-matrix-designs/FR-10/README.md) | Solved | shared-statement-source | Not audited here. |
@@ -129,11 +129,11 @@ Regenerate with `python3 tools/statement_inventory.py --base-ref <published-comm
 | [MI-07](../../../matrix-inequalities-and-norms/MI-07/README.md) | Lean verified | local-statement-source | Not audited here. |
 | [MI-08](../../../matrix-inequalities-and-norms/MI-08/README.md) | Partially resolved | missing-statement | Not audited here. |
 | [MI-09](../../../matrix-inequalities-and-norms/MI-09/README.md) | Partially resolved | missing-statement | Not audited here. |
-| [MI-10](../../../matrix-inequalities-and-norms/MI-10/README.md) | Partially resolved | missing-statement | Not audited here. |
+| [MI-10](../../../matrix-inequalities-and-norms/MI-10/README.md) | Solved | missing-statement | Not audited here. |
 | [MI-11](../../../matrix-inequalities-and-norms/MI-11/README.md) | Partially resolved | missing-statement | Not audited here. |
 | [MI-12](../../../matrix-inequalities-and-norms/MI-12/README.md) | Partially resolved | missing-statement | Not audited here. |
 | [MI-13](../../../matrix-inequalities-and-norms/MI-13/README.md) | Lean verified | local-statement-source | Not audited here. |
-| [MI-14](../../../matrix-inequalities-and-norms/MI-14/README.md) | Partially resolved | missing-statement | Not audited here. |
+| [MI-14](../../../matrix-inequalities-and-norms/MI-14/README.md) | Solved | missing-statement | Not audited here. |
 | [MI-15](../../../matrix-inequalities-and-norms/MI-15/README.md) | Lean verified | external-statement-source | Not audited here. |
 | [MI-16](../../../matrix-inequalities-and-norms/MI-16/README.md) | Solved | shared-statement-source | Not audited here. |
 | [MI-17](../../../matrix-inequalities-and-norms/MI-17/README.md) | Partially resolved | missing-statement | Not audited here. |
@@ -240,6 +240,6 @@ Regenerate with `python3 tools/statement_inventory.py --base-ref <published-comm
 
 Within each status, finite explicit assertions can share basic matrix definitions. Computational, probabilistic, and algebraic-geometric targets require concrete models; uninterpreted predicates are not complete replacements for those targets.
 
-- **Solved (8):** AC-04, AC-05, IE-07, KE-02, TR-23, TR-25, TR-28, TR-29.
-- **Partially resolved (56):** AC-07, AC-08, AC-09, AC-11, AC-12, AC-13, AV-03, FR-02, FR-07, FR-08, FR-09, FR-11, IE-20, IE-27, IE-28, IS-05, KE-01, MF-04, MF-15, MF-19, MF-20, MI-01, MI-02, MI-05, MI-08, MI-09, MI-10, MI-11, MI-12, MI-14, MI-17, MI-25, MI-30, NR-01, NR-02, PF-01, RA-01, RA-11, RA-14, RA-15, RA-17, RA-18, RE-03, SP-03, SP-08, SP-09, SP-10, TR-03, TR-05, TR-10, TR-11, TR-12, TR-18, TR-19, TR-30, TR-31.
+- **Solved (11):** AC-04, AC-05, AC-12, IE-07, KE-02, MI-10, MI-14, TR-23, TR-25, TR-28, TR-29.
+- **Partially resolved (52):** AC-07, AC-08, AC-09, AC-11, AC-13, AV-03, FR-02, FR-08, FR-09, FR-11, IE-20, IE-27, IE-28, IS-05, KE-01, MF-04, MF-15, MF-19, MF-20, MI-01, MI-02, MI-05, MI-08, MI-09, MI-11, MI-12, MI-17, MI-25, MI-30, NR-01, NR-02, PF-01, RA-01, RA-11, RA-14, RA-15, RA-17, RA-18, RE-03, SP-03, SP-08, SP-09, SP-10, TR-03, TR-05, TR-10, TR-11, TR-12, TR-18, TR-19, TR-30, TR-31.
 - **Open (27):** AC-02, AC-03, AC-06, AC-10, FR-01, FR-03, FR-04, IE-24, IE-25, IS-01, MD-05, MF-01, MF-09, MF-10, MF-25, MI-20, NM-01, RA-16, RE-01, RE-02, SP-01, SP-02, SP-07, TR-09, TR-16, TR-22, TR-24.

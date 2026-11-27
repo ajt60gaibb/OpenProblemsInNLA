@@ -1,8 +1,8 @@
 # All problems and their status
 
-**83 problems with open targets:** 27 open and 56 partially resolved. **135 other retained entries**, excluded from the open count.
+**79 problems with open targets:** 27 open and 52 partially resolved. **139 other retained entries**, excluded from the open count.
 
-**Resolution evidence:** 39 solved (published or independently audited); 89 solved with Lean verification.
+**Resolution evidence:** 42 solved (published or independently audited); 90 solved with Lean verification.
 
 Each entry records its own literature-check date. Literature checks are bounded; ratings are editorial. “Impact” uses the canonical `Importance` field.
 
@@ -229,10 +229,8 @@ Retained entries outside the open count:
 | [MI-05](matrix-inequalities-and-norms/MI-05/README.md) | The Marcus–de Oliveira determinantal conjecture | **🟡 PARTIAL** | extreme | broadly interesting | [PDF](matrix-inequalities-and-norms/MI-05/problem.pdf) · [TeX](matrix-inequalities-and-norms/MI-05/problem.tex) |
 | [MI-08](matrix-inequalities-and-norms/MI-08/README.md) | Minimum number of orthogonal conjugations for diagonal pinching | **🟡 PARTIAL** | extreme | interesting to the community | [PDF](matrix-inequalities-and-norms/MI-08/problem.pdf) · [TeX](matrix-inequalities-and-norms/MI-08/problem.tex) |
 | [MI-09](matrix-inequalities-and-norms/MI-09/README.md) | Sharp Schatten triangle constants for the arithmetic symmetric modulus | **🟡 PARTIAL** | challenging | interesting to specialist | [PDF](matrix-inequalities-and-norms/MI-09/problem.pdf) · [TeX](matrix-inequalities-and-norms/MI-09/problem.tex) |
-| [MI-10](matrix-inequalities-and-norms/MI-10/README.md) | Chollet's permanent inequality for Hadamard products | **🟡 PARTIAL** | extreme | interesting to the community | [PDF](matrix-inequalities-and-norms/MI-10/problem.pdf) · [TeX](matrix-inequalities-and-norms/MI-10/problem.tex) |
 | [MI-11](matrix-inequalities-and-norms/MI-11/README.md) | Lieb's permanental dominance conjecture | **🟡 PARTIAL** | extreme | interesting to the community | [PDF](matrix-inequalities-and-norms/MI-11/problem.pdf) · [TeX](matrix-inequalities-and-norms/MI-11/problem.tex) |
 | [MI-12](matrix-inequalities-and-norms/MI-12/README.md) | Marcus's inequality for the permanent of block permanents | **🟡 PARTIAL** | extreme | interesting to specialist | [PDF](matrix-inequalities-and-norms/MI-12/problem.pdf) · [TeX](matrix-inequalities-and-norms/MI-12/problem.tex) |
-| [MI-14](matrix-inequalities-and-norms/MI-14/README.md) | The complex Lu–Wenzel spectral conjecture | **🟡 PARTIAL** | extreme | interesting to the community | [PDF](matrix-inequalities-and-norms/MI-14/problem.pdf) · [TeX](matrix-inequalities-and-norms/MI-14/problem.tex) |
 | [MI-17](matrix-inequalities-and-norms/MI-17/README.md) | The Lih–Wang permanent inequality toward the flat matrix | **🟡 PARTIAL** | extreme | interesting to specialist | [PDF](matrix-inequalities-and-norms/MI-17/problem.pdf) · [TeX](matrix-inequalities-and-norms/MI-17/problem.tex) |
 | [MI-20](matrix-inequalities-and-norms/MI-20/README.md) | Sharp subquadratic Lee constants for sums of matrices | **🔵 OPEN** | challenging | interesting to the community | [PDF](matrix-inequalities-and-norms/MI-20/problem.pdf) · [TeX](matrix-inequalities-and-norms/MI-20/problem.tex) |
 | [MI-25](matrix-inequalities-and-norms/MI-25/README.md) | Dimension-independent Hlawka constants for Schatten norms | **🟡 PARTIAL** | challenging | interesting to the community | [PDF](matrix-inequalities-and-norms/MI-25/problem.pdf) · [TeX](matrix-inequalities-and-norms/MI-25/problem.tex) |
@@ -246,7 +244,9 @@ Retained entries outside the open count:
 | [MI-04](matrix-inequalities-and-norms/MI-04/README.md) | A universal block-norm characterization of essentially Hermitian matrices | **🏆 LEAN VERIFIED** | challenging | interesting to specialist | [PDF](matrix-inequalities-and-norms/MI-04/problem.pdf) · [TeX](matrix-inequalities-and-norms/MI-04/problem.tex) |
 | [MI-06](matrix-inequalities-and-norms/MI-06/README.md) | Thompson-type domination for the arithmetic symmetric modulus | **🏆 LEAN VERIFIED** | challenging | interesting to specialist | [PDF](matrix-inequalities-and-norms/MI-06/problem.pdf) · [TeX](matrix-inequalities-and-norms/MI-06/problem.tex) |
 | [MI-07](matrix-inequalities-and-norms/MI-07/README.md) | The triangle conjecture for the maximal symmetric modulus | **🏆 LEAN VERIFIED** | challenging | interesting to specialist | [PDF](matrix-inequalities-and-norms/MI-07/problem.pdf) · [TeX](matrix-inequalities-and-norms/MI-07/problem.tex) |
+| [MI-10](matrix-inequalities-and-norms/MI-10/README.md) | Chollet's permanent inequality for Hadamard products | **✅ SOLVED** | extreme | interesting to the community | [PDF](matrix-inequalities-and-norms/MI-10/problem.pdf) · [TeX](matrix-inequalities-and-norms/MI-10/problem.tex) |
 | [MI-13](matrix-inequalities-and-norms/MI-13/README.md) | Nobori's spectral-middle-factor commutator conjecture | **🏆 LEAN VERIFIED** | challenging | interesting to specialist | [PDF](matrix-inequalities-and-norms/MI-13/problem.pdf) · [TeX](matrix-inequalities-and-norms/MI-13/problem.tex) |
+| [MI-14](matrix-inequalities-and-norms/MI-14/README.md) | The complex Lu–Wenzel spectral conjecture | **✅ SOLVED** | extreme | interesting to the community | [PDF](matrix-inequalities-and-norms/MI-14/problem.pdf) · [TeX](matrix-inequalities-and-norms/MI-14/problem.tex) |
 | [MI-15](matrix-inequalities-and-norms/MI-15/README.md) | A sum-of-squares representation for the Toeplitz commutator form | **🏆 LEAN VERIFIED** | challenging | interesting to specialist | [PDF](matrix-inequalities-and-norms/MI-15/problem.pdf) · [TeX](matrix-inequalities-and-norms/MI-15/problem.tex) |
 | [MI-16](matrix-inequalities-and-norms/MI-16/README.md) | The maximum permanent on a positive-semidefinite unitary orbit | **✅ SOLVED** | extreme | interesting to the community | [PDF](matrix-inequalities-and-norms/MI-16/problem.pdf) · [TeX](matrix-inequalities-and-norms/MI-16/problem.tex) |
 | [MI-18](matrix-inequalities-and-norms/MI-18/README.md) | Bapat's q-permanent monotonicity conjecture | **🏆 LEAN VERIFIED** | extreme | interesting to specialist | [PDF](matrix-inequalities-and-norms/MI-18/problem.pdf) · [TeX](matrix-inequalities-and-norms/MI-18/problem.tex) |
@@ -271,7 +271,6 @@ Retained entries outside the open count:
 | [FR-02](frames-and-matrix-designs/FR-02/README.md) | Sharp sample complexity for restricted isometries from the cyclic Fourier matrix | **🟡 PARTIAL** | extreme | broadly interesting | [PDF](frames-and-matrix-designs/FR-02/problem.pdf) · [TeX](frames-and-matrix-designs/FR-02/problem.tex) |
 | [FR-03](frames-and-matrix-designs/FR-03/README.md) | Uniform conditioning of large Paley-frame column subsets | **🔵 OPEN** | extreme | broadly interesting | [PDF](frames-and-matrix-designs/FR-03/problem.pdf) · [TeX](frames-and-matrix-designs/FR-03/problem.tex) |
 | [FR-04](frames-and-matrix-designs/FR-04/README.md) | Universal exponential deterioration of minimally redundant real phase-retrieval frames | **🔵 OPEN** | challenging | interesting to the community | [PDF](frames-and-matrix-designs/FR-04/problem.pdf) · [TeX](frames-and-matrix-designs/FR-04/problem.tex) |
-| [FR-07](frames-and-matrix-designs/FR-07/README.md) | Zauner's conjecture on maximal complex equiangular tight frames | **🟡 PARTIAL** | extreme | broadly interesting | [PDF](frames-and-matrix-designs/FR-07/problem.pdf) · [TeX](frames-and-matrix-designs/FR-07/problem.tex) |
 | [FR-08](frames-and-matrix-designs/FR-08/README.md) | Hadamard matrices at every admissible order | **🟡 PARTIAL** | extreme | broadly interesting | [PDF](frames-and-matrix-designs/FR-08/problem.pdf) · [TeX](frames-and-matrix-designs/FR-08/problem.tex) |
 | [FR-09](frames-and-matrix-designs/FR-09/README.md) | Complex equiangular tight frames with twice the dimension | **🟡 PARTIAL** | extreme | interesting to the community | [PDF](frames-and-matrix-designs/FR-09/problem.pdf) · [TeX](frames-and-matrix-designs/FR-09/problem.tex) |
 | [FR-11](frames-and-matrix-designs/FR-11/README.md) | The minimum number of quadratic measurements for generalized phase retrieval | **🟡 PARTIAL** | challenging | interesting to the community | [PDF](frames-and-matrix-designs/FR-11/problem.pdf) · [TeX](frames-and-matrix-designs/FR-11/problem.tex) |
@@ -282,6 +281,7 @@ Retained entries outside the open count:
 | --- | --- | --- | --- | --- | --- |
 | [FR-05](frames-and-matrix-designs/FR-05/README.md) | Vanishing injectivity probability at 4d minus 5 complex phase measurements | **🏆 LEAN VERIFIED** | challenging | interesting to the community | [PDF](frames-and-matrix-designs/FR-05/problem.pdf) · [TeX](frames-and-matrix-designs/FR-05/problem.tex) |
 | [FR-06](frames-and-matrix-designs/FR-06/README.md) | Nonexistence of a complete set of mutually unbiased bases in dimension six | **🟠 SOLUTION CLAIMED** | extreme | broadly interesting | [PDF](frames-and-matrix-designs/FR-06/problem.pdf) · [TeX](frames-and-matrix-designs/FR-06/problem.tex) |
+| [FR-07](frames-and-matrix-designs/FR-07/README.md) | Zauner's conjecture on maximal complex equiangular tight frames | **🏆 LEAN VERIFIED** | extreme | broadly interesting | [PDF](frames-and-matrix-designs/FR-07/problem.pdf) · [TeX](frames-and-matrix-designs/FR-07/problem.tex) |
 | [FR-10](frames-and-matrix-designs/FR-10/README.md) | Sharp sampling complexity for Walsh restricted isometries | **✅ SOLVED** | extreme | broadly interesting | [PDF](frames-and-matrix-designs/FR-10/problem.pdf) · [TeX](frames-and-matrix-designs/FR-10/problem.tex) |
 | [FR-12](frames-and-matrix-designs/FR-12/README.md) | Counting real Hadamard matrices | **🏆 LEAN VERIFIED** | extreme | interesting to the community | [PDF](frames-and-matrix-designs/FR-12/problem.pdf) · [TeX](frames-and-matrix-designs/FR-12/problem.tex) |
 
@@ -315,7 +315,6 @@ Retained entries outside the open count:
 | [AC-09](arithmetic-and-complexity/AC-09/README.md) | Deterministic polynomial-time commutative Edmonds problem | **🟡 PARTIAL** | extreme | broadly interesting | [PDF](arithmetic-and-complexity/AC-09/problem.pdf) · [TeX](arithmetic-and-complexity/AC-09/problem.tex) |
 | [AC-10](arithmetic-and-complexity/AC-10/README.md) | An explicit rational Valiant-rigid matrix family | **🔵 OPEN** | extreme | broadly interesting | [PDF](arithmetic-and-complexity/AC-10/problem.pdf) · [TeX](arithmetic-and-complexity/AC-10/problem.tex) |
 | [AC-11](arithmetic-and-complexity/AC-11/README.md) | The least positive permanent of a sign matrix | **🟡 PARTIAL** | challenging | interesting to specialist | [PDF](arithmetic-and-complexity/AC-11/problem.pdf) · [TeX](arithmetic-and-complexity/AC-11/problem.tex) |
-| [AC-12](arithmetic-and-complexity/AC-12/README.md) | Realizing every sign-matrix permanent with negative entries confined on or above the diagonal | **🟡 PARTIAL** | challenging | interesting to specialist | [PDF](arithmetic-and-complexity/AC-12/problem.pdf) · [TeX](arithmetic-and-complexity/AC-12/problem.tex) |
 | [AC-13](arithmetic-and-complexity/AC-13/README.md) | Deterministic near-quadratic matrix multiplication verification | **🟡 PARTIAL** | extreme | broadly interesting | [PDF](arithmetic-and-complexity/AC-13/problem.pdf) · [TeX](arithmetic-and-complexity/AC-13/problem.tex) |
 
 Retained entries outside the open count:
@@ -326,6 +325,7 @@ Retained entries outside the open count:
 | [AC-01](arithmetic-and-complexity/AC-01/README.md) | Is the matrix multiplication exponent two? | **🏆 LEAN VERIFIED** | extreme | broadly interesting | [PDF](arithmetic-and-complexity/AC-01/problem.pdf) · [TeX](arithmetic-and-complexity/AC-01/problem.tex) |
 | [AC-04](arithmetic-and-complexity/AC-04/README.md) | Minimal asymptotic rank of the small Coppersmith–Winograd tensor | **✅ SOLVED** | extreme | broadly interesting | [PDF](arithmetic-and-complexity/AC-04/problem.pdf) · [TeX](arithmetic-and-complexity/AC-04/problem.tex) |
 | [AC-05](arithmetic-and-complexity/AC-05/README.md) | Strassen's asymptotic rank conjecture for tight tensors | **✅ SOLVED** | extreme | broadly interesting | [PDF](arithmetic-and-complexity/AC-05/problem.pdf) · [TeX](arithmetic-and-complexity/AC-05/problem.tex) |
+| [AC-12](arithmetic-and-complexity/AC-12/README.md) | Realizing every sign-matrix permanent with negative entries confined on or above the diagonal | **✅ SOLVED** | challenging | interesting to specialist | [PDF](arithmetic-and-complexity/AC-12/problem.pdf) · [TeX](arithmetic-and-complexity/AC-12/problem.tex) |
 
 
 ## [Intervals and absolute value equations](intervals-and-absolute-value-equations/README.md)

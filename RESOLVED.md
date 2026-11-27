@@ -19,6 +19,51 @@ None of these statuses is counted as open. A partial result leaves the
 surviving target in the open catalog with **🟡 PARTIAL**, even if that partial
 result is formalized in Lean.
 
+## MI-10 — Chollet's permanent inequality
+
+**Solved affirmatively, recorded 27 November 2026.** Theorem 1.1 of
+[Zhouding Liu's preprint](https://doi.org/10.5281/zenodo.24423034) gives
+the inequality for complex Hermitian positive semidefinite pairs of
+all sizes. [Yi Yu's independent scalar proof](https://doi.org/10.5281/zenodo.24562562)
+supplies the edge-budget nonnegativity used in Liu's reduction. The
+[independent informal Codex audit](matrix-inequalities-and-norms/MI-10/solution.md)
+checked the reduction and replayed the exact box partition and all
+360,174 rigorous interval checks for the nonnegativity certificate.
+
+## FR-07 — Maximal complex equiangular tight frames
+
+**Lean verified, registered 26 November 2026 and recorded 27 November
+2026.** Radchenko and Wheeler's [reciprocity preprint](https://hexagonmath.org/2610.00186v1),
+Section 9.2, establishes all-dimensional SIC existence using
+Appleby–Flammia–Kopp's construction. Yaoling Yang's
+[registered formalization](https://palomar-registry.org/entry?id=PALOMAR-2026-11-26-000040&version=1),
+checked by Palomar, proves that every positive dimension admits the
+unit vectors with the required squared overlaps. The
+[statement comparison and verification evidence](frames-and-matrix-designs/FR-07/README.md#lean-proof-and-verification-evidence)
+derive the tight-frame identity and give the pinned proof, axiom
+report and reproduction commands.
+
+## AC-12 — Triangular realization of sign-matrix permanents
+
+**Solved negatively, recorded 27 November 2026.** Theorem 1.1 of the
+[OpenBMB preprint deposited by Weiming Zhang](https://hexagonmath.org/2611.00424v1)
+gives an order-eleven sign matrix of permanent 2,029,568 and proves
+that every sign matrix of the same order with all entries below the
+diagonal equal to one has a different permanent. The [independent
+informal Codex audit](arithmetic-and-complexity/AC-12/solution.md)
+reproduced the exhaustive enumeration and verified the witness and
+the terminal exclusion by separate exact calculations.
+
+## MI-14 — The complex Lu–Wenzel spectral conjecture
+
+**Solved affirmatively, recorded 27 November 2026.** Theorem 1 in Qiyue
+Tang's [November preprint](https://hexagonmath.org/2611.00179v2) proves
+all the required complex spectral partial sums and gives a stronger
+trace-centered bound. The [independent informal Codex
+audit](matrix-inequalities-and-norms/MI-14/solution.md) checks Sections
+2–5 and Appendix A, including the maximum set and the rank-one
+reduction. The preprint discloses AI assistance.
+
 ## IE-08 — stronger logarithmic-precision Schur theorem, Lean verified
 
 **Lean verified; registered 23 November 2026; recorded 24 November 2026.** Matthew J. Colbrook, [*Schur decomposition with logarithmic precision in cubic time up to logarithmic factors*](https://arxiv.org/abs/2611.29923), **Theorem 1**, strengthens the earlier affirmative resolution to $`O(n^3\log^2(n/(\delta p)))`$ arithmetic operations and $`O(\log(n/(\delta p)))`$ mantissa bits, with joint success probability at least $`1-p`$ for every $`0<p<1/2`$. Taking $`p=0.01`$ recovers the original target with exponent two. Exact triangularity and the work bound hold on every execution.
@@ -1561,7 +1606,7 @@ Author: **Matthew J. Colbrook**, University of Cambridge. [Complete proof](refer
 
 **[AA-01](arithmetic-and-complexity/AA-01/README.md): Solved.** Theorem 1.1 gives an always-halting decision procedure for the exact constant-free finite-tree model in the statement. In every signed ordering chart $x_{\pi(i)}=\sigma_i(y_1+\cdots+y_i)$, the coefficientwise absolute majorant of $q(y)=p(x(y))$ must be bounded by $C|q(y)|$ on $y\geq0$. This finite real-quantifier criterion is necessary and sufficient; Sections 2-4 prove the equivalence and construct an evaluator when it holds. Both independent reviews cover comparisons, branching, stored-value reuse and arbitrary independent rounding errors.
 
-Author: **Matthew J. Colbrook**, University of Cambridge. [Complete proof](references/colbrook-arithmetic-2026-09-11/manuscripts/AA-01.pdf), [first review](references/colbrook-arithmetic-2026-09-11/verification/reviews/AA-01-review.md), [second review](references/colbrook-arithmetic-2026-09-11/verification/reviews/AA-01-second-review.md), and [submission record](references/colbrook-arithmetic-2026-09-11/README.md). AI assistance and missing experimental sources are disclosed. Agent review is not external human peer review or formal certification. Historical ratings and the exact original target are retained. The accompanying AC-11 and AC-12 finite cases remain partial.
+Author: **Matthew J. Colbrook**, University of Cambridge. [Complete proof](references/colbrook-arithmetic-2026-09-11/manuscripts/AA-01.pdf), [first review](references/colbrook-arithmetic-2026-09-11/verification/reviews/AA-01-review.md), [second review](references/colbrook-arithmetic-2026-09-11/verification/reviews/AA-01-second-review.md), and [submission record](references/colbrook-arithmetic-2026-09-11/README.md). AI assistance and missing experimental sources are disclosed. Agent review is not external human peer review or formal certification. Historical ratings and the exact original target are retained. The accompanying AC-11 and AC-12 results establish finite ranges. AC-12 was later refuted at order eleven as recorded above.
 
 ## Published resolutions of historical questions
 
