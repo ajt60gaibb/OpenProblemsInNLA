@@ -34,7 +34,7 @@ dimensions},pdfauthor={Open Problems in Numerical Linear Algebra}}
 \fancyhf{}
 \fancyhead[L]{\sffamily\footnotesize\color{muted}OPEN PROBLEMS IN NUMERICAL LINEAR ALGEBRA}
 \fancyhead[R]{\sffamily\bfseries\footnotesize\color{accent}IE-25}
-\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-09-10}}
+\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-11-28}}
 \fancyfoot[R]{\sffamily\footnotesize\color{muted}\thepage}
 \renewcommand{\headrulewidth}{0.3pt}
 \renewcommand{\headrule}{\hbox to\headwidth{\color{accent}\leaders\hrule height \headrulewidth\hfill}}
@@ -51,7 +51,7 @@ MILU conditioning for Neumann problems in two and three dimensions\par}
 \vspace{7pt}
 {\sffamily\small\textbf{Difficulty:} challenging\quad\textbf{Importance:} interesting
 to the community\par}
-{\sffamily\small\bfseries\color{accent}Status: Open\par}
+{\sffamily\small\bfseries\color{accent}Status: Partially resolved\par}
 \vspace{4pt}
 {\color{accent}\hrule height 0.8pt}
 \vspace{6pt}
@@ -67,9 +67,7 @@ Fix \(d\in\{2,3\}\) and a bounded connected smooth domain
 cubic control cells \(C_p=p+[-h/2,h/2]^d\) intersect \(\Omega\), ordered
 lexicographically as \(1,\ldots,N_h\). For face neighbors set
 
-\[
-w_{pq}=\frac{\operatorname{vol}_{d-1}(C_p\cap C_q\cap\Omega)}{h^{d-1}},
-\]
+\[w_{pq}=\frac{\mathop{\mathrm{vol}}\nolimits_{d-1}(C_p\cap C_q\cap\Omega)}{h^{d-1}},\]
 
 and set other weights to zero. Let \(a_p=\sum_qw_{pq}\), \(A_{pp}=a_p\),
 \(A_{pq}=-w_{pq}\) for \(p\ne q\), and let \(L\) be the strictly lower
@@ -78,14 +76,12 @@ discretization, with length fractions in two dimensions and face-area
 fractions in three dimensions.
 
 For \(\varepsilon>0\), define
-\(E=\operatorname{diag}(e_1,\ldots,e_{N_h})\) recursively by
+\(E=\mathop{\mathrm{diag}}\nolimits(e_1,\ldots,e_{N_h})\) recursively by
 
-\[
-e_1=a_1,\qquad
+\[e_1=a_1,\qquad
 e_p=(1+\varepsilon)a_p-
-\sum_{\substack{q<p\\w_{pq}>0}}
-\frac{w_{pq}}{e_q}\sum_{s>q}w_{qs}\quad(p>1),
-\]
+\sum_{\substack{q< p\\w_{pq}>0}}
+\frac{w_{pq}}{e_q}\sum_{s>q}w_{qs}\quad(p>1),\]
 
 and \(M=(L+E)E^{-1}(E+L^T)\). This expresses the source's PMILU
 recurrence by neighbor sums, including its explicitly unperturbed first
@@ -100,10 +96,8 @@ the zero eigenvalue from the Neumann nullspace is excluded.
 independent of \(h\), such that choosing \(\varepsilon=c_\Omega h^2\)
 gives positive pivots and
 
-\[
-\kappa_+(M^{-1}A)\le K_\Omega h^{-1}
-\qquad(0<h<h_\Omega).
-\]
+\[\kappa_+(M^{-1}A)\le K_\Omega h^{-1}
+\qquad(0< h< h_\Omega).\]
 
 The existence quantifier spells out the source's choice of ``some
 moderate constant''; it does not impose an invented interval for that
@@ -115,6 +109,50 @@ The question concerns a concrete diagonal perturbation of incomplete
 factorization for singular Neumann systems. It is separate from relaxed
 ILU: the diagonal recurrence differs, and the proposed PMILU bound
 includes three dimensions.
+
+\subsection{Positive pivots and a uniform lower spectral
+bound}\label{positive-pivots-and-a-uniform-lower-spectral-bound}
+
+\textbf{Partial result (AI-derived).} In both dimensions of the
+statement, the PMILU pivots are positive for all \(\varepsilon>0\) and
+sufficiently small \(h\). For \(\varepsilon=ch^2\) with any fixed
+\(c>0\), the smallest positive generalized eigenvalue stays bounded away
+from zero uniformly in \(h\). The upper spectral bound needed for the
+conjectured condition number remains open.
+
+The positive-weight face graph is connected and has more than one vertex
+for small \(h\). The path proof and the
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/linear-systems-and-elimination/IE-24/README.md\#weighted-poincaré-estimate-for-the-cut-cell-graph}{weighted
+Poincaré estimate} apply to the stated square or cubic control cells.
+Put \(s_p=\sum_{q>p}w_{pq}\) and \(k_p=e_p-s_p\). The unperturbed first
+pivot is \(e_1=s_1=a_1>0\), so \(k_1=0\). For \(p>1\) the PMILU
+recurrence gives
+
+\[k_p=\varepsilon a_p+\sum_{q< p,\,w_{pq}>0}\frac{w_{pq}}{e_q}k_q.\]
+
+Since \(a_p>0\) at every vertex of this connected graph, induction gives
+\(k_p>0\) for all \(p>1\) and positive pivots throughout.
+
+Expanding the factors gives
+\(M=A+\mathop{\mathrm{diag}}\nolimits(M\mathbf1)-L_F\), where \(L_F\) is
+the graph Laplacian with nonnegative fill weights
+\(F_{ps}=\sum_{q<\min(p,s)}w_{pq}w_{sq}/e_q\) for \(p\ne s\). The row
+sums are \((M\mathbf1)_1=0\) and \((M\mathbf1)_p=\varepsilon a_p\) for
+\(p>1\). The exception is exactly the unperturbed first pivot in the
+displayed recurrence. The row sums follow by subtracting \(a_p\) from
+\(e_p\) and adding \(\sum_{q< p,\,w_{pq}>0}w_{pq}s_q/e_q\).
+
+For \(x\) in the \(M\)-orthogonal complement of the constants,
+\(x^TMx\le (x-b\mathbf1)^TM(x-b\mathbf1)\) for every constant \(b\).
+Choose \(b\) minimizing \(\sum_p a_p|x_p-b|^2\). The fill Laplacian is
+positive semidefinite and \(A\mathbf1=0\), so the factor identity and
+the weighted Poincaré estimate give
+
+\[x^TMx\le x^TAx+\varepsilon \sum_p a_p|x_p-b|^2
+      \le (1+cC_\Omega)x^TAx.\]
+
+The generalized Rayleigh principle yields
+\(\lambda_{\min,+}(M^{-1}A)\ge(1+cC_\Omega)^{-1}\).
 
 \newpage
 \subsection{References and status

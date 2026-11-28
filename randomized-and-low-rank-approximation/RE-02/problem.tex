@@ -34,7 +34,7 @@ depth},pdfauthor={Open Problems in Numerical Linear Algebra}}
 \fancyhf{}
 \fancyhead[L]{\sffamily\footnotesize\color{muted}OPEN PROBLEMS IN NUMERICAL LINEAR ALGEBRA}
 \fancyhead[R]{\sffamily\bfseries\footnotesize\color{accent}RE-02}
-\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-09-10}}
+\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-11-28}}
 \fancyfoot[R]{\sffamily\footnotesize\color{muted}\thepage}
 \renewcommand{\headrulewidth}{0.3pt}
 \renewcommand{\headrule}{\hbox to\headwidth{\color{accent}\leaders\hrule height \headrulewidth\hfill}}
@@ -51,7 +51,7 @@ approximation from a number of matvecs independent of depth\par}
 \vspace{7pt}
 {\sffamily\small\textbf{Difficulty:} challenging\quad\textbf{Importance:} interesting
 to the community\par}
-{\sffamily\small\bfseries\color{accent}Status: Open\par}
+{\sffamily\small\bfseries\color{accent}Status: Partially resolved\par}
 \vspace{4pt}
 {\color{accent}\hrule height 0.8pt}
 \vspace{6pt}
@@ -78,18 +78,14 @@ every leaf contains \(2k\) indices. Define \(\mathcal S_{L,k}\) to
 contain precisely the real \(N\times N\) matrices \(B\) such that, for
 every nonroot node \(I\) of this tree,
 
-\[
-\operatorname{rank}B[I,[N]\setminus I]\le k,
+\[\mathop{\mathrm{rank}}\nolimits B[I,[N]\setminus I]\le k,
 \qquad
-\operatorname{rank}B[[N]\setminus I,I]\le k.
-\]
+\mathop{\mathrm{rank}}\nolimits B[[N]\setminus I,I]\le k.\]
 
 This is the HSS class with rank at most \(k\), including its constraints
 across levels. There is no restriction inside a leaf diagonal block. Set
 
-\[
-E_{L,k}(A)=\min_{B\in\mathcal S_{L,k}}\|A-B\|_F^2.
-\]
+\[E_{L,k}(A)=\min_{B\in\mathcal S_{L,k}}\|A-B\|_F^2.\]
 
 The minimum exists. The rank definition follows Stefano Massei, Leonardo
 Robol, and Daniel Kressner,
@@ -107,9 +103,7 @@ exist that, for every \(k,L\ge1\) and every
 through at most \(C_qk\) matrix--vector queries and returns
 \(B\in\mathcal S_{L,k}\) satisfying
 
-\[
-\mathbb E\|A-B\|_F^2\le C_e L\,E_{L,k}(A),
-\]
+\[\mathbb E\|A-B\|_F^2\le C_e L\,E_{L,k}(A),\]
 
 with at most \(O(N^c)\) additional arithmetic operations? Queries may be
 adaptive. The budget counts both transpose and forward products and is a
@@ -128,6 +122,18 @@ Journal on Scientific Computing \textbf{46} (2024), A1747--A1763,
 Algorithm 4.1 and Remark 4.3.
 
 \subsection{Status evidence}\label{status-evidence}
+
+For every depth, the stated query and approximation bounds hold on
+inputs whose squared distance to prescribed per-row subspaces of
+dimension \(O(k)\) is at most a constant times \(E_{L,k}(A)\). This
+includes matrices whose closest HSS approximation has a prescribed
+sparsity pattern with \(O(k)\) entries per row, even when the input is
+dense. A general algorithm must also use at least \(3k\) queries in the
+worst case, already for exact HSS inputs.
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/randomized-and-low-rank-approximation/RE-02/row-subspace-approximation.md}{Proofs
+and scope}
+
+The claim for unrestricted inputs remains open.
 
 The proved guarantee uses \(O(kL)\) queries. Reusing sketches reduces
 the query count, but its approximation guarantee remains unproved.

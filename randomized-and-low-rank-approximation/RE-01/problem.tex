@@ -34,7 +34,7 @@ time},pdfauthor={Open Problems in Numerical Linear Algebra}}
 \fancyhf{}
 \fancyhead[L]{\sffamily\footnotesize\color{muted}OPEN PROBLEMS IN NUMERICAL LINEAR ALGEBRA}
 \fancyhead[R]{\sffamily\bfseries\footnotesize\color{accent}RE-01}
-\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-09-10}}
+\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-11-28}}
 \fancyfoot[R]{\sffamily\footnotesize\color{muted}\thepage}
 \renewcommand{\headrulewidth}{0.3pt}
 \renewcommand{\headrule}{\hbox to\headwidth{\color{accent}\leaders\hrule height \headrulewidth\hfill}}
@@ -51,7 +51,7 @@ HSS approximation in polynomial time\par}
 \vspace{7pt}
 {\sffamily\small\textbf{Difficulty:} challenging\quad\textbf{Importance:} interesting
 to the community\par}
-{\sffamily\small\bfseries\color{accent}Status: Open\par}
+{\sffamily\small\bfseries\color{accent}Status: Partially resolved\par}
 \vspace{4pt}
 {\color{accent}\hrule height 0.8pt}
 \vspace{6pt}
@@ -78,18 +78,14 @@ every leaf contains \(2k\) indices. Define \(\mathcal S_{L,k}\) to
 contain precisely the real \(N\times N\) matrices \(B\) such that, for
 every nonroot node \(I\) of this tree,
 
-\[
-\operatorname{rank}B[I,[N]\setminus I]\le k,
+\[\mathop{\mathrm{rank}}\nolimits B[I,[N]\setminus I]\le k,
 \qquad
-\operatorname{rank}B[[N]\setminus I,I]\le k.
-\]
+\mathop{\mathrm{rank}}\nolimits B[[N]\setminus I,I]\le k.\]
 
 This is the HSS class with rank at most \(k\), including its constraints
 across levels. There is no restriction inside a leaf diagonal block. Set
 
-\[
-E_{L,k}(A)=\min_{B\in\mathcal S_{L,k}}\|A-B\|_F^2.
-\]
+\[E_{L,k}(A)=\min_{B\in\mathcal S_{L,k}}\|A-B\|_F^2.\]
 
 The minimum exists. The rank definition follows Stefano Massei, Leonardo
 Robol, and Daniel Kressner,
@@ -107,9 +103,7 @@ integers \(k,L\ge1\) with \(N=2^{L+1}k\), returns
 \(B\in\mathcal S_{L,k}\) using \(O(N^c)\) arithmetic operations and
 satisfies
 
-\[
-\mathbb E\|A-B\|_F^2\le C\,E_{L,k}(A)?
-\]
+\[\mathbb E\|A-B\|_F^2\le C\,E_{L,k}(A)?\]
 
 The exponent and approximation constant must be independent of
 \(k,L,A\). A deterministic algorithm is allowed. The output must retain
@@ -127,6 +121,17 @@ Theorems 6 and 12. That section expressly asks for a polynomial-time
 constant-factor approximation.
 
 \subsection{Status evidence}\label{status-evidence}
+
+At arbitrary depth, independent optimal rank-\(k\) truncations of all
+ordered sibling blocks give a polynomial-time exact approximation
+whenever the assembled result passes the HSS cut-rank tests. This
+criterion includes non-HSS inputs with full-rank sibling blocks, at all
+depths and ranks.
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/randomized-and-low-rank-approximation/RE-01/compatible-sibling-truncations.md}{Proof
+and examples}
+
+A depth-independent approximation factor for unrestricted inputs remains
+open.
 
 The known squared-error factor is \(O(L)\). The lower bound near \(2\)
 concerns the analyzed greedy algorithm, not all algorithms. Searches for

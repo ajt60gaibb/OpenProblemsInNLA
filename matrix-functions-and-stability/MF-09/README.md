@@ -7,8 +7,8 @@
 **Difficulty:** extreme  
 **Importance:** broadly interesting  
 **Rating rationale:** Extreme because termination at an unpromised strict threshold is a foundational decidability barrier; broad impact includes switched control and algorithmic matrix-product theory.  
-**Status:** Open  
-**Last checked:** 2026-09-10  
+**Status:** Partially resolved  
+**Last checked:** 2026-11-28  
 
 ## Context and notation
 
@@ -37,6 +37,19 @@ is promised. The question asks for termination and correctness, without a
 polynomial running-time requirement.
 
 ## References and status evidence
+
+The [finite common-range reduction](common-range-reduction.md) proves
+strict-stability decidability for a rational family split into a
+subfamily with decidable strict stability and generators whose images lie
+in one rational subspace, when the resulting compressed families have a
+strict-stability decider. In particular it gives an unconditional
+decision procedure when the first subfamily and all the compressed maps
+are each simultaneously triangularizable. The compressed maps may
+instead be simultaneously similar to normal matrices. The proof computes
+a finite rational set of compressed maps even though words of arbitrary
+length can occur between successive visits to the common subspace. It
+also decides the equality case at the threshold. The general rational
+strict test remains open.
 
 Jungers,
 [*The Joint Spectral Radius: Theory and Applications*](https://perso.uclouvain.be/raphael.jungers/sites/default/files/kcfinder/files/book.pdf),

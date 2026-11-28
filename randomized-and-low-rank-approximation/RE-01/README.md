@@ -7,9 +7,9 @@
 **Difficulty:** challenging  
 **Importance:** interesting to the community  
 **Rating rationale:** Challenging because shared HSS bases couple approximation choices across levels; community impact is reliable compression for hierarchical numerical solvers.  
-**Status:** Open  
+**Status:** Partially resolved
 **Area:** structured low-rank matrix approximation  
-**Last checked:** 2026-09-10  
+**Last checked:** 2026-11-28
 
 ## Context and notation
 
@@ -46,6 +46,15 @@ The exponent and approximation constant must be independent of $`k,L,A`$. A dete
 Noah Amsel, Tyler Chen, Feyza Duman Keles, Diana Halikias, Cameron Musco, Christopher Musco, and David Persson, [*Quasi-optimal Hierarchically Semi-separable Matrix Approximation*](https://arxiv.org/html/2505.16937v2), SIAM Journal on Matrix Analysis and Applications **47** (2026), 586–621, §3.4; Theorems 6 and 12. That section expressly asks for a polynomial-time constant-factor approximation.
 
 ## Status evidence
+
+At arbitrary depth, independent optimal rank-$`k`$ truncations of all
+ordered sibling blocks give a polynomial-time exact approximation
+whenever the assembled result passes the HSS cut-rank tests. This
+criterion includes non-HSS inputs with full-rank sibling blocks, at all
+depths and ranks. [Proof and examples](compatible-sibling-truncations.md)
+
+A depth-independent approximation factor for unrestricted inputs
+remains open.
 
 The known squared-error factor is $`O(L)`$. The lower bound near $`2`$ concerns the analyzed greedy algorithm, not all algorithms. Searches for “HSS constant-factor approximation 2026” and “hierarchically semiseparable approximation constant 2026” found no resolution. The latest arXiv version is v2, September 6, 2025; the [journal version](https://doi.org/10.1137/25M176622X) appeared online May 8, 2026.
 

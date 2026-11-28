@@ -6,8 +6,8 @@
 
 **Difficulty:** extreme  
 **Importance:** interesting to the community  
-**Status:** Open  
-**Last checked:** 2026-09-14  
+**Status:** Partially resolved  
+**Last checked:** 2026-11-28  
 
 **Rating rationale:** Extreme reflects a longstanding sharp-constant problem beyond the false constant-one conjecture; community impact is eigenvalue matching and perturbation theory for normal matrices.
 
@@ -53,6 +53,100 @@ The target is a single sharp constant valid in every dimension. Equivalently,
 find the smallest $`C`$ for which $`d_\infty(A,B)\le C\|A-B\|_2`$ for all such
 pairs, with matching sharpness evidence. The conjectured value $`C=1`$ has
 already been refuted; it is not the question being posed.
+
+## Improved singular-value bound — 2026-11-28
+
+**Partial result (AI-derived).** Write $`s_1\ge s_2\ge\cdots`$ for the
+singular values of $`A-B`$ and put $`r_n=\lfloor(n+1)/2\rfloor`$. Then
+
+```math
+d_\infty(A,B)^2\le s_1^2+\frac12\sum_{i=2}^{r_n}s_i^2.
+```
+
+This halves the contribution of the smaller singular values in [Tang's truncated bound, Theorem 1.1](https://arxiv.org/html/2609.09177v2).
+For the constant restricted to order $`n`$, it gives
+$`C_n\le \sqrt{(r_n+1)/2}`$. This improves the minimum of Tang's bound
+and the classical dimension-independent bound of $`2.9038872828`$ in
+orders 3 through 30. The argument below also
+gives $`C_3\le\sqrt{7/5}`$. The exact dimension-independent constant
+$`C_{\rm normal}`$ remains open.
+
+**Proof.** Let $`\delta=d_\infty(A,B)>0`$ and $`m=\|A-B\|_2`$. In
+the bipartite graph that joins eigenvalue labels at distance less than
+$`\delta`$, there is no perfect matching. Hall's theorem provides two
+sets of labels with combined size $`n+1`$ and every cross distance at
+least $`\delta`$. Let $`U,V`$ be their spans in orthonormal eigenbases of
+$`A,B`$, respectively. Swap the two matrices if necessary so that
+$`\dim U=r\le \dim V`$. Then $`r\le r_n`$ and there is a common unit
+vector $`z\in U\cap V`$.
+
+Write $`P_U,P_V`$ for the orthogonal projections and put
+$`C=P_U(A-B)|_V`$ and $`H=\sum_{i=1}^r s_i^2`$. Let $`\gamma`$ be the
+norm of $`P_U`$ from $`V\cap z^\perp`$ to $`U\cap z^\perp`$.
+In the chosen eigenbases the entries of $`C`$ are the corresponding
+cross eigenvalue differences times the entries of $`P_U|_V`$.
+The common direction contributes one to the squared Frobenius norm of
+$`P_U|_V`$, and its orthogonal part contributes at least $`\gamma^2`$.
+Thus
+
+```math
+\|C\|_F^2\ge\delta^2(1+\gamma^2).
+```
+
+Set $`a=\|(I-zz^*)Az\|_2`$ and $`b=\|(I-zz^*)Bz\|_2`$. The
+average of $`|\alpha_i-\beta_j|^2`$ with the independent weights
+given by the squared coordinates of $`z`$ in the two eigenbases is
+$`|z^*Az-z^*Bz|^2+a^2+b^2`$, at least $`\delta^2`$. The inner
+product of the two orthogonal components of $`Az,Bz`$ has modulus
+at most $`\gamma ab`$. Also, projecting $`(A-B)z`$ onto $`U^\perp`$
+leaves only the contribution from $`Bz`$. It follows that
+
+```math
+m^2\ge\delta^2-2\gamma ab,\qquad m^2\ge(1-\gamma^2)b^2.
+```
+
+For an orthonormal basis of $`U`$ starting with $`z`$, the sum of
+squared norms of $`(A-B)^*`$ on the basis is at most $`H`$ by the
+Ky Fan maximum principle. Computing $`\|C^*\|_F^2`$ projects each
+of these vectors onto $`V`$. On the first vector the projection loses
+squared norm at least $`(1-\gamma^2)a^2`$, since $`B^*z\in V`$ and
+normality gives $`\|(I-zz^*)A^*z\|_2=a`$. Therefore
+
+```math
+H\ge\delta^2(1+\gamma^2)+(1-\gamma^2)a^2.
+```
+
+The desired estimate holds if $`\delta\le m`$ since $`H\ge m^2`$,
+and the inequalities above cover $`\gamma=0`$ and $`\gamma=1`$.
+In the remaining case set $`D=\delta^2-m^2>0`$. The first two
+inequalities give $`a^2\ge (1-\gamma^2)D^2/(4\gamma^2m^2)`$. By
+the arithmetic–geometric mean inequality,
+
+```math
+\gamma^2m^2+\frac{(1-\gamma^2)^2D^2}{4\gamma^2m^2}
+\ge (1-\gamma^2)D.
+```
+
+Substituting into the bound for $`H`$ gives $`H\ge\delta^2+D`$,
+which proves the result with $`r`$ in place of $`r_n`$.
+
+For $`n=3`$ either $`r=1`$, which gives $`\delta\le m`$, or both
+subspaces have dimension two. In the latter case project the two
+basis vectors of $`V`$ starting with $`z`$ onto $`U`$ after applying
+$`A-B`$. This gives the second Frobenius bound
+$`2m^2\ge\delta^2(1+\gamma^2)+(1-\gamma^2)b^2`$.
+Averaging it with the first bound and using
+$`D\le 2\gamma ab\le\gamma(a^2+b^2)`$ shows
+
+```math
+\frac{m^2}{\delta^2}\ge
+\frac{1+\gamma^2+c}{2+c},\qquad c=\frac{1-\gamma^2}{2\gamma}.
+```
+
+The right-hand side is at least $`5/7`$, since the equivalent
+inequality $`7\gamma^3-\gamma^2-3\gamma+1\ge0`$ has minimum
+$`4/49`$ over $`[0,1]`$, attained at $`3/7`$. This yields the stated
+order-three bound.
 
 ## Why it matters
 

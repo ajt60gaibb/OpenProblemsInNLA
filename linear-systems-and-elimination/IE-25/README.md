@@ -6,8 +6,8 @@
 
 **Difficulty:** challenging  
 **Importance:** interesting to the community  
-**Status:** Open  
-**Last checked:** 2026-09-10
+**Status:** Partially resolved  
+**Last checked:** 2026-11-28
 
 **Rating rationale:** Controlling the perturbed factorization uniformly for singular Neumann systems in two and three dimensions is challenging. Community impact comes from a concrete preconditioner for widely used PDE linear solves.
 
@@ -46,6 +46,52 @@ The existence quantifier spells out the source's choice of “some moderate cons
 ## Numerical significance
 
 The question concerns a concrete diagonal perturbation of incomplete factorization for singular Neumann systems. It is separate from relaxed ILU: the diagonal recurrence differs, and the proposed PMILU bound includes three dimensions.
+
+## Positive pivots and a uniform lower spectral bound
+
+**Partial result (AI-derived).** In both dimensions of the statement,
+the PMILU pivots are positive for all $`\varepsilon>0`$ and sufficiently
+small $`h`$. For $`\varepsilon=ch^2`$ with any fixed $`c>0`$, the
+smallest positive generalized eigenvalue stays bounded away from zero
+uniformly in $`h`$. The upper spectral bound needed for the conjectured
+condition number remains open.
+
+The positive-weight face graph is connected and has more than one
+vertex for small $`h`$. The path proof and the [weighted Poincaré estimate](../IE-24/README.md#weighted-poincaré-estimate-for-the-cut-cell-graph)
+apply to the stated square or cubic control cells. Put
+$`s_p=\sum_{q>p}w_{pq}`$ and $`k_p=e_p-s_p`$. The unperturbed first
+pivot is $`e_1=s_1=a_1>0`$, so $`k_1=0`$. For $`p>1`$ the PMILU
+recurrence gives
+
+```math
+k_p=\varepsilon a_p+\sum_{q< p,\,w_{pq}>0}\frac{w_{pq}}{e_q}k_q.
+```
+
+Since $`a_p>0`$ at every vertex of this connected graph, induction
+gives $`k_p>0`$ for all $`p>1`$ and positive pivots throughout.
+
+Expanding the factors gives $`M=A+\mathop{\mathrm{diag}}\nolimits(M\mathbf1)-L_F`$,
+where $`L_F`$ is the graph Laplacian with nonnegative fill weights
+$`F_{ps}=\sum_{q<\min(p,s)}w_{pq}w_{sq}/e_q`$ for $`p\ne s`$.
+The row sums are $`(M\mathbf1)_1=0`$ and
+$`(M\mathbf1)_p=\varepsilon a_p`$ for $`p>1`$. The exception is
+exactly the unperturbed first pivot in the displayed recurrence.
+The row sums follow by subtracting $`a_p`$ from $`e_p`$ and adding
+$`\sum_{q< p,\,w_{pq}>0}w_{pq}s_q/e_q`$.
+
+For $`x`$ in the $`M`$-orthogonal complement of the constants,
+$`x^TMx\le (x-b\mathbf1)^TM(x-b\mathbf1)`$ for every constant
+$`b`$. Choose $`b`$ minimizing $`\sum_p a_p|x_p-b|^2`$. The fill
+Laplacian is positive semidefinite and $`A\mathbf1=0`$, so the
+factor identity and the weighted Poincaré estimate give
+
+```math
+x^TMx\le x^TAx+\varepsilon \sum_p a_p|x_p-b|^2
+      \le (1+cC_\Omega)x^TAx.
+```
+
+The generalized Rayleigh principle yields
+$`\lambda_{\min,+}(M^{-1}A)\ge(1+cC_\Omega)^{-1}`$.
 
 ## References and status check
 

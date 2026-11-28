@@ -7,9 +7,9 @@
 **Difficulty:** challenging  
 **Importance:** interesting to the community  
 **Rating rationale:** Challenging because reusing sketches introduces dependencies across the hierarchy; community impact is reducing operator access in black-box HSS compression.  
-**Status:** Open  
+**Status:** Partially resolved
 **Area:** randomized matrix compression  
-**Last checked:** 2026-09-10  
+**Last checked:** 2026-11-28
 
 ## Context and notation
 
@@ -46,6 +46,17 @@ with at most $`O(N^c)`$ additional arithmetic operations? Queries may be adaptiv
 Amsel et al., [*Quasi-optimal Hierarchically Semi-separable Matrix Approximation*](https://arxiv.org/html/2505.16937v2), §1.2, Theorem 13, §§4.4–5. James Levitt and Per-Gunnar Martinsson, [*Linear-Complexity Black-Box Randomized Compression of Rank-Structured Matrices*](https://arxiv.org/pdf/2205.02990v3), SIAM Journal on Scientific Computing **46** (2024), A1747–A1763, Algorithm 4.1 and Remark 4.3.
 
 ## Status evidence
+
+For every depth, the stated query and approximation bounds hold on
+inputs whose squared distance to prescribed per-row subspaces of
+dimension $`O(k)`$ is at most a constant times $`E_{L,k}(A)`$. This
+includes matrices whose closest HSS approximation has a prescribed
+sparsity pattern with $`O(k)`$ entries per row, even when the input
+is dense. A general algorithm must also use at least $`3k`$ queries
+in the worst case, already for exact HSS inputs.
+[Proofs and scope](row-subspace-approximation.md)
+
+The claim for unrestricted inputs remains open.
 
 The proved guarantee uses $`O(kL)`$ queries. Reusing sketches reduces the query count, but its approximation guarantee remains unproved. Searches for “HSS O(k) approximation 2026 matvec” and “HSS approximation logarithmic 2026” found no resolution. Levitt–Martinsson's latest arXiv version is v3, submitted June 21, 2024. Christopher Musco's [February 2026 ICERM slides](https://app.icerm.brown.edu/assets/568/10574/10574_5858_Musco_020420261630_Slides.pdf), numbered slide 14, still list $`O(k\log N)`$ queries for HSS approximation.
 

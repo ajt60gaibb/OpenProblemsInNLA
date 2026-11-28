@@ -34,7 +34,7 @@ budget},pdfauthor={Open Problems in Numerical Linear Algebra}}
 \fancyhf{}
 \fancyhead[L]{\sffamily\footnotesize\color{muted}OPEN PROBLEMS IN NUMERICAL LINEAR ALGEBRA}
 \fancyhead[R]{\sffamily\bfseries\footnotesize\color{accent}MF-01}
-\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-09-10}}
+\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-11-28}}
 \fancyfoot[R]{\sffamily\footnotesize\color{muted}\thepage}
 \renewcommand{\headrulewidth}{0.3pt}
 \renewcommand{\headrule}{\hbox to\headwidth{\color{accent}\leaders\hrule height \headrulewidth\hfill}}
@@ -51,7 +51,7 @@ sign approximation with a multiplication budget\par}
 \vspace{7pt}
 {\sffamily\small\textbf{Difficulty:} challenging\quad\textbf{Importance:} interesting
 to the community\par}
-{\sffamily\small\bfseries\color{accent}Status: Open\par}
+{\sffamily\small\bfseries\color{accent}Status: Partially resolved\par}
 \vspace{4pt}
 {\color{accent}\hrule height 0.8pt}
 \vspace{6pt}
@@ -63,18 +63,14 @@ comes from sign, projector, and polar computations.
 
 For \(m\in\mathbb N_0\) and \(0<\delta<1\), put
 
-\[
-I_\delta=[-1,-\delta]\cup[\delta,1].
-\]
+\[I_\delta=[-1,-\delta]\cup[\delta,1].\]
 
 Let \(\mathcal P_m\) consist of real polynomials computed from \(1,x\)
 by straight-line programs using at most \(m\) nonscalar multiplications;
 real linear combinations cost nothing. Define
 
-\[
-E_m(\delta)=\inf_{p\in\mathcal P_m}
-\max_{x\in I_\delta}|p(x)-\operatorname{sign}(x)|.
-\]
+\[E_m(\delta)=\inf_{p\in\mathcal P_m}
+\max_{x\in I_\delta}|p(x)-\mathop{\mathrm{sign}}\nolimits(x)|.\]
 
 Determine matching asymptotic upper and lower bounds for
 \(E_m(\delta)\), with the dependence on both \(m\) and \(\delta\)
@@ -83,6 +79,25 @@ concerns a single polynomial identity valid for matrices of every size.
 
 \subsection{References and status
 evidence}\label{references-and-status-evidence}
+
+\subsubsection{Exact minimax reduction for zero through three
+products}\label{exact-minimax-reduction-for-zero-through-three-products}
+
+For every \(0<\delta<1\) and \(m\in\{0,1,2,3\}\), the budgeted infimum
+equals the ordinary minimax error over odd polynomials of degree at most
+\(2s_m-1\), where \((s_0,s_1,s_2,s_3)=(1,1,2,4)\). In particular, the
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/matrix-functions-and-stability/MF-01/small-budgets.md}{proof
+and explicit bounds} give \(E_m(\delta)=\Theta((1-\delta)^{s_m})\)
+uniformly in \(\delta\) for these four budgets. For \(m=0,1\) the exact
+error is \((1-\delta)/(1+\delta)\), and the proof gives the exact cubic
+formula for \(m=2\). The three-product case uses the fact that every
+real octic has a three-product evaluation, so odd septics can be
+approximated arbitrarily closely in coefficient space in the same
+budget. The proof also gives a high-order recursive upper bound at
+larger budgets. Matching bounds with an unrestricted, increasing
+multiplication budget remain open.
+
+\subsubsection{Sources}\label{sources}
 
 Amsel et al., \href{https://arxiv.org/html/2602.05394v3}{Linear Systems
 and Eigenvalue Problems: Open Questions from a Simons Workshop}, §6.3,

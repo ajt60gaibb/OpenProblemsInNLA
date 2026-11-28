@@ -2,8 +2,8 @@
 
 **Difficulty:** challenging  
 **Importance:** interesting to the community  
-**Status:** Open  
-**Last checked:** 2026-09-10  
+**Status:** Partially resolved  
+**Last checked:** 2026-11-28  
 
 **Rating rationale:** Challenging reflects a sharp perturbation threshold without geometric separation assumptions beyond a spectral gap; community impact is the stability of spectral subspaces.
 
@@ -19,6 +19,77 @@ where $`E_B`$ denotes the spectral projection measure of $`B`$.
 Does $`\|V\|< d/2`$ always imply $`\|P-Q\|<1`$? All norms are operator norms. Equivalently, is the optimal universal constant $`c_{\mathrm{opt}}=1/2`$ for guaranteeing that the maximal angle $`\arcsin\|P-Q\|`$ is strictly below $`\pi/2`$?
 
 The two spectral sets may interlace: no ordering or disjoint-convex-hull hypothesis is imposed. The source's operator formulation is retained; Hermitian matrix invariant-subspace perturbation is its finite-dimensional setting. This problem concerns subspace orientation after perturbation, beyond preservation of a spectral gap.
+
+## Sharp threshold for rank-two perturbations — 2026-11-28
+
+**Partial result (AI-derived).** The half-gap guarantee holds for every
+self-adjoint perturbation of rank at most two, including indefinite
+perturbations and unbounded $`A`$. More generally, under $`\|V\|< d/2`$
+it holds whenever
+
+```math
+\|V\|_{\mathrm{HS}}<\sqrt{2}\,(d-\|V\|),
+```
+
+where $`\|\cdot\|_{\mathrm{HS}}`$ is the Hilbert–Schmidt norm. No
+placement condition on the spectral sets is required. The unrestricted
+threshold remains open. The earlier rank-one result for bounded $`A`$
+uses a determinant identity. [Gebert, Theorem 2.10](https://arxiv.org/abs/1705.02796).
+
+**Hilbert–Schmidt projection estimate.** Suppose self-adjoint $`S,T`$
+differ by a bounded Hilbert–Schmidt operator $`W=T-S`$. Let $`E,F`$
+be their respective spectral projections onto selected components.
+Assume each selected component has distance at least $`g>0`$ from
+the other operator's complementary component. Then
+
+```math
+\|E-F\|_{\mathrm{HS}}^2
+=\|E(I-F)\|_{\mathrm{HS}}^2+\|(I-E)F\|_{\mathrm{HS}}^2
+\le \frac{\|W\|_{\mathrm{HS}}^2}{g^2}.
+```
+
+Indeed, $`E(I-F)`$, regarded as an operator from $`\mathop{\mathrm{ran}}\nolimits(I-F)`$
+to $`\mathop{\mathrm{ran}}\nolimits E`$, solves the weak Sylvester equation with
+left operator $`S|_{\mathop{\mathrm{ran}}\nolimits E}`$, right operator
+$`T|_{\mathop{\mathrm{ran}}\nolimits(I-F)}`$, and forcing $`-EW(I-F)`$.
+The analogous forcing for $`(I-E)F`$ is $`-(I-E)WF`$. On the Hilbert
+space of Hilbert–Schmidt operators the joint spectral calculus for
+left and right multiplication solves each equation by applying the
+multiplier $`(s-t)^{-1}`$ to its forcing. The joint spectral projections
+on rectangles act by compression with the left and right spectral
+projections. The multiplier is bounded by $`1/g`$ and the resulting
+operator satisfies the weak equation by testing on the two domains.
+A bounded homogeneous weak solution intertwines both resolvents and
+therefore both spectral measures. Disjoint left and right spectra force
+that solution to vanish. This identifies the Hilbert–Schmidt solutions
+with the displayed projection products. The two forcing blocks have
+orthogonal left and right supports, so their squared norms sum to at
+most $`\|W\|_{\mathrm{HS}}^2`$.
+
+**First possible right angle.** Write $`v=\|V\|`$ and use the path
+$`Q_t=E_{A+tV}(O_{d/2}(\sigma))`$ for $`0\le t\le1`$. The usual
+spectral inclusion for bounded self-adjoint perturbations places the
+two components within distance $`tv`$ of $`\sigma,\Sigma`$,
+respectively. Thus the cross distances for times $`s,t`$ are at least
+$`d-(s+t)v\ge d-2v`$. The estimate applied to $`(t-s)V`$ shows that
+$`t\mapsto Q_t`$ is continuous in Hilbert–Schmidt differences. Applied
+from time zero it gives $`\|P-Q_t\|_{\mathrm{HS}}\le t\|V\|_{\mathrm{HS}}/(d-tv)<\sqrt2`$.
+
+Whenever $`\|P-Q_t\|<1`$, the two directed gaps
+$`\|P(I-Q_t)\|`$ and $`\|(I-P)Q_t\|`$ coincide. In fact,
+$`P|_{\mathop{\mathrm{ran}}\nolimits Q_t}`$ is invertible onto $`\mathop{\mathrm{ran}}\nolimits P`$
+because both it and its adjoint are bounded below. Its polar
+decomposition identifies the two squared gap operators. Consequently,
+at a first time with $`\|P-Q_t\|=1`$, continuity would make both
+directed gaps equal to one. Their squared Hilbert–Schmidt norms would
+sum to at least two, a contradiction.
+
+For rank at most two, $`\|V\|_{\mathrm{HS}}\le\sqrt2\,v`$ verifies
+the sufficient condition whenever $`v< d/2`$. Sharpness in this class
+follows from $`A=\mathop{\mathrm{diag}}\nolimits(0,d)`$, $`\sigma=\{0\}`$ and
+$`V=\mathop{\mathrm{diag}}\nolimits(d/2,-d/2)`$. At equality the open interval
+$`O_{d/2}(\sigma)`$ excludes the eigenvalue $`d/2`$ of $`A+V`$ and
+$`\|P-Q\|=1`$.
 
 ## References
 
