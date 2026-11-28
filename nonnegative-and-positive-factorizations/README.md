@@ -6,7 +6,7 @@
 
 | ID | Problem | Status | Difficulty | Impact | Read / source |
 | --- | --- | --- | --- | --- | --- |
-| [NM-01](NM-01/README.md) | Polynomial-time minimum-volume decision under sufficient scattering | **🔵 OPEN** | challenging | interesting to the community | [PDF](NM-01/problem.pdf) · [TeX](NM-01/problem.tex) |
+| [NM-01](NM-01/README.md) | Polynomial-time minimum-volume decision under sufficient scattering | **🟡 PARTIAL** | challenging | interesting to the community | [PDF](NM-01/problem.pdf) · [TeX](NM-01/problem.tex) |
 | [NR-01](NR-01/README.md) | Exact nonnegative rank of regular polygon slack matrices | **🟡 PARTIAL** | challenging | interesting to the community | [PDF](NR-01/problem.pdf) · [TeX](NR-01/problem.tex) |
 | [NR-02](NR-02/README.md) | Additivity for Cartesian-product slack matrices | **🟡 PARTIAL** | extreme | interesting to the community | [PDF](NR-02/problem.pdf) · [TeX](NR-02/problem.tex) |
 | [PF-01](PF-01/README.md) | Exact positive semidefinite rank of subset-intersection matrices | **🟡 PARTIAL** | challenging | interesting to specialist | [PDF](PF-01/problem.pdf) · [TeX](PF-01/problem.tex) |

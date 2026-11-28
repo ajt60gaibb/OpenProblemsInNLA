@@ -13,7 +13,7 @@ If one of your favorite open problems is solved here, we strongly encourage you 
 [NLA, explained](https://nla-explained.com/) welcomes papers and videos that explain proofs from this repository, with credit to the original authors and sources. If you would like to help make these results easier to understand, consider contributing an explanation.
 
 <!-- catalog-summary -->
-**83 problems with open targets:** 27 open and 56 partially resolved. **135 other retained entries**, excluded from the open count.
+**83 problems with open targets:** 22 open and 61 partially resolved. **135 other retained entries**, excluded from the open count.
 
 **Resolution evidence:** 39 solved (published or independently audited); 89 solved with Lean verification.
 

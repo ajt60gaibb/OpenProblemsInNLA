@@ -8,7 +8,7 @@
 **Importance:** interesting to the community
 **Rating rationale:** Extreme difficulty reflects the unresolved passage from a fixed exponential rate to arbitrarily large rates, despite the recent exponential breakthrough. The question concerns a central cancellation phenomenon in combinatorial random-matrix theory, supporting community importance.
 **Status:** Open
-**Last checked:** 2026-09-10
+**Last checked:** 2026-11-27
 
 ## Problem statement
 
@@ -40,6 +40,19 @@ The question concerns cancellation in a multilinear function of a random matrix.
 ## Status check
 
 Hunter–Kwan–Sauermann prove the displayed bound for one absolute positive constant, and explicitly identify Vu's stronger assertion as a future direction. Their result resolves exponential growth of the permanent range, which is not counted separately. Searches for Vu's conjecture, super-exponential permanent anticoncentration, and 2025–2026 found no complete resolution. The July 2026 [Ginibre-ensemble paper](https://arxiv.org/abs/2607.20329) treats Gaussian entries and does not establish the discrete Bernoulli assertion.
+
+## Signed permutation symmetries — 2026-11-27
+
+A [counting argument](signed-symmetry.md) establishes that the event of a
+permanent-negating signed row and column symmetry has probability zero at
+odd orders. At even orders its probability is between $`2^{-n^2/2}`$ and
+$`2^{2n}(n!)^2 2^{-n^2/2}`$. The bound concerns the part of the zero event
+certified by such a symmetry. The conjecture still asks for a bound on all
+zero permanents.
+
+There is also a classical infinite subsequence with zero probability of
+vanishing, namely $`n=2^k-1`$. See [Wanless, §4](https://users.monash.edu.au/~iwanless/papers/wangconjLAMA.pdf)
+for the result and the attribution to Kräuter–Seifter and Simion–Schmidt.
 
 ## Audit — 2026-09-10
 
