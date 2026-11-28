@@ -54,6 +54,19 @@ The passing scopes include AC-01's small-CW upper bound (also relevant to AC-04)
 
 ## Resolved catalog entries
 
+### ✅ NR-02 — Cartesian-product additivity fails for slack matrices
+
+**Negative resolution, recorded 27 November 2026.** Minhao Liu,
+[*Extension complexity is not additive under Cartesian products*](https://arxiv.org/html/2611.33631v1),
+Theorem 1 and §5.3, gives a rational 24-dimensional polytope $`P`$ with
+extension complexity 40 whose Cartesian square has extension complexity 79.
+Yannakakis' factorization theorem converts this into the strict
+nonnegative-rank inequality for the full slack matrices in the original
+NR-02 question. The [independent Codex proof note](nonnegative-and-positive-factorizations/NR-02/solution.md)
+checks a counterexample by a compactness argument for Liu's construction
+and verifies the passage to full facet–vertex slack matrices.
+[Canonical entry](nonnegative-and-positive-factorizations/NR-02/README.md#negative-resolution--27-november-2026).
+
 ### 🏆 AC-01 — the square matrix multiplication exponent is nine fourths
 
 **Negative resolution, 24 November 2026.** Theorem 1.1 of OpenAI's

@@ -2,13 +2,12 @@
 
 [← All categories](../README.md) · [Full catalog](../CATALOG.md) · [Solved and claimed solutions](../RESOLVED.md)
 
-**4 problems with open targets.** 8 retained entries are excluded from the open count.
+**3 problems with open targets.** 9 retained entries are excluded from the open count.
 
 | ID | Problem | Status | Difficulty | Impact | Read / source |
 | --- | --- | --- | --- | --- | --- |
 | [NM-01](NM-01/README.md) | Polynomial-time minimum-volume decision under sufficient scattering | **🟡 PARTIAL** | challenging | interesting to the community | [PDF](NM-01/problem.pdf) · [TeX](NM-01/problem.tex) |
 | [NR-01](NR-01/README.md) | Exact nonnegative rank of regular polygon slack matrices | **🟡 PARTIAL** | challenging | interesting to the community | [PDF](NR-01/problem.pdf) · [TeX](NR-01/problem.tex) |
-| [NR-02](NR-02/README.md) | Additivity for Cartesian-product slack matrices | **🟡 PARTIAL** | extreme | interesting to the community | [PDF](NR-02/problem.pdf) · [TeX](NR-02/problem.tex) |
 | [PF-01](PF-01/README.md) | Exact positive semidefinite rank of subset-intersection matrices | **🟡 PARTIAL** | challenging | interesting to specialist | [PDF](PF-01/problem.pdf) · [TeX](PF-01/problem.tex) |
 
 ## Retained entries outside the open count
@@ -17,6 +16,7 @@
 | --- | --- | --- | --- | --- | --- |
 | [NM-03](NM-03/README.md) | Complexity of globally optimal nonnegative rank-two approximation | **✅ SOLVED** | challenging | interesting to the community | [PDF](NM-03/problem.pdf) · [TeX](NM-03/problem.tex) |
 | [NM-04](NM-04/README.md) | The Rowland–Wu polynomial identity for Sinkhorn limits | **🏆 LEAN VERIFIED** | challenging | interesting to the community | [PDF](NM-04/problem.pdf) · [TeX](NM-04/problem.tex) |
+| [NR-02](NR-02/README.md) | Additivity for Cartesian-product slack matrices | **✅ SOLVED** | extreme | interesting to the community | [PDF](NR-02/problem.pdf) · [TeX](NR-02/problem.tex) |
 | [NR-03](NR-03/README.md) | Full nonnegative rank of the quadratic correlation matrix | **🏆 LEAN VERIFIED** | extreme | broadly interesting | [PDF](NR-03/problem.pdf) · [TeX](NR-03/problem.tex) |
 | [NR-04](NR-04/README.md) | The nonnegative rank of the nine-point distance matrix | **🏆 LEAN VERIFIED** | hard | interesting to specialist | [PDF](NR-04/problem.pdf) · [TeX](NR-04/problem.tex) |
 | [PF-02](PF-02/README.md) | Connectedness of minimal positive semidefinite factorization orbits | **🏆 LEAN VERIFIED** | challenging | interesting to the community | [PDF](PF-02/problem.pdf) · [TeX](PF-02/problem.tex) |
