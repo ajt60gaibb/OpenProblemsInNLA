@@ -34,7 +34,7 @@ constant},pdfauthor={Open Problems in Numerical Linear Algebra}}
 \fancyhf{}
 \fancyhead[L]{\sffamily\footnotesize\color{muted}OPEN PROBLEMS IN NUMERICAL LINEAR ALGEBRA}
 \fancyhead[R]{\sffamily\bfseries\footnotesize\color{accent}MD-05}
-\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-09-10}}
+\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-11-27}}
 \fancyfoot[R]{\sffamily\footnotesize\color{muted}\thepage}
 \renewcommand{\headrulewidth}{0.3pt}
 \renewcommand{\headrule}{\hbox to\headwidth{\color{accent}\leaders\hrule height \headrulewidth\hfill}}
@@ -61,14 +61,18 @@ to the community\par}
 matrices and all orders is a longstanding extremal discrepancy barrier;
 it sharpens a central matrix-balancing theorem.
 
-For each positive integer \(n\), define \[
-d_n=\frac{1}{\sqrt n}
+For each positive integer \(n\), define
+
+\[d_n=\frac{1}{\sqrt n}
 \max_{A\in\{-1,1\}^{n\times n}}
-\min_{x\in\{-1,1\}^n}\|Ax\|_\infty.
-\] Determine the exact value of \[
-C_*=\sup_{n\geq1}d_n.
-\] Thus \(C_*\) is the smallest real constant for which every square
-sign matrix \(A\) admits a column signing \(x\) with
+\min_{x\in\{-1,1\}^n}\|Ax\|_\infty.\]
+
+Determine the exact value of
+
+\[C_*=\sup_{n\geq1}d_n.\]
+
+Thus \(C_*\) is the smallest real constant for which every square sign
+matrix \(A\) admits a column signing \(x\) with
 \(\|Ax\|_\infty\leq C_*\sqrt n\).
 
 The question concerns the sharp worst-case error in simultaneous signed
@@ -101,20 +105,77 @@ counted as another entry.
   edition, SIAM (1994), Chapter 10, ``Six Standard Deviations Suffice,''
   pp.~75--80, the classical universal-constant upper bound.
   \href{https://epubs.siam.org/doi/10.1137/1.9781611970074.ch10}{Chapter}.
+\item
+  V. Reis and Z. Song, \emph{Three Standard Deviations Suffice While One
+  Does Not}, arXiv:2609.34471v1 (2026), Theorems 1.1 and 1.2.
+  \href{https://arxiv.org/html/2609.34471v1}{Preprint}.
+\item
+  Y. Li, order-17 sign-matrix certificate (2026).
+  \href{https://teorth.github.io/optimizationproblems/constants/10c.html}{Explicit
+  matrix}.
 \end{enumerate}
 
-\subsection{Status check --- 2026-09-10}\label{status-check-2026-09-10}
+\subsection{Status check --- 2026-11-27}\label{status-check-2026-11-27}
 
-checked the current arXiv record, still 2504.20539v1 (2025-04-29), the
-source's update, and searches ``Spencer sharp constant discrepancy'' and
-``Spencer limsup discrepancy 2026''. The update refutes the stronger odd
-Sylvester--Hadamard claim in Conjecture 13; that claim is excluded. No
-resolution of Open Problem 11 or Conjecture 12 was found. Recent matrix
-Spencer results concern a different matrix-valued discrepancy problem.
+Reis and Song's Theorem 1.1 gives \(\limsup_{n\to\infty}d_n>1.0000002\),
+establishing the source's related Conjecture 12. Theorem 1.2 gives
+\(d_n\leq\sqrt{3\mathop{\mathrm{arsinh}}\nolimits(10)}+4/\sqrt n\) for
+every \(n\). Combined with exact binomial counting, this gives a uniform
+upper bound on \(C_*\).
 
-\textbf{Audit update (2026-09-10):} Rechecked Open Problem 11 and the
-source's update, then searched for exact Spencer constants. The refuted
-odd Sylvester--Hadamard claim is different. The all-order sharp supremum
-warrants extreme rather than hard. This is a bounded literature check,
-not a proof that no solution exists.
+\[\frac{7}{\sqrt{17}}=d_{17}\leq C_*\leq\sqrt{10}.\]
+
+The exact value of \(C_*\) remains open.
+
+\subsection{Verification of the
+bounds}\label{verification-of-the-bounds}
+
+For a fixed sign row and a uniformly random signing, the probability
+that the absolute row sum is at least a positive integer \(b\) of parity
+\(n\) is
+
+\[\mathbb{P}(|(Ax)_i|\ge b)=2^{1-n}\sum_{j=0}^{(n-b)/2}\binom{n}{j},\]
+
+where the sum is empty if \(b>n\). If \(n\) times this probability is
+strictly below one, some signing has all absolute row sums below \(b\).
+
+At \(n=17\), the count with \(b=9\) is
+\(34\sum_{j=0}^4\binom{17}{j}=109276<2^{17}\). Parity gives
+\(d_{17}\le 7/\sqrt{17}\). For the opposite inequality, use Li's sign
+matrix. The verification below encodes each row by the bit mask of its
+negative entries. A signing with mask \(x\) has absolute row sum
+\(|17-2\,\mathop{\mathrm{popcount}}\nolimits(x\mathbin{\oplus}r)|\)
+against row mask \(r\).
+
+For the upper bound on \(C_*\), Reis and Song give discrepancy strictly
+less than \(3\sqrt n+4\), since
+\(\sqrt{3\mathop{\mathrm{arsinh}}\nolimits(10)}<3\). For \(n\ge608\), we
+have \(4/\sqrt n<\sqrt{10}-3\). For \(1\le n<608\), take \(b\) to be the
+least integer greater than \(\sqrt{10n}\) of parity \(n\). Either the
+binomial count yields a signing with maximum below \(b\), or
+\(3\sqrt n+4\le b\) so the preprint's bound gives such a signing. In
+both cases parity gives \(d_n\le\sqrt{10}\). The following checks the
+witness and all 607 small orders using exact integers.
+
+\begin{verbatim}
+from math import comb, isqrt
+
+rows = (
+    0x0, 0x7F, 0x787, 0xBB8, 0x15D9, 0x1ACE,
+    0x1D62, 0x1E35, 0x26F2, 0x29E5, 0x2D1E, 0x2E49,
+    0x332B, 0x3354, 0x34AC, 0x3893, 0x0,
+)
+assert min(
+    max(abs(17 - 2 * (x ^ row).bit_count()) for row in rows)
+    for x in range(1 << 17)
+) == 7
+
+for n in range(1, 608):
+    b = isqrt(10 * n) + 1
+    b += (n - b) % 2
+    tail_count = sum(comb(n, j) for j in range((n - b) // 2 + 1))
+    union_bound = 2 * n * tail_count < (1 << n)
+    preprint_bound = b >= 4 and (b - 4) ** 2 >= 9 * n
+    assert union_bound or preprint_bound, (n, b)
+\end{verbatim}
 \end{document}

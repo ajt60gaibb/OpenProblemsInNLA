@@ -6,7 +6,7 @@
 
 | ID | Problem | Status | Difficulty | Impact | Read / source |
 | --- | --- | --- | --- | --- | --- |
-| [IS-01](IS-01/README.md) | Two permutation matrices generate the doubly stochastic spectral boundary | **🔵 OPEN** | challenging | interesting to the community | [PDF](IS-01/problem.pdf) · [TeX](IS-01/problem.tex) |
+| [IS-01](IS-01/README.md) | Two permutation matrices generate the doubly stochastic spectral boundary | **🟡 PARTIAL** | challenging | interesting to the community | [PDF](IS-01/problem.pdf) · [TeX](IS-01/problem.tex) |
 | [IS-05](IS-05/README.md) | The optimal decay exponent for the conditioning of sign matrices | **🟡 PARTIAL** | extreme | interesting to the community | [PDF](IS-05/problem.pdf) · [TeX](IS-05/problem.tex) |
 | [SP-01](SP-01/README.md) | The sharp generic threshold for spectral-subspace rotation | **🔵 OPEN** | challenging | interesting to the community | [PDF](SP-01/problem.pdf) · [TeX](SP-01/problem.tex) |
 | [SP-02](SP-02/README.md) | The sharp off-diagonal threshold for spectral-subspace rotation | **🔵 OPEN** | challenging | interesting to the community | [PDF](SP-02/problem.pdf) · [TeX](SP-02/problem.tex) |
