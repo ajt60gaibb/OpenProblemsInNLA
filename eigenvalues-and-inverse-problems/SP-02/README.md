@@ -2,8 +2,8 @@
 
 **Difficulty:** challenging  
 **Importance:** interesting to the community  
-**Status:** Open  
-**Last checked:** 2026-09-10  
+**Status:** Partially resolved  
+**Last checked:** 2026-11-28  
 
 **Rating rationale:** Challenging reflects an optimal off-diagonal perturbation bound for arbitrary separated spectral sets; community impact is a sharp guarantee for invariant-subspace stability.
 
@@ -22,6 +22,71 @@ Writing $`O_r(S)=\{x\in\mathbb R:\mathop{\mathrm{dist}}\nolimits(x,S)< r\}`$ and
 hold universally? Here $`E_B`$ is the spectral projection measure of $`B`$, and norms are operator norms. No ordering of the two spectral sets is assumed.
 
 The source retains the full operator setting, encompassing Hermitian block matrices in invariant-subspace computations. The threshold $`\sqrt3/2`$ already guarantees that the perturbed spectral components stay separated; the unresolved assertion controls their maximal subspace angle. Off-diagonal structure makes this a different threshold problem from the general-perturbation constant $`1/2`$.
+
+## Sharp threshold for a rank-one off-diagonal block — 2026-11-28
+
+**Partial result (AI-derived).** The conjectured guarantee holds if
+$`PV(I-P)`$ has rank at most one, with no placement restriction on the
+two spectral sets and with $`A`$ possibly unbounded. This includes all
+off-diagonal perturbations of rank at most two. The unrestricted case
+remains open.
+
+Let $`v=\|V\|<\sqrt3 d/2`$ and $`Q_t=E_{A+tV}(O_{d/2}(\sigma))`$.
+The off-diagonal spectral inclusion places the two perturbed components
+within distance $`(\sqrt{d^2+4t^2v^2}-d)/2`$ of $`\sigma,\Sigma`$,
+respectively. For $`0\le t\le1`$ these radii are bounded strictly below
+$`d/2`$. [Seelmann, Sections 1–2](https://arxiv.org/pdf/1412.6294).
+The [Hilbert–Schmidt projection estimate](../SP-01/README.md#sharp-threshold-for-rank-two-perturbations--2026-11-28)
+applies between any two times because their cross-component distances
+are bounded below by a common positive constant. Thus $`Q_t-P`$ is
+compact and $`Q_t`$ is norm continuous.
+
+Suppose $`t>0`$ is the first time with $`\|P-Q_t\|=1`$ and write
+$`B=A+tV`$, $`Q=Q_t`$. Both directed gaps reach one by continuity
+and their equality before this time. Compactness gives nonzero
+finite-dimensional defect spaces
+
+```math
+X=\mathop{\mathrm{ran}}\nolimits P\cap\ker Q,\qquad
+Y=\ker P\cap\mathop{\mathrm{ran}}\nolimits Q.
+```
+
+Indeed, $`P(I-Q)P`$ and $`(I-P)Q(I-P)`$ are compact positive
+operators of norm one, and their eigenvalue-one spaces are
+$`X`$ and $`Y`$, respectively.
+
+Both spaces lie in $`\mathop{\mathrm{Dom}}\nolimits A`$. To check this for an
+unbounded $`A`$, $`P,Q`$ preserve $`\mathop{\mathrm{Dom}}\nolimits A`$ and
+$`[A,Q]=-t[V,Q]`$ is bounded. Then $`K=(P-Q)^2`$ preserves the
+domain and has bounded commutator with $`A`$. Differentiation on
+$`\mathop{\mathrm{Dom}}\nolimits A`$ shows that conjugating $`K`$ by
+$`e^{isA}`$ changes it in norm by $`O(|s|)`$. The contour formula
+for the spectral projection $`R`$ onto the isolated eigenvalue one
+of $`K`$ and the resolvent identity give the same estimate for $`R`$.
+For $`f\in\mathop{\mathrm{Dom}}\nolimits A`$,
+$`\|(e^{isA}-I)Rf\|=O(|s|)`$ as a consequence. The spectral theorem
+then gives $`Rf\in\mathop{\mathrm{Dom}}\nolimits A`$ by Fatou's lemma applied
+to the squared difference quotients. The range of $`R`$ is finite
+dimensional, so density implies that the whole range lies in the
+domain. In particular it contains $`X`$ and $`Y`$.
+
+For every $`x\in X`$ and $`y\in Y`$, $`\langle x,Vy\rangle=0`$,
+because $`By\in\mathop{\mathrm{ran}}\nolimits Q`$ and
+$`Ay\in\ker P`$. Write the nonzero off-diagonal block as
+$`PV(I-P)=u w^*`$, with $`u\in\mathop{\mathrm{ran}}\nolimits P`$ and
+$`w\in\ker P`$. Either every $`x\in X`$ is orthogonal to $`u`$ or
+every $`y\in Y`$ is orthogonal to $`w`$. Thus the off-diagonal
+perturbation vanishes on $`X`$ or on $`Y`$. On that nonzero defect
+space the operators $`A`$ and $`B`$ agree and both leave it invariant.
+A common eigenvector there has its eigenvalue in an original
+spectral component and in the opposite perturbed component, which
+are disjoint by the inclusion above. This contradiction proves
+$`\|P-Q_1\|<1`$.
+
+For sharpness take $`A=\mathop{\mathrm{diag}}\nolimits(0,d)`$ and $`\sigma=\{0\}`$,
+with the two off-diagonal entries of $`V`$ equal to $`\sqrt3 d/2`$.
+Then $`A+V`$ has eigenvalues $`-d/2,3d/2`$. The prescribed open
+neighborhood gives $`Q=0`$ and the projection difference has norm one.
 
 ## References
 

@@ -4,7 +4,7 @@
 **Importance:** interesting to the community  
 **Provenance:** source-stated extremal-value problem.  
 **Status:** Open  
-**Last checked:** 2026-11-27
+**Last checked:** 2026-11-28
 
 **Rating rationale:** Determining the best constant across all sign matrices and all orders is a longstanding extremal discrepancy barrier; it sharpens a central matrix-balancing theorem.
 
@@ -46,6 +46,15 @@ Reis and Song's Theorem 1.1 gives $`\limsup_{n\to\infty}d_n>1.0000002`$, establi
 ```
 
 The exact value of $`C_*`$ remains open.
+
+## Exact values at small orders — 2026-11-28
+
+The finite-order maxima $`\sqrt n\,d_n`$ are exactly
+$`1,2,1,2,3,4,3,4,5,4,5`$ for $`n=1,\ldots,11`$, and exactly
+$`5,6,6,7,7`$ for $`n=13,14,16,17,19`$, respectively. The proof
+combines integer witness verification with Hamming covering bounds,
+including a discrepancy-six witness at order fourteen.
+[Table and verification](small-orders.md)
 
 ## Verification of the bounds
 

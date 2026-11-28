@@ -2,8 +2,8 @@
 
 **Difficulty:** extreme  
 **Importance:** broadly interesting  
-**Status:** Open  
-**Last checked:** 2026-09-10
+**Status:** Partially resolved
+**Last checked:** 2026-11-28
 
 **Rating rationale:** Uniform conditioning for this explicit arithmetic frame beyond square-root sparsity is a major deterministic sensing barrier linking number theory and numerical reconstruction.
 
@@ -47,6 +47,17 @@ This is the bounded-condition-number formulation of the Paley-frame conjecture i
 Searched “Paley matrix RIP conjecture 2025 2026”, “Paley ETF condition number square root bottleneck”, and the exact Satake title; checked the 2026 restatement and current arXiv records. No unconditional proof or counterexample was found. Conditional graph-discrepancy implications do not settle the quantifiers above.
 
 **Audit update (2026-09-10):** Rechecked the 2026 Conjecture 29 and searched for later Paley ETF results. The exact uniform condition-number target remains explicitly conjectured; no unconditional resolution was located. This is a bounded literature check, not a proof that no solution exists.
+
+## Arithmetic progression supports — 2026-11-28
+
+Fix $`0<\eta<1/16`$ and a positive integer $`r`$. The conjectured
+conditioning bound holds uniformly when the finite labels of $`S`$ lie
+in a union of at most $`r`$ arithmetic progressions with a common nonzero
+step, each of length at most $`p^{9/16-\eta}`$. The optional infinity
+column is allowed. The condition numbers in this family tend to one as
+$`p\to\infty`$. [Proof](progression-supports.md)
+
+The case of arbitrary column subsets remains open.
 
 <!-- navigation -->
 [All categories](../../README.md) · [Category index](../README.md) · [Read PDF](problem.pdf) · [LaTeX source](problem.tex)

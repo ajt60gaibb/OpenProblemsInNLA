@@ -2,8 +2,8 @@
 
 **Difficulty:** challenging  
 **Importance:** interesting to the community  
-**Status:** Open  
-**Last checked:** 2026-09-11
+**Status:** Partially resolved
+**Last checked:** 2026-11-28
 
 **Rating rationale:** A universal bound over every full-spark measurement design requires a structural obstruction beyond the Gaussian analysis; it matters for stable phase retrieval.
 
@@ -35,6 +35,17 @@ Do absolute constants $`C>0`$ and $`0<\beta<1`$ exist such that
 for every $`n\geq2`$ and every such $`A`$?
 
 For a full-spark matrix at this row count, the displayed definition is equivalent to the Balan–Wang definition taking the minimum over row sets whose complements fail to span $`\mathbb R^n`$. It measures a worst-conditioned square subproblem in inversion of the phaseless map $`x\mapsto |Ax|`$. The conjecture says that clever deterministic measurement design cannot avoid exponential deterioration at minimal real redundancy.
+
+## Vandermonde measurement designs — 2026-11-28
+
+The exponential bound holds for row-scaled real Vandermonde designs,
+with arbitrary distinct real nodes and nonzero row scalings. It also
+holds for homogeneous binary monomials with binomial-square-root column
+weights and arbitrary projective nodes. The bounds tolerate right basis
+changes with subexponential spectral condition number.
+[Proof](vandermonde-frames.md)
+
+The conjecture for all full-spark real frames remains open.
 
 ## References
 

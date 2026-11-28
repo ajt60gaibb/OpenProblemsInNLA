@@ -8,8 +8,8 @@
 | --- | --- | --- | --- | --- | --- |
 | [FR-01](FR-01/README.md) | Polynomial-time deterministic restricted isometries with nearly linear row count | **🔵 OPEN** | extreme | broadly interesting | [PDF](FR-01/problem.pdf) · [TeX](FR-01/problem.tex) |
 | [FR-02](FR-02/README.md) | Sharp sample complexity for restricted isometries from the cyclic Fourier matrix | **🟡 PARTIAL** | extreme | broadly interesting | [PDF](FR-02/problem.pdf) · [TeX](FR-02/problem.tex) |
-| [FR-03](FR-03/README.md) | Uniform conditioning of large Paley-frame column subsets | **🔵 OPEN** | extreme | broadly interesting | [PDF](FR-03/problem.pdf) · [TeX](FR-03/problem.tex) |
-| [FR-04](FR-04/README.md) | Universal exponential deterioration of minimally redundant real phase-retrieval frames | **🔵 OPEN** | challenging | interesting to the community | [PDF](FR-04/problem.pdf) · [TeX](FR-04/problem.tex) |
+| [FR-03](FR-03/README.md) | Uniform conditioning of large Paley-frame column subsets | **🟡 PARTIAL** | extreme | broadly interesting | [PDF](FR-03/problem.pdf) · [TeX](FR-03/problem.tex) |
+| [FR-04](FR-04/README.md) | Universal exponential deterioration of minimally redundant real phase-retrieval frames | **🟡 PARTIAL** | challenging | interesting to the community | [PDF](FR-04/problem.pdf) · [TeX](FR-04/problem.tex) |
 | [FR-08](FR-08/README.md) | Hadamard matrices at every admissible order | **🟡 PARTIAL** | extreme | broadly interesting | [PDF](FR-08/problem.pdf) · [TeX](FR-08/problem.tex) |
 | [FR-09](FR-09/README.md) | Complex equiangular tight frames with twice the dimension | **🟡 PARTIAL** | extreme | interesting to the community | [PDF](FR-09/problem.pdf) · [TeX](FR-09/problem.tex) |
 | [FR-11](FR-11/README.md) | The minimum number of quadratic measurements for generalized phase retrieval | **🟡 PARTIAL** | challenging | interesting to the community | [PDF](FR-11/problem.pdf) · [TeX](FR-11/problem.tex) |

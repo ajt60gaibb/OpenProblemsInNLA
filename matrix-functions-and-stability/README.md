@@ -6,10 +6,10 @@
 
 | ID | Problem | Status | Difficulty | Impact | Read / source |
 | --- | --- | --- | --- | --- | --- |
-| [MF-01](MF-01/README.md) | Optimal sign approximation with a multiplication budget | **🔵 OPEN** | challenging | interesting to the community | [PDF](MF-01/problem.pdf) · [TeX](MF-01/problem.tex) |
+| [MF-01](MF-01/README.md) | Optimal sign approximation with a multiplication budget | **🟡 PARTIAL** | challenging | interesting to the community | [PDF](MF-01/problem.pdf) · [TeX](MF-01/problem.tex) |
 | [MF-04](MF-04/README.md) | Finiteness for nonnegative rational matrix families | **🟡 PARTIAL** | extreme | broadly interesting | [PDF](MF-04/problem.pdf) · [TeX](MF-04/problem.tex) |
-| [MF-09](MF-09/README.md) | Decidability of strict stability for rational matrix families | **🔵 OPEN** | extreme | broadly interesting | [PDF](MF-09/problem.pdf) · [TeX](MF-09/problem.tex) |
-| [MF-10](MF-10/README.md) | Algebraicity of joint spectral radii from rational input | **🔵 OPEN** | extreme | interesting to the community | [PDF](MF-10/problem.pdf) · [TeX](MF-10/problem.tex) |
+| [MF-09](MF-09/README.md) | Decidability of strict stability for rational matrix families | **🟡 PARTIAL** | extreme | broadly interesting | [PDF](MF-09/problem.pdf) · [TeX](MF-09/problem.tex) |
+| [MF-10](MF-10/README.md) | Algebraicity of joint spectral radii from rational input | **🟡 PARTIAL** | extreme | interesting to the community | [PDF](MF-10/problem.pdf) · [TeX](MF-10/problem.tex) |
 | [MF-15](MF-15/README.md) | Critical exponent for generalized doubly nonnegative matrices | **🟡 PARTIAL** | challenging | interesting to the community | [PDF](MF-15/problem.pdf) · [TeX](MF-15/problem.tex) |
 | [MF-19](MF-19/README.md) | Decidability of zero hitting by rational matrix powers | **🟡 PARTIAL** | extreme | broadly interesting | [PDF](MF-19/problem.pdf) · [TeX](MF-19/problem.tex) |
 | [MF-20](MF-20/README.md) | Decidability of zero hitting by a matrix exponential | **🟡 PARTIAL** | extreme | broadly interesting | [PDF](MF-20/problem.pdf) · [TeX](MF-20/problem.tex) |

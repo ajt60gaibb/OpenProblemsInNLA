@@ -13,8 +13,8 @@
 | [RA-16](RA-16/README.md) | Super-exponential decay of the zero-permanent probability | **🔵 OPEN** | extreme | interesting to the community | [PDF](RA-16/problem.pdf) · [TeX](RA-16/problem.tex) |
 | [RA-17](RA-17/README.md) | Minimum linear measurements for uniform recovery of real low-rank matrices | **🟡 PARTIAL** | challenging | interesting to the community | [PDF](RA-17/problem.pdf) · [TeX](RA-17/problem.tex) |
 | [RA-18](RA-18/README.md) | The Goreinov–Tyrtyshnikov–Zamarashkin conjecture on square-submatrix inverse norms | **🟡 PARTIAL** | challenging | interesting to the community | [PDF](RA-18/problem.pdf) · [TeX](RA-18/problem.tex) |
-| [RE-01](RE-01/README.md) | Constant-factor HSS approximation in polynomial time | **🔵 OPEN** | challenging | interesting to the community | [PDF](RE-01/problem.pdf) · [TeX](RE-01/problem.tex) |
-| [RE-02](RE-02/README.md) | HSS approximation from a number of matvecs independent of depth | **🔵 OPEN** | challenging | interesting to the community | [PDF](RE-02/problem.pdf) · [TeX](RE-02/problem.tex) |
+| [RE-01](RE-01/README.md) | Constant-factor HSS approximation in polynomial time | **🟡 PARTIAL** | challenging | interesting to the community | [PDF](RE-01/problem.pdf) · [TeX](RE-01/problem.tex) |
+| [RE-02](RE-02/README.md) | HSS approximation from a number of matvecs independent of depth | **🟡 PARTIAL** | challenging | interesting to the community | [PDF](RE-02/problem.pdf) · [TeX](RE-02/problem.tex) |
 | [RE-03](RE-03/README.md) | Optimal matvec query complexity of HODLR approximation | **🟡 PARTIAL** | challenging | interesting to the community | [PDF](RE-03/problem.pdf) · [TeX](RE-03/problem.tex) |
 | [TR-03](TR-03/README.md) | Sharp gap between volume sampling and the worst matrix with a prescribed spectrum | **🟡 PARTIAL** | challenging | interesting to the community | [PDF](TR-03/problem.pdf) · [TeX](TR-03/problem.tex) |
 

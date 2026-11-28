@@ -7,8 +7,8 @@
 **Difficulty:** extreme  
 **Importance:** interesting to the community  
 **Rating rationale:** Extreme because exact arithmetic character of rational-input growth rates remains a longstanding barrier; community impact concerns representability and certification of spectral computations.  
-**Status:** Open  
-**Last checked:** 2026-09-10  
+**Status:** Partially resolved  
+**Last checked:** 2026-11-28  
 
 ## Context and notation
 
@@ -36,6 +36,16 @@ The claim is about the value being algebraic; it does not assert a uniform
 procedure for finding its minimal polynomial.
 
 ## Reference and status evidence
+
+The [finite common-range reduction](../MF-09/common-range-reduction.md#algebraicity-consequence)
+proves algebraicity when a rational family is split into a subfamily with
+algebraic joint spectral radius and generators whose images lie in a common
+rational subspace, and all maps obtained by returning to that subspace are
+simultaneously triangularizable or simultaneously similar to normal
+matrices. If the full growth rate exceeds that of the first subfamily,
+one finite word attains it. The range dimension and matrix ranks need
+not be one. This gives an exact subclass. Algebraicity for unrestricted
+rational families remains open.
 
 Jungers,
 [*The Joint Spectral Radius: Theory and Applications*](https://perso.uclouvain.be/raphael.jungers/sites/default/files/kcfinder/files/book.pdf),

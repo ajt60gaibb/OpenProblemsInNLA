@@ -6,9 +6,9 @@
 
 **Difficulty:** extreme  
 **Importance:** interesting to the community  
-**Status:** Open
+**Status:** Partially resolved
 
-**Last checked:** 2026-11-27
+**Last checked:** 2026-11-28
 
 **Rating rationale:** Finiteness would impose a general structural restriction on computational costs defined through arbitrarily large tensor powers, beyond known one-sided discreteness. This foundational constraint matters to the tensor-complexity community.
 
@@ -67,3 +67,37 @@ Vrana and Zuiddam prove that the spectral values of a *fixed* complex tensor
 form the interval from its asymptotic subrank to its asymptotic rank. The
 question here asks how many different upper endpoints occur as the tensor
 varies within a fixed format. [Vrana–Zuiddam, *The asymptotic spectrum of tensors is connected*](https://arxiv.org/abs/2611.34664v1).
+
+### Exact spectrum for matrix-pencil formats — 2026-11-28
+
+For every $`1\le b\le c`$, the attainable asymptotic ranks in
+$`\mathbb C^2\otimes\mathbb C^b\otimes\mathbb C^c`$ are exactly
+$`\{0,1,\ldots,\min(c,2b)\}`$. This covers the entire format, including
+tensors with deficient flattening ranks.
+
+For a nonzero tensor $`T`$, let $`d`$ be the maximum of the second and third
+flattening ranks. Restricting both factors to their supporting subspaces
+and then embedding in $`\mathbb C^d`$ preserves rank under every Kronecker
+power. The inclusions have linear left inverses, so the changes preserve
+rank in both directions. A generic tensor in $`\mathbb C^2\otimes \mathbb C^d\otimes\mathbb C^d`$ has slices $`A,B`$ where $`A`$ is invertible
+and $`A^{-1}B`$ has distinct eigenvalues. Multiplying both slices on the
+left by $`A^{-1}`$ and then conjugating simultaneously gives $`I`$ and a
+diagonal matrix. The tensor of the resulting pencil is a sum of $`d`$
+pure tensors. The conditions on $`A,B`$ define a nonempty Zariski open set,
+so every tensor in the square pencil format has border rank at most $`d`$.
+Bini's inequality bounds asymptotic rank above by border rank. The second
+or third flattening of $`T`$ has rank $`d`$, which is a lower bound on
+asymptotic rank because flattening rank is multiplicative under Kronecker
+powers. Hence $`\widetilde R(T)=d`$. [Bini's inequality as stated in Alman–Li, §1](https://arxiv.org/html/2605.21738v1#S1).
+
+The third flattening rank is at most $`\min(c,2b)`$ and the second is at
+most $`b\le\min(c,2b)`$. For each $`1\le r\le\min(c,2b)`$, choose $`r`$
+distinct standard basis vectors $`f_1,\ldots,f_r`$ of
+$`\mathbb C^2\otimes\mathbb C^b`$ and take
+$`T=\sum_{j=1}^r f_j\otimes e_j`$, where the $`e_j`$ are distinct standard
+basis vectors in the third factor. Its third flattening has rank $`r`$.
+Its second flattening has rank at most $`r`$ because this is a sum of
+$`r`$ pure tensors. This gives every positive value in the claimed
+spectrum, and the zero tensor gives zero. Permuting factors and inserting
+one-dimensional factors preserves these conclusions. General
+fixed-format finiteness beyond such families remains open.
