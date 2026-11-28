@@ -3,10 +3,23 @@
 **Difficulty:** extreme  
 **Importance:** interesting to the community  
 **Provenance:** explicit conjecture  
-**Status:** Partially resolved  
-**Last checked:** 2026-09-10
+**Status:** Solved  
+**Last checked:** 2026-11-27
 
 **Rating rationale:** Uniform control of the full commutator spectrum is a major strengthening of established norm bounds; it connects Sylvester operators with geometric matrix inequalities.
+
+## Resolution — 2026-11-27
+
+**Solved affirmatively.** Theorem 1 of Qiyue Tang's preprint
+[*The Lu–Wenzel Conjecture*](https://hexagonmath.org/2611.00179v2),
+version 2, proves the bound at every dimension and cutoff over the complex
+numbers. It strengthens the right-hand side to $`(2k+2)`$ times the squared
+Frobenius norm of the traceless part of $`X`$. The proof bounds the sum of
+spectral excesses above one on the traceless unit sphere.
+
+The [independent informal Codex audit](solution.md) checks the separated
+spectral Hessian, the maximum-propagation step, and both extremal cases
+in Sections 2–5 and Appendix A. The preprint discloses AI assistance.
 
 ## Problem statement
 

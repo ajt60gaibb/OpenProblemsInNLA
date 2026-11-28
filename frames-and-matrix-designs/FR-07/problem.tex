@@ -34,7 +34,7 @@ frames},pdfauthor={Open Problems in Numerical Linear Algebra}}
 \fancyhf{}
 \fancyhead[L]{\sffamily\footnotesize\color{muted}OPEN PROBLEMS IN NUMERICAL LINEAR ALGEBRA}
 \fancyhead[R]{\sffamily\bfseries\footnotesize\color{accent}FR-07}
-\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-11-26}}
+\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-11-27}}
 \fancyfoot[R]{\sffamily\footnotesize\color{muted}\thepage}
 \renewcommand{\headrulewidth}{0.3pt}
 \renewcommand{\headrule}{\hbox to\headwidth{\color{accent}\leaders\hrule height \headrulewidth\hfill}}
@@ -51,13 +51,30 @@ conjecture on maximal complex equiangular tight frames\par}
 \vspace{7pt}
 {\sffamily\small\textbf{Difficulty:} extreme\quad\textbf{Importance:} broadly
 interesting\par}
-{\sffamily\small\bfseries\color{accent}Status: Partially resolved\par}
+{\sffamily\small\bfseries\color{accent}Status: Lean verified\par}
 \vspace{4pt}
 {\color{accent}\hrule height 0.8pt}
 \vspace{6pt}
 \textbf{Rating rationale:} All-dimension SIC existence is a central
 structured-design barrier connecting frame theory, quantum information
 and arithmetic geometry.
+
+\subsection{Resolution --- 2026-11-27}\label{resolution-2026-11-27}
+
+\textbf{Solved affirmatively with Lean verification.} Section 9.2 of
+\href{https://hexagonmath.org/2610.00186v1}{\emph{Stark units for real
+quadratic fields and reciprocity laws}} by Danylo Radchenko and Campbell
+Wheeler proves the existence assertion using the ghost-SIC construction
+of Appleby, Flammia and Kopp. The preprint discloses AI assistance.
+Yaoling Yang's
+\href{https://palomar-registry.org/entry?id=PALOMAR-2026-11-26-000040&version=1}{all-dimension
+Lean proof} was independently checked by Palomar on 26 November 2026.
+Māris Ozols also produced an
+\href{https://github.com/marozols/SIC-existence}{earlier independent
+Lean development}. The
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/frames-and-matrix-designs/FR-07\#lean-proof-and-verification-evidence}{verification
+evidence} includes the argument that the formalized overlap condition
+forces the stated tight-frame identity.
 
 For every integer \(d\geq2\), do there exist \(d^2\) unit vectors
 \(\phi_1,\ldots,\phi_{d^2}\in\mathbb C^d\) satisfying
@@ -75,9 +92,8 @@ not impose additional Weyl--Heisenberg or order-three symmetry.
 These frames attain the optimal coherence for \(d^2\) unit vectors and
 lead to highly symmetric Gram matrices. Their construction is a concrete
 structured matrix design and conditioning problem with applications to
-state reconstruction. Exact all-dimension existence remains
-substantially stronger than numerical constructions in many individual
-dimensions.
+state reconstruction. The existence theorem applies to every dimension
+and yields exact overlap and tightness identities.
 
 \subsection{References}\label{references}
 
@@ -120,14 +136,69 @@ the all-dimension existence question remains unresolved; the withdrawn
 claim is not a solution. This is a bounded literature check, not a proof
 that no solution exists.
 
-\subsection{Literature update ---
-2026-11-26}\label{literature-update-2026-11-26}
+\subsection{Related partial result ---
+2026-11-26}\label{related-partial-result-2026-11-26}
 
 Hassan Khodaiemehr's November preprint reduces existence of a SIC in a
 given dimension to a condition on the Galois conjugates of the overlap
 units of an associated ghost SIC. Section VII identifies the unresolved
 arithmetic hypotheses in the reduction. The exact checks in small
-dimensions and the conditional implication leave existence in every
-dimension open. \href{https://arxiv.org/html/2611.01524v1}{Preprint,
-§§VI.4 and VII}.
+dimensions and the conditional implication do not supply the
+unconditional arithmetic input established in the resolution above.
+\href{https://arxiv.org/html/2611.01524v1}{Preprint, §§VI.4 and VII}.
+
+\subsection{Lean proof and verification
+evidence}\label{lean-proof-and-verification-evidence}
+
+\textbf{Source and theorem.} The
+\href{https://github.com/Hertaspace/sic-povm-lean/tree/e74571352233162adee70895903d82f8465fd054}{immutable
+proof source} uses Lean \textit{v4.36.0}. The
+\href{https://github.com/Hertaspace/sic-povm-lean/blob/e74571352233162adee70895903d82f8465fd054/lake-manifest.json}{dependency
+manifest} pins Mathlib to
+\textit{fc4f59e577feb1a4956671bc04ac18aaaf8cd842} and Naganori
+Yamaguchi's class field theory library to
+\textit{fc644f42dade5bdc7157fc3ef2eef4dbf2d6a565}. The main declaration
+\textit{OpenQuantumProblem23.sicPOVMs} in
+\href{https://github.com/Hertaspace/sic-povm-lean/blob/e74571352233162adee70895903d82f8465fd054/SICLean/Solution.lean}{the
+solution module} uses \textit{SICLean.FinalAssembly.zaunerExistence}.
+For each natural dimension at least one it gives
+\textit{Fin (d \^{}\ 2)}-indexed vectors in the complex Euclidean
+space \(\mathbb C^d\), encoded by \textit{EuclideanSpace}. Each vector
+has norm one, and for distinct indices the squared modulus of the
+coordinate inner product is the real number \((d+1)^{-1}\). The
+\href{https://github.com/Hertaspace/sic-povm-lean/blob/e74571352233162adee70895903d82f8465fd054/Challenge.lean}{compared
+challenge} states these definitions and the same quantifiers. The
+original FR-07 dimensions start at two.
+
+\textbf{Tightness.} Let \(S=\sum_i\phi_i\phi_i^*\) for the formalized
+witness. Then \(\mathop{\mathrm{tr}}\nolimits S=d^2\) and
+
+\[\mathop{\mathrm{tr}}\nolimits S^2
+=\sum_{i,j}|\phi_i^*\phi_j|^2
+=d^2+\frac{d^2(d^2-1)}{d+1}=d^3.\]
+
+Hence
+\(\|S-dI_d\|_F^2=\mathop{\mathrm{tr}}\nolimits S^2-2d\mathop{\mathrm{tr}}\nolimits S+d^3=0\).
+Thus the same vectors satisfy both displays in the canonical statement.
+The trace argument is the catalog's mathematical statement comparison.
+
+\textbf{Checks and reproduction.}
+\href{https://github.com/PalomarRegistry/PalomarSubmission/actions/runs/45755702568}{Palomar
+run 45755702568} verified the pinned revision on 26 November 2026. Its
+\href{https://data.palomar-registry.org/evidence/PALOMAR-2026-11-26-000040-v1/ca365cca899b61b8359b205ff8cff7f600d23ea732e58e377559b773a00f4a43/mechanical-report.json}{mechanical
+report} records successful build and Comparator checks. The solution and
+challenge digests in that report match the pinned files. The
+\href{https://github.com/Hertaspace/sic-povm-lean/blob/e74571352233162adee70895903d82f8465fd054/VERIFICATION.md}{public
+proof log} records successful \textit{lake build},
+\textit{lake env lean CheckAxioms.lean} and
+\textit{lake comparator -\/-paranoid} on 24--25 November, with the
+standard transitive axioms \textit{propext}, \textit{Classical.choice}
+and \textit{Quot.sound}. The
+\href{https://data.palomar-registry.org/evidence/PALOMAR-2026-11-26-000040-v1/ca365cca899b61b8359b205ff8cff7f600d23ea732e58e377559b773a00f4a43/review.json}{automated
+review} confirmed the statement and definitions. It records that the
+proof summary omits the finite-or-cofinite coordinate-image argument and
+the transfer to complex solutions, both present in the checked sources.
+The catalog checked the pinned statement, hashes, and public reports and
+reran the structural challenge comparison. The public logs supply the
+Lean kernel replay.
 \end{document}

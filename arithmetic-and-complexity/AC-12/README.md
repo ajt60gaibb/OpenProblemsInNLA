@@ -7,17 +7,31 @@
 **Difficulty:** challenging  
 **Importance:** interesting to specialist  
 **Rating rationale:** Challenging because equality of the full permanent ranges requires a uniform value-preserving construction or an obstruction; specialist importance concerns structural realization of discrete matrix invariants.  
-**Status:** Partially resolved
-**Last checked:** 2026-09-11
+**Status:** Solved
+**Last checked:** 2026-11-27
+
+## Resolution — 2026-11-27
+
+**Solved negatively.** Theorem 1.1 of
+[*An order-eleven counterexample to triangular realization of sign matrix
+permanents*](https://hexagonmath.org/2611.00424v1) constructs a sign
+matrix of order eleven with permanent $`2{,}029{,}568`$. It proves that no
+order-eleven sign matrix with all entries below the diagonal equal to
+$`+1`$ has that permanent. The paper is signed OpenBMB and was deposited
+by Weiming Zhang.
+
+The [independent informal Codex audit](solution.md) checked the suffix
+recurrence and pruning argument, reproduced all 34,099 terminal cofactor
+profiles and verified the witness and terminal exclusions separately.
 
 <!-- colbrook-arithmetic -->
 ## Independently reviewed finite cases - 2026-09-11
 
-Exact restricted-family witnesses and exhaustive unrestricted-range inclusion checks establish equality of the signed permanent ranges for every order $`1\leq n\leq10`$. Entries below the diagonal are $`+1`$, and negative diagonal entries are allowed, exactly as in the original target. Both witness membership and exhaustive inclusion are checked. The all-orders assertion, including orders $`n\geq11`$, remains unresolved.
+Exact restricted-family witnesses and exhaustive unrestricted-range inclusion checks establish equality of the signed permanent ranges for every order $`1\leq n\leq10`$. Entries below the diagonal are $`+1`$, and negative diagonal entries are allowed, exactly as in the original target. Both witness membership and exhaustive inclusion are checked. At the September review, the all-orders assertion remained unresolved.
 
 **Author:** Matthew J. Colbrook, Department of Applied Mathematics and Theoretical Physics, University of Cambridge. [Complete manuscript](../../references/colbrook-arithmetic-2026-09-11/manuscripts/AC-11-12.pdf), [independent review](../../references/colbrook-arithmetic-2026-09-11/verification/reviews/AC-11-12-review.md), and [submission record](../../references/colbrook-arithmetic-2026-09-11/README.md). AI assistance is disclosed. Agent verification is not external human peer review or formal certification; no novelty or priority claim is made.
 
-The [fresh certificate checks](../../references/colbrook-arithmetic-2026-09-11/verification/fresh/README.md) complement the analytic review. The remaining universal target and its ratings are retained.
+The [fresh certificate checks](../../references/colbrook-arithmetic-2026-09-11/verification/fresh/README.md) complement the analytic review. The canonical statement and its historical ratings follow below.
 
 <!-- /colbrook-arithmetic -->
 

@@ -2,10 +2,29 @@
 
 **Difficulty:** extreme  
 **Importance:** interesting to the community  
-**Status:** Partially resolved  
-**Last checked:** 2026-09-10
+**Status:** Solved  
+**Last checked:** 2026-11-27
 
 **Rating rationale:** The unrestricted PSD permanent inequality has resisted decades of work; it would advance a central collection of matrix-function inequalities.
+
+## Resolution — 2026-11-27
+
+**Solved affirmatively.** Zhouding Liu's
+[*Gram variance and permutation information in Chollet's permanent
+inequality*](https://doi.org/10.5281/zenodo.24423034), Theorem 1.1,
+proves the inequality for complex Hermitian positive semidefinite
+pairs of every order. Liu's matrix-to-scalar reduction combines
+Gaussian moments, a matching law, and an entropy bound for a
+permutation law. Yi Yu's
+[independent proof of the scalar inequality](https://doi.org/10.5281/zenodo.24562562),
+Theorem 3.1 and Remark 8.1, provides a second route to the required
+nonnegative edge budgets.
+
+The [independent informal Codex audit](solution.md) checked Liu's
+reduction, verified the correspondence of the scalar budgets, and
+regenerated and replayed all 360,174 boxes of Yu's nonnegativity
+certificate with Arb interval arithmetic. Both manuscripts disclose
+AI assistance.
 
 For an $`n\times n`$ matrix $`C=(c_{ij})`$, define
 

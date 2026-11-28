@@ -7,7 +7,7 @@
 **Difficulty:** extreme  
 **Importance:** interesting to the community  
 **Status:** Partially resolved  
-**Last checked:** 2026-09-11  
+**Last checked:** 2026-11-27  
 
 **Rating rationale:** Extreme reflects a sharp asymptotic rate tied to longstanding gaps in Hadamard constructions; community impact is a quantitative limit on nearly orthogonal sign matrices.
 
@@ -57,6 +57,29 @@ Alexeev, Jasper, and Mixon,
 its decay-exponent question. Steinerberger,
 [*Open Problems*](https://faculty.washington.edu/steinerb/openproblems.pdf),
 Problem 69, November 2025 update, identifies the sharp rate as unresolved.
+
+## Improved lower bound on the exponent — 2026-11-27
+
+Joshua Mark's [paper at the registered revision](https://github.com/L-iet/HadamardTensorStability/blob/847ccb97f60d099ae05215df7ff8c003f482783a/paper/main.pdf),
+Theorems 13.2–13.3, gives constants $`E>0`$ and $`N`$ such that
+
+```math
+h(n)-1\le n^{-1/4}\exp\!\left(E\frac{\log n}{\log\log n}\right)
+\qquad(n\ge N).
+```
+
+The proof uses the subpolynomial gap to a Hadamard order, repairs a
+submatrix to obtain an almost flat orthogonal matrix, and rounds to
+signs with an operator-norm error bound. The study and its Lean
+development are [registered with Palomar](https://palomar-registry.org/entry?id=PALOMAR-2026-11-27-000016&version=1).
+
+For every $`\alpha<1/4`$, the exponential factor is at most
+$`n^{1/4-\alpha}`$ eventually. A larger constant covers the finitely
+many small orders, since nonsingular sign matrices exist at every
+order. For $`n\ge3`$ one example is $`\mathbf1\mathbf1^T-2I_n`$,
+and orders one and two admit Hadamard matrices. Thus the uniform
+definition in this entry gives $`1/4\le\alpha_*\le1/2`$, using
+Colbrook's upper bound. The exact exponent remains open.
 
 ## Earlier status check — 2026-09-08
 
