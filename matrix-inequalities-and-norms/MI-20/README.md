@@ -7,9 +7,35 @@
 **Difficulty:** challenging  
 **Importance:** interesting to the community  
 **Status:** Open  
-**Last checked:** 2026-09-13
+**Last checked:** 2026-11-27
 
 **Rating rationale:** Determining a sharp two-parameter function after the proposed formula failed is challenging; matrix-sum bounds affect norm estimates used across NLA.
+
+## Structural non-attainment and exact 2×2 collapse — 27 November 2026
+
+**Author:** Marcio Diaz (Space AI). [Preprint PDF](../../references/diaz-mi20-2026-11-27/mi20_subquadratic_lee_whitepaper.pdf) · [Zenodo DOI 10.5281/zenodo.24591861](https://doi.org/10.5281/zenodo.24591861) · [Submission and reproduction scripts](../../references/diaz-mi20-2026-11-27/README.md).
+
+For every $`1 < p < 2`$ and $`m \ge 2`$, the optimal constants increase
+strictly with matrix dimension over both the real and complex fields
+(Theorem 1). This confirms the dimensional growth suggested in Qiu's §5.
+Corollary 1 transfers the result to concave-function Lee constants using
+Xing Li's Theorem 1.1. On an infinite-dimensional separable Hilbert space,
+every summand of an attaining tuple would have to have infinite rank
+(Theorem 2).
+
+Theorem 3 determines the same $`2\times 2`$ constant over both fields
+for every $`p > 1`$ and $`m \ge 2`$. It is independent of the number of
+summands and gives $`C_{3/2,m}(2) = ((107 + 51\sqrt{17})/256)^{1/6}`$
+and $`C_{4/3,m}(2) \approx 1.0183023754`$. Theorem 4 supplies explicit
+integer $`2\times 3`$ witnesses above the $`2\times 2`$ optimum for
+$`p \in \{3/2, 4/3, 5/4\}`$, with exact rational certificates.
+Proposition 5 gives a rank obstruction for a finite tuple attaining the
+dimension-independent constant at $`p \ge 2`$.
+
+The dimension-independent constant $`C_p(m) = C_{p,m}(\infty)`$
+remains undetermined across the requested range. The
+[audit and reproduction notes](../../references/diaz-mi20-2026-11-27/README.md#audit-notes)
+record the scope of the informal review.
 
 ## Reviewed continuation — 13 September 2026
 
