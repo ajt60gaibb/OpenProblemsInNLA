@@ -2,8 +2,9 @@
   MI20/AxiomAudit.lean
   ====================
   Author:      Marcio Díaz (Space Research AI, https://spaceresearch.ai, marcio.diaz@gmail.com)
-  Purpose:     Verify that every major theorem in the 10-module MI-20 Lean 4 + Mathlib
-               formalization depends ONLY on Lean's three standard axioms
+  Purpose:     Verify that every major theorem in the 13-module MI-20 Lean 4 + Mathlib
+               formalization (40 V4 theorems + 23 V5 theorems + 10 V5-Blitz theorems = 73 audited theorems)
+               depends ONLY on Lean's three standard axioms
                `[propext, Classical.choice, Quot.sound]`, with zero `sorry` and zero
                custom axioms.
 -/
@@ -50,3 +51,36 @@ import MI20
 #print axioms MI20.two_function_cap_p32_m2
 #print axioms MI20.two_function_cap_p43_m2
 #print axioms MI20.bessel_two_line_identity_p43
+#print axioms MI20.quantitative_power_variance_lemma
+#print axioms MI20.universal_spectral_gap_theorem
+#print axioms MI20.bogomolny_sos_identity_p43
+#print axioms MI20.vacuum_defect_cubic_identity_p43
+#print axioms MI20.bogomolny_sos_identity_p32
+#print axioms MI20.pinching_decomposition_p43
+#print axioms MI20.pinching_decomposition_p32
+#print axioms MI20.action_ray_convexity_p43
+#print axioms MI20.action_ray_convexity_p32
+#print axioms MI20.negative_trace_drift_2x2_p43
+#print axioms MI20.sum_trace_negSpectralProj_le
+#print axioms MI20.master_trace_implies_no_global_solution
+#print axioms MI20.spectral_pencil_factorization_p43
+#print axioms MI20.spectral_pencil_factorization_p32
+#print axioms MI20.spectral_pencil_disjoint_kernels_p43
+#print axioms MI20.spectral_pencil_rhp_roots_p43
+#print axioms MI20.lemma0_lambda_sigma_minus_gt_one
+#print axioms MI20.spectral_pencil_rho4_lt_half
+#print axioms MI20.spectral_pencil_rho3_lt_half
+#print axioms MI20.two_vector_cancellation_identity_p43
+#print axioms MI20.spectral_gap_cert_mu0_p43
+#print axioms MI20.spectral_gap_cert_interval_p43
+#print axioms MI20.fifth_universal_quadratic_moment_identity
+#print axioms MI20.universal_phi_psd_rigidity
+#print axioms MI20.third_root_harmonic_mean_bound
+#print axioms MI20.third_root_pencil_rho4_lt_eighth
+#print axioms MI20.pinching_second_variation_pos_p43
+#print axioms MI20.pinching_second_variation_pos_p32
+#print axioms MI20.hessian_det_pos_2x2_p43
+#print axioms MI20.master_trace_2x2_p43
+#print axioms MI20.master_trace_2x2_p32
+#print axioms MI20.euler_betti_root_identity
+#print axioms MI20.hessian_sign_pairs_all_p

@@ -17,6 +17,19 @@
       Theorem 4 (end-to-end pure-integer operator-monotone Sylvester certificate at p = 3/2)
     - Theorem 5 (exact PSD-splitting & POVM reformulation for 1 < p < 2)
     - Theorem 6 (Hadamard three-lines log-convexity & dimension-free p = 2 upper bound)
+    - Theorems 9, 10, 10B (universal commutator/quadratic/two-function bounds & superexponential
+      p → 2 collapse)
+    - V5 Breakthroughs (`MI20.V5_NewTheorems`, 23 audited theorems): quantitative power-variance
+      and universal spectral gap, exact closed-form Bogomolny/SOS identities at p = 4/3 & p = 3/2,
+      vacuum-defect cubic, pinching energy decompositions, action-ray convexity, 2×2 negative trace
+      drift, Grassmann codimension Master-Trace ⟹ Piece 1 implication, matrix-pencil factorizations
+      & uniform S_p contraction ρ_{2κ}(s) < 1/2, zero-float rational 2-vector spectral-gap
+      certificates, and the 5th universal quadratic moment identity.
+    - V5 Blitz Breakthroughs (`MI20.V5_BlitzTheorems`, 10 audited theorems): universal Φ ⪰ 0
+      rigidity for all κ > 1, third-root harmonic-mean & ρ₄ < 1/8 contraction at p = 4/3,
+      strict positive pinching second variation at p = 4/3 & p = 3/2, exact 2×2 Hessian
+      determinant positivity & Master Trace inequalities at p = 4/3 & p = 3/2, Euler–Betti
+      root identity, and all-p Hessian sign pairs.
 
   Zero `sorry`, zero custom axioms (only Lean's standard [propext, Classical.choice, Quot.sound]).
 -/
@@ -32,3 +45,5 @@ import MI20.Theorem5_PSDReduction
 import MI20.Theorem6_LogConvexity
 import MI20.Theorem9_10_CommutatorAndQuadraticBound
 import MI20.Theorem10B_SharpUniversalAndSuperexp
+import MI20.V5_NewTheorems
+import MI20.V5_BlitzTheorems
