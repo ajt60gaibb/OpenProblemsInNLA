@@ -8,8 +8,20 @@
 **Importance:** interesting to the community  
 **Rating rationale:** Challenging because the SSC promise gives identifiability without a known polynomial optimization method; community importance reflects minimum-volume factorization in source separation and data analysis.  
 **Topic:** structured matrix factorization; global optimization  
-**Last checked:** 2026-09-13  
-**Status:** Open  
+**Last checked:** 2026-11-27  
+**Status:** Partially resolved  
+
+## Exact decision with a bounded column surplus — 2026-11-27
+
+The [bounded-surplus proof](fixed-surplus.md) gives a deterministic
+polynomial-time algorithm for the exact rational threshold decision when
+the number of vertices of the data hull exceeds the rank by at most a fixed
+constant. The rank itself may grow. This includes every fixed bound on
+$`n-r`$. It uses facet enumeration followed by approximation of the volume
+of the maximum-volume inscribed ellipsoid and a rational gap bound that
+also decides equality with the threshold. The argument uses the original
+SSC promise and has no access to its hidden factors. The decision for an
+unbounded vertex surplus remains open.
 
 ## Reviewed partial progress — 2026-09-13
 
