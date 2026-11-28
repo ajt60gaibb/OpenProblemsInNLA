@@ -34,7 +34,7 @@ matrices},pdfauthor={Open Problems in Numerical Linear Algebra}}
 \fancyhf{}
 \fancyhead[L]{\sffamily\footnotesize\color{muted}OPEN PROBLEMS IN NUMERICAL LINEAR ALGEBRA}
 \fancyhead[R]{\sffamily\bfseries\footnotesize\color{accent}NR-02}
-\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-09-13}}
+\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-11-27}}
 \fancyfoot[R]{\sffamily\footnotesize\color{muted}\thepage}
 \renewcommand{\headrulewidth}{0.3pt}
 \renewcommand{\headrule}{\hbox to\headwidth{\color{accent}\leaders\hrule height \headrulewidth\hfill}}
@@ -52,40 +52,44 @@ for Cartesian-product slack matrices\par}
 \vspace{7pt}
 {\sffamily\small\textbf{Difficulty:} extreme\quad\textbf{Importance:} interesting
 to the community\par}
-{\sffamily\small\bfseries\color{accent}Status: Partially resolved\par}
+{\sffamily\small\bfseries\color{accent}Status: Solved\par}
 \vspace{4pt}
 {\color{accent}\hrule height 0.8pt}
 \vspace{6pt}
-\textbf{Rating rationale:} Extreme because additivity across arbitrary
-polytopes is a general structural barrier for extension complexity;
-community importance links optimal factorizations with compositional
-linear optimization models.
+\textbf{Rating rationale:} Historical rating of the original target.
+Additivity across arbitrary polytopes posed a general structural barrier
+for extension complexity, linking optimal factorizations with
+compositional linear optimization models.
 
 \textbf{Area:} nonnegative rank and polyhedral optimization
 
-\subsection{Reviewed continuation --- 13 September
-2026}\label{reviewed-continuation-13-september-2026}
+\subsection{Negative resolution --- 27 November
+2026}\label{negative-resolution-27-november-2026}
 
-Sidney Holden (Center for Computational Biology, Flatiron Institute,
-Simons Foundation) supplies a computer-assisted proof that
-\(\mathop{\mathrm{xc}}\nolimits(P\times Q)=12\) whenever both factors
-are polygons of extension complexity six. The
-\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/references/holden-continuations-2026-09-13/NR-02/report.pdf}{fourth-round
-report}, main theorem and geometry-to-Boolean reduction, reduces this
-statement to ten exact LRAT refutations. The broader inherited
-all-polytopes corollary in the package was not independently re-audited
-in this submission.
+Minhao Liu's \href{https://arxiv.org/html/2611.33631v1\#S1}{Theorem 1},
+submitted 25 November 2026, constructs a full-dimensional rational
+polytope \(P\subset\mathbb R^{24}\) with 50 facets and 150 vertices. The
+extension complexities are 40 for \(P\) and 79 for \(P\times P\). If
+\(S\) is the full facet--vertex slack matrix of \(P\) and \(C\) is the
+matrix in the original statement with \(Q=P\), Yannakakis' factorization
+theorem gives
 
-Status remains \textbf{Partially resolved}: arbitrary higher-complexity
-factors and unrestricted Cartesian-product additivity are not settled.
+\[\mathop{\mathrm{rank}}\nolimits_+(C)=79
+<80=2\mathop{\mathrm{rank}}\nolimits_+(S).\]
+
+\href{https://arxiv.org/html/2611.33631v1\#S5.SS3}{Section 5.3} supplies
+the polytope inequalities. Proposition 9 gives the two real nonnegative
+ranks for the selected rows, and Theorem 3 transfers them to the full
+slack matrices by adding 26 for one factor and 52 for the square.
 
 The
-\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/references/holden-continuations-2026-09-13/verification/NR-02/review.md}{independent
-informal Codex AI-agent review} records its accepted scope and checks.
-\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/references/holden-continuations-2026-09-13/README.md}{Submission,
-original package, reproduction and verified affiliation}. This is not
-external human peer review or formal verification; no Lean verification
-was performed.
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/nonnegative-and-positive-factorizations/NR-02/solution.md}{independent
+Codex proof note} verifies the strict gap with a limiting argument for
+Liu's matrices and a direct proof that the retained coordinate rows are
+facets. The review is informal and AI-assisted. Lluis Eriksson's
+\href{https://airr.science/papers/ARR-2026-0WKHQBJJDA8C4VPT/versions/v1/}{companion
+verification} checks selected finite steps using exact arithmetic and
+Lean.
 
 \subsection{Context and notation}\label{context-and-notation}
 
@@ -141,4 +145,26 @@ pyramid, a substantive portion of the displayed target. The unrestricted
 equality remains open in the latest explicit source located; no
 subsequent full resolution was found. The 2022 date limits the strength
 of the current-status evidence.
+
+\subsection{Reviewed continuation --- 13 September
+2026}\label{reviewed-continuation-13-september-2026}
+
+Sidney Holden (Center for Computational Biology, Flatiron Institute,
+Simons Foundation) supplies a computer-assisted proof that
+\(\mathop{\mathrm{xc}}\nolimits(P\times Q)=12\) whenever both factors
+are polygons of extension complexity six. The
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/references/holden-continuations-2026-09-13/NR-02/report.pdf}{fourth-round
+report}, main theorem and geometry-to-Boolean reduction, reduces this
+statement to ten exact LRAT refutations. The broader inherited
+all-polytopes corollary in the package was not independently re-audited
+in this submission.
+
+This was the basis for the September \textbf{Partially resolved}
+classification. The
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/references/holden-continuations-2026-09-13/verification/NR-02/review.md}{independent
+informal Codex AI-agent review} records its accepted scope and checks.
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/references/holden-continuations-2026-09-13/README.md}{Submission,
+original package, reproduction and verified affiliation}. This is not
+external human peer review or formal verification; no Lean verification
+was performed.
 \end{document}

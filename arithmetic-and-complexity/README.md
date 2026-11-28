@@ -6,8 +6,8 @@
 
 | ID | Problem | Status | Difficulty | Impact | Read / source |
 | --- | --- | --- | --- | --- | --- |
-| [AC-02](AC-02/README.md) | Exact bilinear rank of the $`3\times3`$ matrix product | **🔵 OPEN** | extreme | interesting to the community | [PDF](AC-02/problem.pdf) · [TeX](AC-02/problem.tex) |
-| [AC-03](AC-03/README.md) | Border rank of the $`3\times3`$ matrix product | **🔵 OPEN** | extreme | interesting to the community | [PDF](AC-03/problem.pdf) · [TeX](AC-03/problem.tex) |
+| [AC-02](AC-02/README.md) | Exact bilinear rank of the $`3\times3`$ matrix product | **🟡 PARTIAL** | extreme | interesting to the community | [PDF](AC-02/problem.pdf) · [TeX](AC-02/problem.tex) |
+| [AC-03](AC-03/README.md) | Border rank of the $`3\times3`$ matrix product | **🟡 PARTIAL** | extreme | interesting to the community | [PDF](AC-03/problem.pdf) · [TeX](AC-03/problem.tex) |
 | [AC-06](AC-06/README.md) | Explicit tensors with quadratic border rank | **🔵 OPEN** | extreme | broadly interesting | [PDF](AC-06/problem.pdf) · [TeX](AC-06/problem.tex) |
 | [AC-07](AC-07/README.md) | Scholz–Brauer inequality for multiplication chains | **🟡 PARTIAL** | extreme | interesting to specialist | [PDF](AC-07/problem.pdf) · [TeX](AC-07/problem.tex) |
 | [AC-08](AC-08/README.md) | Knuth–Stolarsky lower bound for addition chains | **🟡 PARTIAL** | extreme | interesting to specialist | [PDF](AC-08/problem.pdf) · [TeX](AC-08/problem.tex) |

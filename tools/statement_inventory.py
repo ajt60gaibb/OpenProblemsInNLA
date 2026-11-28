@@ -38,6 +38,12 @@ EXTERNAL_PROJECTS = {
         "statement_path": "lean/OAI/LinearAlgebra/MatrixExponent/FieldFormula.lean",
         "entry_point": "lean/OAI/LinearAlgebra/SpectralBooks/ExactExponent.lean",
     },
+    "FR-07": {
+        "repository": "https://github.com/Hertaspace/sic-povm-lean",
+        "revision": "e74571352233162adee70895903d82f8465fd054",
+        "statement_path": "Challenge.lean",
+        "entry_point": "SICLean/Solution.lean",
+    },
     "IE-01": {
         "repository": "https://github.com/sgstepaniants/Forsythe",
         "revision": "8d1b0c0545a77b40245e84705aa7d273e6c81e62",

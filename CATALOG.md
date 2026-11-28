@@ -1,8 +1,8 @@
 # All problems and their status
 
-**79 problems with open targets:** 27 open and 52 partially resolved. **139 other retained entries**, excluded from the open count.
+**78 problems with open targets:** 22 open and 56 partially resolved. **140 other retained entries**, excluded from the open count.
 
-**Resolution evidence:** 42 solved (published or independently audited); 90 solved with Lean verification.
+**Resolution evidence:** 43 solved (published or independently audited); 90 solved with Lean verification.
 
 Each entry records its own literature-check date. Literature checks are bounded; ratings are editorial. “Impact” uses the canonical `Importance` field.
 
@@ -49,7 +49,7 @@ Retained entries outside the open count:
 
 | ID | Problem | Status | Difficulty | Impact | Read / source |
 | --- | --- | --- | --- | --- | --- |
-| [IS-01](eigenvalues-and-inverse-problems/IS-01/README.md) | Two permutation matrices generate the doubly stochastic spectral boundary | **🔵 OPEN** | challenging | interesting to the community | [PDF](eigenvalues-and-inverse-problems/IS-01/problem.pdf) · [TeX](eigenvalues-and-inverse-problems/IS-01/problem.tex) |
+| [IS-01](eigenvalues-and-inverse-problems/IS-01/README.md) | Two permutation matrices generate the doubly stochastic spectral boundary | **🟡 PARTIAL** | challenging | interesting to the community | [PDF](eigenvalues-and-inverse-problems/IS-01/problem.pdf) · [TeX](eigenvalues-and-inverse-problems/IS-01/problem.tex) |
 | [IS-05](eigenvalues-and-inverse-problems/IS-05/README.md) | The optimal decay exponent for the conditioning of sign matrices | **🟡 PARTIAL** | extreme | interesting to the community | [PDF](eigenvalues-and-inverse-problems/IS-05/problem.pdf) · [TeX](eigenvalues-and-inverse-problems/IS-05/problem.tex) |
 | [SP-01](eigenvalues-and-inverse-problems/SP-01/README.md) | The sharp generic threshold for spectral-subspace rotation | **🔵 OPEN** | challenging | interesting to the community | [PDF](eigenvalues-and-inverse-problems/SP-01/problem.pdf) · [TeX](eigenvalues-and-inverse-problems/SP-01/problem.tex) |
 | [SP-02](eigenvalues-and-inverse-problems/SP-02/README.md) | The sharp off-diagonal threshold for spectral-subspace rotation | **🔵 OPEN** | challenging | interesting to the community | [PDF](eigenvalues-and-inverse-problems/SP-02/problem.pdf) · [TeX](eigenvalues-and-inverse-problems/SP-02/problem.tex) |
@@ -93,7 +93,7 @@ Retained entries outside the open count:
 | [MF-15](matrix-functions-and-stability/MF-15/README.md) | Critical exponent for generalized doubly nonnegative matrices | **🟡 PARTIAL** | challenging | interesting to the community | [PDF](matrix-functions-and-stability/MF-15/problem.pdf) · [TeX](matrix-functions-and-stability/MF-15/problem.tex) |
 | [MF-19](matrix-functions-and-stability/MF-19/README.md) | Decidability of zero hitting by rational matrix powers | **🟡 PARTIAL** | extreme | broadly interesting | [PDF](matrix-functions-and-stability/MF-19/problem.pdf) · [TeX](matrix-functions-and-stability/MF-19/problem.tex) |
 | [MF-20](matrix-functions-and-stability/MF-20/README.md) | Decidability of zero hitting by a matrix exponential | **🟡 PARTIAL** | extreme | broadly interesting | [PDF](matrix-functions-and-stability/MF-20/problem.pdf) · [TeX](matrix-functions-and-stability/MF-20/problem.tex) |
-| [MF-25](matrix-functions-and-stability/MF-25/README.md) | Maximum degree of real polynomials with a multiplication budget | **🔵 OPEN** | challenging | interesting to the community | [PDF](matrix-functions-and-stability/MF-25/problem.pdf) · [TeX](matrix-functions-and-stability/MF-25/problem.tex) |
+| [MF-25](matrix-functions-and-stability/MF-25/README.md) | Maximum degree of real polynomials with a multiplication budget | **🟡 PARTIAL** | challenging | interesting to the community | [PDF](matrix-functions-and-stability/MF-25/problem.pdf) · [TeX](matrix-functions-and-stability/MF-25/problem.tex) |
 
 Retained entries outside the open count:
 
@@ -201,9 +201,8 @@ Retained entries outside the open count:
 
 | ID | Problem | Status | Difficulty | Impact | Read / source |
 | --- | --- | --- | --- | --- | --- |
-| [NM-01](nonnegative-and-positive-factorizations/NM-01/README.md) | Polynomial-time minimum-volume decision under sufficient scattering | **🔵 OPEN** | challenging | interesting to the community | [PDF](nonnegative-and-positive-factorizations/NM-01/problem.pdf) · [TeX](nonnegative-and-positive-factorizations/NM-01/problem.tex) |
+| [NM-01](nonnegative-and-positive-factorizations/NM-01/README.md) | Polynomial-time minimum-volume decision under sufficient scattering | **🟡 PARTIAL** | challenging | interesting to the community | [PDF](nonnegative-and-positive-factorizations/NM-01/problem.pdf) · [TeX](nonnegative-and-positive-factorizations/NM-01/problem.tex) |
 | [NR-01](nonnegative-and-positive-factorizations/NR-01/README.md) | Exact nonnegative rank of regular polygon slack matrices | **🟡 PARTIAL** | challenging | interesting to the community | [PDF](nonnegative-and-positive-factorizations/NR-01/problem.pdf) · [TeX](nonnegative-and-positive-factorizations/NR-01/problem.tex) |
-| [NR-02](nonnegative-and-positive-factorizations/NR-02/README.md) | Additivity for Cartesian-product slack matrices | **🟡 PARTIAL** | extreme | interesting to the community | [PDF](nonnegative-and-positive-factorizations/NR-02/problem.pdf) · [TeX](nonnegative-and-positive-factorizations/NR-02/problem.tex) |
 | [PF-01](nonnegative-and-positive-factorizations/PF-01/README.md) | Exact positive semidefinite rank of subset-intersection matrices | **🟡 PARTIAL** | challenging | interesting to specialist | [PDF](nonnegative-and-positive-factorizations/PF-01/problem.pdf) · [TeX](nonnegative-and-positive-factorizations/PF-01/problem.tex) |
 
 Retained entries outside the open count:
@@ -212,6 +211,7 @@ Retained entries outside the open count:
 | --- | --- | --- | --- | --- | --- |
 | [NM-03](nonnegative-and-positive-factorizations/NM-03/README.md) | Complexity of globally optimal nonnegative rank-two approximation | **✅ SOLVED** | challenging | interesting to the community | [PDF](nonnegative-and-positive-factorizations/NM-03/problem.pdf) · [TeX](nonnegative-and-positive-factorizations/NM-03/problem.tex) |
 | [NM-04](nonnegative-and-positive-factorizations/NM-04/README.md) | The Rowland–Wu polynomial identity for Sinkhorn limits | **🏆 LEAN VERIFIED** | challenging | interesting to the community | [PDF](nonnegative-and-positive-factorizations/NM-04/problem.pdf) · [TeX](nonnegative-and-positive-factorizations/NM-04/problem.tex) |
+| [NR-02](nonnegative-and-positive-factorizations/NR-02/README.md) | Additivity for Cartesian-product slack matrices | **✅ SOLVED** | extreme | interesting to the community | [PDF](nonnegative-and-positive-factorizations/NR-02/problem.pdf) · [TeX](nonnegative-and-positive-factorizations/NR-02/problem.tex) |
 | [NR-03](nonnegative-and-positive-factorizations/NR-03/README.md) | Full nonnegative rank of the quadratic correlation matrix | **🏆 LEAN VERIFIED** | extreme | broadly interesting | [PDF](nonnegative-and-positive-factorizations/NR-03/problem.pdf) · [TeX](nonnegative-and-positive-factorizations/NR-03/problem.tex) |
 | [NR-04](nonnegative-and-positive-factorizations/NR-04/README.md) | The nonnegative rank of the nine-point distance matrix | **🏆 LEAN VERIFIED** | hard | interesting to specialist | [PDF](nonnegative-and-positive-factorizations/NR-04/problem.pdf) · [TeX](nonnegative-and-positive-factorizations/NR-04/problem.tex) |
 | [PF-02](nonnegative-and-positive-factorizations/PF-02/README.md) | Connectedness of minimal positive semidefinite factorization orbits | **🏆 LEAN VERIFIED** | challenging | interesting to the community | [PDF](nonnegative-and-positive-factorizations/PF-02/problem.pdf) · [TeX](nonnegative-and-positive-factorizations/PF-02/problem.tex) |
@@ -307,8 +307,8 @@ Retained entries outside the open count:
 
 | ID | Problem | Status | Difficulty | Impact | Read / source |
 | --- | --- | --- | --- | --- | --- |
-| [AC-02](arithmetic-and-complexity/AC-02/README.md) | Exact bilinear rank of the $`3\times3`$ matrix product | **🔵 OPEN** | extreme | interesting to the community | [PDF](arithmetic-and-complexity/AC-02/problem.pdf) · [TeX](arithmetic-and-complexity/AC-02/problem.tex) |
-| [AC-03](arithmetic-and-complexity/AC-03/README.md) | Border rank of the $`3\times3`$ matrix product | **🔵 OPEN** | extreme | interesting to the community | [PDF](arithmetic-and-complexity/AC-03/problem.pdf) · [TeX](arithmetic-and-complexity/AC-03/problem.tex) |
+| [AC-02](arithmetic-and-complexity/AC-02/README.md) | Exact bilinear rank of the $`3\times3`$ matrix product | **🟡 PARTIAL** | extreme | interesting to the community | [PDF](arithmetic-and-complexity/AC-02/problem.pdf) · [TeX](arithmetic-and-complexity/AC-02/problem.tex) |
+| [AC-03](arithmetic-and-complexity/AC-03/README.md) | Border rank of the $`3\times3`$ matrix product | **🟡 PARTIAL** | extreme | interesting to the community | [PDF](arithmetic-and-complexity/AC-03/problem.pdf) · [TeX](arithmetic-and-complexity/AC-03/problem.tex) |
 | [AC-06](arithmetic-and-complexity/AC-06/README.md) | Explicit tensors with quadratic border rank | **🔵 OPEN** | extreme | broadly interesting | [PDF](arithmetic-and-complexity/AC-06/problem.pdf) · [TeX](arithmetic-and-complexity/AC-06/problem.tex) |
 | [AC-07](arithmetic-and-complexity/AC-07/README.md) | Scholz–Brauer inequality for multiplication chains | **🟡 PARTIAL** | extreme | interesting to specialist | [PDF](arithmetic-and-complexity/AC-07/problem.pdf) · [TeX](arithmetic-and-complexity/AC-07/problem.tex) |
 | [AC-08](arithmetic-and-complexity/AC-08/README.md) | Knuth–Stolarsky lower bound for addition chains | **🟡 PARTIAL** | extreme | interesting to specialist | [PDF](arithmetic-and-complexity/AC-08/problem.pdf) · [TeX](arithmetic-and-complexity/AC-08/problem.tex) |

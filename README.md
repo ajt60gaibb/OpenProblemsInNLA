@@ -13,13 +13,13 @@ If one of your favorite open problems is solved here, we strongly encourage you 
 [NLA, explained](https://nla-explained.com/) welcomes papers and videos that explain proofs from this repository, with credit to the original authors and sources. If you would like to help make these results easier to understand, consider contributing an explanation.
 
 <!-- catalog-summary -->
-**79 problems with open targets:** 27 open and 52 partially resolved. **139 other retained entries**, excluded from the open count.
+**78 problems with open targets:** 22 open and 56 partially resolved. **140 other retained entries**, excluded from the open count.
 
-**Resolution evidence:** 42 solved (published or independently audited); 90 solved with Lean verification.
+**Resolution evidence:** 43 solved (published or independently audited); 90 solved with Lean verification.
 
 Each entry records its own literature-check date. Literature checks are bounded; ratings are editorial. “Impact” uses the canonical `Importance` field.
 
-**[Browse all 79 open targets →](CATALOG.md)** · **[Solved and claimed solutions →](RESOLVED.md)**
+**[Browse all 78 open targets →](CATALOG.md)** · **[Solved and claimed solutions →](RESOLVED.md)**
 <!-- /catalog-summary -->
 
 ## Special thanks
@@ -39,7 +39,7 @@ If you would like to get involved but don't know how, please email [townsend@cor
 | [Matrix functions and stability](matrix-functions-and-stability/README.md) | 8 |
 | [Randomized and low-rank approximation](randomized-and-low-rank-approximation/README.md) | 11 |
 | [Tensor computations](tensor-computations/README.md) | 12 |
-| [Nonnegative and positive factorizations](nonnegative-and-positive-factorizations/README.md) | 4 |
+| [Nonnegative and positive factorizations](nonnegative-and-positive-factorizations/README.md) | 3 |
 | [Matrix inequalities and norms](matrix-inequalities-and-norms/README.md) | 11 |
 | [Frames and matrix designs](frames-and-matrix-designs/README.md) | 7 |
 | [Matrix discrepancy and optimization](matrix-discrepancy-and-optimization/README.md) | 1 |
